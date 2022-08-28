@@ -8,6 +8,7 @@ buildFuture = false
 buildExpired = false
 googleAnalytics = "UA-123-45"
 pygmentsUseClasses = true
+publishDir = "docs"
 
 [minify]
 disableXML = true

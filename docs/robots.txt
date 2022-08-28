@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://side-realms.github.io/sitemap.xml
