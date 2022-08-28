@@ -1,2 +1,3 @@
 # side-realms.github.io
-:honeybee:under construction:honeybee:
+<p>:honeybee:under construction:honeybee:</p>
+https://side-realms.github.io/
