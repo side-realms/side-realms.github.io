@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Logs on no Sound</title>
+    <link>https://side-realms.github.io/log/</link>
+    <description>Recent content in Logs on no Sound</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://side-realms.github.io/log/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>サイドチャネル</title>
+      <link>https://side-realms.github.io/log/side_channel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://side-realms.github.io/log/side_channel/</guid>
+      <description>Emission security 放射される情報を使った攻撃 電磁波 音 テンペスト emission される情報を使う攻撃手法，微弱な電波を傍受して解析，情報の再現 EMC：電磁両立性 電磁的妨害源とならない 電磁的干渉にロバストである テンペストの原因となるような emission がないかどうかの適合性のため？ RFI：無線周波数干渉 RF 源から発生する干渉ノイズ ノイズに関する適合試験がテンペストの試験も兼ねることができるということ？ EMP：電磁パルス 太陽フレア，核爆発 黒点周りの爆発がエネルギーをもち，周囲のガスに伝わって素粒子が電荷をもって飛び出す クロストーク 有線において隣接する回線からの音声が漏洩する 電磁干渉 エイリアンクロストーク(LAN) 被害者と加害者間で浮遊容量が発生して容量結合するパターン 被害者 - GND 間で，加害者 - GND 間の電圧変化分が影響する インダクタンスで誘導結合するパターン </description>
+    </item>
+    
+  </channel>
+</rss>

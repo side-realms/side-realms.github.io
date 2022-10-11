@@ -8,16 +8,10 @@
     <loc>https://side-realms.github.io/posts/hello/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://side-realms.github.io/resource/hello/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
-  </url><url>
     <loc>https://side-realms.github.io/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://side-realms.github.io/posts/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://side-realms.github.io/resource/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://side-realms.github.io/tags/</loc>
@@ -25,8 +19,24 @@
   </url><url>
     <loc>https://side-realms.github.io/categories/</loc>
   </url><url>
+    <loc>https://side-realms.github.io/log/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/</loc>
+  </url><url>
     <loc>https://side-realms.github.io/treasure/treasure/</loc>
   </url><url>
     <loc>https://side-realms.github.io/treasure/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/log/side_channel/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/dpa/main/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/dpa/dpa/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/dpa/symmetric/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/dpa/contermeasure/</loc>
+  </url><url>
+    <loc>https://side-realms.github.io/resource/dpa/crypto/</loc>
   </url>
 </urlset>
