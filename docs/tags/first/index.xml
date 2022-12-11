@@ -15,14 +15,5 @@
       <description>Desc Text.</description>
     </item>
     
-    <item>
-      <title>My 1st posts</title>
-      <link>https://side-realms.github.io/resource/hello/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      
-      <guid>https://side-realms.github.io/resource/hello/</guid>
-      <description>Desc Text.</description>
-    </item>
-    
   </channel>
 </rss>

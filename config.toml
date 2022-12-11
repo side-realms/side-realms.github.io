@@ -1,37 +1,32 @@
 baseURL = "https://side-realms.github.io"
-title = "ExampleSite"
+title = "no Sound"
 paginate = 5
 theme = "PaperMod"
+publishDir = "docs"
+# defaultContentLanguage = "en"
 enableRobotsTXT = true
 buildDrafts = false
 buildFuture = false
 buildExpired = false
-googleAnalytics = "UA-123-45"
-pygmentsUseClasses = true
-publishDir = "docs"
+googleAnalytics = "G-MY_ID"
 
 [minify]
 disableXML = true
 minifyOutput = true
 
 [params]
-env = "production"
-title = "ExampleSite"
-description = "ExampleSite description"
-keywords = [ "Blog", "Portfolio", "PaperMod" ]
-author = "Me"
-images = [ "<link or path of image for opengraph, twitter-cards>" ]
-DateFormat = "January 2, 2006"
+title = "no Sound"
+description = "mypage"
+keywords = [ "shanpu", "portal", "Blog", "Portfolio" ]
+# author = "Kohei Doi"
+DateFormat = "1999"
 defaultTheme = "auto"
 disableThemeToggle = false
-ShowReadingTime = true
+ShowReadingTime = false
 ShowShareButtons = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
 ShowCodeCopyButtons = false
-ShowWordCount = true
-ShowRssButtonInSectionTermList = true
-UseHugoToc = true
 disableSpecial1stPost = false
 disableScrollToTop = false
 comments = false
@@ -40,96 +35,102 @@ hideSummary = false
 showtoc = false
 tocopen = false
 
-  [params.assets]
-  favicon = "<link / abs url>"
-  favicon16x16 = "<link / abs url>"
-  favicon32x32 = "<link / abs url>"
-  apple_touch_icon = "<link / abs url>"
-  safari_pinned_tab = "<link / abs url>"
-
-  [params.label]
-  text = "Home"
-  icon = "/apple-touch-icon.png"
-  iconHeight = 35
-
-  [params.profileMode]
-  enabled = false
-  title = "ExampleSite"
-  subtitle = "This is subtitle"
-  imageUrl = "<img location>"
-  imageWidth = 120
-  imageHeight = 120
-  imageTitle = "my image"
-
-    [[params.profileMode.buttons]]
-    name = "Posts"
-    url = "posts"
-
-    [[params.profileMode.buttons]]
-    name = "Tags"
-    url = "tags"
-
-  [params.homeInfoParams]
-  Title = "Hi there 👋"
-  Content = "Welcome to my blog"
-
   [[params.socialIcons]]
   name = "twitter"
-  url = "https://twitter.com/"
+  url = "https://twitter.com/side_realms"
 
-  [[params.socialIcons]]
-  name = "stackoverflow"
-  url = "https://stackoverflow.com"
+  #[[params.socialIcons]]
+  #name = "github"
+  #url = "https://github.com/chez-shanpu"
 
-  [[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/"
+  #[[params.socialIcons]]
+  #name = "linkedin"
+  #url = "https://www.linkedin.com/in/tomoki-sugiura/"
 
-[params.analytics.google]
-SiteVerificationTag = "XYZabc"
+[languages.en]
+languageName = "English"
+weight = 1
+contentDir = "content"
+staticDir = "static/"
 
-[params.analytics.bing]
-SiteVerificationTag = "XYZabc"
+  [languages.en.profileMode]
+  enabled = true
+  title = "You like music? 🦑"
+  subtitle = "Let me know if you have any good tunes!"
+  imageUrl = "/images/icon.jpg"
+  imageWidth = 360
+  imageHeight = 360
+  imageTitle = "myicon"
 
-[params.analytics.yandex]
-SiteVerificationTag = "XYZabc"
+    #[[languages.en.profileMode.buttons]]
+    #name = "aa"
+    #url = "aa"
 
-  [params.cover]
-  hidden = true
-  hiddenInList = true
-  hiddenInSingle = true
+    #[[languages.en.profileMode.buttons]]
+    #name = "aa"
+    #url = "blogs/"
 
-  [params.editPost]
-  URL = "https://github.com/<path_to_repo>/content"
-  Text = "Suggest Changes"
-  appendFilePath = true
+[[languages.en.menu.main]]
+name = "Treasure Trove"
+url = "treasure/treasure"
+weight = 5
 
-  [params.fuseOpts]
-  isCaseSensitive = false
-  shouldSort = true
-  location = 0
-  distance = 1_000
-  threshold = 0.4
-  minMatchCharLength = 0
-  keys = [ "title", "permalink", "summary", "content" ]
 
-[[menu.main]]
-identifier = "categories"
-name = "categories"
-url = "/categories/"
+[[languages.en.menu.main]]
+name = "Portfolio"
+url = "portfolio/portfolio"
+weight = 8
+
+
+[[languages.en.menu.main]]
+name = "resource"
+url = "resource"
 weight = 10
 
-[[menu.main]]
-identifier = "tags"
-name = "tags"
-url = "/tags/"
-weight = 20
 
-[[menu.main]]
-identifier = "example"
-name = "example.org"
-url = "https://example.org"
-weight = 30
+#[languages.en.menu.main]]
+#name = "study log"
+#url = "log"
+#weight = 15
 
-[markup.highlight]
-noClasses = false
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  endLevel = 2
+  ordered = true
+  startLevel = 1
+
+
+#[languages.en]
+#languageName = "English"
+#weight = 2
+#contentDir = "content/en"
+#staticDir = "static/"
+#
+#  [languages.en.profileMode]
+#  enabled = true
+#  title = "shanpu portal"
+#  subtitle = "Cloud Native Student"
+#  imageUrl = "images/shanpu-profile.JPG"
+#  imageWidth = 120
+#  imageHeight = 120
+#  imageTitle = "shanpu-profile"
+#
+#    [[languages.en.profileMode.buttons]]
+#    name = "About Me"
+#    url = "en/about"
+#
+#    [[languages.en.profileMode.buttons]]
+#    name = "Blog"
+#    url = "en/blogs"
+#
+#[[languages.en.menu.main]]
+#name = "About Me"
+#url = "en/about/"
+#weight = 5
+#
+#[[languages.en.menu.main]]
+#name = "Blog"
+#url = "en/blogs/"
+#weight = 10
