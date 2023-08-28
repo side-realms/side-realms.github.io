@@ -1,0 +1,9 @@
+baseURL = 'http://side-realms.github.io'
+publishDir = "docs"
+languageCode = 'en-us'
+theme = "m10c"
+title = "no Sound"
+paginate = 20
+buildDrafts = false
+buildFuture = false
+buildExpired = false
