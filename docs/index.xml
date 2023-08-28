@@ -5,6 +5,25 @@
     <link>http://side-realms.github.io/</link>
     <description>Recent content on no Sound</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Aug 2023 17:57:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>about</title>
+      <link>http://side-realms.github.io/about/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/about/</guid>
+      <description>this is about</description>
+    </item>
+    
+    <item>
+      <title>HelloWorld</title>
+      <link>http://side-realms.github.io/post/helloworld/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/post/helloworld/</guid>
+      <description>okok</description>
+    </item>
+    
   </channel>
 </rss>

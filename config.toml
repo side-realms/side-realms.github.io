@@ -7,3 +7,37 @@ paginate = 20
 buildDrafts = false
 buildFuture = false
 buildExpired = false
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 2
+
+[params]
+  author = "KoheiDoi"
+  description = "yes"
+  menu_item_separator = " 🍙 "
+  avatar = "images/avatar.jpg"
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com"
+  [[params.social]]
+    icon = "twitter"
+    name = "Twitter"
+    url = "https://twitter.com"
+
+[params.style]
+  darkestColor = "#242930"
+  darkColor = "#353b43"
+  lightColor = "#afbac4"
+  lightestColor = "#f5fffa"
+  primaryColor = "#c2c4c6"
+  textColor = "#fffff0"
