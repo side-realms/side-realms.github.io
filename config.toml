@@ -2,7 +2,7 @@ baseURL = 'http://side-realms.github.io'
 publishDir = "docs"
 languageCode = 'en-us'
 theme = "m10c"
-title = "no Sound"
+title = "お茶は綾鷹派"
 paginate = 20
 buildDrafts = false
 buildFuture = false
@@ -15,15 +15,21 @@ buildExpired = false
     url = "/"
     weight = 1
   [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 2
+    identifier = "log"
+    name = "log"
+    url = "/log/"
+    weight = 3
+  #[[menu.main]]
+  #  identifier = "about"
+  #  name = "about"
+  #  url = "/about/"
+  #  weight = 2
 
 [params]
   author = "KoheiDoi"
-  description = "yes"
-  menu_item_separator = " 🍙 "
+  description = "最近は颯も好き"
+  #menu_item_separator = " 🍙 "
+  menu_item_separator = ""
   avatar = "images/avatar.jpg"
   [[params.social]]
     icon = "github"
@@ -35,9 +41,8 @@ buildExpired = false
     url = "https://twitter.com"
 
 [params.style]
-  darkestColor = "#242930"
-  darkColor = "#353b43"
-  lightColor = "#afbac4"
-  lightestColor = "#f5fffa"
-  primaryColor = "#c2c4c6"
-  textColor = "#fffff0"
+darkestColor = "#1b2d45"  # サイドバー背景
+darkColor = "#001534"     # メイン背景
+lightColor = "#b7c9e4"    # フォント色
+lightestColor = "#fffffe" # タイトル
+primaryColor = "#fde24f"
