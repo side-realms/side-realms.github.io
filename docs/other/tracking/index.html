@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>about // お茶は綾鷹派</title>
+    <title>OpenCV と python で顔トラッキングする // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.117.0">
@@ -11,13 +11,25 @@
     <link rel="stylesheet" href="/css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="about"/>
-<meta name="twitter:description" content=" like Budweiser ぽこピー おむらいす食堂 YMO dislike "/>
+<meta name="twitter:title" content="OpenCV と python で顔トラッキングする"/>
+<meta name="twitter:description" content="Vtuber みたいなことをできるようにしてみたい． 顔認識ができればいいのか？
+単純なマッチング まずは単純に動画内を移動するアイコンをマッチングできるようにする. 動くプレミアムボールに対してトラッキングし，判定した場所に長方形を描く
+ソース
+顔認識 openCV で顔認識ができるらしい． 既存の学習セットがあったのでこれを食べさせればできる．(下記は photoAC の素材で顔判定をしたもの)
+ソース
+カメラで顔認識 opencv でデバイスを開くようにすれば同じように検証できるらしい． 顔をトラッキングし続けて，顔を認識したらバックベアードのイラストを出すようにした
+ソース"/>
 
-    <meta property="og:title" content="about" />
-<meta property="og:description" content=" like Budweiser ぽこピー おむらいす食堂 YMO dislike " />
+    <meta property="og:title" content="OpenCV と python で顔トラッキングする" />
+<meta property="og:description" content="Vtuber みたいなことをできるようにしてみたい． 顔認識ができればいいのか？
+単純なマッチング まずは単純に動画内を移動するアイコンをマッチングできるようにする. 動くプレミアムボールに対してトラッキングし，判定した場所に長方形を描く
+ソース
+顔認識 openCV で顔認識ができるらしい． 既存の学習セットがあったのでこれを食べさせればできる．(下記は photoAC の素材で顔判定をしたもの)
+ソース
+カメラで顔認識 opencv でデバイスを開くようにすれば同じように検証できるらしい． 顔をトラッキングし続けて，顔を認識したらバックベアードのイラストを出すようにした
+ソース" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/about/" /><meta property="article:section" content="" />
+<meta property="og:url" content="http://side-realms.github.io/other/tracking/" /><meta property="article:section" content="other" />
 <meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
 <meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
 
@@ -102,19 +114,42 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">about</h1>
+      <h1 class ="post-title">OpenCV と python で顔トラッキングする</h1>
       </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 28, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
     </header>
     <div class="post-content">
-      <hr>
-<h2 id="like">like</h2>
-<ul>
-<li>Budweiser</li>
-<li><a href="https://www.youtube.com/@pokopea" title="ぽこピー">ぽこピー</a></li>
-<li><a href="https://www.youtube.com/@omurice_shokudo" title="おむらいす食堂">おむらいす食堂</a></li>
-<li>YMO</li>
-</ul>
-<h2 id="dislike">dislike</h2>
+      <p>Vtuber みたいなことをできるようにしてみたい．
+顔認識ができればいいのか？</p>
+<h3 id="単純なマッチング">単純なマッチング</h3>
+<p>まずは単純に動画内を移動するアイコンをマッチングできるようにする.
+動くプレミアムボールに対してトラッキングし，判定した場所に長方形を描く</p>
+<p><a href="https://github.com/side-realms/image-processing/blob/main/tracking2.py">ソース</a></p>
+<p><img src="/images/tracking.png" alt="traking"></p>
+<h3 id="顔認識">顔認識</h3>
+<p>openCV で顔認識ができるらしい．
+既存の学習セットがあったのでこれを食べさせればできる．(下記は photoAC の素材で顔判定をしたもの)</p>
+<p><a href="https://github.com/side-realms/image-processing/blob/main/tracking2.py">ソース</a></p>
+<p><img src="/images/result.jpg" alt="traking"></p>
+<h3 id="カメラで顔認識">カメラで顔認識</h3>
+<p>opencv でデバイスを開くようにすれば同じように検証できるらしい．
+顔をトラッキングし続けて，顔を認識したらバックベアードのイラストを出すようにした</p>
+<p><a href="https://github.com/side-realms/image-processing/blob/main/tracking4.py">ソース</a></p>
 
     </div>
     <div class="post-footer">

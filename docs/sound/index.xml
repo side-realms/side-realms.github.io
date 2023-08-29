@@ -1,102 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>お茶は綾鷹派</title>
-    <link>http://side-realms.github.io/</link>
-    <description>Recent content on お茶は綾鷹派</description>
+    <title>Sounds on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/sound/</link>
+    <description>Recent content in Sounds on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Aug 2023 17:54:50 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Hugo移行した</title>
-      <link>http://side-realms.github.io/other/hugo/</link>
-      <pubDate>Tue, 29 Aug 2023 17:54:50 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/other/hugo/</guid>
-      <description>自分のやったことを備忘録的に残すものがほしかった
-theme が反映されない問題 手元で toml を更新して hugo server してもインポートした theme が全く反映されなかった． hugo するときの出力ディレクトリを docs に変更して，github pages の方でも以下のように変更する
-setting -&amp;gt; pages -&amp;gt; root -&amp;gt; docs
-theme の html を変更しても反映されない問題 使っている hugo のバージョンが対応していなかったっぽいのでダウングレードしたら反映するようになった
-Github Action git push したときに勝手に更新してくれるようにしたい name: GitHub Pages on: push: branches: - main # Set a branch name to trigger deployment pull_request: jobs: deploy: runs-on: ubuntu-22.04 concurrency: group: ${{ github.workflow }}-${{ github.ref }} steps: - uses: actions/checkout@v3 with: submodules: true # Fetch Hugo themes (true OR recursive) fetch-depth: 0 # Fetch all history for .</description>
-    </item>
-    
-    <item>
-      <title>about</title>
-      <link>http://side-realms.github.io/about/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/about/</guid>
-      <description> like Budweiser ぽこピー おむらいす食堂 YMO dislike </description>
-    </item>
-    
-    <item>
-      <title>java が生成する乱数を予測する</title>
-      <link>http://side-realms.github.io/other/java_crypto/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/other/java_crypto/</guid>
-      <description>java が生成する17兆通りある乱数を予測してみる
-1. 乱数生成をするスクリプトを書く ソース
-2. java の乱数生成を調べる 「予測できるらしい」しかしらないのでちゃんと調べる
-Random random = new Random(); random.nextInt(); この nextInt() はソースコード内で next() を呼び出していて，next() のソースコードは以下のようになる
-protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL + 0xBL) &amp;amp; ((1L &amp;lt;&amp;lt; 48) - 1); return (int) (seed &amp;gt;&amp;gt;&amp;gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる</description>
-    </item>
-    
-    <item>
-      <title>OpenCV と python で顔トラッキングする</title>
-      <link>http://side-realms.github.io/other/tracking/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/other/tracking/</guid>
-      <description>Vtuber みたいなことをできるようにしてみたい． 顔認識ができればいいのか？
-単純なマッチング まずは単純に動画内を移動するアイコンをマッチングできるようにする. 動くプレミアムボールに対してトラッキングし，判定した場所に長方形を描く
-ソース
-顔認識 openCV で顔認識ができるらしい． 既存の学習セットがあったのでこれを食べさせればできる．(下記は photoAC の素材で顔判定をしたもの)
-ソース
-カメラで顔認識 opencv でデバイスを開くようにすれば同じように検証できるらしい． 顔をトラッキングし続けて，顔を認識したらバックベアードのイラストを出すようにした
-ソース</description>
-    </item>
-    
-    <item>
-      <title>shader programming</title>
-      <link>http://side-realms.github.io/other/shader-programming/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/other/shader-programming/</guid>
-      <description>GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
-頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
-101 画面を赤く塗るだけのコード
-#version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
-#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.</description>
-    </item>
-    
-    <item>
-      <title>waniCTF2023</title>
-      <link>http://side-realms.github.io/writeup/wanictf2023/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/wanictf2023/</guid>
-      <description>初心者~中級者の CTF ．個人参加．beginner は全解きしたいのきもちで挑んだが分かりやすい問題が多くて色んな技術にスムーズに入門することができた． これを機に CTF 入門していきたいきもち
-waniCTF2023
-official writeup
-crypto EZDORSA_Lv1 ChatGPT に入れたらできた．すげえ～
-EZDORSA_Lv2 e が小さいので RSA の運用的にまずい．RSA の暗号化において $C=M^e\mod N$ だが，ここで $e$ が小さいと $M^e$ も小さくなる． このとき $M &amp;lt; \sqrt[e]{N}$ なら，$M^e &amp;lt; N$ より $\mod N$が関係なくなる． すると $C=M^e$ になるので，$M = \sqrt[e]{C}$ でもとまる
-import gmpy2 from Crypto.Util.number import * # 提供されたoutput.txtの内容 n = 25465155563758206895066841861765043433123515683929678836771513150236561026403556218533356199716126886534636140138011492220383199259698843686404371838391552265338889731646514381163372557117810929108511770402714925176885202763093259342499269455170147345039944516036024012941454077732406677284099700251496952610206410882558915139338028865987662513205888226312662854651278789627761068396974718364971326708407660719074895819282719926846208152543027213930660768288888225218585766787196064375064791353928495547610416240104448796600658154887110324794829898687050358437213471256328628898047810990674288648843902560125175884381 e = 7 c = 25698620825203955726406636922651025698352297732240406264195352419509234001004314759538513429877629840120788601561708588875481322614217122171252931383755532418804613411060596533561164202974971066750469395973334342059753025595923003869173026000225212644208274792300263293810627008900461621613776905408937385021630685411263655118479604274100095236252655616342234938221521847275384288728127863512191256713582669212904042760962348375314008470370142418921777238693948675063438713550567626953125 tmp = pow(5, 100, n) c = c // tmp print(tmp) print(c) m,result = gmpy2.</description>
-    </item>
-    
-    <item>
-      <title>YouTube を開くと叱ってくれるスクリプト</title>
-      <link>http://side-realms.github.io/other/cortana/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/other/cortana/</guid>
-      <description>YouTube 中毒なのでどうにかしたい
-ソース
-ウィンドウのステータスとか，マウスの位置みたいなパラメータは python では直接触ることができなくて， dll 経由で操作する必要がある． cdll の呼び出し規約は cdeclで， windll の呼び出し規約は stdcalなので， スタックを関数がクリーンアップするか，呼び出し元がするかに 注意する必要がある（たぶん） 今回は WindowsAPI なので stdcall
-_get_running_window() で開いているウィンドウ(プロセス)の情報を取得する． 無限ループで回し続けて，「Youtube」が含まれる(表記ゆれふくむ)プロセスを見つけたら， mouse_move_close() でマウスを動かしてウィンドウを閉じる． 本来ならウィンドウを直接終了することもできるが，マウスの操作もしたいので今回はこれでいい
-あとはトースト通知を出して，Cortana を呼び出しておしまい．Cortana 呼び出せるの知らなかったな</description>
-    </item>
-    
+    <lastBuildDate>Mon, 28 Aug 2023 17:57:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/sound/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>フォルマント解析</title>
       <link>http://side-realms.github.io/sound/formants/</link>
@@ -253,15 +163,6 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
 音受容器
 脊椎動物と同様に鼓膜があり，鼓膜と気管，最後に感覚細胞がある． 感覚細胞は鼓膜からの振動でももちろん反応するが，気嚢のある内側からでも振動する． これは音源定位に使われる．すなわち，気管で連結している鼓膜が音圧の差を検知する． この鼓膜の位置も色々で，前肢にいる種もあれば，胸部や翅にもつ種もある． これは，捕食者(コウモリ)からの信号をとらえることにそれぞれ特化している． コウモリはエコーロケーションに超音波を発するが，これを効率的にとらえることが目的である． また，触覚にあるジョンストン器官は，粒子速度を受容する． 例えばオスの蚊のジョンストン器官は，触覚の先端の 7 nm ほどの動きを感知することができる． 振動受容器
 例えば植物を伝わる振動は減衰しづらく，昆虫にとって感知しやすい． 膝下や，腿節内に存在する弦音器官がこの振動を受容する． このような振動受容器がある一方で，鼓膜期間をもたない昆虫も存在する． 先ほどのように，鼓膜をもたない昆虫も存在するが，鼓膜をもつ昆虫は音響情報を使って， つがいへの定位や，捕食者の回避を行う． この音源定位は，哺乳類のときと同様に，一対の鼓膜の左右からの入力差を使う． しかし，昆虫はめちゃ小さいので，左右差も少なく，信号処理などなんらかの部分で工夫が必要になる． 例えば，魚のときと同じように位相差を使うことが考えられる． また，コウモリのエコーロケーションを使って捕食者回避を行うのであれば，今のままでも十分という考え方もある． さらに，ヤドリバエという種は，音源定位に特化した特徴をもつ． それらはコオロギの幼虫に寄生するため，生きるために音源定位が不可欠ということらしい． ヤドリバエの鼓膜はシーソーのような形になっており，片方から入ってきた音の周波数に合わせて 鼓膜の角度が変化する． これによって，時間差が約 40 倍程度も増幅されることになる． さらに，これが有毛細胞へ伝わり，神経の発火となると，活動電位の潜時の関係で 1000 倍程度も増幅される． (潜時は，神経が応答するまでの遅延時間なので，大きい音に対する応答は速く，小さい音に対する応答は遅い．)</description>
-    </item>
-    
-    <item>
-      <title>見たものログ</title>
-      <link>http://side-realms.github.io/log/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/log/</guid>
-      <description>2023 (06~) 漫画・本 ブルーピリオド 呪術廻戦 ブルーロック ジョジョの奇妙な冒険：一部 岸部露伴は動かない チェンソーマン 東京卍リベンジャーズ ルリドラゴン 光が死んだ夏 あかね噺 サンダー3 亜人 刷ったもんだ！ ムルシエラゴ 黄泉のツガイ リバイアサン 水と手と目 裏バイト 不死身のパイセン アフターゴッド 僕の部屋のユウ子さん 合コンに行ったら女がいなかった件 ウェルベルム 鉄コン筋クリート ピンポン 不安の種 タコピーの原罪 ROPPEN 極楽街 パラレルリープシンドローム 変な家 映画 戦場のメリークリスマス 最強のふたり 8 1/2 カッコーの巣の上で イージーライダー アニーホール さらば冬のかもめ グリーンブック パーマネントバケーション ゴッドファーザー ブルーアワーにぶっ飛ばす その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 スタンドバイミー かもめ食堂 アニメ シャドーハウス キルラキル DIY ワンダーエッグプライオリティ ゲーム 夜廻 Undertale LOVE2 kuso Wo Long helltaker detention HOLLOW KNIGHT Luna&amp;rsquo;s fishing garden a short hike elec head cat in the box 常世の塔 goodnight meowmei ミノリア blasphemous そのほか おむらいす食堂 肉チョモランマ ザ・クレープ </description>
     </item>
     
     <item>
