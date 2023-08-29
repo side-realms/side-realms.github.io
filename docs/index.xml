@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>no Sound</title>
+    <title>お茶は綾鷹派</title>
     <link>http://side-realms.github.io/</link>
-    <description>Recent content on no Sound</description>
+    <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 28 Aug 2023 17:57:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
       <guid>http://side-realms.github.io/about/</guid>
-      <description>this is about</description>
+      <description> like Budweiser ぽこピー おむらいす食堂 YMO dislike </description>
     </item>
     
     <item>
@@ -23,6 +23,15 @@
       
       <guid>http://side-realms.github.io/post/helloworld/</guid>
       <description>okok</description>
+    </item>
+    
+    <item>
+      <title>見たものログ</title>
+      <link>http://side-realms.github.io/log/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/log/</guid>
+      <description> 2023 (06~) 漫画・本 ブルーピリオド 呪術廻戦 ブルーロック ジョジョの奇妙な冒険：一部 岸部露伴は動かない チェンソーマン 東京卍リベンジャーズ ルリドラゴン 光が死んだ夏 あかね噺 サンダー3 亜人 刷ったもんだ！ ムルシエラゴ 黄泉のツガイ リバイアサン 水と手と目 裏バイト 不死身のパイセン アフターゴッド 僕の部屋のユウ子さん 合コンに行ったら女がいなかった件 ウェルベルム 鉄コン筋クリート ピンポン 不安の種 タコピーの原罪 ROPPEN 極楽街 パラレルリープシンドローム 変な家 映画 戦場のメリークリスマス 最強のふたり 8 1/2 カッコーの巣の上で イージーライダー アニーホール さらば冬のかもめ グリーンブック パーマネントバケーション ゴッドファーザー ブルーアワーにぶっ飛ばす その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 スタンドバイミー かもめ食堂 アニメ シャドーハウス キルラキル DIY ワンダーエッグプライオリティ ゲーム 夜廻 Undertale LOVE2 kuso Wo Long helltaker detention HOLLOW KNIGHT Luna&amp;rsquo;s fishing garden a short hike elec head cat in the box 常世の塔 goodnight meowmei ミノリア blasphemous そのほか おむらいす食堂 肉チョモランマ ザ・クレープ </description>
     </item>
     
   </channel>
