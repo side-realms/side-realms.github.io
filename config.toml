@@ -18,12 +18,27 @@ buildExpired = false
     identifier = "log"
     name = "log"
     url = "/log/"
+    weight = 2
+  [[menu.post]]
+    identifier = "sound"
+    name = "sound"
+    url = "/sound"
+    weight = 1
+  [[menu.post]]
+    identifier = "container"
+    name = "container"
+    url = "/container"
+    weight = 2
+  [[menu.post]]
+    identifier = "writeup"
+    name = "writeup"
+    url = "/writeup"
+    weight = 2
+  [[menu.post]]
+    identifier = "other"
+    name = "other"
+    url = "/other"
     weight = 3
-  #[[menu.main]]
-  #  identifier = "about"
-  #  name = "about"
-  #  url = "/about/"
-  #  weight = 2
 
 [params]
   author = "KoheiDoi"

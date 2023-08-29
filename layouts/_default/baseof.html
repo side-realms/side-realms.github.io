@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+  <head>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} // {{ .Site.Title }}{{ end }}</title>
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
+    <meta charset="utf-8" />
+    {{ hugo.Generator }}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="{{ .Site.Params.author | default "KoheiDoi" }}" />
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+    {{ template "_internal/google_analytics.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/opengraph.html" . }}
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="{{ .Site.BaseURL }}"><img class="app-header-avatar" src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author | default "John Doe" }}" /></a>
+      <span class="app-header-title">{{ .Site.Title }}</span>
+      <p>{{ .Site.Params.description}}</p>
+      {{- with .Site.Menus.main }}
+      <nav class="app-header-menu">
+        {{- range $key, $item := . }}
+          {{- if ne $key 0 }}
+            {{ $.Site.Params.menu_item_separator | safeHTML }}
+          {{ end }}
+          <font size="5">
+          <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
+          </font>
+          <br>
+        {{- end }}
+      </nav>
+      {{- end }}
+
+      <hr class="hr1">
+
+      {{- with .Site.Menus.post }}
+      <nav class="app-header-menu">
+        {{- range $key, $item := . }}
+          {{- if ne $key 0 }}
+            {{ $.Site.Params.menu_item_separator | safeHTML }}
+          {{ end }}
+          <font size="4">
+          <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
+          </font>
+          <br>
+        {{- end }}
+      </nav>
+      {{- end }}
+
+      <hr class="hr1">
+
+      {{- with .Site.Params.social }}
+      <div class="app-header-social">
+        {{ range . }}
+          <a href="{{ .url }}" target="_blank" rel="noreferrer noopener me">
+            {{ partial "icon.html" (dict "ctx" $ "name" .icon "title" .name) }}
+          </a>
+        {{ end }}
+      </div>
+      {{- end }}
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      {{ block "main" . }}
+        {{ .Content }}
+      {{ end }}
+    </main>
+  </body>
+</html>

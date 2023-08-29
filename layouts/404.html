@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <div class="error-404">
+    <h1 class="error-404-title"> 404 </h1>
+    <p>リンクが間違っているか削除されました．連絡は twitter:@side_realms まで</p>
+    <a href="{{ "/" | relURL }}">Go home {{ partial "icon.html" (dict "ctx" $ "name" "arrow-right") }}</a>
+  </div>
+{{ end }}
