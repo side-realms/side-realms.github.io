@@ -19,6 +19,11 @@ buildExpired = false
     name = "log"
     url = "/log/"
     weight = 2
+  [[menu.main]]
+    identifier = "treasure trove"
+    name = "treasure trove"
+    url = "/treasure/"
+    weight = 3
   [[menu.post]]
     identifier = "sound"
     name = "sound"

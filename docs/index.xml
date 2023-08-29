@@ -6,7 +6,21 @@
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Aug 2023 17:54:50 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Aug 2023 19:51:30 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>コンテナ入門する</title>
+      <link>http://side-realms.github.io/container/nyuumon/</link>
+      <pubDate>Tue, 29 Aug 2023 19:51:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/nyuumon/</guid>
+      <description>コンテナ コンテナはプロセス自体は同じ OS で動いていて，これを OS のカーネル機能によって隔離する． 使えるリソースを分離して，ホスト OS で動くプロセスとか他のコンテナから独立した空間を作る． カーネルに「コンテナ」の仕組みがあるわけではなく，namespace とか cgroup みたいな いくつかのシステムを組み合わせてコンテナを作っている． なので Docker や LXC で作りが違う
+メリット コンテナはプロセスなので起動速度はプロセスに近い VM と比較してエミュレートの必要がないためオーバーヘッドがすくない アプリケーションだけをコンテナ起動できる デメリット 異なる OS 用のバイナリは動かない 基本のカーネルは同じなのでカーネルの操作はできない 基本技術 CRI/OCI CRI: ユーザからの要求を受けてコンテナとの通信をする．イメージの取得や展開，ネットワークのセットアップなど．コンテナの直接の操作は低レイヤランタイムに命令を出す．containerd とか CRI-O. OCI: 高レイヤランタイムから命令を受けて，コンテナとして実行するプロセスをホストから分離して実行する．runc とか crun. レイヤ コンテナイメージはレイヤの集合体で，コンテナ実行時にこれらがマージされる．
+layer:ルートファイルシステムのデータ .json:実行環境を再現するための情報 ファイルシステム コンテナ内とホストではファイルシステムを分離したいことが多い． このとき，ホスト内にあるディレクトリをコンテナの root ディレクトリにする．
+chroot: プロセスのルートディレクトリを変更することができる． ただし jailbreak が可能なので chroot を使う場合はコンテナの chroot の capability を剥脱する必要があるが(CAP_SYS_CHROOT)，ユースケース的に不便なことも多いのでデフォルトでは剥奪しない． 代わりに pivot_root を使う
+pivot_root: ルートファイルシステムを入れ替える． ファイルシステムごとに入れ替えるので，コンテナ側からは root のファイルシステムを見ることはできない． また，pivot_root には厳しい条件がある．
+namespace コンテナ側からはホストのプロセスを見ることができない． これは namespace によって OS のリソースを分離しているから．</description>
+    </item>
+    
     <item>
       <title>Hugo移行した</title>
       <link>http://side-realms.github.io/other/hugo/</link>
@@ -68,6 +82,17 @@ protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL + 0xBL) 
 101 画面を赤く塗るだけのコード
 #version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
 #version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.</description>
+    </item>
+    
+    <item>
+      <title>treasure trove</title>
+      <link>http://side-realms.github.io/treasure/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/treasure/</guid>
+      <description>｢あ｣｢え｣｢お｣っていう奴 random.dog 柴犬がすき
+Eclair De Lune 12:27 よくまとまっていてすごい．新しい曲を知りたいときに参照する
+DON PA PPO / ガチ恋ぽんぽこ【MV】 </description>
     </item>
     
     <item>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>YouTube を開くと叱ってくれるスクリプト // お茶は綾鷹派</title>
+    <title>treasure trove // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.117.0">
@@ -11,21 +11,17 @@
     <link rel="stylesheet" href="/css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="YouTube を開くと叱ってくれるスクリプト"/>
-<meta name="twitter:description" content="YouTube 中毒なのでどうにかしたい
-ソース
-ウィンドウのステータスとか，マウスの位置みたいなパラメータは python では直接触ることができなくて， dll 経由で操作する必要がある． cdll の呼び出し規約は cdeclで， windll の呼び出し規約は stdcalなので， スタックを関数がクリーンアップするか，呼び出し元がするかに 注意する必要がある（たぶん） 今回は WindowsAPI なので stdcall
-_get_running_window() で開いているウィンドウ(プロセス)の情報を取得する． 無限ループで回し続けて，「Youtube」が含まれる(表記ゆれふくむ)プロセスを見つけたら， mouse_move_close() でマウスを動かしてウィンドウを閉じる． 本来ならウィンドウを直接終了することもできるが，マウスの操作もしたいので今回はこれでいい
-あとはトースト通知を出して，Cortana を呼び出しておしまい．Cortana 呼び出せるの知らなかったな"/>
+<meta name="twitter:title" content="treasure trove"/>
+<meta name="twitter:description" content="｢あ｣｢え｣｢お｣っていう奴 random.dog 柴犬がすき
+Eclair De Lune 12:27 よくまとまっていてすごい．新しい曲を知りたいときに参照する
+DON PA PPO / ガチ恋ぽんぽこ【MV】 "/>
 
-    <meta property="og:title" content="YouTube を開くと叱ってくれるスクリプト" />
-<meta property="og:description" content="YouTube 中毒なのでどうにかしたい
-ソース
-ウィンドウのステータスとか，マウスの位置みたいなパラメータは python では直接触ることができなくて， dll 経由で操作する必要がある． cdll の呼び出し規約は cdeclで， windll の呼び出し規約は stdcalなので， スタックを関数がクリーンアップするか，呼び出し元がするかに 注意する必要がある（たぶん） 今回は WindowsAPI なので stdcall
-_get_running_window() で開いているウィンドウ(プロセス)の情報を取得する． 無限ループで回し続けて，「Youtube」が含まれる(表記ゆれふくむ)プロセスを見つけたら， mouse_move_close() でマウスを動かしてウィンドウを閉じる． 本来ならウィンドウを直接終了することもできるが，マウスの操作もしたいので今回はこれでいい
-あとはトースト通知を出して，Cortana を呼び出しておしまい．Cortana 呼び出せるの知らなかったな" />
+    <meta property="og:title" content="treasure trove" />
+<meta property="og:description" content="｢あ｣｢え｣｢お｣っていう奴 random.dog 柴犬がすき
+Eclair De Lune 12:27 よくまとまっていてすごい．新しい曲を知りたいときに参照する
+DON PA PPO / ガチ恋ぽんぽこ【MV】 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/other/cortana/" /><meta property="article:section" content="other" />
+<meta property="og:url" content="http://side-realms.github.io/treasure/" /><meta property="article:section" content="" />
 <meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
 <meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
 
@@ -116,40 +112,32 @@ _get_running_window() で開いているウィンドウ(プロセス)の情報�
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">YouTube を開くと叱ってくれるスクリプト</h1>
+      <h1 class ="post-title">treasure trove</h1>
       </style>
-      <div class="post-meta">
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Aug 28, 2023
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-          1 min read
-        </div>
-      </div>
-      <hr>
     </header>
     <div class="post-content">
-      <p>YouTube 中毒なのでどうにかしたい</p>
-<p><a href="https://github.com/side-realms/Dont-watch-youtube">ソース</a></p>
-<p>ウィンドウのステータスとか，マウスの位置みたいなパラメータは python では直接触ることができなくて，
-dll 経由で操作する必要がある．
-cdll の呼び出し規約は cdeclで， windll の呼び出し規約は stdcalなので，
-スタックを関数がクリーンアップするか，呼び出し元がするかに
-注意する必要がある（たぶん）
-今回は WindowsAPI なので stdcall</p>
-<p>_get_running_window() で開いているウィンドウ(プロセス)の情報を取得する．
-無限ループで回し続けて，「Youtube」が含まれる(表記ゆれふくむ)プロセスを見つけたら，
-mouse_move_close() でマウスを動かしてウィンドウを閉じる．
-本来ならウィンドウを直接終了することもできるが，マウスの操作もしたいので今回はこれでいい</p>
-<p>あとはトースト通知を出して，Cortana を呼び出しておしまい．Cortana 呼び出せるの知らなかったな</p>
+      <h2 id="あえおっていう奴httpswwwyoutubecomwatchv75bzqqhtwi4-あえおっていう奴"><a href="https://www.youtube.com/watch?v=75bzqqHTWi4" title="｢あ｣｢え｣｢お｣っていう奴">｢あ｣｢え｣｢お｣っていう奴</a></h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/75bzqqHTWi4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h2 id="randomdoghttpsrandomdog-randomdog"><a href="https://random.dog/" title="random.dog">random.dog</a></h2>
+<p>柴犬がすき</p>
+<h2 id="eclair-de-lunehttpswwwyoutubecomwatchvjdpa7ievwig-eclair-de-lune"><a href="https://www.youtube.com/watch?v=jDPA7iEVWig" title="Eclair De Lune">Eclair De Lune</a></h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/jDPA7iEVWig" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h2 id="1227http1227nengujpindexhtm-1227"><a href="http://1227.nengu.jp/index.htm" title="12:27">12:27</a></h2>
+<p>よくまとまっていてすごい．新しい曲を知りたいときに参照する</p>
+<h2 id="don-pa-ppo--ガチ恋ぽんぽこmvhttpswwwyoutubecomwatchvj19sqwylry4-don-pa-ppo--ガチ恋ぽんぽこ-mv"><a href="https://www.youtube.com/watch?v=J19SQwyLrY4" title="DON PA PPO / ガチ恋ぽんぽこ 【MV】">DON PA PPO / ガチ恋ぽんぽこ【MV】</a></h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/J19SQwyLrY4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
 
     </div>
     <div class="post-footer">
