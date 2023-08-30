@@ -6,7 +6,23 @@
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Aug 2023 19:51:30 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Aug 2023 10:04:30 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Namespace</title>
+      <link>http://side-realms.github.io/container/namespace/</link>
+      <pubDate>Wed, 30 Aug 2023 10:04:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/namespace/</guid>
+      <description>モンエナ スイカ味，ほんとうにまずい
+namespace namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている． namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している． (mount namespace, PID namespace とか)
+OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している． このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．
+unshare unshare &amp;ndash;mount とか unshare &amp;ndash;pid みたいな感じで namespace を作る． ネットワーク以外はこれで隔離できるらしい 各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．
+ここに表示されている数字が同じなら同じ namespace に属している． この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある． setns は既存の namespace でプロセスを動かすことを実現するが(https://tenforward.hatenablog.com/entries/2014/08/14)，このときの引数にさっきの ns 指定される．
+mount namespace ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい， マウントが行われるディレクトリをマウントポイントという． あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合， ルートがマウントポイントになる． この下に別のファイルシステムをマウントすることもできる．
+mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する． なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない． コンテナごとに独立したファイルシステムを使うことができる．
+/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする． ファイルを確認すると同じ内容が見えることが分かる．</description>
+    </item>
+    
     <item>
       <title>コンテナ入門する</title>
       <link>http://side-realms.github.io/container/nyuumon/</link>
@@ -286,7 +302,7 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
       <guid>http://side-realms.github.io/log/</guid>
-      <description>2023 (06~) 漫画・本 ブルーピリオド 呪術廻戦 ブルーロック ジョジョの奇妙な冒険：一部 岸部露伴は動かない チェンソーマン 東京卍リベンジャーズ ルリドラゴン 光が死んだ夏 あかね噺 サンダー3 亜人 刷ったもんだ！ ムルシエラゴ 黄泉のツガイ リバイアサン 水と手と目 裏バイト 不死身のパイセン アフターゴッド 僕の部屋のユウ子さん 合コンに行ったら女がいなかった件 ウェルベルム 鉄コン筋クリート ピンポン 不安の種 タコピーの原罪 ROPPEN 極楽街 パラレルリープシンドローム 変な家 映画 戦場のメリークリスマス 最強のふたり 8 1/2 カッコーの巣の上で イージーライダー アニーホール さらば冬のかもめ グリーンブック パーマネントバケーション ゴッドファーザー ブルーアワーにぶっ飛ばす その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 スタンドバイミー かもめ食堂 アニメ シャドーハウス キルラキル DIY ワンダーエッグプライオリティ ゲーム 夜廻 Undertale LOVE2 kuso Wo Long helltaker detention HOLLOW KNIGHT Luna&amp;rsquo;s fishing garden a short hike elec head cat in the box 常世の塔 goodnight meowmei ミノリア blasphemous そのほか おむらいす食堂 肉チョモランマ ザ・クレープ </description>
+      <description>2023 (06~) 漫画・本 ジョジョの奇妙な冒険：一部 岸部露伴は動かない ブルーピリオド 呪術廻戦 禪院真希かっこよすぎる．覚醒前も後も好き ブルーロック 絵，うますぎない？ 千切豹馬すき チェンソーマン 落下の悪魔のデザイン良すぎる 東京卍リベンジャーズ 三ツ谷と場地がかっこよすぎる ルリドラゴン 休載つらい&amp;hellip; 安静にしてください&amp;hellip; 光が死んだ夏 神系のホラーはよくあるけど切り口が新しくてとてもいい あかね噺 朱音かわいいね 落語見てみようかな サンダー3 GANTZだと聞いていたけど思ってたよりGANTZだった 二頭身シーンの絵がすごいかわいい 壮大な話だと展開が遅く感じてしまうな 亜人 戦闘シーンかっこよすぎる 「死なない」だけだと直接の強さにならないけど使う人が使うとこんな使い方があるんだと思う 刷ったもんだ！ 印刷業全く知らなかったから勉強にもなる ムルシエラゴ いや，下心はないんで 黄泉のツガイ 荒川弘の新作，アツすぎる キャラクターが多いのにちゃんと覚えられるのはキャラが立ってるからだろうと思う リバイアサン 劇画が話と合ってていい 水と手と目 風景画のイメージがあったけど意外と人物画も描いてるんだな 裏バイト 死体清掃の回が一番怖い 不死身のパイセン ホラーコメディかと思ったら油断した アフターゴッド つらい 絵がうますぎる，部屋とか建物の絵が異常にうまい 「綺麗な顔」を描くのもうまい 僕の部屋のユウ子さん 泣いちまったよ 合コンに行ったら女がいなかった件 一昔前の二次創作みたいな絵柄でめちゃめちゃ好き pixiv 漁ってた頃を思い出す ウェルベルム よくある殺し合い漫画だけど殺しに重きを置いてないのがいい 絵もいい 鉄コン筋クリート ネズミ，かっこいいよ ピンポン ペコかっこいい 不安の種 初代はマジで怖かったけどアスタリスクの方はオムニバスっぽくてあまり怖くない タコピーの原罪 胸糞エンドじゃなくてほんとうによかった ROPPEN 話がただ殺し合うだけじゃなくて面白い 政治を黒幕に出すんじゃなくて初めから出てくるのは印象がいい 極楽街 絵がうますぎる ダラとネイがかわいい パラレルリープシンドローム 絵がかわいい ただのタイムリープ系かとおもったらもう一つひねってていい 変な家 間取りの理由が一巻だけで終わりならイマイチだったけど予想以上に広がってておもしろい 映画 戦場のメリークリスマス 最強のふたり 8 1/2 カッコーの巣の上で イージーライダー アニーホール さらば冬のかもめ グリーンブック パーマネントバケーション ゴッドファーザー ブルーアワーにぶっ飛ばす その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 スタンドバイミー かもめ食堂 ピンポン アニメ シャドーハウス エミリコとケイトかわいいね シャドウが自分のこと名前で呼ぶのかわいい さすがに三期やってほしい，あの終わり方はアツい キルラキル 展開というかダイナミックな構成がすき DIY ツンデレかわいいね ワンダーエッグプライオリティ 総集編が二回あるのは謎だった 二期やってちゃんと伏線回収してほしい ゲーム 夜廻 Undertale LOVE2 kuso Wo Long helltaker detention HOLLOW KNIGHT Luna&amp;rsquo;s fishing garden a short hike elec head cat in the box 常世の塔 goodnight meowmei ミノリア blasphemous そのほか おむらいす食堂 肉チョモランマ ザ・クレープ </description>
     </item>
     
     <item>

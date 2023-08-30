@@ -6,7 +6,23 @@
     <description>Recent content in Containers on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Aug 2023 19:51:30 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Aug 2023 10:04:30 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Namespace</title>
+      <link>http://side-realms.github.io/container/namespace/</link>
+      <pubDate>Wed, 30 Aug 2023 10:04:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/namespace/</guid>
+      <description>モンエナ スイカ味，ほんとうにまずい
+namespace namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている． namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している． (mount namespace, PID namespace とか)
+OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している． このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．
+unshare unshare &amp;ndash;mount とか unshare &amp;ndash;pid みたいな感じで namespace を作る． ネットワーク以外はこれで隔離できるらしい 各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．
+ここに表示されている数字が同じなら同じ namespace に属している． この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある． setns は既存の namespace でプロセスを動かすことを実現するが(https://tenforward.hatenablog.com/entries/2014/08/14)，このときの引数にさっきの ns 指定される．
+mount namespace ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい， マウントが行われるディレクトリをマウントポイントという． あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合， ルートがマウントポイントになる． この下に別のファイルシステムをマウントすることもできる．
+mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する． なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない． コンテナごとに独立したファイルシステムを使うことができる．
+/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする． ファイルを確認すると同じ内容が見えることが分かる．</description>
+    </item>
+    
     <item>
       <title>コンテナ入門する</title>
       <link>http://side-realms.github.io/container/nyuumon/</link>
