@@ -23,3 +23,13 @@ draft: false
 ## [DON PA PPO / ガチ恋ぽんぽこ【MV】](https://www.youtube.com/watch?v=J19SQwyLrY4 "DON PA PPO / ガチ恋ぽんぽこ 【MV】")
 
 {{< youtube J19SQwyLrY4 >}}
+
+## [ニセコイラジオ](https://www.nisekoi.jp/radio/01.html)
+
+一生聞いてた(る)
+
+## [俺ガイル](https://www.youtube.com/watch?v=32oQi6mWhDg)
+
+{{< youtube 32oQi6mWhDg >}}
+
+助けてくれ
