@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>kubernetes // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="kubernetes"/>
+<meta name="twitter:description" content="kubernetes コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール） https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do
+kubernetes では負荷分散やストレージオーケストレーション，セキュリティなどが機能としてある． 基本的に kubectl で kubernetes クラスタを操作する．
+https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png
+Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する
+Control Panel API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する kube proxy: サービスから Node に流入するトラフィックを管理する etcd: クラスタの状態を保存する Component Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する． Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要 Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする． やってみる とりあえず windwos に minikube をインストールする． 今回は virtualbox を使う"/>
+
+    <meta property="og:title" content="kubernetes" />
+<meta property="og:description" content="kubernetes コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール） https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do
+kubernetes では負荷分散やストレージオーケストレーション，セキュリティなどが機能としてある． 基本的に kubectl で kubernetes クラスタを操作する．
+https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png
+Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する
+Control Panel API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する kube proxy: サービスから Node に流入するトラフィックを管理する etcd: クラスタの状態を保存する Component Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する． Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要 Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする． やってみる とりあえず windwos に minikube をインストールする． 今回は virtualbox を使う" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/container/kubernetes/" /><meta property="article:section" content="container" />
+<meta property="article:published_time" content="2023-09-03T14:14:38+09:00" />
+<meta property="article:modified_time" content="2023-09-03T14:14:38+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="/images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="/">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="/log/">log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="/treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="/sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="/other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">kubernetes</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 3, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h2 id="kubernetes">kubernetes</h2>
+<p>コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール）
+<a href="https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do">https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do</a></p>
+<p>kubernetes では負荷分散やストレージオーケストレーション，セキュリティなどが機能としてある．
+基本的に kubectl で kubernetes クラスタを操作する．</p>
+<figure><img src="https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png"
+         alt="https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png"/><figcaption>
+            <p><a href="https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png">https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png</a></p>
+        </figcaption>
+</figure>
+
+<p>Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する</p>
+<h3 id="control-panel">Control Panel</h3>
+<ul>
+<li>API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている</li>
+<li>Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する</li>
+<li>Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する</li>
+<li>kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する</li>
+<li>kube proxy: サービスから Node に流入するトラフィックを管理する</li>
+<li>etcd: クラスタの状態を保存する</li>
+</ul>
+<h3 id="component">Component</h3>
+<ul>
+<li>Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する．</li>
+<li>Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど</li>
+<li>Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要</li>
+<li>Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする．</li>
+</ul>
+<h2 id="やってみる">やってみる</h2>
+<p>とりあえず windwos に minikube をインストールする．
+今回は virtualbox を使う</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get nodes
+</span></span><span style="display:flex;"><span>NAME       STATUS   ROLES           AGE     VERSION
+</span></span><span style="display:flex;"><span>minikube   Ready    control-plane   7d22h   v1.27.3
+</span></span></code></pre></div><p>よさそう．
+次に pod を作成する manifest ファイルを作る</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl create -f pod-nginx.yaml
+</span></span><span style="display:flex;"><span>pod/nginx created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get pod
+</span></span><span style="display:flex;"><span>NAME    READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx   1/1     Running   <span style="color:#ae81ff">0</span>          7s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl delete pod/nginx
+</span></span><span style="display:flex;"><span>pod <span style="color:#e6db74">&#34;nginx&#34;</span> deleted
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get pod
+</span></span><span style="display:flex;"><span>No resources found in default namespace.
+</span></span></code></pre></div><p>pod が変化しているのでよさそう．</p>
+<h4 id="manifest-component">manifest component</h4>
+<ul>
+<li>spec: オブジェクトに期待する状態を決める．name は名前だし image は使うイメージ</li>
+<li>container onject
+<ul>
+<li>command: コンテナで起動させたいプロセスを指定する．</li>
+<li>args: 特に引数を指定する（と思う）</li>
+<li>env: 環境変数を指定する</li>
+<li>image: コンテナイメージ</li>
+<li>name: コンテナ名</li>
+<li>ports: コンテナが開くポート</li>
+<li>workingDir: ワーキングディレクトリ</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:alpine</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">Always</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: []
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;nginx&#34;</span>, <span style="color:#e6db74">&#34;-g&#34;</span>, <span style="color:#e6db74">&#34;daemon off;&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">woot</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: <span style="color:#ae81ff">wai</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workingDir</span>: <span style="color:#ae81ff">/tmp</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl create -f pod-nginx.yaml
+</span></span><span style="display:flex;"><span>pod/nginx created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get all
+</span></span><span style="display:flex;"><span>NAME        READY   STATUS              RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/nginx   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          3s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get all
+</span></span><span style="display:flex;"><span>NAME        READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/nginx   1/1     Running   <span style="color:#ae81ff">0</span>          7s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl exec -- nginx ps
+</span></span><span style="display:flex;"><span>PID   USER     TIME  COMMAND
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> root      0:00 nginx: master process nginx -g daemon off;
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">30</span> nginx     0:00 nginx: worker process
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">31</span> nginx     0:00 nginx: worker process
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">32</span> root      0:00 ps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl exec nginx -- env
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>woot<span style="color:#f92672">=</span>wai
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h3 id="volume">Volume</h3>
+<p>コンテナはコンテナが削除されたり，再起動した場合に中身が消えてしまう．
+Volume はデータの永続化のために使う．
+また，コンテナ間のデータ共有にも使うことができる．
+クラウドみたいなものだろうか&hellip;</p>
+<p>永続化に使う volume タイプにはいくつかある</p>
+<ul>
+<li>emptyDir: データの永続化には使えないが，コンテナ間のデータ共有に使う</li>
+<li>hostDir: データの永続化にも使える</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">log-volume</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">emptyDir</span>:    
+</span></span></code></pre></div><p>emptyDir を使った volume を作って，これにコンテナを対応させる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>    <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">log-volume</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/log/date-tail</span>
+</span></span></code></pre></div><p>これで両方のコンテナから deta-tail が参照できるようになる．
+全然関係ないけど大文字小文字分かりづらくて泣く，なんで語頭は小文字なんだ</p>
+<h3 id="init-container">init Container</h3>
+<p>pods の contaieners で指定したコンテナが起動する前に初期化する．
+例えばあるコンテナ A でファイルが必要だが，もう一つのコンテナ B がその作成を担っているとき，
+A が先に起動してしまうとファイルが無くて失敗してしまうが，これを init Container で防ぐ．</p>
+<h3 id="resource-requirements">Resource Requirements</h3>
+<p>pod は CPU や GPU リソースなど pod 内のコンテナに対してリソースの要求や制限を指定することができる
+例えば以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">128M</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">64M</span>
+</span></span></code></pre></div><ul>
+<li>要求：コンテナで使いたいリソース量で，確保されていてほしい量</li>
+<li>制限：コンテナで超えてほしくないリソース量</li>
+</ul>
+<h3 id="security-context">security context</h3>
+<p>pod やコンテナに対してアクセス制御やユーザの制限などを行うことができる．
+例えば以下は volume のオーナーやパーミッションを指定することができる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">securityContext</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">fsGroup</span>: <span style="color:#ae81ff">1000</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl apply -f nginx.yaml
+</span></span><span style="display:flex;"><span>pod/fsgroup-test created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl exec -it fsgroup-test -- ls -l /
+</span></span><span style="display:flex;"><span>/:
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 bin
+</span></span><span style="display:flex;"><span>drwxrwsrwx    <span style="color:#ae81ff">2</span> root     <span style="color:#ae81ff">1000</span>          <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">3</span> 10:15 data &lt;--
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">5</span> root     root           <span style="color:#ae81ff">360</span> Sep  <span style="color:#ae81ff">3</span> 10:15 dev
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">1</span> root     root          <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">3</span> 10:15 etc
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 home
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">7</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 lib
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">5</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 media
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 mnt
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 opt
+</span></span><span style="display:flex;"><span>dr-xr-xr-x  <span style="color:#ae81ff">257</span> root     root             <span style="color:#ae81ff">0</span> Sep  <span style="color:#ae81ff">3</span> 10:15 proc
+</span></span><span style="display:flex;"><span>drwx------    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 root
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">1</span> root     root          <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">3</span> 10:15 run
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 sbin
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 srv
+</span></span><span style="display:flex;"><span>dr-xr-xr-x   <span style="color:#ae81ff">12</span> root     root             <span style="color:#ae81ff">0</span> Sep  <span style="color:#ae81ff">3</span> 10:15 sys
+</span></span><span style="display:flex;"><span>drwxrwxrwt    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 tmp
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">7</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 usr
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">12</span> root     root          <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 13:09 var
+</span></span></code></pre></div><h3 id="deployment">Deployment</h3>
+<p>Pod の rolling update や rollback などを行う．
+ReplicaSet を管理することで，Pod を指定された数（Replica 数）調整する．
+足りない場合は追加し，多い場合は削除する．
+この仕組みで Node の障害やクラッシュで pod が足りなくなった場合も自動的に Pod が追加される．</p>
+<p>Deployment はコンテナイメージのアップデートがあった場合に
+新しい仕様の ReplicaSet を作成し，全体の Pod を調整しながら新しい仕様の Pod に置き換える
+（ローリングアップデート）．
+Recreate の場合は全ての Pod を削除してから新しい Pod Template をもとに Pod を作成する．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">strategy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">rollingUpdate</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">maxSurge</span>: <span style="color:#ae81ff">50</span><span style="color:#ae81ff">%</span> <span style="color:#75715e"># 複製数を超えていい許容量</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">maxUnavailable</span>: <span style="color:#ae81ff">0</span><span style="color:#ae81ff">%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">nginx</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get deploy
+</span></span><span style="display:flex;"><span>NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>nginx   2/2     <span style="color:#ae81ff">2</span>            <span style="color:#ae81ff">2</span>           1s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get rs <span style="color:#75715e"># ReplicaSet</span>
+</span></span><span style="display:flex;"><span>NAME               DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c   <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>       9s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get po <span style="color:#75715e"># Pod</span>
+</span></span><span style="display:flex;"><span>NAME                     READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   1/1     Running   <span style="color:#ae81ff">0</span>          15s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   1/1     Running   <span style="color:#ae81ff">0</span>          15s
+</span></span></code></pre></div><p>manifest の内容を変えて更新してみる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:k8s_play&gt;kubectl apply -f nginx.yaml
+</span></span><span style="display:flex;"><span>deployment.apps/nginx configured
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get deploy
+</span></span><span style="display:flex;"><span>NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>nginx   2/2     <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">2</span>           2m9s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get rs
+</span></span><span style="display:flex;"><span>NAME               DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c   <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>       2m22s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get po <span style="color:#75715e"># pause で止めているので特に変化はない</span>
+</span></span><span style="display:flex;"><span>NAME                     READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   1/1     Running   <span style="color:#ae81ff">0</span>          2m35s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   1/1     Running   <span style="color:#ae81ff">0</span>          2m35s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl rollout resume deploy nginx
+</span></span><span style="display:flex;"><span>deployment.apps/nginx resumed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get deploy
+</span></span><span style="display:flex;"><span>NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>nginx   2/2     <span style="color:#ae81ff">2</span>            <span style="color:#ae81ff">2</span>           3m45s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get rs <span style="color:#75715e"># 77b4fdf86c -&gt; 7544d696d4</span>
+</span></span><span style="display:flex;"><span>NAME               DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>nginx-7544d696d4   <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>       28s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c   <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">0</span>       3m51s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl get po <span style="color:#75715e"># 完全に置き換わっている</span>
+</span></span><span style="display:flex;"><span>NAME                     READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   1/1     Running   <span style="color:#ae81ff">0</span>          25s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   1/1     Running   <span style="color:#ae81ff">0</span>          29s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:k8s_play&gt;kubectl rollout history deploy nginx
+</span></span><span style="display:flex;"><span>deployment.apps/nginx
+</span></span><span style="display:flex;"><span>REVISION  CHANGE-CAUSE
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>         &lt;none&gt;
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>         &lt;none&gt;
+</span></span></code></pre></div><p>下記は rollout しているときのログ
+旧：qkmz2
+旧：rdfv5
+新：6s2tb
+新：bqblr</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt; kubectl get po -w
+</span></span><span style="display:flex;"><span>NAME                     READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   1/1     Running   <span style="color:#ae81ff">0</span>          3m8s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   1/1     Running   <span style="color:#ae81ff">0</span>          3m8s <span style="color:#75715e"># &lt;- 旧が動いている</span>
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Pending   <span style="color:#ae81ff">0</span>          0s <span style="color:#75715e"># &lt;- 新が用意される</span>
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Pending   <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   1/1     Running             <span style="color:#ae81ff">0</span>          3s <span style="color:#75715e"># &lt;- maxSurge が 50% なので新しいものが一つ追加される</span>
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   1/1     Terminating         <span style="color:#ae81ff">0</span>          3m26s <span style="color:#75715e"># &lt;- 旧が一つ止まる</span>
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Pending             <span style="color:#ae81ff">0</span>          0s <span style="color:#75715e"># &lt;- 新が用意される</span>
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Pending             <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m27s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m28s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m28s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-qkmz2   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m28s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   1/1     Running             <span style="color:#ae81ff">0</span>          3s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   1/1     Terminating         <span style="color:#ae81ff">0</span>          3m30s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m30s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m31s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m31s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-rdfv5   0/1     Terminating         <span style="color:#ae81ff">0</span>          3m31s
+</span></span></code></pre></div><p>rollback する</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl rollout undo deploy nginx --to-revision <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>deployment.apps/nginx rolled back
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get deploy
+</span></span><span style="display:flex;"><span>NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>nginx   2/2     <span style="color:#ae81ff">2</span>            <span style="color:#ae81ff">2</span>           9m55s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get rs
+</span></span><span style="display:flex;"><span>NAME               DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>nginx-7544d696d4   <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">0</span>         <span style="color:#ae81ff">0</span>       6m33s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c   <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>         <span style="color:#ae81ff">2</span>       9m56s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt;kubectl get po
+</span></span><span style="display:flex;"><span>NAME                     READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-6b7sm   1/1     Running   <span style="color:#ae81ff">0</span>          14s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-fbwgf   1/1     Running   <span style="color:#ae81ff">0</span>          10s
+</span></span></code></pre></div><p>ちゃんと古い ReplicaSet を使っている</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nginx-77b4fdf86c-6b7sm   0/1     Pending             <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-6b7sm   0/1     Pending             <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-6b7sm   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          1s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-6b7sm   1/1     Running             <span style="color:#ae81ff">0</span>          4s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   1/1     Terminating         <span style="color:#ae81ff">0</span>          6m24s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-fbwgf   0/1     Pending             <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-fbwgf   0/1     Pending             <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-fbwgf   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          0s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m25s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m25s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m25s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-bqblr   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m25s
+</span></span><span style="display:flex;"><span>nginx-77b4fdf86c-fbwgf   1/1     Running             <span style="color:#ae81ff">0</span>          3s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   1/1     Terminating         <span style="color:#ae81ff">0</span>          6m23s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m24s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m24s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m24s
+</span></span><span style="display:flex;"><span>nginx-7544d696d4-6s2tb   0/1     Terminating         <span style="color:#ae81ff">0</span>          6m24s
+</span></span></code></pre></div><h2 id="service">Service</h2>
+<p>Pod への接続に関して負荷分散などをするオブジェクト．</p>
+<ul>
+<li>clusterIP: kubernetes 内の通信で利用することができ，クラスタ内で IP アドレスが払い出され，それを利用して Pod 間の通信を行う．</li>
+<li>NodePort: Node のランダムなポートを使って外部サーバとの通信を行う</li>
+<li>LoadBalancer: NodePort の service を作成し，外部の LoadBalancer で転送をしてもらう</li>
+<li>ExternalName: 外部のサービスに対してエイリアスを作成する</li>
+</ul>
+<p>下記はserviceの例で，適当な Pod と 適当な Pod で通信する．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt; kubectl get all
+</span></span><span style="display:flex;"><span>NAME                        READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/nginx-55f598f8d-8r8cv   1/1     Running   <span style="color:#ae81ff">0</span>          2m20s
+</span></span><span style="display:flex;"><span>pod/nginx-55f598f8d-jp76l   1/1     Running   <span style="color:#ae81ff">0</span>          2m20s
+</span></span><span style="display:flex;"><span>pod/nginx-55f598f8d-q5v7r   1/1     Running   <span style="color:#ae81ff">0</span>          2m20s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>        AGE
+</span></span><span style="display:flex;"><span>service/kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP        2m27s
+</span></span><span style="display:flex;"><span>service/nginx        ClusterIP   10.101.95.207   &lt;none&gt;        80/TCP         74s
+</span></span><span style="display:flex;"><span>service/nginx-np     NodePort    10.111.133.95   &lt;none&gt;        80:30626/TCP   14s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>deployment.apps/nginx   3/3     <span style="color:#ae81ff">3</span>            <span style="color:#ae81ff">3</span>           2m20s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                              DESIRED   CURRENT   READY   AGE
+</span></span><span style="display:flex;"><span>replicaset.apps/nginx-55f598f8d   <span style="color:#ae81ff">3</span>         <span style="color:#ae81ff">3</span>         <span style="color:#ae81ff">3</span>       2m20s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\k</span>8s_play&gt; kubectl run alpine -it --rm --image alpine -- ash
+</span></span><span style="display:flex;"><span>If you don<span style="color:#960050;background-color:#1e0010">&#39;</span>t see a command prompt, try pressing enter.
+</span></span><span style="display:flex;"><span>/ <span style="color:#75715e"># env</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>NGINX_NP_SERVICE_HOST<span style="color:#f92672">=</span>10.111.133.95  &lt;- 一緒
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>NGINX_SERVICE_HOST<span style="color:#f92672">=</span>10.101.95.207 &lt;- 一緒
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/ <span style="color:#75715e"># wget -O - $NGINX_SERVICE_HOST</span>
+</span></span><span style="display:flex;"><span>Connecting to 10.101.95.207 <span style="color:#f92672">(</span>10.101.95.207:80<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>writing to stdout
+</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
+</span></span><span style="display:flex;"><span>&lt;html&gt;
+</span></span><span style="display:flex;"><span>&lt;head&gt;
+</span></span><span style="display:flex;"><span>&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+</span></span><span style="display:flex;"><span>&lt;style&gt;
+</span></span><span style="display:flex;"><span>html <span style="color:#f92672">{</span> color-scheme: light dark; <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>body <span style="color:#f92672">{</span> width: 35em; margin: <span style="color:#ae81ff">0</span> auto;
+</span></span><span style="display:flex;"><span>font-family: Tahoma, Verdana, Arial, sans-serif; <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>&lt;/style&gt;
+</span></span><span style="display:flex;"><span>&lt;/head&gt;
+</span></span><span style="display:flex;"><span>&lt;body&gt;
+</span></span><span style="display:flex;"><span>&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+</span></span><span style="display:flex;"><span>&lt;p&gt;If you see this page, the ng
+</span></span></code></pre></div><h3 id="ヘルスチェック">ヘルスチェック</h3>
+<ul>
+<li>
+<p>LivenessProbe: コンテナの生存チェックをする．これが通らない場合は再生成される．</p>
+</li>
+<li>
+<p>ReadinessProbe: コンテナの Ready 状態をチェックする．init や 処理中でリクエストが返せない場合に対応する．</p>
+</li>
+<li>
+<p>exec: コンテナ内でコマンドを実行できる．この終了ステータスが 0 なら healthy ということになる．</p>
+</li>
+<li>
+<p>httpGet: HTTP の GET リクエストを発行する．レスポンスステータスで判断する</p>
+</li>
+<li>
+<p>topSocket: TCP コネクションが開けるかチェックする．</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">httpGet</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Liveness:       http-get http://:80/ delay<span style="color:#f92672">=</span>0s timeout<span style="color:#f92672">=</span>1s period<span style="color:#f92672">=</span>5s <span style="color:#75715e">#success=1 #failure=5</span>
+</span></span></code></pre></div><p>index.html を消した場合</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Warning  Unhealthy  1s <span style="color:#f92672">(</span>x6 over 26s<span style="color:#f92672">)</span>    kubelet            Liveness probe failed: HTTP probe failed with statuscode: <span style="color:#ae81ff">403</span> &lt;- http ステータスコード
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

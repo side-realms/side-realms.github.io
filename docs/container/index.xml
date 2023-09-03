@@ -6,7 +6,39 @@
     <description>Recent content in Containers on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Aug 2023 18:59:45 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2023 14:14:38 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubernetes</title>
+      <link>http://side-realms.github.io/container/kubernetes/</link>
+      <pubDate>Sun, 03 Sep 2023 14:14:38 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/kubernetes/</guid>
+      <description>kubernetes コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール） https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do
+kubernetes では負荷分散やストレージオーケストレーション，セキュリティなどが機能としてある． 基本的に kubectl で kubernetes クラスタを操作する．
+https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png
+Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する
+Control Panel API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する kube proxy: サービスから Node に流入するトラフィックを管理する etcd: クラスタの状態を保存する Component Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する． Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要 Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする． やってみる とりあえず windwos に minikube をインストールする． 今回は virtualbox を使う</description>
+    </item>
+    
+    <item>
+      <title>クラウドネイティブ</title>
+      <link>http://side-realms.github.io/container/cncf/</link>
+      <pubDate>Sat, 02 Sep 2023 15:42:29 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/cncf/</guid>
+      <description>高尾山でビールが飲みたい
+クラウドネイティブ クラウドネイティブという言葉を初めて聞いたので少しだけ調べる
+VM ではなく，高密度で構成できるコンテナを基本にする． これにより，高速なスケーリングであったり，高速なデプロイが可能になる
+マイクロサービス システムを細かいサービスに分解し，そのそれぞれを連携させることでシステムを機能させる．局所的案機能追加・修正などが可能 サービスメッシュ 細かいサービスを管理するのがコンテナで，このコンテナ間の通信などを管理する 宣言型 API コンテナ間の通信は API を介して行われるが，この API の定義を宣言すれば使えるようになる（生成される？）ような API イミュータブルインフラストラクチャ インフラの更新をコンテナに影響せず行うことができる マイクロサービス システムを細かいサービスに分解し，それぞれで連携させることでシステムを機能させる
+サービスごとにチームが存在するので，チームそれぞれで自律的に開発・運用ができる
+仕様の自由度が高い
+スケーリングがしやすい
+サービスが大きくなると attack surface が増える
+アクセス制御・通信保護の負担が大きくなる
+サービス個々が頻繁に変化するので依存は危険
+サービスメッシュ サービスレベルの通信をサービスに制御させるのではなく，インフラで制御するようにする ログのフォーマットやタイムアウトなど統一させるべき機能が減る 言語の多様性に振り回されない サービスの前にプロキシコンテナを配置し，通信処理の役割を担わせる サービスのコンテナに付随するのでサイドカーコンテナともいわれる プロキシ側で認証や暗号化，出力の管理などをする 通信の保護：暗号化，認証，アクセス制御 耐障害性：ロードバランサ，サーキットブレーカー 監視：メトリクス，ログ，トレース収集 権限管理：コンテナの特権排除など 宣言型 API サービス同士を接続する API として使われるのが宣言型 API kubernetes が pod の数を自動制御するようなこと サービスがダウンしたときに自動的に回復したり，負荷が高まった時に自動的にノードを増やせる イミュータブルインフラストラクチャ インフラのアップデートに伴って動かなくなることはよくある アップデートが必要な場合は，アップデート後の OS を用いた環境を立ち上げて古い環境を破壊する 問題があった場合のロールバックも簡単 </description>
+    </item>
+    
     <item>
       <title>自作 strace</title>
       <link>http://side-realms.github.io/container/strace/</link>
