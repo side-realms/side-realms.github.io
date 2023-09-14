@@ -6,7 +6,21 @@
     <description>Recent content in Containers on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Sep 2023 14:14:38 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Sep 2023 18:40:52 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/container/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自作コンテナ1</title>
+      <link>http://side-realms.github.io/container/own/</link>
+      <pubDate>Wed, 13 Sep 2023 18:40:52 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/container/own/</guid>
+      <description>缶コーヒー，飲めたことない
+自作コンテナ 簡単に復習だけ
+namespace カーネルのリソースを隔離するためのしくみ
+PID: PID は新しいプロセスができるたびにインクリメントされた整数がプロセスの識別子として付与される． コンテナの中では独立した PID を見せたいが，同じ PID をもったプロセスが複数できると不便． MNT: マウントポイントに関するリソースの隔離．他の namespace に影響を与えることなくマウント，案マウントをすることができる NET: プロセスのネットワークスタックを分離する．メインのネットワーク namespace の他に仮想イーサネットペアを作り，namespace 上に仮想リンクを作る UTS: UTS namespace でホスト名とドメイン名を分離する． IPC: IPC に関するリソースを分離する．POSIX メッセージキュー USER: namespace ごとに UID/GID をマッピングすることができる．プロセスは，namespace の外では 0 以外の UID を持つ一方で，namespace では UID を 0 として持つことができ，root のように振舞うことができる． CGroup システムリソースを使うプロセスをグループ化して，それぞれのグループで リソースの使用量をコントロールできる．
+Layer filesystem namespace と cgroup はコンテナがもつシステムの分離とリソース共有 の役割を果たすが，レイヤー layered filesystems は マシンイメージ全体を効率的に移動することができる． コンテナの rootfs はレイヤ構造で管理されている． イメージは特定のファイルシステムに依存しない形で定義されていて，簡単に移植できる．
+骨組み func main() { switch os.Args[1] { case &amp;#34;run&amp;#34;: // 引数に run をとると execute を実行できる execute(os.</description>
+    </item>
+    
     <item>
       <title>kubernetes</title>
       <link>http://side-realms.github.io/container/kubernetes/</link>
