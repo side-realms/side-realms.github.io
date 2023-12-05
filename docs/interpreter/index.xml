@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interpreters on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/interpreter/</link>
+    <description>Recent content in Interpreters on お茶は綾鷹派</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Oct 2023 17:54:50 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/interpreter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go でインタープリタ</title>
+      <link>http://side-realms.github.io/interpreter/pre/</link>
+      <pubDate>Sun, 01 Oct 2023 17:54:50 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/interpreter/pre/</guid>
+      <description>小山田圭吾と小山田壮平って兄弟だと思ってた
+イントロ Writing An Interpreter In Go を読みながらやる． REPL でC言語っぽい Monkey という言語を実装するらしい．
+lexer </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -35,6 +35,11 @@ buildExpired = false
     url = "/container"
     weight = 2
   [[menu.post]]
+    identifier = "interpreter"
+    name = "interpreter"
+    url = "/Interpreter"
+    weight = 2
+  [[menu.post]]
     identifier = "writeup"
     name = "writeup"
     url = "/writeup"

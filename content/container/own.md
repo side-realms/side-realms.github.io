@@ -97,7 +97,7 @@ ubuntu@ubuntu:~/build_container$ ls ./rootfs/tmp
 sample
 ```
 
-### namespace を作る
+### namespace の実装
 
 Go で linux namespace を設定するのは，
 cmd の SysprocAttr に Cloneflags をセットすればいいらしい．
