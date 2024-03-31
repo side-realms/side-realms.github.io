@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>ACSC 2024 writeup // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ACSC 2024 writeup"/>
+<meta name="twitter:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+0(ASCII code) 0111 0(ASCII code) 0111...
+みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
+Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
+時間を測ると，入力した PIN を 1 文字ずつチェックして，正解の PIN と一致していたら 0.1 秒の遅延が入るような仕組みになっているようでした．
+以下がスクリプトです． 作り甘いですが&hellip;
+from pwn import * import time list = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;] io = remote(&#39;vault."/>
+
+    <meta property="og:title" content="ACSC 2024 writeup" />
+<meta property="og:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+0(ASCII code) 0111 0(ASCII code) 0111...
+みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
+Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
+時間を測ると，入力した PIN を 1 文字ずつチェックして，正解の PIN と一致していたら 0.1 秒の遅延が入るような仕組みになっているようでした．
+以下がスクリプトです． 作り甘いですが&hellip;
+from pwn import * import time list = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;] io = remote(&#39;vault." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/acsc2024/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-03-31T13:24:01+09:00" />
+<meta property="article:modified_time" content="2024-03-31T13:24:01+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../interpreter">interpreter</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">ACSC 2024 writeup</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 31, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>ACSC に参加しました．
+Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です．
+hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)．
+次の writeup で解いてみます．
+順位は 800 pts で世界 64/282 位，国内 8/? 位でした.</p>
+<h3 id="an4lyz3_1t50pts-140-solved">An4lyz3_1t(50pts, 140 solved)</h3>
+<p>.sal のバイナリデータが与えられます．
+logic2 で Async Serial デコードするとフラグが得られます．
+ボーレートに注意する必要がありますが，この程度なら概算でできると思います．
+もちろん手でもデコードできます．</p>
+<p><code>0(ASCII code) 0111 0(ASCII code) 0111...</code></p>
+<p>みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．</p>
+<h3 id="valut150pts-68-solves">Valut(150pts, 68 solves)</h3>
+<p>10 桁の PIN をサイドチャネル攻撃しろ，という問題でした．
+CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．</p>
+<p>時間を測ると，入力した PIN を 1 文字ずつチェックして，正解の PIN と一致していたら 0.1 秒の遅延が入るような仕組みになっているようでした．</p>
+<p>以下がスクリプトです．
+作り甘いですが&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;0&#39;</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;3&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;5&#39;</span>,<span style="color:#e6db74">&#39;6&#39;</span>,<span style="color:#e6db74">&#39;7&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span>,<span style="color:#e6db74">&#39;9&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;vault.chal.2024.ctf.acsc.asia&#39;</span>, <span style="color:#ae81ff">9999</span>)
+</span></span><span style="display:flex;"><span>msg <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;$ &#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> list:
+</span></span><span style="display:flex;"><span>	io<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">&#39;./chall&#39;</span>)
+</span></span><span style="display:flex;"><span>	msg <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;Enter your PIN: &#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
+</span></span><span style="display:flex;"><span>	io<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">&#39;857421936&#39;</span> <span style="color:#f92672">+</span> i)
+</span></span><span style="display:flex;"><span>	print(io<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>))
+</span></span><span style="display:flex;"><span>	end <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
+</span></span><span style="display:flex;"><span>	print(<span style="color:#e6db74">&#39;time&#39;</span> <span style="color:#f92672">+</span> str(end<span style="color:#f92672">-</span>start))
+</span></span><span style="display:flex;"><span>	print(<span style="color:#e6db74">&#39;number&#39;</span> <span style="color:#f92672">+</span> str(i))
+</span></span><span style="display:flex;"><span>	msg <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;$ &#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>io<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><h3 id="picopico200pts-55-solves">picopico(200pts, 55 solves)</h3>
+<p>ラズパイ pico のファームウェアが与えられて，何をしているか当てよ，みたいな問題でした．
+<code>strings</code> するとコードの末尾に大量の python コードがありました．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">~</span>snip<span style="color:#f92672">~</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>L<span style="color:#f92672">=</span>len
+</span></span><span style="display:flex;"><span>o<span style="color:#f92672">=</span>bytes
+</span></span><span style="display:flex;"><span>l<span style="color:#f92672">=</span>zip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> microcontroller
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> usb_hid
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> adafruit_hid.keyboard <span style="color:#f92672">import</span> Keyboard
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> adafruit_hid.keyboard_layout_us <span style="color:#f92672">import</span> KeyboardLayoutUS
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> adafruit_hid.keycode <span style="color:#f92672">import</span> Keycode
+</span></span><span style="display:flex;"><span>w<span style="color:#f92672">=</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x10\x53\x7f\x2b</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>a<span style="color:#f92672">=</span><span style="color:#ae81ff">0x04</span>
+</span></span><span style="display:flex;"><span>K<span style="color:#f92672">=</span><span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> microcontroller<span style="color:#f92672">.</span>nvm[<span style="color:#ae81ff">0</span>:L(w)]<span style="color:#f92672">!=</span>w:
+</span></span><span style="display:flex;"><span> microcontroller<span style="color:#f92672">.</span>nvm[<span style="color:#ae81ff">0</span>:L(w)]<span style="color:#f92672">=</span>w
+</span></span><span style="display:flex;"><span> O<span style="color:#f92672">=</span>microcontroller<span style="color:#f92672">.</span>nvm[a:a<span style="color:#f92672">+</span>K]
+</span></span><span style="display:flex;"><span> h<span style="color:#f92672">=</span>microcontroller<span style="color:#f92672">.</span>nvm[a<span style="color:#f92672">+</span>K:a<span style="color:#f92672">+</span>K<span style="color:#f92672">+</span>K]
+</span></span><span style="display:flex;"><span> F<span style="color:#f92672">=</span>o((kb<span style="color:#f92672">^</span>fb <span style="color:#66d9ef">for</span> kb,fb <span style="color:#f92672">in</span> l(O,h)))<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;ascii&#34;</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">=</span>Keyboard(usb_hid<span style="color:#f92672">.</span>devices)
+</span></span><span style="display:flex;"><span> C<span style="color:#f92672">=</span>KeyboardLayoutUS(S)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>press(Keycode<span style="color:#f92672">.</span>WINDOWS,Keycode<span style="color:#f92672">.</span>R)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>release_all()
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span> C<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;cmd&#34;</span>,delay<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>press(Keycode<span style="color:#f92672">.</span>ENTER)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>release_all()
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span> C<span style="color:#f92672">.</span>write(F,delay<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>press(Keycode<span style="color:#f92672">.</span>ENTER)
+</span></span><span style="display:flex;"><span> time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span> S<span style="color:#f92672">.</span>release_all()
+</span></span><span style="display:flex;"><span>time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0xFFFFFFFF</span>)
+</span></span></code></pre></div><p>ここのコードが重要で，BadUSB のようです．
+<code>microcontroller.nvm</code> の中身が分からないとどうしようもない&hellip;</p>
+<p>ここで，<code>microcontroller.nvm[0:L(w)]=w</code> みたいな処理があるので，ファームウェア内で <code>\x10\x53\x7f\x2b</code> と書かれている部分があれば NVM の始まりだと分かります．
+なので， <code>hexeditor</code> とかで NVM を吸い出して手元で先の python 処理を再現すればフラグが得られます．</p>
+<h3 id="per_tr4ce200pts-38-solves">PER_Tr4ce(200pts, 38 solves)</h3>
+<p>16 bit AES の処理波形が与えられるので，秘密鍵を復元せよ，という問題です．
+DPA は得意技なので意気揚々と DPA をやりましたが 50 波形と少ないのでうまくいかず，CPA を組みなおす必要がありました．</p>
+<p>実装は自前のを流用しました．</p>
+<p><a href="https://github.com/side-realms/DPA">DPA，CPA 実装</a></p>
+<h3 id="rfid_demod200pts-12-solves">RFID_Demod(200pts, 12 solves)</h3>
+<p>RFID の書き込み音(?)が得られるのでデコードせよ，という問題でした．
+T5577 タグを使っているらしいのでデータシートを読みます．
+<a href="https://ww1.microchip.com/downloads/aemDocuments/documents/WSG/ProductDocuments/DataSheets/ATA5577C-Read-Write-LF-RFID-IDIC-100-to-150-kHz-Data-Sheet-DS70005357B.pdf">(ATA5577C – Read/Write LF RFID IDIC 100 kHz to 150 kHz)</a></p>
+<p>27ページあたりに書き込み時のビットフローが書かれています．
+opcode, lockbit, blockaddr を除いたデータを ASCII code に変換してあげればフラグの内容が得られます．
+OOK なのでデータシートを読まなくても解けそう</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

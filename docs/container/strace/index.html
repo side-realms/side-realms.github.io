@@ -2,13 +2,13 @@
 <html lang="en-us">
   <head>
     <title>自作 strace // お茶は綾鷹派</title>
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.117.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="自作 strace"/>
@@ -49,24 +49,25 @@ int main(int argc, char *argv[]){ if(argc &lt; 2){ fprintf(stderr, &#34;pid need
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="/images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
       <nav class="app-header-menu">
           <font size="5">
-          <a class="app-header-menu-item" href="/">Home</a>
+          <a class="app-header-menu-item" href="../../">Home</a>
           </font>
           <br>
             
           
           <font size="5">
-          <a class="app-header-menu-item" href="/log/">log</a>
+          <a class="app-header-menu-item" href="../../log">log</a>
           </font>
           <br>
             
           
           <font size="5">
-          <a class="app-header-menu-item" href="/treasure/">treasure trove</a>
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
           </font>
           <br>
       </nav>
@@ -74,31 +75,31 @@ int main(int argc, char *argv[]){ if(argc &lt; 2){ fprintf(stderr, &#34;pid need
       <hr class="hr1">
       <nav class="app-header-menu">
           <font size="4">
-          <a class="app-header-menu-item" href="/sound">sound</a>
+          <a class="app-header-menu-item" href="../../sound">sound</a>
           </font>
           <br>
             
           
           <font size="4">
-          <a class="app-header-menu-item" href="/container">container</a>
+          <a class="app-header-menu-item" href="../../container">container</a>
           </font>
           <br>
             
           
           <font size="4">
-          <a class="app-header-menu-item" href="/interpreter">interpreter</a>
+          <a class="app-header-menu-item" href="../../interpreter">interpreter</a>
           </font>
           <br>
             
           
           <font size="4">
-          <a class="app-header-menu-item" href="/writeup">writeup</a>
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
           </font>
           <br>
             
           
           <font size="4">
-          <a class="app-header-menu-item" href="/other">other</a>
+          <a class="app-header-menu-item" href="../../other">other</a>
           </font>
           <br>
       </nav>
@@ -153,10 +154,10 @@ int main(int argc, char *argv[]){ if(argc &lt; 2){ fprintf(stderr, &#34;pid need
 <h2 id="strace">strace</h2>
 <p>seccomp がよく分からなかったので監視系で strace を作ってみる</p>
 <p>strace はプロセスが使ってるシステムコールとかの呼び出しをトレースできる</p>
-<p><img src="/images/strace.png" alt="layer"></p>
+<p><img src="../../images/strace.png" alt="layer"></p>
 <p>strace は ptrace(2) でプロセスを監視しており，これによって呼び出されるシステムコールや
 その引数を見ている．</p>
-<p><img src="/images/ptrace2.png" alt="layer"></p>
+<p><img src="../../images/ptrace2.png" alt="layer"></p>
 <p>第一引数で ptrace リクエストの内容（？），第二引数にプロセスの pid を指定する．</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#a6e22e">ptrace</span>(<span style="color:#66d9ef">enum</span> __ptrace_request request, <span style="color:#66d9ef">pid_t</span> pid, <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>addr, <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>data);
 </span></span></code></pre></div><p>他プロセスをトレースするためには，対象のプロセスにアタッチし，一時的に親になる必要がある．

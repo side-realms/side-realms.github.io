@@ -2,19 +2,124 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://side-realms.github.io/archeology/</loc>
-    <lastmod>2023-11-20T17:57:25+09:00</lastmod>
+    <loc>http://side-realms.github.io/writeup/acsc2024/</loc>
+    <lastmod>2024-03-31T13:24:01+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/</loc>
+    <lastmod>2024-03-31T13:24:01+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/</loc>
+    <lastmod>2024-03-31T13:24:01+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/boiler/</loc>
+    <lastmod>2024-03-28T00:22:47+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/internal/</loc>
+    <lastmod>2024-03-20T08:06:49+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/rerevand/</loc>
+    <lastmod>2024-03-18T09:58:44+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/dailybugle/</loc>
+    <lastmod>2024-03-17T04:41:11+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/gamezone/</loc>
+    <lastmod>2024-03-17T04:41:11+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/alfred/</loc>
+    <lastmod>2024-03-16T15:31:32+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/steel/</loc>
+    <lastmod>2024-03-16T14:11:33+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/mustacchio/</loc>
+    <lastmod>2024-03-16T14:06:52+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/c0ldd/</loc>
+    <lastmod>2024-03-16T14:04:24+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/archangel/</loc>
+    <lastmod>2024-03-16T13:41:58+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/chocolate/</loc>
+    <lastmod>2024-03-16T13:28:17+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/gamingserver/</loc>
+    <lastmod>2024-03-16T13:24:19+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/chill/</loc>
+    <lastmod>2024-03-16T11:49:38+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/wgel/</loc>
+    <lastmod>2024-03-16T11:43:01+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/ignite/</loc>
+    <lastmod>2024-03-16T11:39:35+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/brooklyn/</loc>
+    <lastmod>2024-03-16T11:36:42+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/bruteit/</loc>
+    <lastmod>2024-03-16T11:33:52+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/skynet/</loc>
+    <lastmod>2024-03-16T11:17:21+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/lazyadmin/</loc>
+    <lastmod>2024-03-16T11:11:11+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/bounty/</loc>
+    <lastmod>2024-03-16T11:06:05+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/blog/</loc>
+    <lastmod>2024-03-16T10:57:51+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/cyborg/</loc>
+    <lastmod>2024-02-21T07:18:48+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/startup/</loc>
+    <lastmod>2024-02-21T02:52:30+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/simplectf/</loc>
+    <lastmod>2024-02-21T02:31:08+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/basicpentesting/</loc>
+    <lastmod>2024-02-21T02:21:30+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/rootme/</loc>
+    <lastmod>2024-02-20T02:16:10+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/wifihacking/</loc>
+    <lastmod>2024-02-20T02:06:20+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/sudoagent/</loc>
+    <lastmod>2024-02-17T20:49:48+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/log/</loc>
+    <lastmod>2024-01-01T17:57:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/log/log_2024/</loc>
+    <lastmod>2024-01-01T17:57:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/log_2024/</loc>
+    <lastmod>2024-01-01T17:57:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/sound/</loc>
+    <lastmod>2023-12-03T13:41:49+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/sound/ml3/</loc>
+    <lastmod>2023-12-03T13:41:49+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/sound/ml2/</loc>
+    <lastmod>2023-12-02T17:57:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/archeology/</loc>
     <lastmod>2023-11-20T17:57:25+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/archeology/palaeontology1/</loc>
     <lastmod>2023-11-20T17:57:25+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/sound/happyend/</loc>
-    <lastmod>2023-11-08T08:39:04+09:00</lastmod>
-  </url><url>
-    <loc>http://side-realms.github.io/sound/</loc>
     <lastmod>2023-11-08T08:39:04+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/sound/happyend1/</loc>
@@ -65,9 +170,6 @@
     <loc>http://side-realms.github.io/writeup/wanictf2023/</loc>
     <lastmod>2023-08-28T17:57:25+09:00</lastmod>
   </url><url>
-    <loc>http://side-realms.github.io/writeup/</loc>
-    <lastmod>2023-08-28T17:57:25+09:00</lastmod>
-  </url><url>
     <loc>http://side-realms.github.io/other/cortana/</loc>
     <lastmod>2023-08-28T17:57:25+09:00</lastmod>
   </url><url>
@@ -95,7 +197,7 @@
     <loc>http://side-realms.github.io/sound/bug/</loc>
     <lastmod>2023-08-28T17:57:25+09:00</lastmod>
   </url><url>
-    <loc>http://side-realms.github.io/log/</loc>
+    <loc>http://side-realms.github.io/log/log/</loc>
     <lastmod>2023-08-28T17:57:25+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/sound/fish/</loc>

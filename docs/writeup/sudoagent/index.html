@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Agent Sudo // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Agent Sudo"/>
+<meta name="twitter:description" content="そういえばLerningしかやってなくてマシンを解いてないことに気付いたのでせっかくなら writeup を書きつつやっていく
+enum nmap PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) |_http-title: Annoucement |_http-server-header: Apache/2.4.29 (Ubuntu) gobuster /.hta (Status: 403) [Size: 278] /.htpasswd (Status: 403) [Size: 278] /.htaccess (Status: 403) [Size: 278] /index.php (Status: 200) [Size: 218] /server-status (Status: 403) [Size: 278] user."/>
+
+    <meta property="og:title" content="Agent Sudo" />
+<meta property="og:description" content="そういえばLerningしかやってなくてマシンを解いてないことに気付いたのでせっかくなら writeup を書きつつやっていく
+enum nmap PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) |_http-title: Annoucement |_http-server-header: Apache/2.4.29 (Ubuntu) gobuster /.hta (Status: 403) [Size: 278] /.htpasswd (Status: 403) [Size: 278] /.htaccess (Status: 403) [Size: 278] /index.php (Status: 200) [Size: 218] /server-status (Status: 403) [Size: 278] user." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/sudoagent/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-02-17T20:49:48+09:00" />
+<meta property="article:modified_time" content="2024-02-17T20:49:48+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../interpreter">interpreter</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Agent Sudo</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 17, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>そういえばLerningしかやってなくてマシンを解いてないことに気付いたのでせっかくなら writeup を書きつつやっていく</p>
+<h3 id="enum">enum</h3>
+<ul>
+<li>nmap</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>21/tcp open  ftp     vsftpd 3.0.3
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey:
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.29 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>|_http-title: Annoucement
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.29 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>gobuster</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/.hta                 <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 278<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.htpasswd            <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 278<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.htaccess            <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 278<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 218<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/server-status        <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 278<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="usertxt">user.txt</h3>
+<ul>
+<li>
+<p>index.php にアクセスすると User-agent を変える，みたいな旨のメッセージがある</p>
+</li>
+<li>
+<p>burp のブルートフォースで「C」が見つかる</p>
+</li>
+<li>
+<p>agent_C_attention.php で chris が見つかる</p>
+</li>
+<li>
+<p>とりあえず FTP で hydra をする</p>
+<ul>
+<li><code>hydra -t 16 -l chris -P /usr/share/wordlists/rockyou.txt 10.10.155.104 ftp</code></li>
+</ul>
+</li>
+<li>
+<p>画像が二枚手に入る</p>
+</li>
+<li>
+<p>binwalk で cutie.png から ZIP が見つかる（cute-alien.jpg は無反応）</p>
+<ul>
+<li><code>dd ibs=1 obs=1 skip=34562 if=cutie.png of=hidden.zip</code></li>
+</ul>
+</li>
+<li>
+<p>ZIP にパスワードがかかっている</p>
+<ul>
+<li><code>zip2john hidden.zip &gt; hash.txt</code></li>
+<li><code>john hash.txt</code></li>
+</ul>
+</li>
+<li>
+<p>To_agentR.txt が見つかり，steg passphrase なるものが見つかる</p>
+<ul>
+<li><code>steghide extract -sf cute-alien.jpg -p Area51</code></li>
+</ul>
+</li>
+<li>
+<p>ssh のパスワードが見つかる</p>
+</li>
+<li>
+<p>ssh ログインする（最後に ！ が必要．正解との整合性がない．．．）</p>
+</li>
+<li>
+<p>user_flag を手に入れる</p>
+</li>
+<li>
+<p>画像があるので google 検索（怖い画像だった．．．）</p>
+</li>
+</ul>
+<h3 id="roottxt">root.txt</h3>
+<ul>
+<li>linpeas.sh で (ALL, !root) /bin/bash が見つかる</li>
+<li>CVE : 2019-14287 がみつかる</li>
+<li>あとは PoC でOK</li>
+</ul>
+<p>パズルみたいだ．
+道具を使っただけでここまでできてしまうのは逆に不安でもある</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>
