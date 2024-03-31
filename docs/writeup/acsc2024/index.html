@@ -12,8 +12,8 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ACSC 2024 writeup"/>
-<meta name="twitter:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
-An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+<meta name="twitter:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282(?) 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら典型的なボーレートでできると思います． もちろん手でもデコードできます．
 0(ASCII code) 0111 0(ASCII code) 0111...
 みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
 Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
@@ -22,8 +22,8 @@ Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，�
 from pwn import * import time list = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;] io = remote(&#39;vault."/>
 
     <meta property="og:title" content="ACSC 2024 writeup" />
-<meta property="og:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
-An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+<meta property="og:description" content="ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282(?) 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら典型的なボーレートでできると思います． もちろん手でもデコードできます．
 0(ASCII code) 0111 0(ASCII code) 0111...
 みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
 Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
@@ -154,11 +154,11 @@ from pwn import * import time list = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3
 Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です．
 hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)．
 次の writeup で解いてみます．
-順位は 800 pts で世界 64/282 位，国内 8/? 位でした.</p>
+順位は 800 pts で世界 64/282(?) 位でした.</p>
 <h3 id="an4lyz3_1t50pts-140-solved">An4lyz3_1t(50pts, 140 solved)</h3>
 <p>.sal のバイナリデータが与えられます．
 logic2 で Async Serial デコードするとフラグが得られます．
-ボーレートに注意する必要がありますが，この程度なら概算でできると思います．
+ボーレートに注意する必要がありますが，この程度なら典型的なボーレートでできると思います．
 もちろん手でもデコードできます．</p>
 <p><code>0(ASCII code) 0111 0(ASCII code) 0111...</code></p>
 <p>みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．</p>

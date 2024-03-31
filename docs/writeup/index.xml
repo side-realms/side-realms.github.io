@@ -13,8 +13,8 @@
       <pubDate>Sun, 31 Mar 2024 13:24:01 +0900</pubDate>
       
       <guid>http://side-realms.github.io/writeup/acsc2024/</guid>
-      <description>ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282 位，国内 8/? 位でした.
-An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら概算でできると思います． もちろん手でもデコードできます．
+      <description>ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282(?) 位でした.
+An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら典型的なボーレートでできると思います． もちろん手でもデコードできます．
 0(ASCII code) 0111 0(ASCII code) 0111...
 みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
 Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
