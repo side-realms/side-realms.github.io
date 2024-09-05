@@ -1,13 +1,12 @@
 ---
 title: "好きな邦楽アルバムを考えたい"
 date: 2024-03-09T13:24:01+09:00
-draft: true
+draft: false
 ---
 
 修士も無事取れてジャーナルもちゃんと提出できて，本格的に仕事が始まる四月まで時間があるので(2週間)，今までやってみたかった好きな邦楽アルバムをまとめるやつ，を，やる🍟．\
 せっかくなので名盤ランキングではなく好きなアルバムという視点でまとめる．
 例えば名盤という視点ならジャックスの「ジャックスの世界」は間違いなく入ると思うけど正直このサイケっぽい GS はそこまで好きではないので除外する，みたいな感じ\
-なるべく時系列順だけど正確ではない．年代レベルのオーダーで揃えた．\
 ジャンル混合の異種格闘ではあるけどボカロだけはそれだけでリストが作れるので除外する．
 
 ### 1. King Gnu / CEREMONY
@@ -88,60 +87,284 @@ jinmenusagi は知り合いに 「so goo」を教えてもらってからよく�
 「SWEET SPOT」はまだゆらゆら帝国のサイケな感じが前面に出ていて聴きやすい．
 「タコ人間」みたいなわけ分かんない音色でわけ分かんない歌詞を歌うの坂本慎太郎しかできないだろうなと思って聴いてる．「ソフトに死んでいる」とか最初ビックリした
 
-1.  銀杏BOYS / 君と僕の第三次世界大戦的恋愛革命
-2.  レイハラカミ / わすれもの
-3.  NUMBER GIRL / SAPPUKEI
-4.  BUMP PF CHICKEN / Jupyter
-5.  椎名林檎 / 無罪モラトリアム
-6.  Hi-STANDARD / MAKING THE ROAD
-7.  THEE MICHELLE GUN ELEPHANT / Chicken Zombies
-8.  Cornelius / Fantasma
-9.  小沢健二 / LIFE
-10. Fishmans /
-11. INU / メシ喰うな
-12. スピッツ / 名前をつけてやる
-13. エレファントカシマシ / ココロに花を
-14. THE BLUE HEARTS / THE BLUE HEARTS
-15. ローザ・ルクセンブルグ / ROSA LUXEMBURG II
-16. BOOWY / BEAT EMOTION
-17. THE STALIN / STOP JAP
-18. 暗黒大陸じゃがたら / 南蛮渡来
-19. 佐野元春 / SOMEDAY
-20. RCサクセション / BLUE
-21. サザンオールスターズ / 人気者でいこう
-22. 喜納昌吉 & チャンプルーズ / 喜納昌吉 & チャンプルーズ
-23. シュガーベイブ / SONGS
-24. 大瀧詠一 / NIAGARA MOON
-25. 大瀧詠一 / EACH TIME
-26. 鈴木茂 / BAND WAGON
-27. 四人囃子 / 一触即発
-28. サディスティックミカバンド / 黒船
-29. 村八分 / ライブ
-30. FLOWER TRAVELLIN' BAND / SATORI
-31. はっぴいえんど / 風街ろまん
-32. ゴダイゴ
-33. 岡林信康 / 私を断罪せよ
-34. Char / Char
-35. 細野晴臣 / HOSONO HOUSE
-36. YMO / テクノデリック
-37. 葡萄畑 / 葡萄畑
-38. 小坂忠 / ほうろう
-39. ティンパンアレー
-40. 高橋幸宏 / WHAT, ME WORRY ?
-41. 坂本龍一 / B-2 Unit
-42. ART-SHCOOL / In colors
-43. Flipper's guitar / camera camera camera
-44. 頭脳警察 / 頭脳警察3
-45. 荒井由美 / ひこうき雲
-46. 井上陽水 / 氷の世界
-57. スーパーカー / HiGHvison
-58. 電気グルーヴ / カラテカ
-59. TOWA TEI
-60. KIRINJI / 3
-61. 五つの赤い風船 / 血まみれの鳩
-62. ヒカシュー / 夏
-63. group_inou / MAP
-64. パソコン音楽クラブ /
-65. 吉田美奈子 / FLAPPER
-66. 大貫妙子 / SUNSHOWER
-67. After the Rain / クロクレストストーリー
+コメント書くの疲れてしまったので残りは気が向いたら書く．．．
+
+### 11.  銀杏BOYS / 君と僕の第三次世界大戦的恋愛革命
+
+![layer](/images/ginnnan.jpg)
+
+### 12.  レイハラカミ / わすれもの
+
+![layer](/images/wasuremono.jpg)
+
+### 13.  NUMBER GIRL / SAPPUKEI
+
+![layer](/images/sappukei.png)
+
+### 14.  BUMP PF CHICKEN / Jupyter
+
+![layer](/images/jupyter.jpg)
+
+### 15.  椎名林檎 / 無罪モラトリアム
+
+![layer](/images/muzai.jpg)
+
+### 16.  Hi-STANDARD / MAKING THE ROAD
+
+![layer](/images/making.jpg)
+
+### 17.  THEE MICHELLE GUN ELEPHANT / Chicken Zombies
+
+![layer](/images/chichen.jpg)
+
+### 18.  Cornelius / Fantasma
+
+![layer](/images/fantasma.jpg)
+
+### 19.  小沢健二 / LIFE
+
+![layer](/images/LIFE.jpg)
+
+### 20.  INU / メシ喰うな
+
+![layer](/images/inu.jpg)
+
+### 21.  スピッツ / 名前をつけてやる
+
+![layer](/images/spitz.jpg)
+
+### 22.  エレファントカシマシ / ココロに花を
+
+![layer](/images/kokoroni.jpg)
+
+### 23.  THE BLUE HEARTS / THE BLUE HEARTS
+
+![layer](/images/blue.jpg)
+
+### 24.  ローザ・ルクセンブルグ / ROSA LUXEMBURG II
+
+![layer](/images/rosa.jpg)
+
+### 25.  BOOWY / BEAT EMOTION
+
+![layer](/images/boowy.jpg)
+
+### 26.  THE STALIN / STOP JAP
+
+![layer](/images/stop.jpg)
+
+### 27.  暗黒大陸じゃがたら / 南蛮渡来
+
+![layer](/images/jaga.jpg)
+
+### 28.  アナーキー / アナーキー
+
+![layer](/images/anarkey.jpg)
+
+### 29.  佐野元春 / SOMEDAY
+
+![layer](/images/someday.jpg)
+
+### 30. RCサクセション / BLUE
+
+![layer](/images/blue.jpg)
+
+### 31. サザンオールスターズ / KAMAKURA
+
+![layer](/images/kamakura.jpg)
+
+### 32. 喜納昌吉 & チャンプルーズ / 喜納昌吉 & チャンプルーズ
+
+![layer](/images/haisai.jpg)
+
+### 33. シュガーベイブ / SONGS
+
+![layer](/images/songs.jpg)
+
+### 34. 大瀧詠一 / NIAGARA MOON
+
+![layer](/images/niagara.jpg)
+
+### 35. 大瀧詠一 / EACH TIME
+
+![layer](/images/each.jpg)
+
+### 36. 鈴木茂 / BAND WAGON
+
+![layer](/images/band.jpg)
+
+### 37. 四人囃子 / 一触即発
+
+![layer](/images/yonin.jpg)
+
+### 38. サディスティックミカバンド / 黒船
+
+![layer](/images/kurofune.jpg)
+
+### 39. 村八分 / ライブ
+
+![layer](/images/live.jpg)
+
+### 40. FLOWER TRAVELLIN' BAND / SATORI
+
+![layer](/images/satori.jpg)
+
+### 41. はっぴいえんど / 風街ろまん
+
+![layer](/images/roman.jpg)
+
+### 42. ゴダイゴ / GODAIGO GREAT BEST
+
+![layer](/images/godaigo.jpg)
+
+### 43. 岡林信康 / 私を断罪せよ
+
+![layer](/images/watashiwo.jpg)
+
+### 44. Char / Char
+
+![layer](/images/char.jpg)
+
+### 45. 細野晴臣 / HOSONO HOUSE
+
+![layer](/images/hosono.jpg)
+
+### 46. YMO / テクノデリック
+
+![layer](/images/YMO.jpg)
+
+### 47. 葡萄畑 / 葡萄畑
+
+![layer](/images/budou.jpg)
+
+### 48. 小坂忠 / ほうろう
+
+![layer](/images/hourou.jpg)
+
+### 49. ティンパンアレー
+
+![layer](/images/TiaPan.jpg)
+
+### 50. 高橋幸宏 / WHAT, ME WORRY ?
+
+![layer](/images/WhatMe.jpg)
+
+### 51. 坂本龍一 / B-2 Unit
+
+![layer](/images/B-2.jpg)
+
+### 52. ART-SHCOOL / In colors
+
+![layer](/images/artschool.jpg)
+
+### 53. Flipper's guitar / camera talk
+
+![layer](/images/camera.jpg)
+
+### 54. 頭脳警察 / 頭脳警察3
+
+![layer](/images/zunou.jpg)
+
+### 55. 荒井由美 / ひこうき雲
+
+![layer](/images/hikouki.jpg)
+
+### 56. 井上陽水 / 氷の世界
+
+![layer](/images/koorino.jpg)
+
+### 57. スーパーカー / HiGHvision
+
+![layer](/images/highvision.jpg)
+
+### 58. 電気グルーヴ / カラテカ
+
+![layer](/images/karateka.jpg)
+
+### 59. TOWA TEI / future listening
+
+![layer](/images/towa.jpg)
+
+### 60. KIRINJI / 3
+
+![layer](/images/kirinji.jpg)
+
+### 61. 五つの赤い風船 / 血まみれの鳩
+
+![layer](/images/chimamire.jpg)
+
+### 62. ヒカシュー / 夏
+
+![layer](/images/natsu.jpg)
+
+### 63. group_inou / MAP
+
+![layer](/images/map.jpg)
+
+### 64. パソコン音楽クラブ / Night Flow
+
+![layer](/images/pasocon.jpg)
+
+### 65. 吉田美奈子 / FLAPPER
+
+![layer](/images/flapper.jpg)
+
+### 66. 大貫妙子 / SUNSHOWER
+
+![layer](/images/sunshower.jpg)
+
+### 67. After the Rain / クロクレストストーリー
+
+![layer](/images/ATR.jpg)
+
+### 68. betcover!! / 馬
+
+![layer](/images/uma.jpg)
+
+### 69. Kroi / telegraph
+
+![layer](/images/kroi.jpg)
+
+### 70. NICO NICO TAN TAN / 微笑
+
+![layer](/images/bishow.jpg)
+
+### 71. w.o.d. / 感情
+
+![layer](/images/wod.jpg)
+
+### 72. ヨルシカ / 夏草が邪魔をする
+
+![layer](/images/yorushika.jpg)
+
+### 73. 新東京 / NEO TOKYO METRO
+
+![layer](/images/neotokyo.jpg)
+
+### 74. ひとひら / つくる
+
+![layer](/images/tsukuru.jpg)
+
+### 75. 離婚伝説 / 離婚伝説
+
+![layer](/images/rikon.jpg)
+
+### 76. えんぷてい / TIME
+
+![layer](/images/time.jpg)
+
+### 77. 中村一義 / 金字塔
+
+![layer](/images/kinjitou.jpg)
+
+### 78. サカナクション / sakanaction
+
+![layer](/images/sakanaction.jpg)
+
+### 79. D.A.N. / D.A.N.
+
+![layer](/images/dan.jpg)
+
+### 80. 帰りの会 / OTOTOY
+
+![layer](/images/ototoy.jpg)

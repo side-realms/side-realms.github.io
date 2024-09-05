@@ -17,7 +17,7 @@ buildExpired = false
     weight = 1
   [[menu.main]]
     identifier = "log"
-    name = "log"
+    name = "life log"
     url = "/log"
     weight = 2
   [[menu.main]]
@@ -36,9 +36,9 @@ buildExpired = false
     url = "/container"
     weight = 2
   [[menu.post]]
-    identifier = "interpreter"
-    name = "interpreter"
-    url = "/Interpreter"
+    identifier = "hardware"
+    name = "hardware"
+    url = "/hardware"
     weight = 2
   [[menu.post]]
     identifier = "writeup"

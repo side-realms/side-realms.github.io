@@ -6,7 +6,25 @@
     <description>Recent content in Writeups on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Mar 2024 13:24:01 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 05:14:09 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anonforce</title>
+      <link>http://side-realms.github.io/writeup/anonforce/</link>
+      <pubDate>Sun, 07 Apr 2024 05:14:09 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/anonforce/</guid>
+      <description>user ftp に anonymous ログインができる user.txt を見る root 謎に noread ディレクトリがあるのでここの backup.pgp と private.asc をダウンロード gpg2john private.asc &amp;gt; private john --wordlist=/usr/share/wordlists/rockyou.txt private gpg --import private.asc gpg --decrypt backup.pgp shadow ファイルが手に入るので root のパスワードを復元して ssh </description>
+    </item>
+    
+    <item>
+      <title>Disgruntled</title>
+      <link>http://side-realms.github.io/writeup/disgruntled/</link>
+      <pubDate>Sun, 07 Apr 2024 05:07:47 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/disgruntled/</guid>
+      <description>Task3 cat /var/log/auth.log |grep install Task4 cat /var/log/auth.log |grep adduser cat /var/log/auth.log |grep visudo cat /var/log/auth.log |grep vi Task5 it-admin がユーザーであることが分かったので cat /home/it-admin/.bash_history cat /home/it-admin/.viminfo ls -la /bin/os-update cat /bin/os-update.sh Task6 cat /etc/crontab </description>
+    </item>
+    
     <item>
       <title>ACSC 2024 writeup</title>
       <link>http://side-realms.github.io/writeup/acsc2024/</link>
