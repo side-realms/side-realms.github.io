@@ -2,13 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://side-realms.github.io/writeup/anonforce/</loc>
-    <lastmod>2024-04-07T05:14:09+09:00</lastmod>
+    <loc>http://side-realms.github.io/writeup/litctf2024/</loc>
+    <lastmod>2024-08-13T23:18:46+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/writeup/</loc>
-    <lastmod>2024-04-07T05:14:09+09:00</lastmod>
+    <lastmod>2024-08-13T23:18:46+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/</loc>
+    <lastmod>2024-08-13T23:18:46+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/wanictf2024/</loc>
+    <lastmod>2024-06-25T18:50:04+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/cryptohack2/</loc>
+    <lastmod>2024-06-09T20:08:31+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/htb_devvortex/</loc>
+    <lastmod>2024-06-08T15:25:30+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/htb_bizness/</loc>
+    <lastmod>2024-06-05T04:49:04+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/beginner/</loc>
+    <lastmod>2024-05-24T21:22:04+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/lame/</loc>
+    <lastmod>2024-05-22T21:27:57+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/rev_1/</loc>
+    <lastmod>2024-05-06T05:03:30+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/cryptohack/</loc>
+    <lastmod>2024-05-04T22:10:33+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/picoweb/</loc>
+    <lastmod>2024-05-02T10:39:24+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/hardware/badusb/</loc>
+    <lastmod>2024-04-14T13:53:47+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/hardware/</loc>
+    <lastmod>2024-04-14T13:53:47+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/picorev/</loc>
+    <lastmod>2024-04-07T19:40:38+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/writeup/anonforce/</loc>
     <lastmod>2024-04-07T05:14:09+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/writeup/disgruntled/</loc>

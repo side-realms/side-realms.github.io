@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Cryptohack2 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cryptohack2"/>
+<meta name="twitter:description" content="Structure of AES def matrix2bytes(matrix): &#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array. &#34;&#34;&#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&#39;&#39;) Round Key def add_round_key(s, k): for i in range(4): for j in range(4): state[i][j] = state[i][j] ^ round_key[i][j] return (state) print(matrix2bytes(add_round_key(state, round_key))) Confusion through Substitution from Crypto.Util.number import long_to_bytes def matrix2bytes(matrix): &#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array. &#34;&#34;&#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&#39;&#39;) def sub_bytes(s, sbox=s_box): for i in range(4): for j in range(4): tmp = str(hex(s[i][j]))[2:] #print(tmp[0]) s[i][j] = sbox[int(tmp, base=16)] return(state) Diffusion through Permutation def inv_shift_rows(s): s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1] s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2] s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3] inv_mix_columns(state) inv_shift_rows(state) print(matrix2bytes(state)) Bringing It All Together N_ROUNDS = 10 key = b&#39;\xc3,\\\xa6\xb5\x80^\x0c\xdb\x8d\xa5z*\xb6\xfe\\&#39; ciphertext = b&#39;\xd1O\x14j\xa4&#43;O\xb6\xa1\xc4\x08B)\x8f\x12\xdd&#39; s_box = ( 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84, 0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB, 0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16, ) inv_s_box = ( 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB, 0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB, 0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D, 0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E, 0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2, 0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25, 0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92, 0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA, 0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84, 0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A, 0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06, 0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02, 0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B, 0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA, 0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73, 0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85, 0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E, 0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89, 0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B, 0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20, 0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4, 0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31, 0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F, 0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF, 0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61, 0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D, ) def bytes2matrix(text): return [list(text[i:i&#43;4]) for i in range(0, len(text), 4)] def matrix2bytes(matrix): out = [] for r in matrix: for c in r: out."/>
+
+    <meta property="og:title" content="Cryptohack2" />
+<meta property="og:description" content="Structure of AES def matrix2bytes(matrix): &#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array. &#34;&#34;&#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&#39;&#39;) Round Key def add_round_key(s, k): for i in range(4): for j in range(4): state[i][j] = state[i][j] ^ round_key[i][j] return (state) print(matrix2bytes(add_round_key(state, round_key))) Confusion through Substitution from Crypto.Util.number import long_to_bytes def matrix2bytes(matrix): &#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array. &#34;&#34;&#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&#39;&#39;) def sub_bytes(s, sbox=s_box): for i in range(4): for j in range(4): tmp = str(hex(s[i][j]))[2:] #print(tmp[0]) s[i][j] = sbox[int(tmp, base=16)] return(state) Diffusion through Permutation def inv_shift_rows(s): s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1] s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2] s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3] inv_mix_columns(state) inv_shift_rows(state) print(matrix2bytes(state)) Bringing It All Together N_ROUNDS = 10 key = b&#39;\xc3,\\\xa6\xb5\x80^\x0c\xdb\x8d\xa5z*\xb6\xfe\\&#39; ciphertext = b&#39;\xd1O\x14j\xa4&#43;O\xb6\xa1\xc4\x08B)\x8f\x12\xdd&#39; s_box = ( 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84, 0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB, 0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16, ) inv_s_box = ( 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB, 0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB, 0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D, 0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E, 0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2, 0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25, 0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92, 0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA, 0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84, 0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A, 0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06, 0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02, 0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B, 0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA, 0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73, 0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85, 0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E, 0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89, 0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B, 0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20, 0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4, 0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31, 0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F, 0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF, 0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61, 0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D, ) def bytes2matrix(text): return [list(text[i:i&#43;4]) for i in range(0, len(text), 4)] def matrix2bytes(matrix): out = [] for r in matrix: for c in r: out." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/cryptohack2/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-06-09T20:08:31+09:00" />
+<meta property="article:modified_time" content="2024-06-09T20:08:31+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Cryptohack2</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 9, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h2 id="structure-of-aes">Structure of AES</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">matrix2bytes</span>(matrix):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array.  &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>            print(str(long_to_bytes(matrix[i][j]))[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)   
+</span></span></code></pre></div><h2 id="round-key">Round Key</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_round_key</span>(s, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>            state[i][j] <span style="color:#f92672">=</span> state[i][j] <span style="color:#f92672">^</span> round_key[i][j]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (state)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(matrix2bytes(add_round_key(state, round_key)))
+</span></span></code></pre></div><h2 id="confusion-through-substitution">Confusion through Substitution</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">matrix2bytes</span>(matrix):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34; Converts a 4x4 matrix into a 16-byte array.  &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>            print(str(long_to_bytes(matrix[i][j]))[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sub_bytes</span>(s, sbox<span style="color:#f92672">=</span>s_box):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>            tmp <span style="color:#f92672">=</span> str(hex(s[i][j]))[<span style="color:#ae81ff">2</span>:]
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">#print(tmp[0])</span>
+</span></span><span style="display:flex;"><span>            s[i][j] <span style="color:#f92672">=</span> sbox[int(tmp, base<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>(state)
+</span></span></code></pre></div><h2 id="diffusion-through-permutation">Diffusion through Permutation</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inv_shift_rows</span>(s):
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>inv_mix_columns(state)
+</span></span><span style="display:flex;"><span>inv_shift_rows(state)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(matrix2bytes(state))
+</span></span></code></pre></div><h2 id="bringing-it-all-together">Bringing It All Together</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>N_ROUNDS <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key        <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xc3</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\\\xa6\xb5\x80</span><span style="color:#e6db74">^</span><span style="color:#ae81ff">\x0c\xdb\x8d\xa5</span><span style="color:#e6db74">z*</span><span style="color:#ae81ff">\xb6\xfe\\</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xd1</span><span style="color:#e6db74">O</span><span style="color:#ae81ff">\x14</span><span style="color:#e6db74">j</span><span style="color:#ae81ff">\xa4</span><span style="color:#e6db74">+O</span><span style="color:#ae81ff">\xb6\xa1\xc4\x08</span><span style="color:#e6db74">B)</span><span style="color:#ae81ff">\x8f\x12\xdd</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s_box <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x63</span>, <span style="color:#ae81ff">0x7C</span>, <span style="color:#ae81ff">0x77</span>, <span style="color:#ae81ff">0x7B</span>, <span style="color:#ae81ff">0xF2</span>, <span style="color:#ae81ff">0x6B</span>, <span style="color:#ae81ff">0x6F</span>, <span style="color:#ae81ff">0xC5</span>, <span style="color:#ae81ff">0x30</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0xFE</span>, <span style="color:#ae81ff">0xD7</span>, <span style="color:#ae81ff">0xAB</span>, <span style="color:#ae81ff">0x76</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xCA</span>, <span style="color:#ae81ff">0x82</span>, <span style="color:#ae81ff">0xC9</span>, <span style="color:#ae81ff">0x7D</span>, <span style="color:#ae81ff">0xFA</span>, <span style="color:#ae81ff">0x59</span>, <span style="color:#ae81ff">0x47</span>, <span style="color:#ae81ff">0xF0</span>, <span style="color:#ae81ff">0xAD</span>, <span style="color:#ae81ff">0xD4</span>, <span style="color:#ae81ff">0xA2</span>, <span style="color:#ae81ff">0xAF</span>, <span style="color:#ae81ff">0x9C</span>, <span style="color:#ae81ff">0xA4</span>, <span style="color:#ae81ff">0x72</span>, <span style="color:#ae81ff">0xC0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0xFD</span>, <span style="color:#ae81ff">0x93</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x3F</span>, <span style="color:#ae81ff">0xF7</span>, <span style="color:#ae81ff">0xCC</span>, <span style="color:#ae81ff">0x34</span>, <span style="color:#ae81ff">0xA5</span>, <span style="color:#ae81ff">0xE5</span>, <span style="color:#ae81ff">0xF1</span>, <span style="color:#ae81ff">0x71</span>, <span style="color:#ae81ff">0xD8</span>, <span style="color:#ae81ff">0x31</span>, <span style="color:#ae81ff">0x15</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0xC7</span>, <span style="color:#ae81ff">0x23</span>, <span style="color:#ae81ff">0xC3</span>, <span style="color:#ae81ff">0x18</span>, <span style="color:#ae81ff">0x96</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x9A</span>, <span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x12</span>, <span style="color:#ae81ff">0x80</span>, <span style="color:#ae81ff">0xE2</span>, <span style="color:#ae81ff">0xEB</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0xB2</span>, <span style="color:#ae81ff">0x75</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x09</span>, <span style="color:#ae81ff">0x83</span>, <span style="color:#ae81ff">0x2C</span>, <span style="color:#ae81ff">0x1A</span>, <span style="color:#ae81ff">0x1B</span>, <span style="color:#ae81ff">0x6E</span>, <span style="color:#ae81ff">0x5A</span>, <span style="color:#ae81ff">0xA0</span>, <span style="color:#ae81ff">0x52</span>, <span style="color:#ae81ff">0x3B</span>, <span style="color:#ae81ff">0xD6</span>, <span style="color:#ae81ff">0xB3</span>, <span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0xE3</span>, <span style="color:#ae81ff">0x2F</span>, <span style="color:#ae81ff">0x84</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x53</span>, <span style="color:#ae81ff">0xD1</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0xED</span>, <span style="color:#ae81ff">0x20</span>, <span style="color:#ae81ff">0xFC</span>, <span style="color:#ae81ff">0xB1</span>, <span style="color:#ae81ff">0x5B</span>, <span style="color:#ae81ff">0x6A</span>, <span style="color:#ae81ff">0xCB</span>, <span style="color:#ae81ff">0xBE</span>, <span style="color:#ae81ff">0x39</span>, <span style="color:#ae81ff">0x4A</span>, <span style="color:#ae81ff">0x4C</span>, <span style="color:#ae81ff">0x58</span>, <span style="color:#ae81ff">0xCF</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xD0</span>, <span style="color:#ae81ff">0xEF</span>, <span style="color:#ae81ff">0xAA</span>, <span style="color:#ae81ff">0xFB</span>, <span style="color:#ae81ff">0x43</span>, <span style="color:#ae81ff">0x4D</span>, <span style="color:#ae81ff">0x33</span>, <span style="color:#ae81ff">0x85</span>, <span style="color:#ae81ff">0x45</span>, <span style="color:#ae81ff">0xF9</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x7F</span>, <span style="color:#ae81ff">0x50</span>, <span style="color:#ae81ff">0x3C</span>, <span style="color:#ae81ff">0x9F</span>, <span style="color:#ae81ff">0xA8</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x51</span>, <span style="color:#ae81ff">0xA3</span>, <span style="color:#ae81ff">0x40</span>, <span style="color:#ae81ff">0x8F</span>, <span style="color:#ae81ff">0x92</span>, <span style="color:#ae81ff">0x9D</span>, <span style="color:#ae81ff">0x38</span>, <span style="color:#ae81ff">0xF5</span>, <span style="color:#ae81ff">0xBC</span>, <span style="color:#ae81ff">0xB6</span>, <span style="color:#ae81ff">0xDA</span>, <span style="color:#ae81ff">0x21</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0xFF</span>, <span style="color:#ae81ff">0xF3</span>, <span style="color:#ae81ff">0xD2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xCD</span>, <span style="color:#ae81ff">0x0C</span>, <span style="color:#ae81ff">0x13</span>, <span style="color:#ae81ff">0xEC</span>, <span style="color:#ae81ff">0x5F</span>, <span style="color:#ae81ff">0x97</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x17</span>, <span style="color:#ae81ff">0xC4</span>, <span style="color:#ae81ff">0xA7</span>, <span style="color:#ae81ff">0x7E</span>, <span style="color:#ae81ff">0x3D</span>, <span style="color:#ae81ff">0x64</span>, <span style="color:#ae81ff">0x5D</span>, <span style="color:#ae81ff">0x19</span>, <span style="color:#ae81ff">0x73</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x60</span>, <span style="color:#ae81ff">0x81</span>, <span style="color:#ae81ff">0x4F</span>, <span style="color:#ae81ff">0xDC</span>, <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x2A</span>, <span style="color:#ae81ff">0x90</span>, <span style="color:#ae81ff">0x88</span>, <span style="color:#ae81ff">0x46</span>, <span style="color:#ae81ff">0xEE</span>, <span style="color:#ae81ff">0xB8</span>, <span style="color:#ae81ff">0x14</span>, <span style="color:#ae81ff">0xDE</span>, <span style="color:#ae81ff">0x5E</span>, <span style="color:#ae81ff">0x0B</span>, <span style="color:#ae81ff">0xDB</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xE0</span>, <span style="color:#ae81ff">0x32</span>, <span style="color:#ae81ff">0x3A</span>, <span style="color:#ae81ff">0x0A</span>, <span style="color:#ae81ff">0x49</span>, <span style="color:#ae81ff">0x06</span>, <span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x5C</span>, <span style="color:#ae81ff">0xC2</span>, <span style="color:#ae81ff">0xD3</span>, <span style="color:#ae81ff">0xAC</span>, <span style="color:#ae81ff">0x62</span>, <span style="color:#ae81ff">0x91</span>, <span style="color:#ae81ff">0x95</span>, <span style="color:#ae81ff">0xE4</span>, <span style="color:#ae81ff">0x79</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xE7</span>, <span style="color:#ae81ff">0xC8</span>, <span style="color:#ae81ff">0x37</span>, <span style="color:#ae81ff">0x6D</span>, <span style="color:#ae81ff">0x8D</span>, <span style="color:#ae81ff">0xD5</span>, <span style="color:#ae81ff">0x4E</span>, <span style="color:#ae81ff">0xA9</span>, <span style="color:#ae81ff">0x6C</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0xF4</span>, <span style="color:#ae81ff">0xEA</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x7A</span>, <span style="color:#ae81ff">0xAE</span>, <span style="color:#ae81ff">0x08</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xBA</span>, <span style="color:#ae81ff">0x78</span>, <span style="color:#ae81ff">0x25</span>, <span style="color:#ae81ff">0x2E</span>, <span style="color:#ae81ff">0x1C</span>, <span style="color:#ae81ff">0xA6</span>, <span style="color:#ae81ff">0xB4</span>, <span style="color:#ae81ff">0xC6</span>, <span style="color:#ae81ff">0xE8</span>, <span style="color:#ae81ff">0xDD</span>, <span style="color:#ae81ff">0x74</span>, <span style="color:#ae81ff">0x1F</span>, <span style="color:#ae81ff">0x4B</span>, <span style="color:#ae81ff">0xBD</span>, <span style="color:#ae81ff">0x8B</span>, <span style="color:#ae81ff">0x8A</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x70</span>, <span style="color:#ae81ff">0x3E</span>, <span style="color:#ae81ff">0xB5</span>, <span style="color:#ae81ff">0x66</span>, <span style="color:#ae81ff">0x48</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0xF6</span>, <span style="color:#ae81ff">0x0E</span>, <span style="color:#ae81ff">0x61</span>, <span style="color:#ae81ff">0x35</span>, <span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0xB9</span>, <span style="color:#ae81ff">0x86</span>, <span style="color:#ae81ff">0xC1</span>, <span style="color:#ae81ff">0x1D</span>, <span style="color:#ae81ff">0x9E</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xE1</span>, <span style="color:#ae81ff">0xF8</span>, <span style="color:#ae81ff">0x98</span>, <span style="color:#ae81ff">0x11</span>, <span style="color:#ae81ff">0x69</span>, <span style="color:#ae81ff">0xD9</span>, <span style="color:#ae81ff">0x8E</span>, <span style="color:#ae81ff">0x94</span>, <span style="color:#ae81ff">0x9B</span>, <span style="color:#ae81ff">0x1E</span>, <span style="color:#ae81ff">0x87</span>, <span style="color:#ae81ff">0xE9</span>, <span style="color:#ae81ff">0xCE</span>, <span style="color:#ae81ff">0x55</span>, <span style="color:#ae81ff">0x28</span>, <span style="color:#ae81ff">0xDF</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x8C</span>, <span style="color:#ae81ff">0xA1</span>, <span style="color:#ae81ff">0x89</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0xE6</span>, <span style="color:#ae81ff">0x42</span>, <span style="color:#ae81ff">0x68</span>, <span style="color:#ae81ff">0x41</span>, <span style="color:#ae81ff">0x99</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x0F</span>, <span style="color:#ae81ff">0xB0</span>, <span style="color:#ae81ff">0x54</span>, <span style="color:#ae81ff">0xBB</span>, <span style="color:#ae81ff">0x16</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>inv_s_box <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x52</span>, <span style="color:#ae81ff">0x09</span>, <span style="color:#ae81ff">0x6A</span>, <span style="color:#ae81ff">0xD5</span>, <span style="color:#ae81ff">0x30</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0xA5</span>, <span style="color:#ae81ff">0x38</span>, <span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0x40</span>, <span style="color:#ae81ff">0xA3</span>, <span style="color:#ae81ff">0x9E</span>, <span style="color:#ae81ff">0x81</span>, <span style="color:#ae81ff">0xF3</span>, <span style="color:#ae81ff">0xD7</span>, <span style="color:#ae81ff">0xFB</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x7C</span>, <span style="color:#ae81ff">0xE3</span>, <span style="color:#ae81ff">0x39</span>, <span style="color:#ae81ff">0x82</span>, <span style="color:#ae81ff">0x9B</span>, <span style="color:#ae81ff">0x2F</span>, <span style="color:#ae81ff">0xFF</span>, <span style="color:#ae81ff">0x87</span>, <span style="color:#ae81ff">0x34</span>, <span style="color:#ae81ff">0x8E</span>, <span style="color:#ae81ff">0x43</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0xC4</span>, <span style="color:#ae81ff">0xDE</span>, <span style="color:#ae81ff">0xE9</span>, <span style="color:#ae81ff">0xCB</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x54</span>, <span style="color:#ae81ff">0x7B</span>, <span style="color:#ae81ff">0x94</span>, <span style="color:#ae81ff">0x32</span>, <span style="color:#ae81ff">0xA6</span>, <span style="color:#ae81ff">0xC2</span>, <span style="color:#ae81ff">0x23</span>, <span style="color:#ae81ff">0x3D</span>, <span style="color:#ae81ff">0xEE</span>, <span style="color:#ae81ff">0x4C</span>, <span style="color:#ae81ff">0x95</span>, <span style="color:#ae81ff">0x0B</span>, <span style="color:#ae81ff">0x42</span>, <span style="color:#ae81ff">0xFA</span>, <span style="color:#ae81ff">0xC3</span>, <span style="color:#ae81ff">0x4E</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x08</span>, <span style="color:#ae81ff">0x2E</span>, <span style="color:#ae81ff">0xA1</span>, <span style="color:#ae81ff">0x66</span>, <span style="color:#ae81ff">0x28</span>, <span style="color:#ae81ff">0xD9</span>, <span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0xB2</span>, <span style="color:#ae81ff">0x76</span>, <span style="color:#ae81ff">0x5B</span>, <span style="color:#ae81ff">0xA2</span>, <span style="color:#ae81ff">0x49</span>, <span style="color:#ae81ff">0x6D</span>, <span style="color:#ae81ff">0x8B</span>, <span style="color:#ae81ff">0xD1</span>, <span style="color:#ae81ff">0x25</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x72</span>, <span style="color:#ae81ff">0xF8</span>, <span style="color:#ae81ff">0xF6</span>, <span style="color:#ae81ff">0x64</span>, <span style="color:#ae81ff">0x86</span>, <span style="color:#ae81ff">0x68</span>, <span style="color:#ae81ff">0x98</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0xD4</span>, <span style="color:#ae81ff">0xA4</span>, <span style="color:#ae81ff">0x5C</span>, <span style="color:#ae81ff">0xCC</span>, <span style="color:#ae81ff">0x5D</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0xB6</span>, <span style="color:#ae81ff">0x92</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x6C</span>, <span style="color:#ae81ff">0x70</span>, <span style="color:#ae81ff">0x48</span>, <span style="color:#ae81ff">0x50</span>, <span style="color:#ae81ff">0xFD</span>, <span style="color:#ae81ff">0xED</span>, <span style="color:#ae81ff">0xB9</span>, <span style="color:#ae81ff">0xDA</span>, <span style="color:#ae81ff">0x5E</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x46</span>, <span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0xA7</span>, <span style="color:#ae81ff">0x8D</span>, <span style="color:#ae81ff">0x9D</span>, <span style="color:#ae81ff">0x84</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x90</span>, <span style="color:#ae81ff">0xD8</span>, <span style="color:#ae81ff">0xAB</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x8C</span>, <span style="color:#ae81ff">0xBC</span>, <span style="color:#ae81ff">0xD3</span>, <span style="color:#ae81ff">0x0A</span>, <span style="color:#ae81ff">0xF7</span>, <span style="color:#ae81ff">0xE4</span>, <span style="color:#ae81ff">0x58</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0xB8</span>, <span style="color:#ae81ff">0xB3</span>, <span style="color:#ae81ff">0x45</span>, <span style="color:#ae81ff">0x06</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xD0</span>, <span style="color:#ae81ff">0x2C</span>, <span style="color:#ae81ff">0x1E</span>, <span style="color:#ae81ff">0x8F</span>, <span style="color:#ae81ff">0xCA</span>, <span style="color:#ae81ff">0x3F</span>, <span style="color:#ae81ff">0x0F</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0xC1</span>, <span style="color:#ae81ff">0xAF</span>, <span style="color:#ae81ff">0xBD</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x13</span>, <span style="color:#ae81ff">0x8A</span>, <span style="color:#ae81ff">0x6B</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x3A</span>, <span style="color:#ae81ff">0x91</span>, <span style="color:#ae81ff">0x11</span>, <span style="color:#ae81ff">0x41</span>, <span style="color:#ae81ff">0x4F</span>, <span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0xDC</span>, <span style="color:#ae81ff">0xEA</span>, <span style="color:#ae81ff">0x97</span>, <span style="color:#ae81ff">0xF2</span>, <span style="color:#ae81ff">0xCF</span>, <span style="color:#ae81ff">0xCE</span>, <span style="color:#ae81ff">0xF0</span>, <span style="color:#ae81ff">0xB4</span>, <span style="color:#ae81ff">0xE6</span>, <span style="color:#ae81ff">0x73</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x96</span>, <span style="color:#ae81ff">0xAC</span>, <span style="color:#ae81ff">0x74</span>, <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0xE7</span>, <span style="color:#ae81ff">0xAD</span>, <span style="color:#ae81ff">0x35</span>, <span style="color:#ae81ff">0x85</span>, <span style="color:#ae81ff">0xE2</span>, <span style="color:#ae81ff">0xF9</span>, <span style="color:#ae81ff">0x37</span>, <span style="color:#ae81ff">0xE8</span>, <span style="color:#ae81ff">0x1C</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0x6E</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x47</span>, <span style="color:#ae81ff">0xF1</span>, <span style="color:#ae81ff">0x1A</span>, <span style="color:#ae81ff">0x71</span>, <span style="color:#ae81ff">0x1D</span>, <span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0xC5</span>, <span style="color:#ae81ff">0x89</span>, <span style="color:#ae81ff">0x6F</span>, <span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0x62</span>, <span style="color:#ae81ff">0x0E</span>, <span style="color:#ae81ff">0xAA</span>, <span style="color:#ae81ff">0x18</span>, <span style="color:#ae81ff">0xBE</span>, <span style="color:#ae81ff">0x1B</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xFC</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x3E</span>, <span style="color:#ae81ff">0x4B</span>, <span style="color:#ae81ff">0xC6</span>, <span style="color:#ae81ff">0xD2</span>, <span style="color:#ae81ff">0x79</span>, <span style="color:#ae81ff">0x20</span>, <span style="color:#ae81ff">0x9A</span>, <span style="color:#ae81ff">0xDB</span>, <span style="color:#ae81ff">0xC0</span>, <span style="color:#ae81ff">0xFE</span>, <span style="color:#ae81ff">0x78</span>, <span style="color:#ae81ff">0xCD</span>, <span style="color:#ae81ff">0x5A</span>, <span style="color:#ae81ff">0xF4</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x1F</span>, <span style="color:#ae81ff">0xDD</span>, <span style="color:#ae81ff">0xA8</span>, <span style="color:#ae81ff">0x33</span>, <span style="color:#ae81ff">0x88</span>, <span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0xC7</span>, <span style="color:#ae81ff">0x31</span>, <span style="color:#ae81ff">0xB1</span>, <span style="color:#ae81ff">0x12</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x59</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x80</span>, <span style="color:#ae81ff">0xEC</span>, <span style="color:#ae81ff">0x5F</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x60</span>, <span style="color:#ae81ff">0x51</span>, <span style="color:#ae81ff">0x7F</span>, <span style="color:#ae81ff">0xA9</span>, <span style="color:#ae81ff">0x19</span>, <span style="color:#ae81ff">0xB5</span>, <span style="color:#ae81ff">0x4A</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0xE5</span>, <span style="color:#ae81ff">0x7A</span>, <span style="color:#ae81ff">0x9F</span>, <span style="color:#ae81ff">0x93</span>, <span style="color:#ae81ff">0xC9</span>, <span style="color:#ae81ff">0x9C</span>, <span style="color:#ae81ff">0xEF</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0xA0</span>, <span style="color:#ae81ff">0xE0</span>, <span style="color:#ae81ff">0x3B</span>, <span style="color:#ae81ff">0x4D</span>, <span style="color:#ae81ff">0xAE</span>, <span style="color:#ae81ff">0x2A</span>, <span style="color:#ae81ff">0xF5</span>, <span style="color:#ae81ff">0xB0</span>, <span style="color:#ae81ff">0xC8</span>, <span style="color:#ae81ff">0xEB</span>, <span style="color:#ae81ff">0xBB</span>, <span style="color:#ae81ff">0x3C</span>, <span style="color:#ae81ff">0x83</span>, <span style="color:#ae81ff">0x53</span>, <span style="color:#ae81ff">0x99</span>, <span style="color:#ae81ff">0x61</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x17</span>, <span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x7E</span>, <span style="color:#ae81ff">0xBA</span>, <span style="color:#ae81ff">0x77</span>, <span style="color:#ae81ff">0xD6</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0xE1</span>, <span style="color:#ae81ff">0x69</span>, <span style="color:#ae81ff">0x14</span>, <span style="color:#ae81ff">0x63</span>, <span style="color:#ae81ff">0x55</span>, <span style="color:#ae81ff">0x21</span>, <span style="color:#ae81ff">0x0C</span>, <span style="color:#ae81ff">0x7D</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bytes2matrix</span>(text):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [list(text[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">4</span>]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(text), <span style="color:#ae81ff">4</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">matrix2bytes</span>(matrix):
+</span></span><span style="display:flex;"><span>    out <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> matrix:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> r:
+</span></span><span style="display:flex;"><span>            out<span style="color:#f92672">.</span>append(c<span style="color:#f92672">.</span>to_bytes(<span style="color:#ae81ff">2</span>,byteorder<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;little&#39;</span>)<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inv_shift_rows</span>(s):
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>], s[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inv_sub_bytes</span>(s, sbox<span style="color:#f92672">=</span>inv_s_box):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(s[i])):
+</span></span><span style="display:flex;"><span>            s[i][j] <span style="color:#f92672">=</span> (sbox[s[i][j]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_round_key</span>(s, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(s[i])):
+</span></span><span style="display:flex;"><span>            s[i][j] <span style="color:#f92672">=</span> (s[i][j] <span style="color:#f92672">^</span> k[i][j])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xtime <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> a: (((a <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">^</span> <span style="color:#ae81ff">0x1B</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80</span>) <span style="color:#66d9ef">else</span> (a <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mix_single_column</span>(a):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># see Sec 4.1.2 in The Design of Rijndael</span>
+</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> a[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^=</span> t <span style="color:#f92672">^</span> xtime(a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    a[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">^=</span> t <span style="color:#f92672">^</span> xtime(a[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    a[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">^=</span> t <span style="color:#f92672">^</span> xtime(a[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">^</span> a[<span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>    a[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">^=</span> t <span style="color:#f92672">^</span> xtime(a[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">^</span> u)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mix_columns</span>(s):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        mix_single_column(s[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inv_mix_columns</span>(s):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># see Sec 4.1.3 in The Design of Rijndael</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">=</span> xtime(xtime(s[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^</span> s[i][<span style="color:#ae81ff">2</span>]))
+</span></span><span style="display:flex;"><span>        v <span style="color:#f92672">=</span> xtime(xtime(s[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">^</span> s[i][<span style="color:#ae81ff">3</span>]))
+</span></span><span style="display:flex;"><span>        s[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^=</span> u
+</span></span><span style="display:flex;"><span>        s[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">^=</span> v
+</span></span><span style="display:flex;"><span>        s[i][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">^=</span> u
+</span></span><span style="display:flex;"><span>        s[i][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">^=</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mix_columns(s)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">expand_key</span>(master_key):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Expands and returns a list of key matrices for the given master_key.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Round constants https://en.wikipedia.org/wiki/AES_key_schedule#Round_constants</span>
+</span></span><span style="display:flex;"><span>    r_con <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x08</span>, <span style="color:#ae81ff">0x10</span>, <span style="color:#ae81ff">0x20</span>, <span style="color:#ae81ff">0x40</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0x80</span>, <span style="color:#ae81ff">0x1B</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x6C</span>, <span style="color:#ae81ff">0xD8</span>, <span style="color:#ae81ff">0xAB</span>, <span style="color:#ae81ff">0x4D</span>, <span style="color:#ae81ff">0x9A</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0x2F</span>, <span style="color:#ae81ff">0x5E</span>, <span style="color:#ae81ff">0xBC</span>, <span style="color:#ae81ff">0x63</span>, <span style="color:#ae81ff">0xC6</span>, <span style="color:#ae81ff">0x97</span>, <span style="color:#ae81ff">0x35</span>, <span style="color:#ae81ff">0x6A</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0xD4</span>, <span style="color:#ae81ff">0xB3</span>, <span style="color:#ae81ff">0x7D</span>, <span style="color:#ae81ff">0xFA</span>, <span style="color:#ae81ff">0xEF</span>, <span style="color:#ae81ff">0xC5</span>, <span style="color:#ae81ff">0x91</span>, <span style="color:#ae81ff">0x39</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize round keys with raw key material.</span>
+</span></span><span style="display:flex;"><span>    key_columns <span style="color:#f92672">=</span> bytes2matrix(master_key)
+</span></span><span style="display:flex;"><span>    iteration_size <span style="color:#f92672">=</span> len(master_key) <span style="color:#f92672">//</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Each iteration has exactly as many columns as the key material.</span>
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> len(key_columns) <span style="color:#f92672">&lt;</span> (N_ROUNDS <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Copy previous word.</span>
+</span></span><span style="display:flex;"><span>        word <span style="color:#f92672">=</span> list(key_columns[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Perform schedule_core once every &#34;row&#34;.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(key_columns) <span style="color:#f92672">%</span> iteration_size <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Circular shift.</span>
+</span></span><span style="display:flex;"><span>            word<span style="color:#f92672">.</span>append(word<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Map to S-BOX.</span>
+</span></span><span style="display:flex;"><span>            word <span style="color:#f92672">=</span> [s_box[b] <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> word]
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># XOR with first byte of R-CON, since the others bytes of R-CON are 0.</span>
+</span></span><span style="display:flex;"><span>            word[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">^=</span> r_con[i]
+</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> len(master_key) <span style="color:#f92672">==</span> <span style="color:#ae81ff">32</span> <span style="color:#f92672">and</span> len(key_columns) <span style="color:#f92672">%</span> iteration_size <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Run word through S-box in the fourth iteration when using a</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 256-bit key.</span>
+</span></span><span style="display:flex;"><span>            word <span style="color:#f92672">=</span> [s_box[b] <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> word]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># XOR with equivalent word from previous iteration.</span>
+</span></span><span style="display:flex;"><span>        word <span style="color:#f92672">=</span> bytes(i<span style="color:#f92672">^</span>j <span style="color:#66d9ef">for</span> i, j <span style="color:#f92672">in</span> zip(word, key_columns[<span style="color:#f92672">-</span>iteration_size]))
+</span></span><span style="display:flex;"><span>        key_columns<span style="color:#f92672">.</span>append(word)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Group key words in 4x4 byte matrices.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [key_columns[<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>i : <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(key_columns) <span style="color:#f92672">//</span> <span style="color:#ae81ff">4</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(key, ciphertext):
+</span></span><span style="display:flex;"><span>    round_keys <span style="color:#f92672">=</span> expand_key(key) <span style="color:#75715e"># Remember to start from the last round key and work backwards through them when decrypting</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Convert ciphertext to state matrix</span>
+</span></span><span style="display:flex;"><span>    state <span style="color:#f92672">=</span> bytes2matrix(ciphertext)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initial add round key step</span>
+</span></span><span style="display:flex;"><span>    add_round_key(state,round_keys[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N_ROUNDS <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        inv_shift_rows(state)
+</span></span><span style="display:flex;"><span>        inv_sub_bytes(state, inv_s_box)
+</span></span><span style="display:flex;"><span>        add_round_key(state,round_keys[i])
+</span></span><span style="display:flex;"><span>        inv_mix_columns(state)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Run final round (skips the InvMixColumns step)</span>
+</span></span><span style="display:flex;"><span>    inv_shift_rows(state)
+</span></span><span style="display:flex;"><span>    inv_sub_bytes(state, inv_s_box)
+</span></span><span style="display:flex;"><span>    add_round_key(state,round_keys[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Convert state matrix to plaintext</span>
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">=</span> matrix2bytes(state)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> plaintext
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(decrypt(key, ciphertext))
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

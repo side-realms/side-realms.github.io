@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>LITCTF2024 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LITCTF2024"/>
+<meta name="twitter:description" content="Crypto simple otp 与えられた鍵と XOR する
+import random encoded_with_xor = b&#39;\x81Nx\x9b\xea)\xe4\x11\xc5 e\xbb\xcdR\xb7\x8f:\xf8\x8bJ\x15\x0e.n\\-/4\x91\xdcN\x8a&#39; random.seed(0) key = random.randbytes(32) #print(key ^ encoded_with_xor) print(bytes(a ^ b for a, b in zip(key, encoded_with_xor))) privatekey N = 91222155440553152389498614260050699731763350575147080767270489977917091931170943138928885120658877746247611632809405330094823541534217244038578699660880006339704989092479659053257803665271330929925869501196563443668981397902668090043639708667461870466802555861441754587186218972034248949207279990970777750209 e = 89367874380527493290104721678355794851752244712307964470391711606074727267038562743027846335233189217972523295913276633530423913558009009304519822798850828058341163149186400703842247356763254163467344158854476953789177826969005741218604103441014310747381924897883873667049874536894418991242502458035490144319 c = 71713040895862900826227958162735654909383845445237320223905265447935484166586100020297922365470898490364132661022898730819952219842679884422062319998678974747389086806470313146322055888525887658138813737156642494577963249790227961555514310838370972597205191372072037773173143170516757649991406773514836843206 e がデカい
+import owiener from Crypto.Util.number import * e = ... n = ... c = ... d = owiener.attack(e, n) print(&#34;d={}&#34;.format(d)) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) pope shuffle it&rsquo;s like caesar cipher but better."/>
+
+    <meta property="og:title" content="LITCTF2024" />
+<meta property="og:description" content="Crypto simple otp 与えられた鍵と XOR する
+import random encoded_with_xor = b&#39;\x81Nx\x9b\xea)\xe4\x11\xc5 e\xbb\xcdR\xb7\x8f:\xf8\x8bJ\x15\x0e.n\\-/4\x91\xdcN\x8a&#39; random.seed(0) key = random.randbytes(32) #print(key ^ encoded_with_xor) print(bytes(a ^ b for a, b in zip(key, encoded_with_xor))) privatekey N = 91222155440553152389498614260050699731763350575147080767270489977917091931170943138928885120658877746247611632809405330094823541534217244038578699660880006339704989092479659053257803665271330929925869501196563443668981397902668090043639708667461870466802555861441754587186218972034248949207279990970777750209 e = 89367874380527493290104721678355794851752244712307964470391711606074727267038562743027846335233189217972523295913276633530423913558009009304519822798850828058341163149186400703842247356763254163467344158854476953789177826969005741218604103441014310747381924897883873667049874536894418991242502458035490144319 c = 71713040895862900826227958162735654909383845445237320223905265447935484166586100020297922365470898490364132661022898730819952219842679884422062319998678974747389086806470313146322055888525887658138813737156642494577963249790227961555514310838370972597205191372072037773173143170516757649991406773514836843206 e がデカい
+import owiener from Crypto.Util.number import * e = ... n = ... c = ... d = owiener.attack(e, n) print(&#34;d={}&#34;.format(d)) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) pope shuffle it&rsquo;s like caesar cipher but better." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/litctf2024/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-08-13T23:18:46+09:00" />
+<meta property="article:modified_time" content="2024-08-13T23:18:46+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">LITCTF2024</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 13, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h2 id="crypto">Crypto</h2>
+<h3 id="simple-otp">simple otp</h3>
+<p>与えられた鍵と XOR する</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>encoded_with_xor <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x81</span><span style="color:#e6db74">Nx</span><span style="color:#ae81ff">\x9b\xea</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\xe4\x11\xc5</span><span style="color:#e6db74"> e</span><span style="color:#ae81ff">\xbb\xcd</span><span style="color:#e6db74">R</span><span style="color:#ae81ff">\xb7\x8f</span><span style="color:#e6db74">:</span><span style="color:#ae81ff">\xf8\x8b</span><span style="color:#e6db74">J</span><span style="color:#ae81ff">\x15\x0e</span><span style="color:#e6db74">.n</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">-/4</span><span style="color:#ae81ff">\x91\xdc</span><span style="color:#e6db74">N</span><span style="color:#ae81ff">\x8a</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randbytes(<span style="color:#ae81ff">32</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(key ^ encoded_with_xor)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(bytes(a <span style="color:#f92672">^</span> b <span style="color:#66d9ef">for</span> a, b <span style="color:#f92672">in</span> zip(key, encoded_with_xor)))
+</span></span></code></pre></div><h3 id="privatekey">privatekey</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>N = 91222155440553152389498614260050699731763350575147080767270489977917091931170943138928885120658877746247611632809405330094823541534217244038578699660880006339704989092479659053257803665271330929925869501196563443668981397902668090043639708667461870466802555861441754587186218972034248949207279990970777750209
+</span></span><span style="display:flex;"><span>e = 89367874380527493290104721678355794851752244712307964470391711606074727267038562743027846335233189217972523295913276633530423913558009009304519822798850828058341163149186400703842247356763254163467344158854476953789177826969005741218604103441014310747381924897883873667049874536894418991242502458035490144319
+</span></span><span style="display:flex;"><span>c = 71713040895862900826227958162735654909383845445237320223905265447935484166586100020297922365470898490364132661022898730819952219842679884422062319998678974747389086806470313146322055888525887658138813737156642494577963249790227961555514310838370972597205191372072037773173143170516757649991406773514836843206
+</span></span></code></pre></div><p>e がデカい</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> owiener
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> owiener<span style="color:#f92672">.</span>attack(e, n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;d=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(d))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plain <span style="color:#f92672">=</span> pow(c, d, n)
+</span></span><span style="display:flex;"><span>print(long_to_bytes(plain)<span style="color:#f92672">.</span>strip())
+</span></span></code></pre></div><h3 id="pope-shuffle">pope shuffle</h3>
+<blockquote>
+<p>it&rsquo;s like caesar cipher but better. Encoded: ࠴࠱࠼ࠫ࠼࠮ࡣࡋࡍࠨ࡛ࡍ࡚ࡇ࡛ࠩࡔࡉࡌࡥ</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;࠴࠱࠼ࠫ࠼࠮ࡣࡋࡍࠨ࡛ࡍ࡚ࡇ࡛ࠩࡔࡉࡌࡥ&#34;</span>
+</span></span><span style="display:flex;"><span>s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LITCTF{&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s)):
+</span></span><span style="display:flex;"><span>    print(chr(ord(s[i]) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2024</span>), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s2)):
+</span></span><span style="display:flex;"><span>    print(ord(s2[i]), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>)
+</span></span></code></pre></div><h3 id="symmetric-rsapermalink">Symmetric RSAPermalink</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes <span style="color:#66d9ef">as</span> ltb, bytes_to_long <span style="color:#66d9ef">as</span> btl, getPrime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;flag.txt&#34;</span>, <span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    PT <span style="color:#f92672">=</span> btl(f<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CT <span style="color:#f92672">=</span> pow(PT, e, n)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>CT <span style="color:#e6db74">= }</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>    CT <span style="color:#f92672">=</span> pow(int(input(<span style="color:#e6db74">&#34;Plaintext: &#34;</span>)), e, n)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>CT <span style="color:#e6db74">= }</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><p>e の使い方が変．
+また，サーバにアクセスすると 4 回暗号文を得られる．</p>
+<h2 id="misc">Misc</h2>
+<h3 id="geoguessr1">geoguessr1</h3>
+<p>google photo に入れたら中国の橋が見つかったので，google map で頑張って緯度経度を入れる</p>
+<h3 id="geoguessr2">geoguessr2</h3>
+<p>墓の写真を得る．
+google map では墓地に入れなかったので上空写真からなんとなく場所をつかむ必要がある</p>
+<h3 id="a-little-bit-of-tomcroppery">a little bit of tomcroppery</h3>
+<p>cropped な PNG の写真を得る．
+binwalk で見るといくつか PNG が入っていることが分かる．</p>
+<p><code>binwalk -D '.*' image.png</code></p>
+<h3 id="endless">endless</h3>
+<p>.mp3 が与えられる．
+Flag を読み上げているのでこれを書き込むと flag になる．
+想定解は分からない</p>
+<h3 id="pokemon">pokemon</h3>
+<p>ポケモンバトルが始まる．
+オレはリザードン！</p>
+<p>勝つと謎のおねえさんが出てきて旗を振る．
+これをデコードする．</p>
+<p><a href="https://www.dcode.fr/semaphore-flag"></a></p>
+<h2 id="rev">rev</h2>
+<h3 id="forgotten-message">forgotten message</h3>
+<p><code>strings forgotten-message | grep LITCTF</code></p>
+<h3 id="kablewy">kablewy</h3>
+<p>.js が動いている．
+.js を整形して，tmp.txt に変換して以下のようにする．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;tmp.txt&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>boutput <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>st <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>datalist <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readlines()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(datalist)):
+</span></span><span style="display:flex;"><span>        matches <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;&#34;KGZ1bmN0aW9uKCl7InVzZSBzdHJpY3QiO2V2YWwoYXRvYigi(.*)IikpfSkoKTsK&#34;&#39;</span>, datalist[i])
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#matches = re.findall(r&#39;const\s\w+\s=\s&#34;(.*)&#34;&#39;, datalist[i])</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> matches <span style="color:#f92672">!=</span> []:
+</span></span><span style="display:flex;"><span>            boutput<span style="color:#f92672">.</span>append(str(base64<span style="color:#f92672">.</span>b64decode(matches[<span style="color:#ae81ff">0</span>]))[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(boutput)):
+</span></span><span style="display:flex;"><span>    decoded <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(boutput[i])
+</span></span><span style="display:flex;"><span>    boutput[i] <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;postMessage\(&#39;(.)&#39;\)&#34;</span>, str(decoded)[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    st <span style="color:#f92672">+=</span> (boutput[i][<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;flag: &#39;</span> <span style="color:#f92672">+</span> st)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><h3 id="burger-reviewer">Burger Reviewer</h3>
+<p>.java が与えられる．
+入力した文字列が flag と一致していてば OK．
+.java の中身を逆算すると以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;LITCTF</span><span style="color:#e6db74">{XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> list(flag)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>under <span style="color:#f92672">=</span> [<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">39</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> under:
+</span></span><span style="display:flex;"><span>  flag[i] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;_&#39;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>meat <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#e6db74">&#39;h&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;f&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>]
+</span></span><span style="display:flex;"><span>dif <span style="color:#f92672">=</span> [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> <span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(meat)):
+</span></span><span style="display:flex;"><span>  m <span style="color:#f92672">-=</span> dif[i]
+</span></span><span style="display:flex;"><span>  flag[m] <span style="color:#f92672">=</span> meat[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>veg1 <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">40</span>]
+</span></span><span style="display:flex;"><span>veg <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>veg[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(veg1)):
+</span></span><span style="display:flex;"><span>  flag[veg1[i]] <span style="color:#f92672">=</span> str(veg[i])
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(flag)</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(flag))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>source <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>]
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> a <span style="color:#f92672">&lt;</span> b:
+</span></span><span style="display:flex;"><span>  flag[a] <span style="color:#f92672">=</span> source[i]
+</span></span><span style="display:flex;"><span>  flag[b] <span style="color:#f92672">=</span> source[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>  a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  b <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(flag[a] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;X&#39;</span>): a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(flag[b] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;X&#39;</span>): b <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  print(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(flag))
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(flag))
+</span></span></code></pre></div><h3 id="revsite1">revsite1</h3>
+<p>wasm のフラグチェッカーをリバエンする必要がある．
+はぁ．．．</p>
+<p>chrome で見ると strcmp している部分がある．
+ここにセットされた変数の値を見ればいいことがとりあえずわかる．
+wasm は chrome でデバッグできるので，strcmp でブレークポイントを置き，memory inspector で中身を見る．(右側ペイン -&gt; Scope -&gt; Module -&gt; memories -&gt; $memory)
+アドレスは変数の value から確認できる．</p>
+<p>中身を見ると flag が露出している．</p>
+<h2 id="web">web</h2>
+<h3 id="anti-inspect">anti-inspect</h3>
+<p><code>curl http://litctf.org:31779/</code></p>
+<p>%c を除かないとフラグにならない</p>
+<h3 id="jwt-1">jwt-1</h3>
+<p>burp で通信を見ると，jwt トークンが見える．
+こんな感じ <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaWtpbW9ubyIsImFkbWluIjp0cnVlfQ.ekuW1alg7FNSAqKRPUIw4mymr5tItlcfmPxETpx7m4M</code></p>
+<p>で，これをデコードすると <code>&quot;admin&quot;: false</code> という文字列が見えるので，ここを <code>true</code> に変える．
+あとは謎に署名検証がされていないのでエンコードして通せばいい．</p>
+<h3 id="jwt-2">jwt-2</h3>
+<p>同じように jwt トークンが見える．
+今回は同じようにいかず，alg: none とかでもダメ．
+ここで，index.ts を見ると以下のような記述がある</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;/flag&#34;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">cookies</span>.<span style="color:#a6e22e">token</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;no auth&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">403</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Unauthorized&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">token</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">cookies</span>.<span style="color:#a6e22e">token</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// split up token
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">header</span>, <span style="color:#a6e22e">payload</span>, <span style="color:#a6e22e">signature</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;.&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">header</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">payload</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">signature</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">403</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Unauthorized&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">header</span>, <span style="color:#e6db74">&#34;base64&#34;</span>).<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// decode payload
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decodedPayload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">payload</span>, <span style="color:#e6db74">&#34;base64&#34;</span>).<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// parse payload
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parsedPayload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">decodedPayload</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// verify signature
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expectedSignature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;sha256&#39;</span>, <span style="color:#a6e22e">jwtSecret</span>).<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">header</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;.&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">payload</span>).<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;base64&#39;</span>).<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/=/g</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">signature</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">expectedSignature</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">403</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Unauthorized ;)&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// check if user is admin
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">parsedPayload</span>.<span style="color:#a6e22e">admin</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">parsedPayload</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;flag.txt&#34;</span>), <span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">403</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Unauthorized&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">403</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Unauthorized&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>jwtSecret がハードコードされているので <code>xook</code> (Base64 encoded をオフにする)．
+さらに <code>admin = true</code> に変える．
+これで Verified になる．
+ただし，コードは Base64 を受け付けているので <code>_</code> を <code>\</code> に直す必要がある．</p>
+<h3 id="traversed">traversed</h3>
+<p>パストラバーサルっぽい．
+<code>http://litctf.org:31778/?file=../../../../../../etc/passwd</code> が通る．
+<code>http://litctf.org:31778/?file=../../../flag.txt</code> で OK</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

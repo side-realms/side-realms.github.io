@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Cryptohack1 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cryptohack1"/>
+<meta name="twitter:description" content="Encoding Challenge from pwn import * # pip install pwntools import json import base64 import codecs r = remote(&#39;socket.cryptohack.org&#39;, 13377) def json_recv(): line = r.recvline() return json.loads(line.decode()) def json_send(hsh): request = json.dumps(hsh).encode() r.sendline(request) def decoding(types, received): if(types == &#34;base64&#34;): answer = base64.b64decode(received).decode() return answer if(types == &#34;hex&#34;): answer = str(bytes.fromhex(received)) return answer[2:len(answer)-1] if(types == &#34;rot13&#34;): answer = codecs.encode(received, &#39;rot_13&#39;) return answer if(types == &#34;bigint&#34;): answer = str(bytes.fromhex(received[2:])) return answer[2:len(answer)-1] if(types == &#34;utf-8&#34;): answer = &#34;&#34; for i in received: answer &#43;= chr(i) return answer while (True): received = json_recv() print(&#34;Received type: &#34;, end=&#34;&#34;) print(received[&#34;type&#34;]) print(&#34;Received encoded value: &#34;, end=&#34;&#34;) print(received[&#34;encoded&#34;]) answer = decoding(received[&#34;type&#34;], received[&#34;encoded&#34;]) print(&#34;answer: &#34;, end=&#34;&#34;) print(answer) to_send = {&#34;decoded&#34;: answer} request = json."/>
+
+    <meta property="og:title" content="Cryptohack1" />
+<meta property="og:description" content="Encoding Challenge from pwn import * # pip install pwntools import json import base64 import codecs r = remote(&#39;socket.cryptohack.org&#39;, 13377) def json_recv(): line = r.recvline() return json.loads(line.decode()) def json_send(hsh): request = json.dumps(hsh).encode() r.sendline(request) def decoding(types, received): if(types == &#34;base64&#34;): answer = base64.b64decode(received).decode() return answer if(types == &#34;hex&#34;): answer = str(bytes.fromhex(received)) return answer[2:len(answer)-1] if(types == &#34;rot13&#34;): answer = codecs.encode(received, &#39;rot_13&#39;) return answer if(types == &#34;bigint&#34;): answer = str(bytes.fromhex(received[2:])) return answer[2:len(answer)-1] if(types == &#34;utf-8&#34;): answer = &#34;&#34; for i in received: answer &#43;= chr(i) return answer while (True): received = json_recv() print(&#34;Received type: &#34;, end=&#34;&#34;) print(received[&#34;type&#34;]) print(&#34;Received encoded value: &#34;, end=&#34;&#34;) print(received[&#34;encoded&#34;]) answer = decoding(received[&#34;type&#34;], received[&#34;encoded&#34;]) print(&#34;answer: &#34;, end=&#34;&#34;) print(answer) to_send = {&#34;decoded&#34;: answer} request = json." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/writeup/cryptohack/" /><meta property="article:section" content="writeup" />
+<meta property="article:published_time" content="2024-05-04T22:10:33+09:00" />
+<meta property="article:modified_time" content="2024-05-04T22:10:33+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../sound">sound</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../container">container</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../hardware">hardware</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../writeup">writeup</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../other">other</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Cryptohack1</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 4, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h3 id="encoding-challenge">Encoding Challenge</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span> <span style="color:#75715e"># pip install pwntools</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> codecs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;socket.cryptohack.org&#39;</span>, <span style="color:#ae81ff">13377</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">json_recv</span>():
+</span></span><span style="display:flex;"><span>    line <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>recvline()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> json<span style="color:#f92672">.</span>loads(line<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">json_send</span>(hsh):
+</span></span><span style="display:flex;"><span>    request <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>dumps(hsh)<span style="color:#f92672">.</span>encode()
+</span></span><span style="display:flex;"><span>    r<span style="color:#f92672">.</span>sendline(request)
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decoding</span>(types, received):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(types <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;base64&#34;</span>):
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(received)<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(types <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;hex&#34;</span>):
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> str(bytes<span style="color:#f92672">.</span>fromhex(received))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer[<span style="color:#ae81ff">2</span>:len(answer)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(types <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;rot13&#34;</span>):
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> codecs<span style="color:#f92672">.</span>encode(received, <span style="color:#e6db74">&#39;rot_13&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(types <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;bigint&#34;</span>):
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> str(bytes<span style="color:#f92672">.</span>fromhex(received[<span style="color:#ae81ff">2</span>:]))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer[<span style="color:#ae81ff">2</span>:len(answer)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(types <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;utf-8&#34;</span>):
+</span></span><span style="display:flex;"><span>        answer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> received:
+</span></span><span style="display:flex;"><span>            answer <span style="color:#f92672">+=</span> chr(i)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span>    received <span style="color:#f92672">=</span> json_recv()
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Received type: &#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(received[<span style="color:#e6db74">&#34;type&#34;</span>])
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Received encoded value: &#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(received[<span style="color:#e6db74">&#34;encoded&#34;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    answer <span style="color:#f92672">=</span> decoding(received[<span style="color:#e6db74">&#34;type&#34;</span>], received[<span style="color:#e6db74">&#34;encoded&#34;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;answer: &#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(answer)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    to_send <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;decoded&#34;</span>: answer}
+</span></span><span style="display:flex;"><span>    request <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>dumps(to_send)<span style="color:#f92672">.</span>encode()
+</span></span><span style="display:flex;"><span>    r<span style="color:#f92672">.</span>sendline(request)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span></code></pre></div><h3 id="favorite-byte">favorite byte</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime, bytes_to_long, long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tmp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>orded <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> bytes<span style="color:#f92672">.</span>fromhex(tmp)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0xff</span>):
+</span></span><span style="display:flex;"><span>    ans <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> orded:
+</span></span><span style="display:flex;"><span>        ans <span style="color:#f92672">+=</span> chr(i<span style="color:#f92672">^</span>j)
+</span></span><span style="display:flex;"><span>    print(ans)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(orded)
+</span></span></code></pre></div><h3 id="privacy-enhaced-mail">Privacy-Enhaced Mail</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.PublicKey <span style="color:#f92672">import</span> RSA
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pubkey <span style="color:#f92672">=</span> RSA<span style="color:#f92672">.</span>importKey(open(<span style="color:#e6db74">&#39;privacy_enhanced_mail_1f696c053d76a78c2c531bb013a92d4a.pem&#39;</span>)<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>e<span style="color:#f92672">=</span>pubkey<span style="color:#f92672">.</span>e
+</span></span><span style="display:flex;"><span>n<span style="color:#f92672">=</span>pubkey<span style="color:#f92672">.</span>n
+</span></span><span style="display:flex;"><span>d<span style="color:#f92672">=</span>pubkey<span style="color:#f92672">.</span>d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;e:&#34;</span>, e)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;n:&#34;</span>, n)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;d:&#34;</span>, d)
+</span></span></code></pre></div><h3 id="certainly-not">CERTainly not</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>openssl x509 -in 2048b-rsa-example-cert_3220bd92e30015fe4fbeb84a755e7ca5.der -out tmp.pem -outform pem  
+</span></span></code></pre></div><h3 id="ssh-key">SSH key</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.PublicKey <span style="color:#f92672">import</span> RSA
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pubkey <span style="color:#f92672">=</span> RSA<span style="color:#f92672">.</span>importKey(open(<span style="color:#e6db74">&#39;bruce_rsa_6e7ecd53b443a97013397b1a1ea30e14.pub&#39;</span>)<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>e<span style="color:#f92672">=</span>pubkey<span style="color:#f92672">.</span>e
+</span></span><span style="display:flex;"><span>n<span style="color:#f92672">=</span>pubkey<span style="color:#f92672">.</span>n
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#d=pubkey.d</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;e:&#34;</span>, e)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;n:&#34;</span>, n)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(&#34;d:&#34;, d)</span>
+</span></span></code></pre></div><h3 id="quadratic-residues">Quadratic Residues</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">29</span>
+</span></span><span style="display:flex;"><span>ints <span style="color:#f92672">=</span> [<span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ints:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">29</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(pow(j,<span style="color:#ae81ff">2</span>,p) <span style="color:#f92672">==</span> i):
+</span></span><span style="display:flex;"><span>      print(i, j)
+</span></span></code></pre></div><h3 id="legendre-symbol">Legendre Symbol</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">101524035174539890485408575671085261788758965189060164484385690801466167356667036677932998889725476582421738788500738738503134356158197247473850273565349249573867251280253564698939768700489401960767007716413932851838937641880157263936985954881657889497583485535527613578457628399173971810541670838543309159139</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ints <span style="color:#f92672">=</span> [<span style="color:#ae81ff">25081841204695904475894082974192007718642931811040324543182130088804239047149283334700530600468528298920930150221871666297194395061462592781551275161695411167049544771049769000895119729307495913024360169904315078028798025169985966732789207320203861858234048872508633514498384390497048416012928086480326832803</span>, <span style="color:#ae81ff">45471765180330439060504647480621449634904192839383897212809808339619841633826534856109999027962620381874878086991125854247108359699799913776917227058286090426484548349388138935504299609200377899052716663351188664096302672712078508601311725863678223874157861163196340391008634419348573975841578359355931590555</span>, <span style="color:#ae81ff">17364140182001694956465593533200623738590196990236340894554145562517924989208719245429557645254953527658049246737589538280332010533027062477684237933221198639948938784244510469138826808187365678322547992099715229218615475923754896960363138890331502811292427146595752813297603265829581292183917027983351121325</span>, <span style="color:#ae81ff">14388109104985808487337749876058284426747816961971581447380608277949200244660381570568531129775053684256071819837294436069133592772543582735985855506250660938574234958754211349215293281645205354069970790155237033436065434572020652955666855773232074749487007626050323967496732359278657193580493324467258802863</span>, <span style="color:#ae81ff">4379499308310772821004090447650785095356643590411706358119239166662089428685562719233435615196994728767593223519226235062647670077854687031681041462632566890129595506430188602238753450337691441293042716909901692570971955078924699306873191983953501093343423248482960643055943413031768521782634679536276233318</span>, <span style="color:#ae81ff">85256449776780591202928235662805033201684571648990042997557084658000067050672130152734911919581661523957075992761662315262685030115255938352540032297113615687815976039390537716707854569980516690246592112936796917504034711418465442893323439490171095447109457355598873230115172636184525449905022174536414781771</span>, <span style="color:#ae81ff">50576597458517451578431293746926099486388286246142012476814190030935689430726042810458344828563913001012415702876199708216875020997112089693759638454900092580746638631062117961876611545851157613835724635005253792316142379239047654392970415343694657580353333217547079551304961116837545648785312490665576832987</span>, <span style="color:#ae81ff">96868738830341112368094632337476840272563704408573054404213766500407517251810212494515862176356916912627172280446141202661640191237336568731069327906100896178776245311689857997012187599140875912026589672629935267844696976980890380730867520071059572350667913710344648377601017758188404474812654737363275994871</span>, <span style="color:#ae81ff">4881261656846638800623549662943393234361061827128610120046315649707078244180313661063004390750821317096754282796876479695558644108492317407662131441224257537276274962372021273583478509416358764706098471849536036184924640593888902859441388472856822541452041181244337124767666161645827145408781917658423571721</span>, <span style="color:#ae81ff">18237936726367556664171427575475596460727369368246286138804284742124256700367133250078608537129877968287885457417957868580553371999414227484737603688992620953200143688061024092623556471053006464123205133894607923801371986027458274343737860395496260538663183193877539815179246700525865152165600985105257601565</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ints:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pow(i,(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>,p) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> i
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(pow(a,(p<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">4</span>,p))
+</span></span></code></pre></div><h3 id="modular-square-root">Modular Square Root</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">legendre</span>(a, p):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pow(a, (p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>, p)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tonelli_shanks</span>(a, p):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> legendre(a, p) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#34;not a square (mod p)&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Step 1. By factoring out powers of 2, find q and s such that p - 1 = q 2^s with Q odd</span>
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">=</span> p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> q <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Step 2. Search for a z in Z/pZ which is a quadratic non-residue</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> z <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, p):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> legendre(z, p) <span style="color:#f92672">==</span> p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Step 3.</span>
+</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> s
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> pow(z, q, p) <span style="color:#75715e"># quadratic non residue</span>
+</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> pow(a, q, p) <span style="color:#75715e"># quadratic residue</span>
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> pow(a, (q <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>, p)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Step 4.</span>
+</span></span><span style="display:flex;"><span>    t2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> t <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> t <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> r
+</span></span><span style="display:flex;"><span>        t2 <span style="color:#f92672">=</span> (t <span style="color:#f92672">*</span> t) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, m):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> t2 <span style="color:#f92672">%</span> p <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            t2 <span style="color:#f92672">=</span> (t2 <span style="color:#f92672">*</span> t2) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>        b <span style="color:#f92672">=</span> pow(c, <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (m <span style="color:#f92672">-</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>), p)
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">=</span> i
+</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> (b <span style="color:#f92672">*</span> b) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> (t <span style="color:#f92672">*</span> c) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">=</span> (r <span style="color:#f92672">*</span> b) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">8479994658316772151941616510097127087554541274812435112009425778595495359700244470400642403747058566807127814165396640215844192327900454116257979487432016769329970767046735091249898678088061634796559556704959846424131820416048436501387617211770124292793308079214153179977624440438616958575058361193975686620046439877308339989295604537867493683872778843921771307305602776398786978353866231661453376056771972069776398999013769588936194859344941268223184197231368887060609212875507518936172060702209557124430477137421847130682601666968691651447236917018634902407704797328509461854842432015009878011354022108661461024768</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">30531851861994333252675935111487950694414332763909083514133769861350960895076504687261369815735742549428789138300843082086550059082835141454526618160634109969195486322015775943030060449557090064811940139431735209185996454739163555910726493597222646855506445602953689527405362207926990442391705014604777038685880527537489845359101552442292804398472642356609304810680731556542002301547846635101455995732584071355903010856718680732337369128498655255277003643669031694516851390505923416710601212618443109844041514942401969629158975457079026906304328749039997262960301209158175920051890620947063936347307238412281568760161</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(tonelli_shanks(a, p))
+</span></span></code></pre></div><h3 id="adriens-signs">Adrien&rsquo;s Signs</h3>
+<p>平方剰余が何だったかというと，mod N で平方根が存在するかどうか，という話．
+つまり以下のようになる．</p>
+<p><code>1^2 = 1 mod 7</code><br>
+<code>2^2 = 4 mod 7</code><br>
+<code>3^3 = 2 mod 7</code></p>
+<p>みたいな感じで，この場合は 1, 2, 4 が平方剰余ということができる．
+で，例えば a が法 p において平方剰余かどうかを示す記号があって，これをルジャンドル記号と呼ぶんだった．</p>
+<p><code>(a/p) = 1</code> なら， a は法 p において平方剰余．
+これは，<code>(a/p) = a^((p-1)/2)</code> みたいな感じで求めることができる．
+(a/p) はただの記号であることに気を付ける．</p>
+<p>で，今回の問題では <code>p = 1007621497415251 = 3 mod 4</code> ．
+このとき，bit が 1 or 0 で与えられる n の正負が決まるので，
+(a/p) が分かれば 1, 0 が分かる(負数に平方剰余はない)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">288260533169915</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">1007621497415251</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>out <span style="color:#f92672">=</span> [snip]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>res<span style="color:#f92672">=</span>[]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> out:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pow(i, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>, p)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;1&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(long_to_bytes(int(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(res), base<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>))<span style="color:#f92672">.</span>decode())
+</span></span></code></pre></div><h3 id="modular-binomials">Modular Binomials</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>N = p*q
+</span></span><span style="display:flex;"><span>c1 = (2*p + 3*q)**e1 mod N
+</span></span><span style="display:flex;"><span>c2 = (5*p + 7*q)**e2 mod N
+</span></span></code></pre></div><p>p, q 以外が与えられていて p, q を求める．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> random <span style="color:#f92672">import</span> randint
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> snip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>gcd(pow(b2,(<span style="color:#f92672">-</span>e2 <span style="color:#f92672">*</span> e1),N) <span style="color:#f92672">*</span> pow(c2, e1, N) <span style="color:#f92672">-</span> pow(b1, (<span style="color:#f92672">-</span>e1 <span style="color:#f92672">*</span> e2), N) <span style="color:#f92672">*</span> pow(c1, e2, N), N)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>gcd(pow(a2,(<span style="color:#f92672">-</span>e2 <span style="color:#f92672">*</span> e1),N) <span style="color:#f92672">*</span> pow(c2, e1, N) <span style="color:#f92672">-</span> pow(a1, (<span style="color:#f92672">-</span>e1 <span style="color:#f92672">*</span> e2), N) <span style="color:#f92672">*</span> pow(c1, e2, N), N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(p, q)
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>
