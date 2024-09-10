@@ -1,7 +1,7 @@
 ---
 title: "WaniCTF2024"
 date: 2024-06-25T18:50:04+09:00
-draft: false
+draft: true
 ---
 
 waniCTF に半日参加しました．

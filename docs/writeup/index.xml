@@ -38,17 +38,6 @@ import owiener from Crypto.Util.number import * e = ... n = ... c = ... d = owie
     </item>
     
     <item>
-      <title>WaniCTF2024</title>
-      <link>http://side-realms.github.io/writeup/wanictf2024/</link>
-      <pubDate>Tue, 25 Jun 2024 18:50:04 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/wanictf2024/</guid>
-      <description>waniCTF に半日参加しました． 友達はいないのでソロです．
-writeup crypto beginners_rsa from Crypto.Util.number import * p = getPrime(64) q = getPrime(64) r = getPrime(64) s = getPrime(64) a = getPrime(64) n = p*q*r*s*a e = 0x10001 FLAG = b&amp;#39;FLAG{This_is_a_fake_flag}&amp;#39; m = bytes_to_long(FLAG) enc = pow(m, e, n) print(f&amp;#39;n = {n}&amp;#39;) print(f&amp;#39;e = {e}&amp;#39;) print(f&amp;#39;enc = {enc}&amp;#39;) Multi Prime RSA です． 与えられた n は簡単に素因数分解できるので，d が求まり，簡単に復号できます. 素因数分解はなんでもいいんですが今回は Msieve を使いました(参考).
-from Crypto.Util.number import inverse, long_to_bytes n = 317903423385943473062528814030345176720578295695512495346444822768171649361480819163749494400347 e = 0x10001 enc = 127075137729897107295787718796341877071536678034322988535029776806418266591167534816788125330265 p = 9953162929836910171 q = 11771834931016130837 r = 12109985960354612149 s = 13079524394617385153 a = 17129880600534041513 phi_n = (p - 1) * (q - 1) * (r - 1) * (s - 1) * (a - 1) d = inverse(e, phi_n) m = pow(enc, d, n) FLAG = long_to_bytes(m) print(FLAG) beginners_aes from Crypto.</description>
-    </item>
-    
-    <item>
       <title>Cryptohack2</title>
       <link>http://side-realms.github.io/writeup/cryptohack2/</link>
       <pubDate>Sun, 09 Jun 2024 20:08:31 +0900</pubDate>
