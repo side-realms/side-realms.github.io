@@ -6,7 +6,26 @@
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Aug 2024 23:18:46 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Sep 2024 20:28:52 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AutomotiveCTF</title>
+      <link>http://side-realms.github.io/writeup/automotivectf/</link>
+      <pubDate>Tue, 10 Sep 2024 20:28:52 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/writeup/automotivectf/</guid>
+      <description>automotiveCTF に参加しました． 30/382, 14/143 でした． 初めてチームで参加していました (!?)．
+自分が解いた or 関わった問題だけ writeup を書きます．
+# writeup 書こうと思ったら問題サーバが一日足らずで閉じていたので (!?) 覚えている範囲だけです
+OSINT Scanning Plates ナンバープレートを検索するとリトアニアの記事がでてきます． なので答えはリトアニア
+I know a lot about cars google photo で検索するとランボルギーニの記事が出てきます． 型も一緒に出てくるのでこれがこたえ
+We&amp;rsquo;ll see in the Mach-E ログファイルが渡されて，どの通りを通っていた？とかどのラジオを聴いていた？とかの質問に答えます． 頑張ってログを眺めて答えを見つけます．つらい．．．
+DID Access 0x4915 で調べる
+What is the VIN? Ford のマスタングなので VIN は 3FM から始まります． これで頑張って探す
+Street Names ログを眺めると ~~dr みたいな記述があるのでこれをデコード
+When were we driving? ログを眺めると 2024 みたいな記述があります． これを含む行だけ抜き出すとよい. 良い感じにデコードして日付のフォーマットになるものを抜き出す
+Steering Angle ほぼ勘</description>
+    </item>
+    
     <item>
       <title>LITCTF2024</title>
       <link>http://side-realms.github.io/writeup/litctf2024/</link>
