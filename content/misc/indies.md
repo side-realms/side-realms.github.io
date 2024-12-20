@@ -1,7 +1,7 @@
 ---
 title: "愛．．．なインディーズ"
-date: 2024-05-15T19:54:49+09:00
-draft: true
+date: 2024-09-15T19:54:49+09:00
+draft: false
 ---
 
 インディーズ，マジで掘り出し物しかない．
@@ -22,7 +22,7 @@ draft: true
 
 ## 幽体コミュニケーションズ
 
-![](https://realsound.jp/wp-content/uploads/2023/08/230825_yutaicommunications_99.jpg.webp)
+![](https://m.media-amazon.com/images/I/41qNVeooAEL._UX250_FMwebp_QL85_.jpg)
 
 「beat my spring!!!」の衝撃はすごい．．．
 シンセサイザーのすごさはあるんだけどギターの音作りもイケてる．
@@ -32,14 +32,14 @@ draft: true
 
 ## ウ山あまね
 
-![](https://www.uta-net.com/libs/cacheimg.php?p=kashi&f=340000/331277.jpg)
+![](https://m.media-amazon.com/images/I/312G5wwBSnL._UX250_FMwebp_QL85_.jpg)
 
 聴いたことない音しか出せない人間．
 順当に作ればすごく聴きやすい曲のはずなのに音が異常なせいで最高の曲になってしまっている
 
 ## kurayamisaka
 
-![](https://m.media-amazon.com/images/I/41KUDDkKrEL._UXNaN_FMjpg_QL85_.jpg)
+![](https://m.media-amazon.com/images/I/41KUDDkKrEL._UX250_FMwebp_QL85_.jpg)
 
 シューゲイザーを聴くきっかけになったバンド．．．
 ジャケ写で敬遠してたけど聴いてよかった．
@@ -54,7 +54,7 @@ draft: true
 
 ## えんぷてい
 
-![](https://friendship.mu/data/S__2908387.jpg)
+![](https://m.media-amazon.com/images/I/4195HQs-rcL._UX250_FMwebp_QL85_.jpg)
 
 whim を聴いて一発でハマった．
 レトロに逃げず，でもリバーブ多めにドリーミーな感じを出すバンドはたくさんあるけど，えんぷていは遊び心というか余裕があってかなり聴きやすい．
@@ -65,7 +65,7 @@ whim を聴いて一発でハマった．
 
 ## くずれ餅屋
 
-![](https://ogre.natalie.mu/media/news/music/2023/0313/kuzuremochiya_art202303.jpg?impolicy=m&imwidth=750&imdensity=1)
+![](https://m.media-amazon.com/images/I/51Lo-FRmlfL._UX250_FMwebp_QL85_.jpg)
 
 歌謡だ！
 
@@ -73,7 +73,7 @@ whim を聴いて一発でハマった．
 
 ## ミヤケ武器
 
-![](https://ogre.natalie.mu/media/news/music/2023/1030/miyakebuki_jkt202311.jpg?imwidth=750&imdensity=1)
+![](https://m.media-amazon.com/images/I/8113yphQq6L._AA256._SX354_SY354_BL0_QL100__UX250_FMwebp_QL85_.jpg)
 
 「失礼しちゃうわ」がすごく良いからそのまま聴いてたんだけどどうやらミヤケ武器の本領はここではないらしい．．．
 ヒップホップとかとかブラックミュージックっぽいニュアンスがある曲の方がメインだと思う．
@@ -83,21 +83,21 @@ luv のボーカルギターもやっているらしい．
 
 ## No Buses
 
-![](https://www.nobusesband.com/wp-content/uploads/2020/03/ogp-1.jpg)
+![](https://m.media-amazon.com/images/I/41YurIeeDeL._SX354_SY354_BL0_QL100__UX250_FMwebp_QL85_.jpg)
 
 海外発信を狙ってるようなバンドだと思う．
 無気力な感じは決して無気力で終わっていなくて，むしろ安心感すら感じる．
 
 ## フー・ドゥー・ユー・ラブ
 
-![](https://storage.spincoaster.com/media/2023/05/11204344/whodoyoulove_A.jpeg)
+![](https://m.media-amazon.com/images/I/91ObHIU5wXL._AA256_UX250_FMwebp_QL85_.jpg)
 
 キイチビールなんだな．
 呼び合った！は良いけどそれ以降は少し微妙かもしれないな，という印象がある．
 
 ## ハシリコミーズ
 
-![](https://pbs.twimg.com/media/GN_LVW_aIAAAUAz?format=jpg&name=large)
+![](https://m.media-amazon.com/images/I/911XlzBm9SL._AA256_UX250_FMwebp_QL85_.jpg)
 
 ロックだけでなく，最近はサイケの雰囲気も感じる．
 ピアノの使い方が面白い．
@@ -105,7 +105,7 @@ luv のボーカルギターもやっているらしい．
 
 ## Giallo
 
-![](https://friendship.mu/data/de1ef1c562d0aa60ce7d81f6e422b8ab.jpg)
+![](https://m.media-amazon.com/images/I/81QubNjnWGL._AA256_UX250_FMwebp_QL85_.jpg)
 
 新人らしいが急にガチのガレージロックが来たな，という印象．．．
 ハイトーンボーカルがちゃんと金切り声でよいし，ギターの音もほとんど完成していてすごい．本当に新人か？
@@ -115,7 +115,7 @@ luv のボーカルギターもやっているらしい．
 
 ## ドミコ
 
-![](https://www.onemusiccamp.com/2021/wp-content/uploads/2021/06/domico.jpg)
+![](https://m.media-amazon.com/images/I/71YHyBgmj4L._AA256_UX250_FMwebp_QL85_.jpg)
 
 ずっと応援してる．新譜もよかった．
 
@@ -123,14 +123,14 @@ luv のボーカルギターもやっているらしい．
 
 ## 離婚伝説
 
-![](https://www.rkndnsts.jp/assets/img/img_main_pc.jpg)
+![](https://m.media-amazon.com/images/I/71E3-y4sO8L._AA256_UX250_FMwebp_QL85_.jpg)
 
 最推しだと思う．
 シティポップって nulbarich とか suchmos みたいなネオシティポップになりがちだし，そういうのも大好きなんだけど，離婚伝説は直球のシティポップの系譜で作っているような気がして好き．
 
 ## グソクムズ
 
-![](https://www.diskgarage.com/digaonline/wordpress/wp-content/uploads/1673589745.jpg)
+![](https://m.media-amazon.com/images/I/91vSQZRjm7L._AA256_UX250_FMwebp_QL85_.jpg)
 
 ネオ風街だと思ったことは一度もないが(逆張り)，新譜は全然雰囲気が違ってすごくよかった．
 ほんとはロックがやりたかったらしい．
@@ -138,14 +138,14 @@ luv のボーカルギターもやっているらしい．
 
 ## Billyrrom
 
-![](https://billyrrom.com/static/fcopen/contents/top_image/703/ffdabbd5dcfb5e1c8aabafd34a7b0e5d.jpeg)
+![](https://m.media-amazon.com/images/I/917xBz-VT9L._AA256_UX250_FMwebp_QL85_.jpg)
 
 ほんとうに新人か？(n 回目)
 次の suchmos とも言われているらしい．ホンマか？
 
 ## Bialystocks
 
-![](https://media.brutus.jp/wp-content/uploads/2023/10/996_p098_SCOPE2_01.jpg)
+![](https://m.media-amazon.com/images/I/81bOCkVga1L._AA256_UX250_FMwebp_QL85_.jpg)
 
 かなり落ち着いていて聴きやすい．
 2023 ~ 2024 でのエンジニアリングの伸びが異常だと思う．
@@ -153,7 +153,7 @@ luv のボーカルギターもやっているらしい．
 
 ## BREIMEN
 
-![](https://www.sonymusic.co.jp/adm_image/common/artist_image/90000/90083/profile_image/60827.png)
+![](https://m.media-amazon.com/images/I/712vHUrV2mL._AA256_UX250_FMwebp_QL85_.jpg)
 
 ベースボーカルやっぱ良いっス．
 曲は完成度も演奏もレベルが異常に高いのに程よく気が抜けていていい．
@@ -164,7 +164,7 @@ YMO の増殖を意識しているらしい．
 
 ## 家主
 
-![](https://ogre.natalie.mu/media/pp/yanushi/yanushi_ogp.jpg?imwidth=1280&imdensity=1)
+![](https://m.media-amazon.com/images/I/61JUrl3LMvL._AA256_UX250_FMwebp_QL85_.jpg)
 
 王道ロックだな，という印象がある．
 映像がまだ手作りっぽいので金かけられるようになったらもっと面白いのかもなあ...
@@ -172,14 +172,14 @@ YMO の増殖を意識しているらしい．
 
 ## 台風クラブ
 
-![](https://cdn.tower.jp/za/o/6W/zaP2_G6358536W.JPG)
+![](https://m.media-amazon.com/images/I/9146Ygww-ML._AA256_UX250_FMwebp_QL85_.jpg)
 
 「第一集」とか言うし雰囲気からフォークかと思ったけどただのロックだった．
 でも聴きやすくていい
 
 ## 錯乱前夜
 
-![](https://skream.jp/diskreview/assets_c/2020/02/sakuranzensen_jacket-thumb-autox240-118344.jpg)
+![](https://m.media-amazon.com/images/I/81nEgl0O+mL._AA256._SX354_SY354_BL0_QL100__UX250_FMwebp_QL85_.jpg)
 
 これ，いいです
 
@@ -189,7 +189,7 @@ YMO の増殖を意識しているらしい．
 
 ## Gateballers
 
-![](https://friendship.mu/data/18ccbb8eedffce0b649632871032fd91.jpg)
+![](https://m.media-amazon.com/images/I/91qiX2sqOsL._AA256_UX250_FMwebp_QL85_.jpg)
 
 やっぱここら辺 2010 年代のインディーJロックって雰囲気いいよな．．．
 MONO NO AWARE が個人的一位なんだけどそれに追随して好きだ．．．
@@ -198,80 +198,133 @@ MONO NO AWARE が個人的一位なんだけどそれに追随して好きだ．
 
 ## songbards
 
-![](https://thesongbards.com/wp2/wp-content/uploads/2024/03/TheSongbards_BandImage_ForWeb.jpg)
+![](https://m.media-amazon.com/images/I/81yYQxrFmuL._AA256_UX250_FMwebp_QL85_.jpg)
 
-andymori すぎる．
 濾過した andymori みたいな感じだ．
 
 ボーカルが出家を考えたことがあり，その時期の考えとかを取り込んで歌詞を書いてるらしい．
 ここら辺のバンドは「消費するだけの世代に生まれてしまった僕らは...」という使い古されてカス雑巾みたいになった言葉で紹介されることが多いが，songbards は変に飾ってないし大げさに表現してなくていいなあと思う．
 
 音もいい．
-「音に厚みをもたせる」ことを勘違いしたフィルスペクターの案山子みたいな曲もあるが(自分にも刺さるが...)songbards の曲はちゃんと音をすべて聞かせようとしてくれる．
+世の中には「音に厚みをもたせる」ことを勘違いしたフィルスペクターの案山子みたいな曲もあるが(自分にも刺さるが...)songbards の曲はちゃんと音をすべて聞かせようとしてくれる．
 エンジニアリングの上手・下手はあれど，音に隙間がある上手さとかはあると思う．
 
 ## 天国旅行
 
-![](https://pbs.twimg.com/profile_images/1781877613562347520/9ZVGNHVZ_400x400.jpg)
+![](https://m.media-amazon.com/images/I/612Llm22i-L._AA256_UX250_FMwebp_QL85_.jpg)
 
-ジャケットとネーミングに絶望的にセンスがないが，曲の強さがあると思う．
 何がしたいのかがまだ分かっていないが，アナーキーとか inu 世代に寄せるならボーカルがもっと汚い方がいいかな，と個人的には思う
 
 ## betcover!!
 
-![](https://www-shibuya.jp/schedule/betcover%21%21-new_thum.jpg)
+![](https://m.media-amazon.com/images/I/61Rw1H2AzQL._AA256_UX250_FMwebp_QL85_.jpg)
+
+うーんというアルバムと最高なアルバムの差が激しい．
+かなり台頭してきていて個人的にも好きだが，これが認められる社会って相当成熟しているなと思う．
 
 ## ゆうらん船
 
-![](https://sensa.jp/interview/images/4859.jpg)
+![](https://m.media-amazon.com/images/I/71UaJwVDvFL._AA256_UX250_FMwebp_QL85_.jpg)
+
+ゆうらん船で判断するべきではないバンドだが，相当いい．
+ジャケットの退廃さが刺さる．
 
 ## 踊ってばかりの国
 
-![](https://ogre.natalie.mu/artist/8556/20220824/odottebakarinokuni_art202207.jpg?imwidth=640&imdensity=1)
+![](https://m.media-amazon.com/images/I/91OPNwX0M3L._AA256_UX250_FMwebp_QL85_.jpg)
+
+ライブが面白いなあという印象がある．
+全感覚祭 2018 の ghost はよかった．
+ボーカルから作ってない狂気をたまに感じるが本当はどっちなんだろうな
 
 ## Khaki
 
-![](https://yt3.googleusercontent.com/lJ6zDLfDh4sFaUfLHy8_OvGKYv9gR7-_LRPfL6RBvPvkw_gk2nAJMXyAKN-ZDxxx1KOMOVW6IQ=s900-c-k-c0x00ffffff-no-rj)
+![](https://m.media-amazon.com/images/I/81g8oWPiIRL._AA256._SX354_SY354_BL0_QL100__UX250_FMwebp_QL85_.jpg)
+
+メロディは派手なのに編曲が大人しいから聴きやすい．
+最初は The buses に似てるなあとか思ってたが，Khaki の方が若干平成っぽくて好きだ．
 
 ## NICO NICO TAN TAN
 
-![](https://pbs.twimg.com/media/GKUpNqBaMAEl7H2?format=jpg&name=large)
+![](https://m.media-amazon.com/images/I/71hsmyan6qL._AA256_UX250_FMwebp_QL85_.jpg)
+
+いや～マジでいい．．．
+電グルじゃないか！と思ったら電グルらしい．
+テクノの古典ぽさも残しつつ，最新のアルバムではちゃんと新しい潮流も取り入れていて頭の良さを感じる．
+このユニットは音楽のすごさだけではなくアートとの融合みたいな部分でも特筆すべきものがあると思う．
+映像やジャケットが音楽と相関を持って構成されていて，自分には珍しく MV を見ることが多い
 
 ## downt
 
-![](https://ogre.natalie.mu/media/news/music/2022/0518/downt_art202205.jpg?imwidth=750&imdensity=1)
+![](https://m.media-amazon.com/images/I/612g4hjHUFL._AA256_UX250_FMwebp_QL85_.jpg)
+
+P-VINE はどうしてこうも素晴らしいバンドを発掘するのか．．．
+インディーズのシューゲイザーは kurayamisaka でよくないですか？と思っていたけど，そんなこともないと反省しました．
+どちらかというとオルタナティブらしい．13 月の印象が強かったな．
 
 ## 新東京
 
-![](https://shintokyo.city/web/wp-content/uploads/2023/07/ArtistPhoto02-1200x1200.jpg)
+![](https://m.media-amazon.com/images/I/61p2SdHAkuL._AA256_UX250_FMwebp_QL85_.jpg)
+
+オシャレだ～
 
 ## S.A.R.
 
-![](https://mikiki.ismcdn.jp/mwimgs/7/8/1600mw/img_786e61fa60a99a220973d6da4444e709615687.jpg)
+![](https://m.media-amazon.com/images/I/915F5JG8owL._AA256_UX250_FMwebp_QL85_.jpg)
+
+やっぱラップってこういうのがいいよな．．．
 
 ## ひとひら
 
-![](https://recoeggs.hs.llnwd.net/flmg_img_p/profile/23453.jpg?updated_at=2023-01-22T10%3A52%3A30%2B09%3A00)
+![](https://m.media-amazon.com/images/I/71uWB9O6UxL._AA256_UX250_FMwebp_QL85_.jpg)
+
+日本のインディーズシューゲイザーってこんなに栄えてたのか．
+ボーカルの甘さと編曲の強さが相まって飽きない．
+「つくる」-> 「国」の流れが良すぎる．
+「こわすためにつくっている」この歌詞がアルバム全体を完成させていて，久しぶりに歌詞を見てよかったと思った．
 
 ## その感激と記録
 
-![](https://likeafoolrecords.ocnk.net/data/likeafoolrecords/product/20230421_2da321.jpeg)
+![](https://m.media-amazon.com/images/I/71XWG7GqzPL._AA256_UX250_FMwebp_QL85_.jpg)
+
+羊文学寄りのシューゲイザーって感じがする．
+聴きやすさもだいぶ似ている．
+失礼か
+
+## ANORAK!
+
+![](https://m.media-amazon.com/images/I/71uYoKp7qkL._AA256_UX250_FMwebp_QL85_.jpg)
+
+Self-actualization and the ~~ で覚醒しすぎている．どうした？
+でもたしかに邦楽というよりは GreenDay の感じはするかもしれない
 
 ## せだい
 
-![](https://big-up.style/zine/wp-content/uploads/2020/03/06034201/%E7%B8%BA%E5%B8%99%E2%97%86%E7%B9%A7%E5%90%B6%EF%BC%9E.jpg)
+![](https://m.media-amazon.com/images/I/31b8oDwblXL._UX250_FMwebp_QL85_.jpg)
+
+切なさマシマシのシューゲイザー
 
 ## quoree
 
-![](https://i1.sndcdn.com/artworks-xnL9hpKjn59am1Ah-ye0gRg-t500x500.jpg)
+![](https://m.media-amazon.com/images/I/71gZP50-yFL._AA256_UX250_FMwebp_QL85_.jpg)
+
+ジャケットの良さが先行して聴き始めたが中身も良い．
+環境音というかインディーズのエレクトロはまさにこういう雰囲気だよな．．．
+曲名に統一感があってかっこいい．
 
 ## inu
 
-![](https://www.tunecore.co.jp/s3pna/tcj-image-production/u260730/a637314/ite203315.png)
+![](https://m.media-amazon.com/images/I/41+nqy665GL._UX250_FMwebp_QL85_.jpg)
+
+パンクではない．
+「___」 の良さから抜け出せていない．
+「硝子色に似た」->「海が褪せる頃」の流れも素晴らしい．
+手数の多さというか，サンクラ周辺の音楽を相当掘ってるような雰囲気を感じる．
+いや，本当に好きなアーティストだと思う．．．
 
 ## KAURUI
 
-![](https://i1.sndcdn.com/artworks-LaibA5xu5Fnos49x-zkC78Q-t500x500.jpg)
+![](https://m.media-amazon.com/images/I/71ylGE4lh9L._AA256_UX250_FMwebp_QL85_.jpg)
 
 今年に入って初めて知りました．
 なぜこんな才能を見つけられなかったのか...
@@ -283,20 +336,35 @@ andymori すぎる．
 
 ## サ柄直生
 
-![](https://i1.sndcdn.com/artworks-lXmkXTh2CMyMoFRM-sYvdtw-t500x500.jpg)
+![](https://m.media-amazon.com/images/I/51o1pGpPvtL._AA256_UX250_FMwebp_QL85_.jpg)
+
+「夏の透濁」のジャケットに惹かれて聴き始めたが，いい騙され方だった．
+夏をテーマにしたインディーズはたいていサマータイムレコードか久石譲になるんだが，そのどちらでもない夏を味わえる．
+細かい高音の効果音や薄い高めのパッドがひんやり聴こえる曲はほんとうに夏だと思う
 
 ## gaburyu
 
-![](https://d9w1zoc1zhrgl.cloudfront.net/artists/794/large-71045f4cee3893cdea97388b3999fd3a74a5e0de.jpg?1660031401)
+![](https://m.media-amazon.com/images/I/51ThzXx7R8L._SX354_SY354_BL0_QL100__UX250_FMwebp_QL85_.jpg)
+
+「Summer Loop Rework」 がかなりよく，繰り返し聴いている．
+「条理加速の片隅~」はどうだろうか．．．初期のボーカロイドっぽいボーカルの方が合うと思うんだよな
 
 ## ひがしやしき
 
-![](https://pbs.twimg.com/profile_images/1539085808552247296/Bnje7vSE_400x400.png)
+![](https://m.media-amazon.com/images/I/81g5H6+pg9L._AA256_UX250_FMwebp_QL85_.jpg)
+
+この雰囲気でラップですか．．．という迫力に押された．
 
 ## telematic visions
 
-![](https://cdn.tower.jp/za/o/1W/zaP2_G9003201W.JPG)
+![](https://m.media-amazon.com/images/I/715356QaC-L._AA256_UX250_FMwebp_QL85_.jpg)
+
+「town without sky」 結構名盤だと思う．
+XP 感とてもいいし，全てを飽きるまで聴かせてくれるのもいい．
 
 ## 猫を堕ろす
 
-![](https://baseec-img-mng.akamaized.net/images/item/origin/c24ccf3c6ec7811eceac4726b39c4d02.jpg?imformat=generic&q=90&im=Resize,width=640,type=normal)
+![](https://m.media-amazon.com/images/I/81tEonbW2RL._AA256_UX250_FMwebp_QL85_.jpg)
+
+アーティスト名は終わってるし尖り方が下手だと思うが曲はいい．
+「ポップの真髄」の「凪の音楽」はポップの真髄って感じがした (?)

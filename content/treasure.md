@@ -4,6 +4,10 @@ date: 2023-08-28T17:57:25+09:00
 draft: false
 ---
 
+## wo ai ni~~
+
+{{< youtube qz4sLtUVYbM >}}
+
 ## [｢あ｣｢え｣｢お｣っていう奴](https://www.youtube.com/watch?v=75bzqqHTWi4 "｢あ｣｢え｣｢お｣っていう奴")
 
 {{< youtube 75bzqqHTWi4 >}}

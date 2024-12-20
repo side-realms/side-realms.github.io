@@ -1,7 +1,7 @@
 baseURL = 'http://side-realms.github.io'
 relativeurls = true
 publishDir = "docs"
-languageCode = 'en-us'
+languageCode = 'ja-jp'
 theme = "m10c"
 title = "お茶は綾鷹派"
 paginate = 20
@@ -16,40 +16,55 @@ buildExpired = false
     url = "/"
     weight = 1
   [[menu.main]]
+    identifier = "techblog"
+    name = "techblog"
+    url = "/techblog"
+    weight = 2
+  [[menu.main]]
     identifier = "log"
     name = "life log"
     url = "/log"
     weight = 2
   [[menu.main]]
+    identifier = "Portfolio"
+    name = "Portfolio"
+    url = "/portfolio/"
+    weight = 3
+  [[menu.post]]
+    identifier = "misc"
+    name = "misc"
+    url = "/misc"
+    weight = 4
+  [[menu.post]]
+    identifier = "disc guide"
+    name = "disc guide"
+    url = "/discguide"
+    weight = 4
+  [[menu.post]]
     identifier = "treasure trove"
     name = "treasure trove"
     url = "/treasure/"
-    weight = 3
-  [[menu.post]]
-    identifier = "sound"
-    name = "sound"
-    url = "/sound"
-    weight = 1
-  [[menu.post]]
-    identifier = "container"
-    name = "container"
-    url = "/container"
-    weight = 2
-  [[menu.post]]
-    identifier = "hardware"
-    name = "hardware"
-    url = "/hardware"
-    weight = 2
-  [[menu.post]]
-    identifier = "writeup"
-    name = "writeup"
-    url = "/writeup"
-    weight = 2
-  [[menu.post]]
-    identifier = "other"
-    name = "other"
-    url = "/other"
-    weight = 3
+    weight = 5
+  #[[menu.post]]
+  #  identifier = "sound"
+  #  name = "sound"
+  #  url = "/sound"
+  #  weight = 1
+  #[[menu.post]]
+  #  identifier = "container"
+  #  name = "container"
+  #  url = "/container"
+  #  weight = 2
+  #[[menu.post]]
+  #  identifier = "hardware"
+  #  name = "hardware"
+  #  url = "/hardware"
+  #  weight = 2
+  #[[menu.post]]
+  #  identifier = "other"
+  #  name = "other"
+  #  url = "/other"
+  #  weight = 3
 
 [params]
   author = "KoheiDoi"
