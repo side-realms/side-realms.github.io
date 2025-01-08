@@ -6,7 +6,38 @@
     <description>Recent content on お茶は綾鷹派</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sat, 14 Dec 2024 01:49:51 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jan 2025 17:14:14 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>サイドチャネル攻撃に研究意義があるかどうか</title>
+      <link>http://side-realms.github.io/other/sidechannelattack/</link>
+      <pubDate>Wed, 01 Jan 2025 17:14:14 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/other/sidechannelattack/</guid>
+      <description>きっかけ ～～下記嫌なポエム～～
+昔，あるサイドチャネル攻撃の論文を否定的に評価しているツイートを見ました． 自分は結構気に入っていた論文だったので少しモヤりとしましたが，急にネットで攻撃するのも良くないと思った &amp;amp; 批判の範囲が広範でどこに引っかかっているか分からないということもあり，直接話すことにしました． と言っても自分から機会を作ったわけではなく，直接会う機会があったため，これを利用してなんとなく話してみることにしました． いざ話してみると技術的な部分ではなくサイドチャネル攻撃のアタックリサーチそのものに意義があるのか疑問に思っているようでした（どのサイドチャネル攻撃ですか？という感じではあるが）． そのためまともな議論にはならず（自分の説明不足と相手の知識不足が相まってお互いに不幸になったと思う），当時はなんとなくイヤな人だなと思ってしまっていました． その人の「意味のないハードウェアハックや基礎研究を大事にする」とか「寛大なパソコンオタクになる」みたいなブログを見て感銘を受け，ハードウェアセキュリティを将来の選択肢に入れただけに，知らない分野の基礎研究を全く受け入れない姿勢を見てそこそこショックではありました．
+～～嫌なポエムおしまい～～
+～～下記普通のポエム～～
+というわけで，自分の中にあるサイドチャネル攻撃の研究意義をここで供養しようと思います． 自分は研究者ではないので，傍観者のただのポエムです
+アタックリサーチの研究意義 攻撃者の上界を決めることにあると思っています． なので，悪意のない研究者が「どのような場合に攻撃できるか」を検証し，対策を促すことはセキュリティを強固にするために重要だと思います． 研究者が先に脆弱な部分を発見し，攻撃手法を提案，対策を促すというようなサイクルを回すことで，最終的には堅牢な部分だけが残ります．
+セキュリティ的に完ぺきなものは存在しませんが，アタックリサーチのサイクルを回すことで，攻撃者が攻撃のために必要なコストを上げることができます． 攻撃者は攻撃によって得られる利益と必要なコストのバランスがとれなくなったとき，攻撃を止めます． この状態を目指すことがアタックリサーチの目標であると考えています．
+非常に限定的なシチュエーションでしか成功しない攻撃の意義 これはその限定的なシチュエーションを正直に説明しているだけマシというか，攻撃者の上界を正確に説明しているという点で間違っていないことだと思います． そのうえで，攻撃者の上界（この条件なら攻撃が成立してしまう）を示すことはアタックリサーチの点で意義があると思っています．
+また，サイドチャネル攻撃は「攻撃者に有利すぎる」という指摘もありました． サイドチャネル攻撃はもともとは IC カードなどに搭載されている暗号チップ，特に共通鍵暗号を攻撃するために研究されていました． 共通鍵暗号が安全であるとされるのは，攻撃者が情報を得ることができる区間と得ることができない区間が明確に区切られているからです． つまり，その明確な区別があって初めて共通鍵暗号は安全であると言え，これが覆されると共通鍵暗号は安全ではなくなります． サイドチャネル攻撃はこの前提を覆す攻撃であり，攻撃者が情報を得ることができる区間を増えていることに前提があります． なので，サイドチャネル攻撃は「攻撃者に有利すぎる」という指摘は，(その度合いにもよりますが)無為であると思っています． なぜなら，IoT 製品や仮想サーバのように攻撃者が HW を直接操作できる or 攻撃者と被害者が HW を共有している場合の脅威を考えるのがサイドチャネル攻撃であり，「攻撃者に有利」な条件でどのような脅威があるかを考えるべきだからです．
+ある研究が，特に攻撃者に有利な条件でのみ成功している場合，これは先ほどと同じ議論であり，アタックリサーチにおいて明確に攻撃者の上界を示している点で優れた結果だと思います．
+研究に名前つけたりサイトわざわざ作ったりして大げさ 特に研究者は自分で研究費を稼ぐ必要があるので，自分の研究を「すごそう」に見せることは重要な能力だと思います． また，少し調べると分かりますが研究に名前がつくことは全く珍しくありません．個人的には名前がついていると論文での参照や会話が非常に楽なのでこれは常態化してほしいと思っています． 個別サイトが設けられるのも要点だけがまとまっていてとても分かりやすいと思います．
+技術的な側面だけで見れば，「名前がついているだけ」でその技術の優秀さは変動しません． 変わるものがあるとすれば読み手の主観だけです．
+エッジケースすぎて対策側がかわいそう 技術的な議論に感情を入れるのは間違っていますが，あえて「かわいそう」という感情の責任を議論するならその矛先は研究者ではなく Intel の QA だと思います
+～～ポエムおしまい～～</description>
+    </item>
+    
+    <item>
+      <title>見たものログ 2025</title>
+      <link>http://side-realms.github.io/log/log_2025/</link>
+      <pubDate>Wed, 01 Jan 2025 14:54:59 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/log/log_2025/</guid>
+      <description>漫画 天国大魔境 一昨年から読んでいてまだ完結していないけどログする 時間軸のズレは石黒節って感じだ 絵柄がちょっと大友克洋っぽい？小さい子供とかはかわいい まだ完結しそうにないが，だんだんと各存在が明らかになっていく感じ，かなり良い 石黒節 × SF なので結構覚えておかないと分からない伏線とかが多いけどこういうのがいいんだよな シドニアの騎士 人形の国よりも読みにくい でも慣れてくるとだんだん読みやすくなってくる シリアスなシーンとコミカルなシーンが同じトーンで描かれてるからシュールでおもろい つむぎかわいい 「恥部そのもの」って言われたあとに服着てるのかわいい そういうことじゃないんだよ イザナもかわいい ワイはイザナ推し ハーレム要素いらないよ，っていう意見もありそうだが，この悲壮感，荒廃感に対して箸休めが無いと多分読み切れない 最後適当すぎでは！？！？！？！？ 「なんと！」じゃないんだよ 「よくわからないということだ」じゃないんだよ メカデザインとか攻撃のモーション，ガウナのビジュアルはやっぱり良い 珈琲時間 おもしろかった 短編集，17 話 夏と目の彫りが上手に描けている 浦沢直樹っぽいと言われているがあまりその感じはしない 浦沢直樹より好き 豊田徹也は村上春樹の表紙を担当したこともあるらしい 静かな作品もあれば，コメディ，ドラマなどバリエーションが豊かである一方，バランスもとれている ミツバチのキス う～ん 絵にクセがある その人に触るだけでその人の過去とか未来が分かる主人公と，この主人公を国家間の情報戦として悪用するために引き抜きを画策する政府，情報局の中年役員などが出る 主人公は当然人間不信になるんだが，中年役員とだんだん心が通じ合って，みたいな話 主人公の SF 的な能力はメインではなく，人間関係の要素が多い 駿河の人間らしさと彗の非人間的な能力のバランスの落とし込みがうまい 別に落とし込めてはいないが物語の結末がちゃんとしていると思った ヒミズ 川沿いのボート屋に母親と二人で住む主人公の住田は高校2年生で，誰にも迷惑をかけずに生きることを目標として暮らす 母親は男を連れ込み，友達の夜野もスリ常習犯，父親は全然帰らずたまに金をせびりに来るだけというかなり過酷な環境で過ごしており，最終的に母親は知らない男と蒸発してしまう 普通を目指すつもりが父親の借金が判明するなど何も上手くいかない失意の住田のもとに父親が現れ，住田は父親を殺してしまう その日から父親を殺した自分の残りの人生を「オマケ」ととらえ，「悪い奴」を殺してから自殺することを目標に生きる が，同級生の助けもあり住田はだんだんと生きる希望を見出すものの，最後は住田が自殺しておしまい 古谷実の表現として異質な印象があり，おもしろい 「普通に生きる」ことを誰よりも強く切望していた住田は「普通でない」がために人生における暗い選択肢しか選択できなかった 最後の方の茶沢や途中のヤクザが話していたように，住田には当然比較的明るい選択肢（自首）も残されていた しかし，それはあくまで「普通」の人から見た客観的な選択肢であり，住田から見た主観的な選択肢にはなり得なかった ラストで化け物と会話する「運命」はこれを指しているように見える 住田その人自身はとても優しく，茶沢が警察に通報したときも茶沢を恨むことはなかった 完全な「普通」は存在せず，社会の中で生活するために人は大なり小なり自分の欲望を押し殺して生活をする その程度は人によって異なり，自分でコントロールできるものではない 「普通」の人は大した労力を必要とせず社会で生活できる 「普通」でない人は多くの苦痛を感じながら社会で生活する必要がある この「普通でない人」は，途中のホームレスや君田，夜野を騙したゲイなど様々な側面から描かれており，全員がその特殊性を隠しながら生きていた 君田は学校や家庭ではいたって普通にふるまっている ホームレスはその特殊性のためにホームレスになった 住田に向けた表向きの人格と性犯罪を犯しているときの人格の差が描かれている 住田は何が違っていたら生きることができたのか そもそも住田にとって何が幸せなのかも分からない 刑期を終えた住田が「普通」に戻れる確度は限りなく小さいと思う 茶沢も残ってくれているか分からない 生きることを正解とするなら，住田がこれからの人生を (住田の基準で) 正しく生きる選択肢は残っているし，周囲の人は住田を助けようとしているのに「無駄なんだ」と自分の中の化け物に背中を押され，自殺する選択肢しか見えていないのはとても悲しい 俺より弱いやつに会いに行く 押切蓮介に求めているのはこれではない でもこういう雰囲気は 00 年代っぽくて好きだ くしゃみ なにこれ？ 浦沢直樹の絵，苦手になってしまった 怪獣王国とか適当すぎるだろうが まあ短編集だしあんまり力入れてないのかもな 日本の兄弟 松本大洋の本作は，ある主題に沿いつつ時間軸をわずかにずらす表現が前半に多いように見える 「日本の家族」が一番好き インテリヤクザの岡田は自分の考えと組織の考えが食い違っているために，若頭の足を撃ってまで一人で行動を起こす 結局敵対組織の建物にまで乗り込んで頭を殺そうとするが，なんだかんだ懐柔されてしまう 自分の知らないところでうまい具合に世界は回っていて，自分だけがそれを知らない 花男 書籍 映画 映像 イベント ゲーム World for two おもしろい 「生成の母」以外トロコン 生成の母の取得条件が全く分からない．．． BGM，ドットグラフィックが素晴らしい 操作感が若干イマイチ カーソルが突然消える 移動する距離が長く，移動速度が遅い DNA 採取のコストがかかる 意外とシナリオは練られている 前日譚が意外といい Fe 最初はダルいゲームだなと思ったが，だんだんと楽しいパズルになってくる 魚シリーズのカワウソっぽいのもかわいい ほとんどオープンワールドでおもしろい 2018 年のゲームには思えない その他 お笑い ジャルジャル 真空ジェシカ ジョックロック ナユタ モグライダー 9番街レトロ TC クラクション ラパルフェ 鬼越トマホーク キュウ 軟水 人間横丁 ヤーレンズ ひつじねいり イチゴ 大自然 </description>
+    </item>
+    
     <item>
       <title>ボカロ - シングル</title>
       <link>http://side-realms.github.io/misc/vocaloid/</link>
@@ -20,11 +51,11 @@
 sui 構築している 春びらき id 残花、夏を見ていた 青の肖像 守れない約束の交わし方 リーフバック 沸点 祟リ遊ビ 妖人 cicada ここ数年の推しP． 全てがすっと飲み込める
 ▷コンティニュー ディフレイル ねこふんじゃった． 映像がヤバい．
 ピカリラ morning glow 異形ヲ啖ふ 片方だけが燃えている 洗脳チックに教育して 魔法少女幸福論を思い出しました
-ハードモードじゃ頑張れない スペースバニー +8 生命 いっぱいキャパシティ コラージュ 蒙昧 バレてたらどうしよう もう、溶けた。 クリエイト･リ/ムーブ シロクロアノニマス ＊･ﾟ+｡園にて.ﾟ キリンに日がさせば 夏空とコントレイル 引力の根源 トレードオフ 奈奈落落 バベル とっ散らかるサマー あの夏の旋律へ 一人でいたい Devil&amp;rsquo;s Devil 少しずつ、音 ピエロクラウンマスコット シャカ ハレーション バブル えんぴつキャップをわすれちゃった 大抵探索 今この瞬間でしか作れない音楽 Recollect グレア ロストダンサー アマリリス 海底電光 純白の記憶 心拍ペアリング room エンドロールによろしく アクラシア 蒼と海鳥 ポリネーション 離解できない </description>
+ハードモードじゃ頑張れない スペースバニー +8 生命 いっぱいキャパシティ コラージュ 蒙昧 バレてたらどうしよう もう、溶けた クリエイト･リ/ムーブ シロクロアノニマス ＊･ﾟ+｡園にて.ﾟ キリンに日がさせば 夏空とコントレイル 引力の根源 トレードオフ 奈奈落落 バベル とっ散らかるサマー あの夏の旋律へ 一人でいたい Devil&amp;rsquo;s Devil 少しずつ、音 ピエロクラウンマスコット シャカ ハレーション バブル えんぴつキャップをわすれちゃった 大抵探索 今この瞬間でしか作れない音楽 Recollect グレア ロストダンサー アマリリス 海底電光 純白の記憶 心拍ペアリング room エンドロールによろしく アクラシア 蒼と海鳥 ポリネーション 離解できない </description>
     </item>
     
     <item>
-      <title>渋谷系</title>
+      <title>個人的ディスクガイド - 渋谷系</title>
       <link>http://side-realms.github.io/misc/animesong/</link>
       <pubDate>Tue, 03 Dec 2024 00:48:43 +0900</pubDate>
       
@@ -290,6 +321,45 @@ HOSONO HOUSE に通じるものを感じる． 細野のベースが常に動い
     </item>
     
     <item>
+      <title>Implement small http server</title>
+      <link>http://side-realms.github.io/lowlayer/linux6/</link>
+      <pubDate>Tue, 26 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux6/</guid>
+      <description>小さな http サーバを実装する
+ソケットの作成，ポートのバインド #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/socket.h&amp;gt; #include &amp;lt;arpa/inet.h&amp;gt; #define PORT 9090 int main(){ int server_fd; struct sockaddr_in address; // create socket server_fd = socket(AF_INET, SOCK_STREAM, 0); if(server_fd == -1){ perror(&amp;#34;Socket creation failed&amp;#34;); exit(EXIT_FAILURE); } printf(&amp;#34;Socket created successfully\n&amp;#34;); // bind address.sin_family = AF_INET; // IPv4 address.sin_addr.s_addr = INADDR_ANY; address.sin_port = htons(PORT); if(bind(server_fd, (struct sockaddr *)&amp;amp;address, sizeof(address)) == -1){ perror(&amp;#34;Bind failed&amp;#34;); close(server_fd); exit(EXIT_FAILURE); } printf(&amp;#34;Bind to port %d successful.</description>
+    </item>
+    
+    <item>
+      <title>Implement small shell with fork and exec</title>
+      <link>http://side-realms.github.io/lowlayer/linux5/</link>
+      <pubDate>Mon, 25 Sep 2023 16:43:36 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux5/</guid>
+      <description>小さなシェルを実装する． シェルとしてのループを実行中に，標準入力からコマンドが入ると fork() して子プロセスを exec() で塗り替える
+// implementation for shell with fork and exec #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/wait.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #define MAX_ARGS 100 void myexec(char *input){ char *args[MAX_ARGS]; int arg_count = 0; char *p = strtok(input, &amp;#34; \t\n&amp;#34;); while(p != NULL &amp;amp;&amp;amp; arg_count &amp;lt; MAX_ARGS){ args[arg_count++] = p; p = strtok(NULL, &amp;#34; \t\n&amp;#34;); } args[arg_count] = NULL; if(arg_count == 0){ return; } pid_t pid = fork(); if(pid &amp;lt; 0){ perror(&amp;#34;fork&amp;#34;); exit(1); } if(pid == 0){ // child int err; err = execvp(args[0], args); if(err &amp;lt; 0){ perror(&amp;#34;execvp&amp;#34;); exit(1); } }else{ // parent int status; waitpid(pid, &amp;amp;status, 0); } } int main(){ char buf[1024]; printf(&amp;#34;---- my shell ----\n&amp;#34;); while(1){ printf(&amp;#34;myshell&amp;gt; &amp;#34;); fflush(stdout); if(fgets(buf, sizeof(buf), stdin) == NULL){ break; } if(strncmp(buf, &amp;#34;exit&amp;#34;, 4) == 0 &amp;amp;&amp;amp; buf[4] == &amp;#39;\n&amp;#39;){ break; } myexec(buf); } printf(&amp;#34;Good Bye\n&amp;#34;); exit(0); } 実行するとこんな感じ</description>
+    </item>
+    
+    <item>
+      <title>Implement ls command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux4/</link>
+      <pubDate>Sun, 24 Sep 2023 16:21:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux4/</guid>
+      <description>基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;dirent.h&amp;gt; void myls(char *path){ DIR *d; struct dirent *dir; d = opendir(path); if(d == NULL){ perror(&amp;#34;opendir&amp;#34;); exit(1); } while((dir = readdir(d)) != NULL){ printf(&amp;#34;%s\n&amp;#34;, dir-&amp;gt;d_name); } closedir(d); } int main(int argc, char *argv[]){ if(argc &amp;lt; 2){ printf(&amp;#34;Usage: %s &amp;lt;filename&amp;gt;\n&amp;#34;, argv[0]); exit(1); } for(int i = 1; i &amp;lt; argc; i++){ myls(argv[i]); } } $ ./myls . . mytail test.txt myls .. ls.c myhead tail.c head.</description>
+    </item>
+    
+    <item>
+      <title>Implement grep command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux3/</link>
+      <pubDate>Sat, 23 Sep 2023 16:09:59 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux3/</guid>
+      <description>今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;regex.h&amp;gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) !</description>
+    </item>
+    
+    <item>
       <title>風街ろまん</title>
       <link>http://side-realms.github.io/misc/happyend1/</link>
       <pubDate>Fri, 22 Sep 2023 22:57:54 +0900</pubDate>
@@ -326,6 +396,27 @@ HOSONO HOUSE に通じるものを感じる． 細野のベースが常に動い
 声と歌い方が良い． なくなっていく風景が悲しいね，っていう歌なんだから朴訥に，素朴に歌っているのがいい．
 風をあつめてが作られたのは 1970 年ごろで，1964 年の東京オリンピックの影響を受けている． オリンピックに伴う都市開発で見慣れた風景が消えてしまって悲しいね，という曲． 一方で「絶望」とか「孤独」みたいなおおげさな雰囲気はあんまり感じられなくて， 「なんとなく不安」みたいな漠然とした負の感情の方が似合っていると思う． 永久に変わらないものは無いので都市開発そのものを批判することはできないけど そのときの感情とか情景をこうやって残しておくのは素敵なことだと思う(誰？).
 街のはずれの</description>
+    </item>
+    
+    <item>
+      <title>Implement head &amp; tail command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux2/</link>
+      <pubDate>Thu, 21 Sep 2023 23:48:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux2/</guid>
+      <description>今回は， myhead と mytail を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; void myhead(FILE *fp, int nlines){ int c; while(nlines &amp;gt; 0 &amp;amp;&amp;amp; (c = getc(fp)) !</description>
+    </item>
+    
+    <item>
+      <title>Implement cat command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux1/</link>
+      <pubDate>Wed, 20 Sep 2023 22:42:51 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux1/</guid>
+      <description>今回は，引数に渡したファイルを読み込んで逐次表示していく mycat を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 愚直な実装なら何も難しくない
+#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.</description>
     </item>
     
     <item>

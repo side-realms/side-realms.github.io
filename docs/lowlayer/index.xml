@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lowlayers on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/lowlayer/</link>
+    <description>Recent content in Lowlayers on お茶は綾鷹派</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 26 Sep 2023 18:40:23 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/lowlayer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implement small http server</title>
+      <link>http://side-realms.github.io/lowlayer/linux6/</link>
+      <pubDate>Tue, 26 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux6/</guid>
+      <description>小さな http サーバを実装する
+ソケットの作成，ポートのバインド #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/socket.h&amp;gt; #include &amp;lt;arpa/inet.h&amp;gt; #define PORT 9090 int main(){ int server_fd; struct sockaddr_in address; // create socket server_fd = socket(AF_INET, SOCK_STREAM, 0); if(server_fd == -1){ perror(&amp;#34;Socket creation failed&amp;#34;); exit(EXIT_FAILURE); } printf(&amp;#34;Socket created successfully\n&amp;#34;); // bind address.sin_family = AF_INET; // IPv4 address.sin_addr.s_addr = INADDR_ANY; address.sin_port = htons(PORT); if(bind(server_fd, (struct sockaddr *)&amp;amp;address, sizeof(address)) == -1){ perror(&amp;#34;Bind failed&amp;#34;); close(server_fd); exit(EXIT_FAILURE); } printf(&amp;#34;Bind to port %d successful.</description>
+    </item>
+    
+    <item>
+      <title>Implement small shell with fork and exec</title>
+      <link>http://side-realms.github.io/lowlayer/linux5/</link>
+      <pubDate>Mon, 25 Sep 2023 16:43:36 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux5/</guid>
+      <description>小さなシェルを実装する． シェルとしてのループを実行中に，標準入力からコマンドが入ると fork() して子プロセスを exec() で塗り替える
+// implementation for shell with fork and exec #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/wait.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #define MAX_ARGS 100 void myexec(char *input){ char *args[MAX_ARGS]; int arg_count = 0; char *p = strtok(input, &amp;#34; \t\n&amp;#34;); while(p != NULL &amp;amp;&amp;amp; arg_count &amp;lt; MAX_ARGS){ args[arg_count++] = p; p = strtok(NULL, &amp;#34; \t\n&amp;#34;); } args[arg_count] = NULL; if(arg_count == 0){ return; } pid_t pid = fork(); if(pid &amp;lt; 0){ perror(&amp;#34;fork&amp;#34;); exit(1); } if(pid == 0){ // child int err; err = execvp(args[0], args); if(err &amp;lt; 0){ perror(&amp;#34;execvp&amp;#34;); exit(1); } }else{ // parent int status; waitpid(pid, &amp;amp;status, 0); } } int main(){ char buf[1024]; printf(&amp;#34;---- my shell ----\n&amp;#34;); while(1){ printf(&amp;#34;myshell&amp;gt; &amp;#34;); fflush(stdout); if(fgets(buf, sizeof(buf), stdin) == NULL){ break; } if(strncmp(buf, &amp;#34;exit&amp;#34;, 4) == 0 &amp;amp;&amp;amp; buf[4] == &amp;#39;\n&amp;#39;){ break; } myexec(buf); } printf(&amp;#34;Good Bye\n&amp;#34;); exit(0); } 実行するとこんな感じ</description>
+    </item>
+    
+    <item>
+      <title>Implement ls command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux4/</link>
+      <pubDate>Sun, 24 Sep 2023 16:21:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux4/</guid>
+      <description>基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;dirent.h&amp;gt; void myls(char *path){ DIR *d; struct dirent *dir; d = opendir(path); if(d == NULL){ perror(&amp;#34;opendir&amp;#34;); exit(1); } while((dir = readdir(d)) != NULL){ printf(&amp;#34;%s\n&amp;#34;, dir-&amp;gt;d_name); } closedir(d); } int main(int argc, char *argv[]){ if(argc &amp;lt; 2){ printf(&amp;#34;Usage: %s &amp;lt;filename&amp;gt;\n&amp;#34;, argv[0]); exit(1); } for(int i = 1; i &amp;lt; argc; i++){ myls(argv[i]); } } $ ./myls . . mytail test.txt myls .. ls.c myhead tail.c head.</description>
+    </item>
+    
+    <item>
+      <title>Implement grep command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux3/</link>
+      <pubDate>Sat, 23 Sep 2023 16:09:59 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux3/</guid>
+      <description>今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;regex.h&amp;gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) !</description>
+    </item>
+    
+    <item>
+      <title>Implement head &amp; tail command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux2/</link>
+      <pubDate>Thu, 21 Sep 2023 23:48:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux2/</guid>
+      <description>今回は， myhead と mytail を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; void myhead(FILE *fp, int nlines){ int c; while(nlines &amp;gt; 0 &amp;amp;&amp;amp; (c = getc(fp)) !</description>
+    </item>
+    
+    <item>
+      <title>Implement cat command in C</title>
+      <link>http://side-realms.github.io/lowlayer/linux1/</link>
+      <pubDate>Wed, 20 Sep 2023 22:42:51 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/lowlayer/linux1/</guid>
+      <description>今回は，引数に渡したファイルを読み込んで逐次表示していく mycat を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 愚直な実装なら何も難しくない
+#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.</description>
+    </item>
+    
+  </channel>
+</rss>

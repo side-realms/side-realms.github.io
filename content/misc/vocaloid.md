@@ -153,7 +153,7 @@ draft: false
 
 {{< youtube BAr50BKIQ8Y >}}
 
-### もう、溶けた。
+### もう、溶けた
 
 {{< youtube GRR_35gxZho >}}
 
