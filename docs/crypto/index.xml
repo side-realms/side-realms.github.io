@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cryptos on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/crypto/</link>
+    <description>Recent content in Cryptos on お茶は綾鷹派</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 03 Oct 2023 01:34:21 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/crypto/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ゼロ知識証明 2</title>
+      <link>http://side-realms.github.io/crypto/zkp2/</link>
+      <pubDate>Tue, 03 Oct 2023 01:34:21 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/zkp2/</guid>
+      <description>shnnor protocol において，同じ a に対して複数のチャレンジ e を成功させると w が取り出せることがある
+import socket import json import random from Crypto.Util.number import inverse, long_to_bytes p = xxx q = yyy def readline_json(sockfile): line = sockfile.readline() if not line: return None line = line.strip() if not line: return None try: return json.loads(line) except json.JSONDecodeError: return None def main(): with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: s.connect((HOST, PORT)) sockfile = s.makefile(&amp;#34;r&amp;#34;) while True: data = readline_json(sockfile) if data is not None: break a = data[&amp;#34;a&amp;#34;] y = data[&amp;#34;y&amp;#34;] print(&amp;#34;[Server] a =&amp;#34;, a, &amp;#34;y =&amp;#34;, y) e = random.</description>
+    </item>
+    
+    <item>
+      <title>ゼロ知識証明 1</title>
+      <link>http://side-realms.github.io/crypto/zkp1/</link>
+      <pubDate>Mon, 02 Oct 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/zkp1/</guid>
+      <description>知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
+ZKP ZKP は，その知識を Verifier に開示することなく知識を開示することなく(計算量的に再現不可能な形でのみ)証明したい． ZKP は下記を満たす．
+完全性: Prover が正しい知識をもっているなら，正当な手順で証明すれば Verifier はその知識が真実であることを疑いなく信頼できる 健全性: Prover は，Verifier を騙して偽の主張を真とみなすことはできない ゼロ知識: 主張が真か偽の他の情報を Verifer は受け取ることができない シグマプロトコル (Schnorr) 例えば知識 $w$ に関して，$g^w = y \mod p$ となるような $w$ をもっていることを証明したい．
+証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r + ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．</description>
+    </item>
+    
+    <item>
+      <title>hash length extension attack</title>
+      <link>http://side-realms.github.io/crypto/hash/</link>
+      <pubDate>Sun, 01 Oct 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/hash/</guid>
+      <description>例えば，user1:notadmin みたいな入力の先頭に秘密の言葉を加えてハッシュを取り，その内容を比較することで notadmin か admin かを判定する仕組みがあるとする． このとき，通常であればユーザーは秘密の言葉を知り得ないので，user1:admin みたいな文字列を作ることはできない． 一方で，md5 や sha1 のように Merkle–Damgård 構造をもっていると，内部構造がそのまま吐き出されるのでそれを利用して新しいハッシュを作ることができる． つまり，secret:user1:notadmin のハッシュから secret:user1:notadmin:admin を作ることができる．
+これは hashpump によって実現できる． が，どうやら実装が消えている？ので自分で作る． ひとまず sha1 だけ．
+#!/usr/bin/env python3 import struct import sys import base64 def left_rotate(n, b): return ((n &amp;lt;&amp;lt; b) | (n &amp;gt;&amp;gt; (32 - b))) &amp;amp; 0xffffffff class SHA1: def __init__(self, data=b&amp;#39;&amp;#39;, _h0=None, _h1=None, _h2=None, _h3=None, _h4=None, message_byte_length=0): if _h0 is None: self.h0 = 0x67452301 self.h1 = 0xEFCDAB89 self.h2 = 0x98BADCFE self.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 4</title>
+      <link>http://side-realms.github.io/crypto/ecc4/</link>
+      <pubDate>Sat, 30 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/ecc4/</guid>
+      <description>ECDH import random def mod_div(a, b, p): return mod_mul(a, mod_inv(b, p), p) def generate_keypair(G, n): d = random.randint(1, n-1) Q = d * G return d, Q if __name__ == &amp;#34;__main__&amp;#34;: p = 97 a = 2 b = 3 curve = EllipticCurve(a, b, p) G = Point(17, 10, curve) n = 19 # userA dA, QA = generate_keypair(G, n) print(f&amp;#34;userA: dA={dA}, QA={QA}&amp;#34;) # userB dB, QB = generate_keypair(G, n) print(f&amp;#34;userB: dB={dB}, QB={QB}&amp;#34;) shared_keyA = dA * QB shared_keyB = dB * QA assert shared_keyA == shared_keyB print(&amp;#34;ECDH success&amp;#34;) print(f&amp;#34;shared_key={shared_keyA}&amp;#34;) 結果は以下</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 3</title>
+      <link>http://side-realms.github.io/crypto/ecc3/</link>
+      <pubDate>Fri, 29 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/ecc3/</guid>
+      <description>点の演算を実装する（加算，倍加）
+点の加法と倍加 2つの点 $P=(x_1, y_1)$ と $Q=(x_2, y_2)$ を考える（無限遠点でない）． まず，P, Q を結ぶ直線を考える．この直線は傾き $\lambda$ を用いて以下のように表す
+$$y = \lambda x + c$$
+傾き $\lambda$ は以下のように定義される．
+$P \neq Q$ $\lambda = \frac{y_2-y_1}{x_2-x_1}$ $P=Q$ $\lambda = \frac{3x_1^2 + a}{2y_1}$ 楕円曲線上では， P+Q は 3 つめの交点 R の x 軸に対して反転した点として定義される．
+class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p = p if 4 * a**3 + 27 * b**2 == 0: raise Exception(&amp;#34;singular curve&amp;#34;) def contain(self, point): if(point.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 2</title>
+      <link>http://side-realms.github.io/crypto/ecc2/</link>
+      <pubDate>Thu, 28 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/ecc2/</guid>
+      <description>楕円曲線の定義を行う
+class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p = p if 4 * a**3 + 27 * b**2 == 0: raise Exception(&amp;#34;singular curve&amp;#34;) def contain(self, point): if(point.infinity): return True x, y = point.x, point.y return (y**2 - x**3 -self.a*x - self.b) % self.p == 0 class Point: def __init__(self, x=None, y=None, curve=None, infinity=False): self.x = x self.y = y self.curve = curve self.infinity = infinity if not self.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 1</title>
+      <link>http://side-realms.github.io/crypto/ecc1/</link>
+      <pubDate>Wed, 27 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/crypto/ecc1/</guid>
+      <description>楕円曲線暗号を理解するために実装を行う
+離散対数問題(DLP), DH 問題(DHP) Alice と Bob が DH 鍵共有をするのは以下のような手順で行われる
+あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．</description>
+    </item>
+    
+  </channel>
+</rss>
