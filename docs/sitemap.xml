@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://side-realms.github.io/other/</loc>
-    <lastmod>2025-01-01T17:14:14+09:00</lastmod>
+    <loc>http://side-realms.github.io/misc_tec/car-hack1/</loc>
+    <lastmod>2025-08-30T03:49:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/misc_tec/</loc>
+    <lastmod>2025-08-30T03:49:25+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/</loc>
+    <lastmod>2025-08-30T03:49:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/other/</loc>
     <lastmod>2025-01-01T17:14:14+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/other/sidechannelattack/</loc>
@@ -67,6 +73,18 @@
   </url><url>
     <loc>http://side-realms.github.io/misc/happyend/</loc>
     <lastmod>2023-11-08T08:39:04+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/misc_tec/wasm2/</loc>
+    <lastmod>2023-10-08T02:33:12+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/misc_tec/wasm1/</loc>
+    <lastmod>2023-10-07T02:33:12+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/misc_tec/proxmox2/</loc>
+    <lastmod>2023-10-06T17:57:25+09:00</lastmod>
+  </url><url>
+    <loc>http://side-realms.github.io/misc_tec/proxmox1/</loc>
+    <lastmod>2023-10-05T17:57:25+09:00</lastmod>
   </url><url>
     <loc>http://side-realms.github.io/crypto/</loc>
     <lastmod>2023-10-03T01:34:21+09:00</lastmod>

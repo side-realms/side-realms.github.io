@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Misc_tecs on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/misc_tec/</link>
+    <description>Recent content in Misc_tecs on お茶は綾鷹派</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 30 Aug 2025 03:49:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/misc_tec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Can Hack: アクアのスピードメータ</title>
+      <link>http://side-realms.github.io/misc_tec/car-hack1/</link>
+      <pubDate>Sat, 30 Aug 2025 03:49:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/misc_tec/car-hack1/</guid>
+      <description>はじめに そういえばカーハッキングを実機でやったことないなと思い，やる． 大学院の入試も終わり，仕事もひと段落ついたのでここらへんで小さいプロジェクト的にやりたい． 新しいライブラリ触ってみた系とかちょっとやってみました系ばかりで（そういうのを継続することも目的のひとつだけど），ちょっとした目的をもって遊んでみる機会が減っているので，ここらへんでやってみようと思う
+CAN Hack 系は座学はいくらでもリソースがあるが，実際に手を動かさないと何も学べない． と思っていたところにいい記事があった (ref: https://www.shutingrz.com/post/aqua-meter-hack/)
+動かす とりあえず先ほどの記事を手元で再現できるようにしたい． アクアのスピードメータはヤフオクで 3500 円くらい． ケーブル類の付属は無し．
+あとは usb2can ケーブルが必要． 適当に動きそうなものを買った(https://amzn.asia/d/gGOBGAU)． 今回買ったのは seeedstudio のだが，これは SLCAN ではないので，can0 みたいなソケットはでない． なので，candump は使えない（はず）． python-can 少し使いづらかったのでちゃんと選んで買った方がよさそう
+接続は下記．
+ちなみにスピードメータのピンアサインはググったところで出てこないので，トヨタの CD を買う必要がある． あら～と思っていたらさっきのブログで必要な部分だけピンを教えてくれていたのでそれを参考にする．
+あとついでに安定化電源もアリエクで 3000 円のを買ったが，電圧の下がり方が遅い． コンデンサの放電が遅いんだと思うけどそれにしても危ない． ちゃんとしたのを買った方がいい（それはそうか）
+この接続で電源を起動すると ECU にランプがつく． 7 Vあたりで警告灯が点灯し，12 V あたりでそれ以外が点灯する． 警告灯だけ重要だから IG 電圧よりも低い電圧で起動するようになってるんかな． 起動時は結構デカい音が鳴る．
+Fuzzing 先ほどのブログではファジングをやっていたのでとりあえずそこからやってみる．</description>
+    </item>
+    
+    <item>
+      <title>Wasm2</title>
+      <link>http://side-realms.github.io/misc_tec/wasm2/</link>
+      <pubDate>Sun, 08 Oct 2023 02:33:12 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/misc_tec/wasm2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebAssembly1：入門する</title>
+      <link>http://side-realms.github.io/misc_tec/wasm1/</link>
+      <pubDate>Sat, 07 Oct 2023 02:33:12 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/misc_tec/wasm1/</guid>
+      <description>そろそろ wasm をやらないと死ぬぜ！
+wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
+バイナリ形式なので，CPU が直接実行でき，早い．
+歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
+一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．</description>
+    </item>
+    
+    <item>
+      <title>自宅サーバ2: Discort bot</title>
+      <link>http://side-realms.github.io/misc_tec/proxmox2/</link>
+      <pubDate>Fri, 06 Oct 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/misc_tec/proxmox2/</guid>
+      <description>Heroku なにしてるん
+ubuntu server 導入 普通にやる． 下記を参考にした．
+https://qiita.com/yankee/items/495e80193070f6e70b65
+Discord bot を導入する とりあえず入門によいのではないかと思い，やってみる．
+まず Discord bot への登録 (?) が必要． 手順どおりやれば OK (https://discord.com/developers/docs/intro)
+次に Ubuntu 側での操作． 適当にディレクトリを作り，.env にトークンとチャンネル ID を記入する． あとは良い感じにアプリを作る． 今回は，実行すると ctftime から今週開催される ctf を教えてくれるアプリを作った． 次は定期実行をやる
+import os from datetime import datetime, timedelta import aiohttp import discord from dateutil import parser as dtparser, tz from dotenv import load_dotenv # env load_dotenv() TOKEN = os.getenv(&amp;#34;DISCORD_TOKEN&amp;#34;) CHANNEL_ID = os.getenv(&amp;#34;CHANNEL_ID&amp;#34;) TIMEZONE = os.getenv(&amp;#34;TIMEZONE&amp;#34;, &amp;#34;Asia/Tokyo&amp;#34;) CHANNEL_ID = int(CHANNEL_ID) TZ = tz.</description>
+    </item>
+    
+    <item>
+      <title>自宅サーバ1: セットアップ</title>
+      <link>http://side-realms.github.io/misc_tec/proxmox1/</link>
+      <pubDate>Thu, 05 Oct 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/misc_tec/proxmox1/</guid>
+      <description>はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
+環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192.</description>
+    </item>
+    
+  </channel>
+</rss>

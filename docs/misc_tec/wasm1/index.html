@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>WebAssembly1：入門する // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.3fb9065bb18f896621f7ce2fad5bbbafdf9954fbe571b5e41c6e59a8cbacc8ef.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WebAssembly1：入門する"/>
+<meta name="twitter:description" content="そろそろ wasm をやらないと死ぬぜ！
+wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
+バイナリ形式なので，CPU が直接実行でき，早い．
+歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
+一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．"/>
+
+    <meta property="og:title" content="WebAssembly1：入門する" />
+<meta property="og:description" content="そろそろ wasm をやらないと死ぬぜ！
+wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
+バイナリ形式なので，CPU が直接実行でき，早い．
+歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
+一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/misc_tec/wasm1/" /><meta property="article:section" content="misc_tec" />
+<meta property="article:published_time" content="2023-10-07T02:33:12+09:00" />
+<meta property="article:modified_time" content="2023-10-07T02:33:12+09:00" />
+
+    <style>
+      .hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p>最近は颯も好き</p>
+      <p><font size="1">内容の正確性は保証していません🐶</font></p>
+      <nav class="app-header-menu">
+          <font size="5">
+          <a class="app-header-menu-item" href="../../">Home</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../log">life log</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../techblog">techblog</a>
+          </font>
+          <br>
+            
+          
+          <font size="5">
+          <a class="app-header-menu-item" href="../../portfolio/">Portfolio</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <nav class="app-header-menu">
+          <font size="4">
+          <a class="app-header-menu-item" href="../../discguide">disc guide</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../misc">misc</a>
+          </font>
+          <br>
+            
+          
+          <font size="4">
+          <a class="app-header-menu-item" href="../../treasure/">treasure trove</a>
+          </font>
+          <br>
+      </nav>
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">WebAssembly1：入門する</h1>
+      </style>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 7, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>そろそろ wasm をやらないと死ぬぜ！</p>
+<h1 id="wasm-とは何か">wasm とは何か</h1>
+<p>ブラウザで JavaScript 以外の言語を実行するための使用・環境.
+C とか Rust をコンパイルして Wasm として動かすことができる．
+でもブラウザ以外でも動く．へぇ<br>
+バイナリ形式なので，CPU が直接実行でき，早い．</p>
+<h2 id="歴史">歴史</h2>
+<p>Unix はハードウェアを抽象化した．
+そのうち，CPU とメモリは C 言語が抽象化した．
+これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．</p>
+<p>一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる．
+そこで，JVM が開発された．
+JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる．
+その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた．
+ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる</p>
+<p>一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない．
+そこで，VM を抽象化するための規格として WebAssembly がでてきた．
+しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい．
+そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．</p>
+<p>一方で，Wasm において OS とのやりとりを許可するような規格を作ろうという動きもあった．
+これが WesAssembly System Interface という．</p>
+<h2 id="wasmtime">wasmtime</h2>
+<ul>
+<li>WebAssembly 用の軽量でコンパクトなランタイムで，Rust で実装されている．</li>
+<li>実際に簡単な Hello World を作ってみる</li>
+</ul>
+<h3 id="tutorial">tutorial</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>rustup target add wasm32-wasip2
+</span></span><span style="display:flex;"><span>cargo new hello-wasm
+</span></span><span style="display:flex;"><span>cd hello-wasm
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;Hello, Wasm!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo build --target wasm32-wasip2 --release
+</span></span><span style="display:flex;"><span>wasmtime target/wasm32-wasip2/release/hello-wasm.wasm
+</span></span></code></pre></div><p>ちなみに，wasm32-wasip1 と wasm32-wasip2 は，Rust コンパイラが用意している WASI 対応の Wasm 32-bit 向けターゲット．
+（Rust はコンパイル時にターゲットを指定することができる．このとき，どの CPU でどの OS API 向けにバイナリを吐くかが決まる． wasm32-wasip1 とは，webasssembly ISA アーキテクチャで，WASI Preview1 向けということになる．）</p>
+<h2 id="wasmtime-サンドボックス検証">Wasmtime サンドボックス検証</h2>
+<p>WASI は，先ほども言ったように wasm とネイティブコードの間で標準化されたインタフェース．
+Wasm で動くから WASI も移植性があるとは限らないが，ある程度の移植性は保証される．
+WASI のおかげでブラウザ外の wasm の実行も可能にし，サーバレスやエッジコンピューティングにも使われるようになった（らしい）．</p>
+<p>wasm モジュールは，適切な権限が与えられない限りファイルシステムやネットワークにアクセスできない．
+このため，悪意ある wasm モジュールが，許可なしに OS リソースを改変したりできない．</p>
+<p>WASI は POSIX に似たシステムコールを定義しているが， wasm のユースケースに特化している．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">┌──</span>(kali<span style="color:#960050;background-color:#1e0010">㉿</span>kali)<span style="color:#f92672">-</span>[<span style="color:#f92672">~/</span>hello<span style="color:#f92672">-</span>wasm]
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">└─</span><span style="color:#75715e">$</span> cat src<span style="color:#f92672">/</span>main.rs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::{
+</span></span><span style="display:flex;"><span>    env,
+</span></span><span style="display:flex;"><span>    fs::File,
+</span></span><span style="display:flex;"><span>    io::{self, Read, Write},
+</span></span><span style="display:flex;"><span>    process::exit,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; <span style="color:#a6e22e">io</span>::Result<span style="color:#f92672">&lt;</span>()<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> path <span style="color:#f92672">=</span> env::args().nth(<span style="color:#ae81ff">1</span>).unwrap_or_else(<span style="color:#f92672">||</span> {
+</span></span><span style="display:flex;"><span>        eprintln!(<span style="color:#e6db74">&#34;usage: read_sample &lt;file&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> File::open(<span style="color:#f92672">&amp;</span>path).map_err(<span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> {
+</span></span><span style="display:flex;"><span>        eprintln!(<span style="color:#e6db74">&#34;Error Opening Input: </span><span style="color:#e6db74">{e}</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        e
+</span></span><span style="display:flex;"><span>    })<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> stdout <span style="color:#f92672">=</span> io::stdout();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> handle <span style="color:#f92672">=</span> stdout.lock(); 
+</span></span><span style="display:flex;"><span>    io::copy(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> file, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> handle)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    Ok(())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>これは，ファイルを与えるとそれを開いてくれる．
+普通に実行するとこんな感じ</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/hello-wasm<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ ./target/release/hello-wasm sample_text 
+</span></span><span style="display:flex;"><span>hello hello
+</span></span></code></pre></div><p>でも wasm で実行するとこうなる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/hello-wasm<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ wasmtime target/wasm32-wasip2/release/hello-wasm.wasm sample_text        
+</span></span><span style="display:flex;"><span>Error Opening Input: failed to find a pre-opened file descriptor through which <span style="color:#e6db74">&#34;sample_text&#34;</span> could be opened
+</span></span><span style="display:flex;"><span>Error: Custom <span style="color:#f92672">{</span> kind: Uncategorized, error: <span style="color:#e6db74">&#34;failed to find a pre-opened file descriptor through which \&#34;sample_text\&#34; could be opened&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>で，ファイルを明示的に与えてあげるとこうなる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/hello-wasm<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ wasmtime --dir<span style="color:#f92672">=</span>. target/wasm32-wasip2/release/hello-wasm.wasm sample_text
+</span></span><span style="display:flex;"><span>hello hello
+</span></span></code></pre></div><p>同じ Rust のソースでも，ネイティブファイルとして実行すると，普通の OS 権限で実行できてしまう．
+一方で，wasm32-wasi バイナリを wasmtime で実行すると，WASI の capability が機能するので，&ndash;dir で明示的に許可しない限りファイルを開くことができない．</p>
+<p>これにより，プログラマは capability を意識した特別な API を書く必要がなくなる．</p>
+<p>アプリが呼ぶ open() は，libc と同じだが，wasi-libc は musl を流用しているので，アプリ側からは違いが分からない．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">open</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> oflag, ...) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// WASI libc&#39;s `openat` ignores the mode argument, so call a special
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// entrypoint which avoids the varargs calling convention.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__wasilibc_open_nomode</span>(path, oflag);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>内部では open() -&gt; __wasilibc_open_nomode() -&gt; find_relpath() となり，パスが preopen 済のディレクトリ下にあるかどうかを判定する．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">__wasilibc_open_nomode</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> oflag) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>relative_path;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> dirfd <span style="color:#f92672">=</span> <span style="color:#a6e22e">find_relpath</span>(path, <span style="color:#f92672">&amp;</span>relative_path);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If we can&#39;t find a preopen for it, fail as if we can&#39;t find the path.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (dirfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        errno <span style="color:#f92672">=</span> ENOENT;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__wasilibc_nocwd_openat_nomode</span>(dirfd, relative_path, oflag);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>
