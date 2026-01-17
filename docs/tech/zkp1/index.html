@@ -4,33 +4,37 @@
     <title>ゼロ知識証明 1 // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ゼロ知識証明 1"/>
-<meta name="twitter:description" content="知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ゼロ知識証明 1">
+  <meta name="twitter:description" content="知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
 ZKP ZKP は，その知識を Verifier に開示することなく知識を開示することなく(計算量的に再現不可能な形でのみ)証明したい． ZKP は下記を満たす．
 完全性: Prover が正しい知識をもっているなら，正当な手順で証明すれば Verifier はその知識が真実であることを疑いなく信頼できる 健全性: Prover は，Verifier を騙して偽の主張を真とみなすことはできない ゼロ知識: 主張が真か偽の他の情報を Verifer は受け取ることができない シグマプロトコル (Schnorr) 例えば知識 $w$ に関して，$g^w = y \mod p$ となるような $w$ をもっていることを証明したい．
-証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r &#43; ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．"/>
+証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r &#43; ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．">
 
-    <meta property="og:title" content="ゼロ知識証明 1" />
-<meta property="og:description" content="知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
+    <meta property="og:url" content="http://side-realms.github.io/tech/zkp1/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="ゼロ知識証明 1">
+  <meta property="og:description" content="知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
 ZKP ZKP は，その知識を Verifier に開示することなく知識を開示することなく(計算量的に再現不可能な形でのみ)証明したい． ZKP は下記を満たす．
 完全性: Prover が正しい知識をもっているなら，正当な手順で証明すれば Verifier はその知識が真実であることを疑いなく信頼できる 健全性: Prover は，Verifier を騙して偽の主張を真とみなすことはできない ゼロ知識: 主張が真か偽の他の情報を Verifer は受け取ることができない シグマプロトコル (Schnorr) 例えば知識 $w$ に関して，$g^w = y \mod p$ となるような $w$ をもっていることを証明したい．
-証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r &#43; ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/zkp1/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-10-02T18:40:23+09:00" />
-<meta property="article:modified_time" content="2023-10-02T18:40:23+09:00" />
+証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r &#43; ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-10-02T18:40:23+09:00">
+    <meta property="article:modified_time" content="2023-10-02T18:40:23+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -125,7 +129,7 @@ ZKP は下記を満たす．</p>
 </span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Prover</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, w):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, w):
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>w <span style="color:#f92672">=</span> w
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>r <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
@@ -141,7 +145,7 @@ ZKP は下記を満たす．</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Verifier</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">challenge</span>(self):

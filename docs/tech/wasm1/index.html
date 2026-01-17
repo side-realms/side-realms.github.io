@@ -4,37 +4,41 @@
     <title>WebAssembly1：入門する // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="WebAssembly1：入門する"/>
-<meta name="twitter:description" content="そろそろ wasm をやらないと死ぬぜ！
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WebAssembly1：入門する">
+  <meta name="twitter:description" content="そろそろ wasm をやらないと死ぬぜ！
 wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
 バイナリ形式なので，CPU が直接実行でき，早い．
 歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
 一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
-一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．"/>
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．">
 
-    <meta property="og:title" content="WebAssembly1：入門する" />
-<meta property="og:description" content="そろそろ wasm をやらないと死ぬぜ！
+    <meta property="og:url" content="http://side-realms.github.io/tech/wasm1/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="WebAssembly1：入門する">
+  <meta property="og:description" content="そろそろ wasm をやらないと死ぬぜ！
 wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
 バイナリ形式なので，CPU が直接実行でき，早い．
 歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
 一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
-一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/wasm1/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-10-07T02:33:12+09:00" />
-<meta property="article:modified_time" content="2023-10-07T02:33:12+09:00" />
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-10-07T02:33:12+09:00">
+    <meta property="article:modified_time" content="2023-10-07T02:33:12+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -122,7 +126,7 @@ JVM は Java アプリケーションを動かすことができるシステム�
 </span></span><span style="display:flex;"><span>cargo new hello-wasm
 </span></span><span style="display:flex;"><span>cd hello-wasm
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;Hello, Wasm!&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Hello, Wasm!&#34;</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cargo build --target wasm32-wasip2 --release
 </span></span><span style="display:flex;"><span>wasmtime target/wasm32-wasip2/release/hello-wasm.wasm
@@ -146,12 +150,12 @@ WASI のおかげでブラウザ外の wasm の実行も可能にし，サーバ
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; <span style="color:#a6e22e">io</span>::Result<span style="color:#f92672">&lt;</span>()<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> path <span style="color:#f92672">=</span> env::args().nth(<span style="color:#ae81ff">1</span>).unwrap_or_else(<span style="color:#f92672">||</span> {
-</span></span><span style="display:flex;"><span>        eprintln!(<span style="color:#e6db74">&#34;usage: read_sample &lt;file&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">eprintln!</span>(<span style="color:#e6db74">&#34;usage: read_sample &lt;file&gt;&#34;</span>);
 </span></span><span style="display:flex;"><span>        exit(<span style="color:#ae81ff">1</span>);
 </span></span><span style="display:flex;"><span>    });
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> File::open(<span style="color:#f92672">&amp;</span>path).map_err(<span style="color:#f92672">|</span>e<span style="color:#f92672">|</span> {
-</span></span><span style="display:flex;"><span>        eprintln!(<span style="color:#e6db74">&#34;Error Opening Input: </span><span style="color:#e6db74">{e}</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">eprintln!</span>(<span style="color:#e6db74">&#34;Error Opening Input: </span><span style="color:#e6db74">{e}</span><span style="color:#e6db74">&#34;</span>);
 </span></span><span style="display:flex;"><span>        e
 </span></span><span style="display:flex;"><span>    })<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> stdout <span style="color:#f92672">=</span> io::stdout();
@@ -179,8 +183,8 @@ WASI のおかげでブラウザ外の wasm の実行も可能にし，サーバ
 <p>アプリが呼ぶ open() は，libc と同じだが，wasi-libc は musl を流用しているので，アプリ側からは違いが分からない．</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">open</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> oflag, ...) {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// WASI libc&#39;s `openat` ignores the mode argument, so call a special
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// entrypoint which avoids the varargs calling convention.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__wasilibc_open_nomode</span>(path, oflag);
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// entrypoint which avoids the varargs calling convention.
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__wasilibc_open_nomode</span>(path, oflag);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>内部では open() -&gt; __wasilibc_open_nomode() -&gt; find_relpath() となり，パスが preopen 済のディレクトリ下にあるかどうかを判定する．</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">__wasilibc_open_nomode</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> oflag) {
@@ -188,7 +192,7 @@ WASI のおかげでブラウザ外の wasm の実行も可能にし，サーバ
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> dirfd <span style="color:#f92672">=</span> <span style="color:#a6e22e">find_relpath</span>(path, <span style="color:#f92672">&amp;</span>relative_path);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If we can&#39;t find a preopen for it, fail as if we can&#39;t find the path.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (dirfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dirfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
 </span></span><span style="display:flex;"><span>        errno <span style="color:#f92672">=</span> ENOENT;
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>    }

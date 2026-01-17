@@ -4,29 +4,33 @@
     <title>自宅サーバ1: セットアップ // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="自宅サーバ1: セットアップ"/>
-<meta name="twitter:description" content="はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
-環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192."/>
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="自宅サーバ1: セットアップ">
+  <meta name="twitter:description" content="はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
+環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192.168.xxx.xxx:8006 にアクセスすれば作業できる Proxmox 設定 ブラウザで Web 管理画面に入るとログイン画面が表示される． username: root, password: 決めたやつ でログインできる．">
 
-    <meta property="og:title" content="自宅サーバ1: セットアップ" />
-<meta property="og:description" content="はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
-環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/proxmox1/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-10-05T17:57:25+09:00" />
-<meta property="article:modified_time" content="2023-10-05T17:57:25+09:00" />
+    <meta property="og:url" content="http://side-realms.github.io/tech/proxmox1/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="自宅サーバ1: セットアップ">
+  <meta property="og:description" content="はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
+環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192.168.xxx.xxx:8006 にアクセスすれば作業できる Proxmox 設定 ブラウザで Web 管理画面に入るとログイン画面が表示される． username: root, password: 決めたやつ でログインできる．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-10-05T17:57:25+09:00">
+    <meta property="article:modified_time" content="2023-10-05T17:57:25+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

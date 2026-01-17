@@ -4,7 +4,6 @@ publishDir = "docs"
 languageCode = 'ja-jp'
 theme = "m10c"
 title = "お茶は綾鷹派"
-paginate = 20
 buildDrafts = false
 buildFuture = false
 buildExpired = false
@@ -48,3 +47,9 @@ darkColor = "#161b22"     # page background
 lightColor = "#cfd6e0"    # body text
 lightestColor = "#f4f7fb" # title text
 primaryColor = "#6fa8dc"  # accent
+
+[pagination]
+pagerSize = 20
+
+[markup.goldmark.renderer]
+unsafe = true

@@ -4,15 +4,16 @@
     <title>音楽生成 // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="音楽生成"/>
-<meta name="twitter:description" content="中華ホラーにハマってる
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="音楽生成">
+  <meta name="twitter:description" content="中華ホラーにハマってる
 たまにシャレにならない怖さのものがあって興奮する
 導入 いい本があった
 おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
@@ -20,10 +21,12 @@
 単純パーセプトロン $y=f(wx&#43;b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
 入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
 $f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
-で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w&rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w&rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．"/>
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w’ = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w’$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w’$ は大きくなる． バイアス $b$ も同じように調整される．">
 
-    <meta property="og:title" content="音楽生成" />
-<meta property="og:description" content="中華ホラーにハマってる
+    <meta property="og:url" content="http://side-realms.github.io/other/ml2/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="音楽生成">
+  <meta property="og:description" content="中華ホラーにハマってる
 たまにシャレにならない怖さのものがあって興奮する
 導入 いい本があった
 おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
@@ -31,16 +34,17 @@ $f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力す�
 単純パーセプトロン $y=f(wx&#43;b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
 入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
 $f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
-で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w&rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w&rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/other/ml2/" /><meta property="article:section" content="other" />
-<meta property="article:published_time" content="2023-12-02T17:57:25+09:00" />
-<meta property="article:modified_time" content="2023-12-02T17:57:25+09:00" />
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w’ = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w’$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w’$ は大きくなる． バイアス $b$ も同じように調整される．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="other">
+    <meta property="article:published_time" content="2023-12-02T17:57:25+09:00">
+    <meta property="article:modified_time" content="2023-12-02T17:57:25+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -383,7 +387,7 @@ midi の規格に沿っていて，note の開始時刻(start)，note の停止�
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> rate
 </span></span></code></pre></div><p>で，次に調の判定をする．
 <a href="https://craffel.github.io/pretty-midi/#pretty-midi-keysignature">ここ</a>
-を参考に見ていくと，メジャーキーは[0~11], マイナーキーは[12~23] なので，
+を参考に見ていくと，メジャーキーは[0<del>11], マイナーキーは[12</del>23] なので，
 調だけ知りたいなら 12 で割って商が 0 ならメジャーキー，みたいなことができる．
 てかこの機能があるなら調判定機作る必要ないな．．．</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tonality <span style="color:#f92672">=</span> key <span style="color:#f92672">/</span> <span style="color:#ae81ff">12</span>

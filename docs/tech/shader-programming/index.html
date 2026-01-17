@@ -4,35 +4,39 @@
     <title>shader programming // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="shader programming"/>
-<meta name="twitter:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="shader programming">
+  <meta name="twitter:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
 頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
 101 画面を赤く塗るだけのコード
 #version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
-#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1."/>
+#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0,1.0,0.0) ); pos.x *= 2.0; int index = int(pos.x); // float -&gt; int vec3 color = mix(mix(col3[index], col3[index&#43;1],fract(pos.x)), mix(col3[index&#43;2], col3[index&#43;3],fract(pos.x)),fract(pos.y)); fragColor = vec4(color, 1.0); } ポスタリゼーション">
 
-    <meta property="og:title" content="shader programming" />
-<meta property="og:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
+    <meta property="og:url" content="http://side-realms.github.io/tech/shader-programming/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="shader programming">
+  <meta property="og:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
 頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
 101 画面を赤く塗るだけのコード
 #version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
-#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/shader-programming/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
-<meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
+#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0,1.0,0.0) ); pos.x *= 2.0; int index = int(pos.x); // float -&gt; int vec3 color = mix(mix(col3[index], col3[index&#43;1],fract(pos.x)), mix(col3[index&#43;2], col3[index&#43;3],fract(pos.x)),fract(pos.y)); fragColor = vec4(color, 1.0); } ポスタリゼーション">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-08-28T17:57:25+09:00">
+    <meta property="article:modified_time" content="2023-08-28T17:57:25+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

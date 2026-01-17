@@ -4,29 +4,33 @@
     <title>Implement grep command in C // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Implement grep command in C"/>
-<meta name="twitter:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
-lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;regex.h&gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) !"/>
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Implement grep command in C">
+  <meta name="twitter:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;regex.h&gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) != NULL){ err = regexec(preg, buf, 0, NULL, 0); if(err == 0){ fputs(buf, stdout); } } } int main(int argc, char *argv[]){ regex_t preg; int err; char *pattern; FILE *fp; if(argc &lt; 2){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); exit(1); } pattern = argv[1]; err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); if(err != 0){ char buf[1024]; regerror(err, &amp;preg, buf, sizeof(buf)); puts(buf); exit(1); } if(argc == 2){ mygrep(&amp;preg, stdin); }else{ for(int i = 2;i &lt; argc; i&#43;&#43;){ fp = fopen(argv[i], &#34;r&#34;); if(fp == NULL){ perror(argv[i]); exit(1); } mygrep(&amp;preg, fp); fclose(fp); } } exit(0); } lubuntu@lubuntu-virtualbox:~/linux_tutorial$ ./mygrep m.* ./grep.c void mygrep(regex_t *preg, FILE *fp){ int main(int argc, char *argv[]){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); mygrep(&amp;preg, stdin); mygrep(&amp;preg, fp); よさそう．">
 
-    <meta property="og:title" content="Implement grep command in C" />
-<meta property="og:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
-lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;regex.h&gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) !" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/linux3/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-09-23T16:09:59+09:00" />
-<meta property="article:modified_time" content="2023-09-23T16:09:59+09:00" />
+    <meta property="og:url" content="http://side-realms.github.io/tech/linux3/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="Implement grep command in C">
+  <meta property="og:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;regex.h&gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) != NULL){ err = regexec(preg, buf, 0, NULL, 0); if(err == 0){ fputs(buf, stdout); } } } int main(int argc, char *argv[]){ regex_t preg; int err; char *pattern; FILE *fp; if(argc &lt; 2){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); exit(1); } pattern = argv[1]; err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); if(err != 0){ char buf[1024]; regerror(err, &amp;preg, buf, sizeof(buf)); puts(buf); exit(1); } if(argc == 2){ mygrep(&amp;preg, stdin); }else{ for(int i = 2;i &lt; argc; i&#43;&#43;){ fp = fopen(argv[i], &#34;r&#34;); if(fp == NULL){ perror(argv[i]); exit(1); } mygrep(&amp;preg, fp); fclose(fp); } } exit(0); } lubuntu@lubuntu-virtualbox:~/linux_tutorial$ ./mygrep m.* ./grep.c void mygrep(regex_t *preg, FILE *fp){ int main(int argc, char *argv[]){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); mygrep(&amp;preg, stdin); mygrep(&amp;preg, fp); よさそう．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-09-23T16:09:59+09:00">
+    <meta property="article:modified_time" content="2023-09-23T16:09:59+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -101,7 +105,7 @@ lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;regex.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mygrep</span>(<span style="color:#66d9ef">regex_t</span> <span style="color:#f92672">*</span>preg, FILE <span style="color:#f92672">*</span>fp){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">4096</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> err;

@@ -4,35 +4,41 @@
     <title>java が生成する乱数を予測する // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="java が生成する乱数を予測する"/>
-<meta name="twitter:description" content="java が生成する17兆通りある乱数を予測してみる
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="java が生成する乱数を予測する">
+  <meta name="twitter:description" content="java が生成する17兆通りある乱数を予測してみる
 1. 乱数生成をするスクリプトを書く ソース
 2. java の乱数生成を調べる 「予測できるらしい」しかしらないのでちゃんと調べる
 Random random = new Random(); random.nextInt(); この nextInt() はソースコード内で next() を呼び出していて，next() のソースコードは以下のようになる
-protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0xBL) &amp; ((1L &lt;&lt; 48) - 1); return (int) (seed &gt;&gt;&gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる"/>
+protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0xBL) &amp; ((1L &lt;&lt; 48) - 1); return (int) (seed &gt;&gt;&gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる
+3. 4 bit だけで予測する 予測すべき範囲が 2^44 bit になるので，さっきより甚大に増える． そこで，もらえる乱数を増やして考える． さっきの変数をそれぞれ a=0x5DEECE66DL, b=0xBL, m = ((1L « 48) - 1) とおく．">
 
-    <meta property="og:title" content="java が生成する乱数を予測する" />
-<meta property="og:description" content="java が生成する17兆通りある乱数を予測してみる
+    <meta property="og:url" content="http://side-realms.github.io/tech/java_crypto/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="java が生成する乱数を予測する">
+  <meta property="og:description" content="java が生成する17兆通りある乱数を予測してみる
 1. 乱数生成をするスクリプトを書く ソース
 2. java の乱数生成を調べる 「予測できるらしい」しかしらないのでちゃんと調べる
 Random random = new Random(); random.nextInt(); この nextInt() はソースコード内で next() を呼び出していて，next() のソースコードは以下のようになる
-protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0xBL) &amp; ((1L &lt;&lt; 48) - 1); return (int) (seed &gt;&gt;&gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/java_crypto/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
-<meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
+protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0xBL) &amp; ((1L &lt;&lt; 48) - 1); return (int) (seed &gt;&gt;&gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる
+3. 4 bit だけで予測する 予測すべき範囲が 2^44 bit になるので，さっきより甚大に増える． そこで，もらえる乱数を増やして考える． さっきの変数をそれぞれ a=0x5DEECE66DL, b=0xBL, m = ((1L « 48) - 1) とおく．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-08-28T17:57:25+09:00">
+    <meta property="article:modified_time" content="2023-08-28T17:57:25+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -94,14 +100,14 @@ protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0x
 <p><a href="https://github.com/side-realms/random/blob/main/HelloWorld.java">ソース</a></p>
 <h3 id="2-java-の乱数生成を調べる">2. java の乱数生成を調べる</h3>
 <p>「予測できるらしい」しかしらないのでちゃんと調べる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>Random random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random<span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>random<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">();</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>Random random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
+</span></span><span style="display:flex;"><span>random.<span style="color:#a6e22e">nextInt</span>();
 </span></span></code></pre></div><p>この nextInt() はソースコード内で next() を呼び出していて，next() のソースコードは以下のようになる</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> bits<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>      seed <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>seed <span style="color:#f92672">*</span> 0x5DEECE66DL <span style="color:#f92672">+</span> 0xBL<span style="color:#f92672">)</span> <span style="color:#f92672">&amp;</span> <span style="color:#f92672">((</span>1L <span style="color:#f92672">&lt;&lt;</span> 48<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> 1<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>seed <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">(</span>48 <span style="color:#f92672">-</span> bits<span style="color:#f92672">));</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">int</span> bits)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      seed <span style="color:#f92672">=</span> (seed <span style="color:#f92672">*</span> 0x5DEECE66DL <span style="color:#f92672">+</span> 0xBL) <span style="color:#f92672">&amp;</span> ((1L <span style="color:#f92672">&lt;&lt;</span> 48) <span style="color:#f92672">-</span> 1);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) (seed <span style="color:#f92672">&gt;&gt;&gt;</span> (48 <span style="color:#f92672">-</span> bits));
+</span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div><p>このとき乱数は seed で返されるが，それ以外の値は全て既知．
 なので，ひとつ seed が分かればそれ以降の seed も知ることができる．
 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す．
@@ -125,12 +131,12 @@ $$(x_4-x_3) - a^2(x_2-x_1) = 0$$
 $$(x_5-x_4) - a^3(x_2-x_1) = 0$$</p>
 <p>で，これをさっきの式と展開すると，</p>
 <p>$$m(x_2-x_1)=m(seed2^{44}+unknown\_seed)=s~m$$</p>
-<p>$$m~unknown\_seed = s~m - m~seed2^{44}$$</p>
+<p>$$m<del>unknown\_seed = s</del>m - m~seed2^{44}$$</p>
 <p>となる．(s は係数で，x_2-x_1 以外は m が消えないのでいったん消さずにこのまま)
 このとき，右辺が無視できるほど小さいとすると(ε)，</p>
-<p>$$s~m - m~seed~2^{44} = ε$$
-$$s~m = ε - m~seed~2^{44}$$
-$$s = ε/m - m~seed~2^{44}/m$$</p>
+<p>$$s<del>m - m</del>seed<del>2^{44} = ε$$
+$$s</del>m = ε - m<del>seed</del>2^{44}$$
+$$s = ε/m - m<del>seed</del>2^{44}/m$$</p>
 <p>となるが，ε/m は無視できるほど小さいので，右辺は既知の数だけになる．
 すると s が求まる．
 先の右辺を小さくするために工夫をする必要がある．</p>
@@ -156,17 +162,17 @@ $n$ を格子の次数という．</p>
 <h4 id="markle-hellman-knapsack-暗号">Markle-Hellman Knapsack 暗号</h4>
 <p>$n$ ビットの平文を暗号化するために，超増加列 $w$ とランダムな $r, q$ を用意する．
 超増加列 $w$ は，$w_0 \leq w_1, w_0 + w_1 \leq w_2, &hellip;$ となるような順列のことをいう．
-また，$\beta = r~w \mod q$ とする．
+また，$\beta = r<del>w \mod q$ とする．
 $a$ を平文とする．
 このとき，
-$$ c = \sum a_i~\beta_i$$
+$$ c = \sum a_i</del>\beta_i$$
 で表される暗号文があり，$c, \beta$ から $a$ を求めることが難しい，というのが今回の問題．
 このとき，$a_0\beta_0 + a_1\beta_1 + &hellip; + -c = 0$ と式変形する．
 このとき，未知の $a$ を $x$ とおき，LLL を使って，格子を保つ小さな $x$ を求めることができる．</p>
 <p>\begin{array}{cc}
 (x_0 &amp; x_1 &amp; &hellip; &amp; 1) * (1 &amp; 0 &amp; &hellip; &amp;\beta_0)(0 &amp; 1 &amp;&hellip;&amp; \beta_1)&hellip;
 \end{array}</p>
-<p>とすれば，計算結果は $(x_0~x_1~&hellip;~0)$ となるはず．
+<p>とすれば，計算結果は $(x_0<del>x_1</del>&hellip;~0)$ となるはず．
 LLL は $(x_0 ~ x_1 ~ &hellip; ~ 1)$ をなるべく小さくしたいので，LLL に投げれば求まる．</p>
 
     </div>

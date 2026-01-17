@@ -4,7 +4,8 @@
     <title>Tags on お茶は綾鷹派</title>
     <link>http://side-realms.github.io/tags/</link>
     <description>Recent content in Tags on お茶は綾鷹派</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language><atom:link href="http://side-realms.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>ja-jp</language>
+    <atom:link href="http://side-realms.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

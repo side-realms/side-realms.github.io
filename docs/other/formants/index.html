@@ -4,15 +4,16 @@
     <title>フォルマント解析 // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="フォルマント解析"/>
-<meta name="twitter:description" content="フォルマント解析，やってみたいよな
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="フォルマント解析">
+  <meta name="twitter:description" content="フォルマント解析，やってみたいよな
 フォルマント 人間の音声は声帯の振動で生成され，声道を通って発せられる． このとき，声道の周波数特性によって，特定の周波数が強調される． この強調された周波数をフォルマント周波数といい， 低いものから順番に第一フォルマント，第二フォルマント・・・という
 下図は IA に「あいうえお」ってしゃべらせたときの波形
 これはただの stft なのでフォルマントではなく基本周波数とその高調波のはずで，これを LPC 解析とかして 包絡線を求めることでどの周波数が強調されているかを知ることができる，という認識
@@ -22,15 +23,14 @@ librosa 初めてちゃんと調べたけど便利だ あんまり正確じゃ�
 formants.py
 LPC 解析 音の複雑な形を線形の式で予測してしまおうというこころみ
 時刻 n における信号を x_n と表すと，線形予測の結果は以下のようになる
-$$ \overline{x_n} = -(\alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; &hellip; &#43; \alpha_p x_{n-p}) $$
+$$ \overline{x_n} = -(\alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; … &#43; \alpha_p x_{n-p}) $$
 真の値との誤差を計算すると以下のようになる．
-$$ \epsilon_n = x_n - \overline{x_n} = x_n &#43; \alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; &hellip; &#43; \alpha_p x_{n-p}$$
-このときに誤差をなるべく小さくするようにパラメータを決めてあげる必要がある． α (線形予測係数)をうまく選んであげればいい，みたいな感じ
-さっきの式から以下のように畳み込みを表せる．
-$$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$"/>
+$$ \epsilon_n = x_n - \overline{x_n} = x_n &#43; \alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; … &#43; \alpha_p x_{n-p}$$">
 
-    <meta property="og:title" content="フォルマント解析" />
-<meta property="og:description" content="フォルマント解析，やってみたいよな
+    <meta property="og:url" content="http://side-realms.github.io/other/formants/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="フォルマント解析">
+  <meta property="og:description" content="フォルマント解析，やってみたいよな
 フォルマント 人間の音声は声帯の振動で生成され，声道を通って発せられる． このとき，声道の周波数特性によって，特定の周波数が強調される． この強調された周波数をフォルマント周波数といい， 低いものから順番に第一フォルマント，第二フォルマント・・・という
 下図は IA に「あいうえお」ってしゃべらせたときの波形
 これはただの stft なのでフォルマントではなく基本周波数とその高調波のはずで，これを LPC 解析とかして 包絡線を求めることでどの周波数が強調されているかを知ることができる，という認識
@@ -40,21 +40,19 @@ librosa 初めてちゃんと調べたけど便利だ あんまり正確じゃ�
 formants.py
 LPC 解析 音の複雑な形を線形の式で予測してしまおうというこころみ
 時刻 n における信号を x_n と表すと，線形予測の結果は以下のようになる
-$$ \overline{x_n} = -(\alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; &hellip; &#43; \alpha_p x_{n-p}) $$
+$$ \overline{x_n} = -(\alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; … &#43; \alpha_p x_{n-p}) $$
 真の値との誤差を計算すると以下のようになる．
-$$ \epsilon_n = x_n - \overline{x_n} = x_n &#43; \alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; &hellip; &#43; \alpha_p x_{n-p}$$
-このときに誤差をなるべく小さくするようにパラメータを決めてあげる必要がある． α (線形予測係数)をうまく選んであげればいい，みたいな感じ
-さっきの式から以下のように畳み込みを表せる．
-$$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/other/formants/" /><meta property="article:section" content="other" />
-<meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
-<meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
+$$ \epsilon_n = x_n - \overline{x_n} = x_n &#43; \alpha_1 x_{n-1} &#43; \alpha_2 x_{n-2} &#43; … &#43; \alpha_p x_{n-p}$$">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="other">
+    <meta property="article:published_time" content="2023-08-28T17:57:25+09:00">
+    <meta property="article:modified_time" content="2023-08-28T17:57:25+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
@@ -105,7 +103,7 @@ $$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$" />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          5 min read
         </div>
       </div>
       <hr>
@@ -126,7 +124,7 @@ $$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$" />
 <p><img src="../../images/formants_IA2.png" alt="This is a image"></p>
 <p>あんまり正確じゃない気がするけどまあいいか<br>
 それっぽい周波数にそれっぽいピークがでているのでまあ．．．<br>
-<!-- raw HTML omitted -->formants.py<!-- raw HTML omitted --></p>
+<a href="https://github.com/side-realms/formants/blob/main/formants1.py" target="_blank">formants.py</a></p>
 <h3 id="lpc-解析">LPC 解析</h3>
 <p>音の複雑な形を線形の式で予測してしまおうというこころみ</p>
 <p>時刻 n における信号を x_n と表すと，線形予測の結果は以下のようになる</p>
@@ -163,7 +161,30 @@ $$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$" />
 <p>$$\Sigma^p_{i=0}\alpha_tr_{|i-j|} = 0$$</p>
 <p>$$\Sigma^p_{i=1}\alpha_tr_{|i-j|} = - r_t$$</p>
 <p>これを解けば，連立方程式を計算することで線形予測係数を求めることができる．</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  \begin{pmatrix}
+  r_0 & r_1 & ... & r_{p-1} \\
+  r_1 & r_0 & ... & r_{p-2} \\
+  ・ & ・ & ・ & ・ \\
+  r_{p-1} & ・ & ... & r_0\\
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  \alpha_1\\
+  \alpha_2\\
+  ・\\
+  \alpha_p
+  \end{pmatrix}
+  = -
+  \begin{pmatrix}
+  r_1\\
+  r_2\\
+  ・\\
+  r_p
+  \end{pmatrix}
+  $$
+</div>
 <p>というかんじになる．
 この正規方程式を解ければ α が知れる．
 以下から実際にスクリプトを書いて試してみる．
@@ -249,24 +270,160 @@ $$\overline{x_n} = x_n - \epsilon_n = - \alpha_n * x_n$$" />
 ここで，再帰的に計算する方法を用いる．
 つまり，サイズ p における解をもとに p+1 の解を求める．</p>
 <p>最後の式をもっかい書く</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  \begin{pmatrix}
+  r_1 & r_0 & r_1 & ... & r_{p-1} \\
+  r_2 & r_1 & r_0 & ... & r_{p-2} \\
+  ・ & ・ & ・ & ・ & ・ \\
+  r_p & r_{p-1} & ・ & ... & r_0\\
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  \alpha_1\\
+  \alpha_2\\
+  ・\\
+  \alpha_p
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  0\\
+  0\\
+  ・\\
+  0
+  \end{pmatrix}
+  $$
+</div>
 <p>ここで以下のようにおく</p>
 <p>$$E_p = \Sigma^p_{i=0}\alpha_ir(i)$$</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  \begin{pmatrix}
+  r_0 & r_1 & r_2 & ... & r_{p} \\
+  r_1 & r_0 & r_1 & ... & r_{p-1} \\
+  r_2 & r_1 & r_0 & ... & r_{p-2} \\
+  ・ & ・ & ・ & ・ & ・ \\
+  r_p & r_{p-1} & ・ & ... & r_0\\
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  1 \\
+  \alpha_1\\
+  \alpha_2\\
+  ・\\
+  \alpha_p
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  E_p \\
+  0\\
+  ・\\
+  0
+  \end{pmatrix}
+  $$
+</div>
 <p>また，サイズ p における線形予測係数行列を A_p,
 自己相関係数行列を R_p とおく．つまり以下のようになる．</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  N_pA_p
+  =
+  \begin{pmatrix}
+  E_p\\
+  0\\
+  ・\\
+  0
+  \end{pmatrix}
+  $$
+</div>
 <p>この A_p に対して一番下に 0 を新しく追加したものを A&rsquo;_p+1 とする．ただし，これは知りたい線形予測係数ではないので A&rsquo; としている．</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  \begin{pmatrix}
+  r_0 & r_1 & r_2 & ... & r_{p} & r_{p+1} \\
+  r_1 & r_0 & r_1 & ... & r_{p-1} & r_{p} \\
+  r_2 & r_1 & r_0 & ... & r_{p-2} & r_{p-1} \\
+  ・ & ・ & ・ & ・ & ・  &・\\
+  r_{p+1} & r_{p-1} & ・ & ... & r_1 & r_0\\
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+  1 \\
+  \alpha_1\\
+  \alpha_2\\
+  ・\\
+  \alpha_p\\
+  0
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  E_p \\
+  0\\
+  ・\\
+  0 \\
+  \Sigma^p_{i=0} \alpha_ir_{p+1-i}
+  \end{pmatrix}
+  $$
+</div>
 <p>これは以下のように変換できる</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  N_{p+1}A'_{p+1}
+  =
+  \begin{pmatrix}
+  E_p\\
+  0\\
+  ・\\
+  \Sigma^p_{i=0} \alpha_ir_{p+1-i}
+  \end{pmatrix}
+  $$
+</div>
 <p>このときに A&rsquo; の上下を逆にしても，右辺の上下を逆にしても成立するようにするには，自己相関係数行列を上下左右に反転させればいい．これを B_p+1 とすると以下のようになる．</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  N_{p+1}B_{p+1}
+  =
+  \begin{pmatrix}
+  \Sigma^p_{i=0} \alpha_ir_{p+1-i}\\
+  0\\
+  ・\\
+  E_p
+  \end{pmatrix}
+  $$
+</div>
 <p>このとき，知りたい A_{p+1} を以下のように表す．
 ただし，k_p+1 を PARCOR 係数と呼ぶらしい</p>
 <p>$$A_{p+1} = A&rsquo;<em>{p+1} + k</em>{p+1}B_{p+1}$$</p>
 <p>とすると，以下のようになる．</p>
-<!-- raw HTML omitted -->
+<div>
+  $$
+  N_{p+1}A_{p+1}
+  =
+  N_{p+1}(A'_{p+1} + k_{p+1}B_{p+1})
+  = N_{p+1}A'_{p+1} + k_{p+1}B_{p+1}N_{p+1}\\
+  =
+  \begin{pmatrix}
+  E_p\\
+  0\\
+  ・\\
+  \Sigma^p_{i=0} \alpha_ir_{p+1-i}
+  \end{pmatrix}
+  +
+  \begin{pmatrix}
+  k_{p+1}\Sigma^p_{i=0} \alpha_ir_{p+1-i}\\
+  0\\
+  ・\\
+  k_{p+1}E_p
+  \end{pmatrix}\\
+  =
+  \begin{pmatrix}
+  E_p + k_{p+1}\Sigma^p_{i=0} \alpha_ir_{p+1-i}\\
+  0\\
+  ・\\
+  \Sigma^p_{i=0} \alpha_ir_{p+1-i} + k_{p+1}E_p
+  \end{pmatrix}
+  $$
+</div>
 <p>このとき，一番下が 0 になって，一番上が E_p+1 になるように PARCOR を求める．</p>
 <p>$$\Sigma^p_{i=0} \alpha_ir_{p+1-i} + k_{p+1}E_p = 0$$</p>
 <p>$$ k_{p+1} = \frac{\Sigma^p_{i=0} \alpha_ir_{p+1-i}}{E_p}$$</p>

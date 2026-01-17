@@ -4,31 +4,35 @@
     <title>楕円曲線暗号の実装 1 // お茶は綾鷹派</title>
     <link rel="shortcut icon" href="../../favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="generator" content="Hugo 0.154.5">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="KoheiDoi" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="楕円曲線暗号の実装 1"/>
-<meta name="twitter:description" content="楕円曲線暗号を理解するために実装を行う
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="楕円曲線暗号の実装 1">
+  <meta name="twitter:description" content="楕円曲線暗号を理解するために実装を行う
 離散対数問題(DLP), DH 問題(DHP) Alice と Bob が DH 鍵共有をするのは以下のような手順で行われる
-あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．"/>
+あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．">
 
-    <meta property="og:title" content="楕円曲線暗号の実装 1" />
-<meta property="og:description" content="楕円曲線暗号を理解するために実装を行う
+    <meta property="og:url" content="http://side-realms.github.io/tech/ecc1/">
+  <meta property="og:site_name" content="お茶は綾鷹派">
+  <meta property="og:title" content="楕円曲線暗号の実装 1">
+  <meta property="og:description" content="楕円曲線暗号を理解するために実装を行う
 離散対数問題(DLP), DH 問題(DHP) Alice と Bob が DH 鍵共有をするのは以下のような手順で行われる
-あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://side-realms.github.io/tech/ecc1/" /><meta property="article:section" content="tech" />
-<meta property="article:published_time" content="2023-09-27T18:40:23+09:00" />
-<meta property="article:modified_time" content="2023-09-27T18:40:23+09:00" />
+あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．">
+  <meta property="og:locale" content="ja_jp">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2023-09-27T18:40:23+09:00">
+    <meta property="article:modified_time" content="2023-09-27T18:40:23+09:00">
 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
