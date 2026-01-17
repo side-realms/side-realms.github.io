@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>Namespace // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Namespace"/>
+<meta name="twitter:description" content="モンエナ スイカ味，ほんとうにまずい
+namespace namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている． namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している． (mount namespace, PID namespace とか)
+OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している． このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．
+unshare unshare &ndash;mount とか unshare &ndash;pid みたいな感じで namespace を作る． ネットワーク以外はこれで隔離できるらしい 各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．
+ここに表示されている数字が同じなら同じ namespace に属している． この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある． setns は既存の namespace でプロセスを動かすことを実現するが(https://tenforward.hatenablog.com/entries/2014/08/14)，このときの引数にさっきの ns 指定される．
+mount namespace ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい， マウントが行われるディレクトリをマウントポイントという． あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合， ルートがマウントポイントになる． この下に別のファイルシステムをマウントすることもできる．
+mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する． なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない． コンテナごとに独立したファイルシステムを使うことができる．
+/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする． ファイルを確認すると同じ内容が見えることが分かる．"/>
+
+    <meta property="og:title" content="Namespace" />
+<meta property="og:description" content="モンエナ スイカ味，ほんとうにまずい
+namespace namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている． namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している． (mount namespace, PID namespace とか)
+OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している． このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．
+unshare unshare &ndash;mount とか unshare &ndash;pid みたいな感じで namespace を作る． ネットワーク以外はこれで隔離できるらしい 各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．
+ここに表示されている数字が同じなら同じ namespace に属している． この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある． setns は既存の namespace でプロセスを動かすことを実現するが(https://tenforward.hatenablog.com/entries/2014/08/14)，このときの引数にさっきの ns 指定される．
+mount namespace ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい， マウントが行われるディレクトリをマウントポイントという． あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合， ルートがマウントポイントになる． この下に別のファイルシステムをマウントすることもできる．
+mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する． なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない． コンテナごとに独立したファイルシステムを使うことができる．
+/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする． ファイルを確認すると同じ内容が見えることが分かる．" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/tech/namespace/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-08-30T10:04:30+09:00" />
+<meta property="article:modified_time" content="2023-08-30T10:04:30+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Namespace</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 30, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>モンエナ スイカ味，ほんとうにまずい</p>
+<h2 id="namespace">namespace</h2>
+<p>namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている．
+namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している．
+(mount namespace, PID namespace とか)</p>
+<p>OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している．
+このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．</p>
+<h3 id="unshare">unshare</h3>
+<p>unshare &ndash;mount とか unshare &ndash;pid みたいな感じで namespace を作る．
+ネットワーク以外はこれで隔離できるらしい
+各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．</p>
+<p><img src="../../images/proc.png" alt="This is a image"></p>
+<p>ここに表示されている数字が同じなら同じ namespace に属している．
+この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある．
+setns は既存の namespace でプロセスを動かすことを実現するが(<a href="https://tenforward.hatenablog.com/entries/2014/08/14">https://tenforward.hatenablog.com/entries/2014/08/14</a>)，このときの引数にさっきの ns 指定される．</p>
+<h2 id="mount-namespace">mount namespace</h2>
+<p>ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい，
+マウントが行われるディレクトリをマウントポイントという．
+あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合，
+ルートがマウントポイントになる．
+この下に別のファイルシステムをマウントすることもできる．</p>
+<p>mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する．
+なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない．
+コンテナごとに独立したファイルシステムを使うことができる．</p>
+<p>/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする．
+ファイルを確認すると同じ内容が見えることが分かる．</p>
+<p><img src="../../images/mount.png" alt="This is a image"></p>
+<p>/proc/[PID]/mountinfo でもマウントされていることが分かる．</p>
+<p><img src="../../images/mount2.png" alt="This is a image"></p>
+<p>別の namespace でも見てみると /root/hosts はマウントされていない．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#:~$ ls -l /root/hosts</span>
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">0</span> Aug <span style="color:#ae81ff">30</span> 02:33 /root/hosts
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#:~$ cat /root/hosts</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#:~$</span>
+</span></span></code></pre></div><p>なので， unshare で作った namespace 内のシェルではマウントされていることが分かるが，
+別の namespace ではマウントされていることは分からなかった．</p>
+<h3 id="pivot_root-を使ったミニコンテナ">pivot_root を使ったミニコンテナ</h3>
+<p>LXC でコンテナを作っておく</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lxc-create --name<span style="color:#f92672">=</span>ubuntu --template<span style="color:#f92672">=</span>download
+</span></span></code></pre></div><p><img src="../../images/rootfs.png" alt="This is a image"></p>
+<p>unshare で mount namespace をつくる．
+次に pivot_root で新しいファイルシステムを root にしたいので，バインドマウントでマウント用のディレクトリを作る．
+(今回は new_mount_point)
+最後に前の root をマウントする用のディレクトリを作って(old_root)，pivot_root する</p>
+<p><img src="../../images/rootfs2.png" alt="This is a image"></p>
+<p>ルートを echo してみると確かにコンテナのルートになっていることがわかる．
+unmount old_root する必要がある．</p>
+<p><img src="../../images/rootfs3.png" alt="This is a image"></p>
+<p>unmount するとコンテナだけが残る．
+ホストのマウントは見えていないので，mount namespace が作られていることが分かる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@ubuntu:/home/ubuntu/new_mount_point# cat /proc/self/mounts
+</span></span><span style="display:flex;"><span>/dev/sda3 / ext4 rw,relatime,errors<span style="color:#f92672">=</span>remount-ro <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>proc /proc proc rw,nosuid,nodev,noexec,relatime <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h3 id="mountinfo">mountinfo</h3>
+<h3 id="マウントプロパゲーション">マウントプロパゲーション</h3>
+<p>マウントしたときにそのマウントが他のマウントに影響するかどうかを設定することができる．</p>
+<p>仮に shered を試してみる．
+base と bind というディレクトリを作り，base を bind にバインドマウントする．
+base に作ったディレクトリが bind 側からも見えている．</p>
+<p><img src="../../images/bind.png" alt="This is a image"></p>
+<p>tmpfs で一時的なファイルシステムを作って，bind/tmp に tmpfs マウントする．
+bind/tmp 以下に新しいファイルを作ってみると，base 以下からも見えるようになる．
+これは bind を shered にしたため，サブマウントがマウントに影響するようになったため．</p>
+<p><img src="../../images/bind2.png" alt="This is a image"></p>
+<p>他にあるのは</p>
+<ul>
+<li>private: マウントが波及しない</li>
+<li>slave: master -&gt; slave 側は波及するが，逆は波及しない</li>
+<li>unbindable: マウントが波及しないだけでなく，バインドマウントを禁止する．DoS攻撃を防ぐ意味合いがある．</li>
+</ul>
+<p>また，mount namespace を作った時の動作もみてみる．</p>
+<p>shared と private ディレクトリを作って，マウントプロパゲーションをそれぞれ private, shared にする．</p>
+<p><img src="../../images/mount3.png" alt="This is a image"></p>
+<p>この上で unshare して namespace を作る</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@ubuntu:/home/ubuntu# unshare --mount --propagation unchanged /bin/bash
+</span></span></code></pre></div><p>private と shared 配下に tmpfs をマウントしてみる．
+同一 namespace からは priv も shrd も見える</p>
+<p><img src="../../images/mount4.png" alt="This is a image"></p>
+<p>違う namespace からは private が見えない．</p>
+<p><img src="../../images/mount5.png" alt="This is a image"></p>
+<p>逆からもやってみる</p>
+<p><img src="../../images/mount6.png" alt="This is a image"></p>
+<p>private がみえない</p>
+<p><img src="../../images/mount7.png" alt="This is a image"></p>
+<h3 id="uts-namespace">UTS namespace</h3>
+<p>ホスト名とかドメインとかを隔離する</p>
+<h3 id="ipc-namespace">IPC namespace</h3>
+<p>IPC リソースを隔離する．
+IPCはプロセス間で行われるデータ通信のこと．</p>
+<h3 id="pid-namespace">PID namespace</h3>
+<p>PID を隔離する．
+PID はプロセスに固有の番号なので一意に決まるが，隔離するとコンテナごとに PID をふることができる．
+一方でホストからは一意の番号を見ることができ，二つの番号をもっていることになる(?)</p>
+<h3 id="network-namespace">Network namespace</h3>
+<p>コンテナとホストで同一IPアドレス，同一ポートで待ち受けることができる</p>
+
+    </div>
+    <div class="post-footer">
+      
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

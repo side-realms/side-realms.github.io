@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teches on お茶は綾鷹派</title>
+    <link>http://side-realms.github.io/tech/</link>
+    <description>Recent content in Teches on お茶は綾鷹派</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 30 Aug 2025 03:49:25 +0900</lastBuildDate><atom:link href="http://side-realms.github.io/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Can Hack: アクアのスピードメータ</title>
+      <link>http://side-realms.github.io/tech/car-hack1/</link>
+      <pubDate>Sat, 30 Aug 2025 03:49:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/car-hack1/</guid>
+      <description>はじめに そういえばカーハッキングを実機でやったことないなと思い，やる． 大学院の入試も終わり，仕事もひと段落ついたのでここらへんで小さいプロジェクト的にやりたい． 新しいライブラリ触ってみた系とかちょっとやってみました系ばかりで（そういうのを継続することも目的のひとつだけど），ちょっとした目的をもって遊んでみる機会が減っているので，ここらへんでやってみようと思う
+CAN Hack 系は座学はいくらでもリソースがあるが，実際に手を動かさないと何も学べない． と思っていたところにいい記事があった (ref: https://www.shutingrz.com/post/aqua-meter-hack/)
+動かす とりあえず先ほどの記事を手元で再現できるようにしたい． アクアのスピードメータはヤフオクで 3500 円くらい． ケーブル類の付属は無し．
+あとは usb2can ケーブルが必要． 適当に動きそうなものを買った(https://amzn.asia/d/gGOBGAU)． 今回買ったのは seeedstudio のだが，これは SLCAN ではないので，can0 みたいなソケットはでない． なので，candump は使えない（はず）． python-can 少し使いづらかったのでちゃんと選んで買った方がよさそう
+接続は下記．
+ちなみにスピードメータのピンアサインはググったところで出てこないので，トヨタの CD を買う必要がある． あら～と思っていたらさっきのブログで必要な部分だけピンを教えてくれていたのでそれを参考にする．
+あとついでに安定化電源もアリエクで 3000 円のを買ったが，電圧の下がり方が遅い． コンデンサの放電が遅いんだと思うけどそれにしても危ない． ちゃんとしたのを買った方がいい（それはそうか）
+この接続で電源を起動すると ECU にランプがつく． 7 Vあたりで警告灯が点灯し，12 V あたりでそれ以外が点灯する． 警告灯だけ重要だから IG 電圧よりも低い電圧で起動するようになってるんかな． 起動時は結構デカい音が鳴る．
+Fuzzing 先ほどのブログではファジングをやっていたのでとりあえずそこからやってみる．</description>
+    </item>
+    
+    <item>
+      <title>サイドチャネル攻撃に研究意義があるかどうか</title>
+      <link>http://side-realms.github.io/tech/sidechannelattack/</link>
+      <pubDate>Wed, 01 Jan 2025 17:14:14 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/sidechannelattack/</guid>
+      <description>きっかけ ～～下記嫌なポエム～～
+昔，あるサイドチャネル攻撃の論文を否定的に評価しているツイートを見ました． 自分は結構気に入っていた論文だったので少しモヤりとしましたが，急にネットで攻撃するのも良くないと思った &amp;amp; 批判の範囲が広範でどこに引っかかっているか分からないということもあり，直接話すことにしました． と言っても自分から機会を作ったわけではなく，直接会う機会があったため，これを利用してなんとなく話してみることにしました． いざ話してみると技術的な部分ではなくサイドチャネル攻撃のアタックリサーチそのものに意義があるのか疑問に思っているようでした（どのサイドチャネル攻撃ですか？という感じではあるが）． そのためまともな議論にはならず（自分の説明不足と相手の知識不足が相まってお互いに不幸になったと思う），当時はなんとなくイヤな人だなと思ってしまっていました． その人の「意味のないハードウェアハックや基礎研究を大事にする」とか「寛大なパソコンオタクになる」みたいなブログを見て感銘を受け，ハードウェアセキュリティを将来の選択肢に入れただけに，知らない分野の基礎研究を全く受け入れない姿勢を見てそこそこショックではありました．
+～～嫌なポエムおしまい～～
+～～下記普通のポエム～～
+というわけで，自分の中にあるサイドチャネル攻撃の研究意義をここで供養しようと思います． 自分は研究者ではないので，傍観者のただのポエムです
+アタックリサーチの研究意義 攻撃者の上界を決めることにあると思っています． なので，悪意のない研究者が「どのような場合に攻撃できるか」を検証し，対策を促すことはセキュリティを強固にするために重要だと思います． 研究者が先に脆弱な部分を発見し，攻撃手法を提案，対策を促すというようなサイクルを回すことで，最終的には堅牢な部分だけが残ります．
+セキュリティ的に完ぺきなものは存在しませんが，アタックリサーチのサイクルを回すことで，攻撃者が攻撃のために必要なコストを上げることができます． 攻撃者は攻撃によって得られる利益と必要なコストのバランスがとれなくなったとき，攻撃を止めます． この状態を目指すことがアタックリサーチの目標であると考えています．
+非常に限定的なシチュエーションでしか成功しない攻撃の意義 これはその限定的なシチュエーションを正直に説明しているだけマシというか，攻撃者の上界を正確に説明しているという点で間違っていないことだと思います． そのうえで，攻撃者の上界（この条件なら攻撃が成立してしまう）を示すことはアタックリサーチの点で意義があると思っています．
+また，サイドチャネル攻撃は「攻撃者に有利すぎる」という指摘もありました． サイドチャネル攻撃はもともとは IC カードなどに搭載されている暗号チップ，特に共通鍵暗号を攻撃するために研究されていました． 共通鍵暗号が安全であるとされるのは，攻撃者が情報を得ることができる区間と得ることができない区間が明確に区切られているからです． つまり，その明確な区別があって初めて共通鍵暗号は安全であると言え，これが覆されると共通鍵暗号は安全ではなくなります． サイドチャネル攻撃はこの前提を覆す攻撃であり，攻撃者が情報を得ることができる区間を増えていることに前提があります． なので，サイドチャネル攻撃は「攻撃者に有利すぎる」という指摘は，(その度合いにもよりますが)無為であると思っています． なぜなら，IoT 製品や仮想サーバのように攻撃者が HW を直接操作できる or 攻撃者と被害者が HW を共有している場合の脅威を考えるのがサイドチャネル攻撃であり，「攻撃者に有利」な条件でどのような脅威があるかを考えるべきだからです．
+ある研究が，特に攻撃者に有利な条件でのみ成功している場合，これは先ほどと同じ議論であり，アタックリサーチにおいて明確に攻撃者の上界を示している点で優れた結果だと思います．
+研究に名前つけたりサイトわざわざ作ったりして大げさ 特に研究者は自分で研究費を稼ぐ必要があるので，自分の研究を「すごそう」に見せることは重要な能力だと思います． また，少し調べると分かりますが研究に名前がつくことは全く珍しくありません．個人的には名前がついていると論文での参照や会話が非常に楽なのでこれは常態化してほしいと思っています． 個別サイトが設けられるのも要点だけがまとまっていてとても分かりやすいと思います．
+技術的な側面だけで見れば，「名前がついているだけ」でその技術の優秀さは変動しません． 変わるものがあるとすれば読み手の主観だけです．
+エッジケースすぎて対策側がかわいそう 技術的な議論に感情を入れるのは間違っていますが，あえて「かわいそう」という感情の責任を議論するならその矛先は研究者ではなく Intel の QA だと思います
+～～ポエムおしまい～～</description>
+    </item>
+    
+    <item>
+      <title>Badusb</title>
+      <link>http://side-realms.github.io/tech/badusb/</link>
+      <pubDate>Sun, 14 Apr 2024 13:53:47 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/badusb/</guid>
+      <description>BadUSB をファームウェア書き換えでやってみる.
+はじめに 本ポストの実験を実際に試して何か被害があっても筆者は責任をもてません 本ポストは BadUSB の促進を目的にしていません 本ポストの内容を自分の環境以外で行うことは罪に問われる可能性があります 思い出しながら書いてるので抜けがある場合があります モチベーション 昔に参加したセキュリティキャンプで BadUSB を作る講座があった EasyUSB を使っていたのである意味やりやすかった 実際に使われている USB でもできないか実験したい 環境 Psychson Toshiba TC58TEG7T2JTA00 Phison 2251-03 (2303) 以下ブログを参考にしている Psychsonを使用したBadUSBの作成方法 手順 SDCC をインストールする 最新版をインストールする場合は Psychson のビルドに失敗するので，コードを書きかえる必要がある Psychson を展開する DriveCom, EmbededPayload, Injector を Visual Studio でビルド(Build Solution)する バーナーイメージをダウンロード Phison Electronics - USBDev.ru からバーナーイメージをダウンロードする 今回は BN03V104M.BIN を使用 ファームウェアをダンプ tools\DriveCom.exe /drive=E /action=SetBootMode tools\DriveCom.exe /drive=E /action=SendExecutable /burner=BN03V104M.BIN tools\DriveCom.exe /drive=E /action=DumpFirmware /burner=BN03V104M.BIN /firmware=TC58TEG7T2JTA00.bin カスタムファームウェアをビルド build.bat SDCC の最新版をダウンロードした場合は以下を修正する 割り込みハンドラ(__interrupt XXX) を __interrupt(XXX) に直す．つまり割り込み番号とレジスタバンク番号を括弧で囲む 引数無しの関数で void が省略されているので追加する ペイロード作成 USB-Rubber-Ducky を使う java -jar encoder.</description>
+    </item>
+    
+    <item>
+      <title>Wasm2</title>
+      <link>http://side-realms.github.io/tech/wasm2/</link>
+      <pubDate>Sun, 08 Oct 2023 02:33:12 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/wasm2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebAssembly1：入門する</title>
+      <link>http://side-realms.github.io/tech/wasm1/</link>
+      <pubDate>Sat, 07 Oct 2023 02:33:12 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/wasm1/</guid>
+      <description>そろそろ wasm をやらないと死ぬぜ！
+wasm とは何か ブラウザで JavaScript 以外の言語を実行するための使用・環境. C とか Rust をコンパイルして Wasm として動かすことができる． でもブラウザ以外でも動く．へぇ
+バイナリ形式なので，CPU が直接実行でき，早い．
+歴史 Unix はハードウェアを抽象化した． そのうち，CPU とメモリは C 言語が抽象化した． これにより，プログラマは Unix で動作するプログラムを C 言語で書けばよく，プログラマと CPU と HW とそれぞれ開発者のすみわけが可能になった．
+一方で，同じ HW であっても OS が異なればプログラムが動作しなくなる． そこで，JVM が開発された． JVM は Java アプリケーションを動かすことができるシステムで，OS を抽象化してくれる． その JVM の規格にそったプログラムを開発するために Java アプリケーションが作られた． ということで，OS を抽象化するための JVM を抽象化するための Java 言語が存在している，ということになる
+一方で，OS を抽象化するためにオリジナルの VM を作ってわざわざその規格に倣うために Java を開発しようというのは嬉しくない． そこで，VM を抽象化するための規格として WebAssembly がでてきた． しかし，結局 HW や OS の影響は受けるので，「どこでも同じように動作する」のは難しい． そこで，Wasm は OS を抽象化することをあきらめ，OS 非依存のみに対応することを決めた．</description>
+    </item>
+    
+    <item>
+      <title>自宅サーバ2: Discort bot</title>
+      <link>http://side-realms.github.io/tech/proxmox2/</link>
+      <pubDate>Fri, 06 Oct 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/proxmox2/</guid>
+      <description>Heroku なにしてるん
+ubuntu server 導入 普通にやる． 下記を参考にした．
+https://qiita.com/yankee/items/495e80193070f6e70b65
+Discord bot を導入する とりあえず入門によいのではないかと思い，やってみる．
+まず Discord bot への登録 (?) が必要． 手順どおりやれば OK (https://discord.com/developers/docs/intro)
+次に Ubuntu 側での操作． 適当にディレクトリを作り，.env にトークンとチャンネル ID を記入する． あとは良い感じにアプリを作る． 今回は，実行すると ctftime から今週開催される ctf を教えてくれるアプリを作った． 次は定期実行をやる
+import os from datetime import datetime, timedelta import aiohttp import discord from dateutil import parser as dtparser, tz from dotenv import load_dotenv # env load_dotenv() TOKEN = os.getenv(&amp;#34;DISCORD_TOKEN&amp;#34;) CHANNEL_ID = os.getenv(&amp;#34;CHANNEL_ID&amp;#34;) TIMEZONE = os.getenv(&amp;#34;TIMEZONE&amp;#34;, &amp;#34;Asia/Tokyo&amp;#34;) CHANNEL_ID = int(CHANNEL_ID) TZ = tz.</description>
+    </item>
+    
+    <item>
+      <title>自宅サーバ1: セットアップ</title>
+      <link>http://side-realms.github.io/tech/proxmox1/</link>
+      <pubDate>Thu, 05 Oct 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/proxmox1/</guid>
+      <description>はじめに arxiv やニュースサイトからの情報収集がしんどくなってきたため，自動で情報を収集したい． RSS リーダから Discord に送ってくれるのが望ましいが，既存の RSS ツールは監視できるフィードに制限があったりする． 調べていると自宅サーバに RSS リーダーをホストする方法があったので，いい機会だということで自宅サーバを作ってみる． 備忘録的なので導入ガイドには使えない．
+環境 Intel NUC N100 Intel N150 RAM 16GB 仮想環境 Proxmox VE 8.4.1 導入 Proxmox インストール Proxmox の iso をダウンロード Rufu で USB に焼く PC に USB を挿して起動 Install Proxmox xxx を選択 利用許諾に同意 インストール先のディスクを指定 タイムゾーン指定 パスワード・メール指定 ネットワーク設定 ホスト名：xxx.local IP アドレスは Proxmox が良い感じに調整してくれているが間違っている (いた) ので自分で静的な IP アドレスを付ける デフォルトゲートウェイも直す (192.168.xxx.1) DNSは 8.8.8.8 インストールに進む 完了したら勝手に再起動するので USB を抜いて待つ auto reboot みたいなチェックを外した方がいい 起動するとシェルが開くので OK 以降は作業用 PC から設定を行う https://192.</description>
+    </item>
+    
+    <item>
+      <title>ゼロ知識証明 2</title>
+      <link>http://side-realms.github.io/tech/zkp2/</link>
+      <pubDate>Tue, 03 Oct 2023 01:34:21 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/zkp2/</guid>
+      <description>shnnor protocol において，同じ a に対して複数のチャレンジ e を成功させると w が取り出せることがある
+import socket import json import random from Crypto.Util.number import inverse, long_to_bytes p = xxx q = yyy def readline_json(sockfile): line = sockfile.readline() if not line: return None line = line.strip() if not line: return None try: return json.loads(line) except json.JSONDecodeError: return None def main(): with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: s.connect((HOST, PORT)) sockfile = s.makefile(&amp;#34;r&amp;#34;) while True: data = readline_json(sockfile) if data is not None: break a = data[&amp;#34;a&amp;#34;] y = data[&amp;#34;y&amp;#34;] print(&amp;#34;[Server] a =&amp;#34;, a, &amp;#34;y =&amp;#34;, y) e = random.</description>
+    </item>
+    
+    <item>
+      <title>ゼロ知識証明 1</title>
+      <link>http://side-realms.github.io/tech/zkp1/</link>
+      <pubDate>Mon, 02 Oct 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/zkp1/</guid>
+      <description>知識の証明 主張「Prover はある知識 (秘密情報や解) をもつ」に関して，知識の正しさを証明したい． 単に主張された事柄が真であることを証明するのは対話証明だが，その知識の証明をすることになる．
+ZKP ZKP は，その知識を Verifier に開示することなく知識を開示することなく(計算量的に再現不可能な形でのみ)証明したい． ZKP は下記を満たす．
+完全性: Prover が正しい知識をもっているなら，正当な手順で証明すれば Verifier はその知識が真実であることを疑いなく信頼できる 健全性: Prover は，Verifier を騙して偽の主張を真とみなすことはできない ゼロ知識: 主張が真か偽の他の情報を Verifer は受け取ることができない シグマプロトコル (Schnorr) 例えば知識 $w$ に関して，$g^w = y \mod p$ となるような $w$ をもっていることを証明したい．
+証明者 P は検証者 V に $a = g^r \mod p$ を送る V は P にランダムな $e$ を送る P は V に $z = r + ew \mod q$ を送る V は $g^z = ay^e \mod p$ であることを確認する このとき，公開されているのは大きな素数 $p$，位数 $q$ をもつ部分群の生成元 $g$，公開鍵 $y = g^w \mod p$．</description>
+    </item>
+    
+    <item>
+      <title>hash length extension attack</title>
+      <link>http://side-realms.github.io/tech/hash/</link>
+      <pubDate>Sun, 01 Oct 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/hash/</guid>
+      <description>例えば，user1:notadmin みたいな入力の先頭に秘密の言葉を加えてハッシュを取り，その内容を比較することで notadmin か admin かを判定する仕組みがあるとする． このとき，通常であればユーザーは秘密の言葉を知り得ないので，user1:admin みたいな文字列を作ることはできない． 一方で，md5 や sha1 のように Merkle–Damgård 構造をもっていると，内部構造がそのまま吐き出されるのでそれを利用して新しいハッシュを作ることができる． つまり，secret:user1:notadmin のハッシュから secret:user1:notadmin:admin を作ることができる．
+これは hashpump によって実現できる． が，どうやら実装が消えている？ので自分で作る． ひとまず sha1 だけ．
+#!/usr/bin/env python3 import struct import sys import base64 def left_rotate(n, b): return ((n &amp;lt;&amp;lt; b) | (n &amp;gt;&amp;gt; (32 - b))) &amp;amp; 0xffffffff class SHA1: def __init__(self, data=b&amp;#39;&amp;#39;, _h0=None, _h1=None, _h2=None, _h3=None, _h4=None, message_byte_length=0): if _h0 is None: self.h0 = 0x67452301 self.h1 = 0xEFCDAB89 self.h2 = 0x98BADCFE self.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 4</title>
+      <link>http://side-realms.github.io/tech/ecc4/</link>
+      <pubDate>Sat, 30 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/ecc4/</guid>
+      <description>ECDH import random def mod_div(a, b, p): return mod_mul(a, mod_inv(b, p), p) def generate_keypair(G, n): d = random.randint(1, n-1) Q = d * G return d, Q if __name__ == &amp;#34;__main__&amp;#34;: p = 97 a = 2 b = 3 curve = EllipticCurve(a, b, p) G = Point(17, 10, curve) n = 19 # userA dA, QA = generate_keypair(G, n) print(f&amp;#34;userA: dA={dA}, QA={QA}&amp;#34;) # userB dB, QB = generate_keypair(G, n) print(f&amp;#34;userB: dB={dB}, QB={QB}&amp;#34;) shared_keyA = dA * QB shared_keyB = dB * QA assert shared_keyA == shared_keyB print(&amp;#34;ECDH success&amp;#34;) print(f&amp;#34;shared_key={shared_keyA}&amp;#34;) 結果は以下</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 3</title>
+      <link>http://side-realms.github.io/tech/ecc3/</link>
+      <pubDate>Fri, 29 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/ecc3/</guid>
+      <description>点の演算を実装する（加算，倍加）
+点の加法と倍加 2つの点 $P=(x_1, y_1)$ と $Q=(x_2, y_2)$ を考える（無限遠点でない）． まず，P, Q を結ぶ直線を考える．この直線は傾き $\lambda$ を用いて以下のように表す
+$$y = \lambda x + c$$
+傾き $\lambda$ は以下のように定義される．
+$P \neq Q$ $\lambda = \frac{y_2-y_1}{x_2-x_1}$ $P=Q$ $\lambda = \frac{3x_1^2 + a}{2y_1}$ 楕円曲線上では， P+Q は 3 つめの交点 R の x 軸に対して反転した点として定義される．
+class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p = p if 4 * a**3 + 27 * b**2 == 0: raise Exception(&amp;#34;singular curve&amp;#34;) def contain(self, point): if(point.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 2</title>
+      <link>http://side-realms.github.io/tech/ecc2/</link>
+      <pubDate>Thu, 28 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/ecc2/</guid>
+      <description>楕円曲線の定義を行う
+class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p = p if 4 * a**3 + 27 * b**2 == 0: raise Exception(&amp;#34;singular curve&amp;#34;) def contain(self, point): if(point.infinity): return True x, y = point.x, point.y return (y**2 - x**3 -self.a*x - self.b) % self.p == 0 class Point: def __init__(self, x=None, y=None, curve=None, infinity=False): self.x = x self.y = y self.curve = curve self.infinity = infinity if not self.</description>
+    </item>
+    
+    <item>
+      <title>楕円曲線暗号の実装 1</title>
+      <link>http://side-realms.github.io/tech/ecc1/</link>
+      <pubDate>Wed, 27 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/ecc1/</guid>
+      <description>楕円曲線暗号を理解するために実装を行う
+離散対数問題(DLP), DH 問題(DHP) Alice と Bob が DH 鍵共有をするのは以下のような手順で行われる
+あらかじめ使用する整数 $p, g$ を決める $p = 65537, g = 3$ Alice と Bob は秘密の値 $a, b$ をランダムに決定する Alice: $A = g^a \mod p$ を計算し，Bob に渡す Bob: $B = g^b \mod p$ を計算し，Alice に渡す Alice は B を用いて $s1 = B^a \mod p = g^ab \mod p$ を計算する Bob は A を用いて $s2 = A^b \mod p = g^ab \mod p$ を計算する $s1 = s2$ なので鍵共有が行われる この方法では，攻撃者は素数 $p$, 整数 $g, A, B$ を入手できる． このとき，鍵は $s1, s2$ になるので，攻撃者は $a, b$ の値が分かれば鍵を知ることができる． まず離散対数問題 (DLP) では， $A = g^a \mod p$ において $A, g, p$ が分かっていても $a$ を知ることが難しい． また，DH 問題 (DHP) では，$g, p, A, B$ から $s1, s2$ の値を知ることが難しい．</description>
+    </item>
+    
+    <item>
+      <title>Implement small http server</title>
+      <link>http://side-realms.github.io/tech/linux6/</link>
+      <pubDate>Tue, 26 Sep 2023 18:40:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux6/</guid>
+      <description>小さな http サーバを実装する
+ソケットの作成，ポートのバインド #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/socket.h&amp;gt; #include &amp;lt;arpa/inet.h&amp;gt; #define PORT 9090 int main(){ int server_fd; struct sockaddr_in address; // create socket server_fd = socket(AF_INET, SOCK_STREAM, 0); if(server_fd == -1){ perror(&amp;#34;Socket creation failed&amp;#34;); exit(EXIT_FAILURE); } printf(&amp;#34;Socket created successfully\n&amp;#34;); // bind address.sin_family = AF_INET; // IPv4 address.sin_addr.s_addr = INADDR_ANY; address.sin_port = htons(PORT); if(bind(server_fd, (struct sockaddr *)&amp;amp;address, sizeof(address)) == -1){ perror(&amp;#34;Bind failed&amp;#34;); close(server_fd); exit(EXIT_FAILURE); } printf(&amp;#34;Bind to port %d successful.</description>
+    </item>
+    
+    <item>
+      <title>Implement small shell with fork and exec</title>
+      <link>http://side-realms.github.io/tech/linux5/</link>
+      <pubDate>Mon, 25 Sep 2023 16:43:36 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux5/</guid>
+      <description>小さなシェルを実装する． シェルとしてのループを実行中に，標準入力からコマンドが入ると fork() して子プロセスを exec() で塗り替える
+// implementation for shell with fork and exec #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;sys/wait.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #define MAX_ARGS 100 void myexec(char *input){ char *args[MAX_ARGS]; int arg_count = 0; char *p = strtok(input, &amp;#34; \t\n&amp;#34;); while(p != NULL &amp;amp;&amp;amp; arg_count &amp;lt; MAX_ARGS){ args[arg_count++] = p; p = strtok(NULL, &amp;#34; \t\n&amp;#34;); } args[arg_count] = NULL; if(arg_count == 0){ return; } pid_t pid = fork(); if(pid &amp;lt; 0){ perror(&amp;#34;fork&amp;#34;); exit(1); } if(pid == 0){ // child int err; err = execvp(args[0], args); if(err &amp;lt; 0){ perror(&amp;#34;execvp&amp;#34;); exit(1); } }else{ // parent int status; waitpid(pid, &amp;amp;status, 0); } } int main(){ char buf[1024]; printf(&amp;#34;---- my shell ----\n&amp;#34;); while(1){ printf(&amp;#34;myshell&amp;gt; &amp;#34;); fflush(stdout); if(fgets(buf, sizeof(buf), stdin) == NULL){ break; } if(strncmp(buf, &amp;#34;exit&amp;#34;, 4) == 0 &amp;amp;&amp;amp; buf[4] == &amp;#39;\n&amp;#39;){ break; } myexec(buf); } printf(&amp;#34;Good Bye\n&amp;#34;); exit(0); } 実行するとこんな感じ</description>
+    </item>
+    
+    <item>
+      <title>Implement ls command in C</title>
+      <link>http://side-realms.github.io/tech/linux4/</link>
+      <pubDate>Sun, 24 Sep 2023 16:21:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux4/</guid>
+      <description>基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;dirent.h&amp;gt; void myls(char *path){ DIR *d; struct dirent *dir; d = opendir(path); if(d == NULL){ perror(&amp;#34;opendir&amp;#34;); exit(1); } while((dir = readdir(d)) != NULL){ printf(&amp;#34;%s\n&amp;#34;, dir-&amp;gt;d_name); } closedir(d); } int main(int argc, char *argv[]){ if(argc &amp;lt; 2){ printf(&amp;#34;Usage: %s &amp;lt;filename&amp;gt;\n&amp;#34;, argv[0]); exit(1); } for(int i = 1; i &amp;lt; argc; i++){ myls(argv[i]); } } $ ./myls . . mytail test.txt myls .. ls.c myhead tail.c head.</description>
+    </item>
+    
+    <item>
+      <title>Implement grep command in C</title>
+      <link>http://side-realms.github.io/tech/linux3/</link>
+      <pubDate>Sat, 23 Sep 2023 16:09:59 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux3/</guid>
+      <description>今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;regex.h&amp;gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) !</description>
+    </item>
+    
+    <item>
+      <title>Implement head &amp; tail command in C</title>
+      <link>http://side-realms.github.io/tech/linux2/</link>
+      <pubDate>Thu, 21 Sep 2023 23:48:23 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux2/</guid>
+      <description>今回は， myhead と mytail を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; void myhead(FILE *fp, int nlines){ int c; while(nlines &amp;gt; 0 &amp;amp;&amp;amp; (c = getc(fp)) !</description>
+    </item>
+    
+    <item>
+      <title>Implement cat command in C</title>
+      <link>http://side-realms.github.io/tech/linux1/</link>
+      <pubDate>Wed, 20 Sep 2023 22:42:51 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/linux1/</guid>
+      <description>今回は，引数に渡したファイルを読み込んで逐次表示していく mycat を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
+lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &amp;#34;model name&amp;#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 愚直な実装なら何も難しくない
+#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;sys/types.h&amp;gt; #include &amp;lt;sys/stat.h&amp;gt; #include &amp;lt;fcntl.</description>
+    </item>
+    
+    <item>
+      <title>自作コンテナ1</title>
+      <link>http://side-realms.github.io/tech/own/</link>
+      <pubDate>Wed, 13 Sep 2023 18:40:52 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/own/</guid>
+      <description>缶コーヒー，飲めたことない
+自作コンテナ 簡単に復習だけ
+namespace カーネルのリソースを隔離するためのしくみ
+PID: PID は新しいプロセスができるたびにインクリメントされた整数がプロセスの識別子として付与される． コンテナの中では独立した PID を見せたいが，同じ PID をもったプロセスが複数できると不便． MNT: マウントポイントに関するリソースの隔離．他の namespace に影響を与えることなくマウント，案マウントをすることができる NET: プロセスのネットワークスタックを分離する．メインのネットワーク namespace の他に仮想イーサネットペアを作り，namespace 上に仮想リンクを作る UTS: UTS namespace でホスト名とドメイン名を分離する． IPC: IPC に関するリソースを分離する．POSIX メッセージキュー USER: namespace ごとに UID/GID をマッピングすることができる．プロセスは，namespace の外では 0 以外の UID を持つ一方で，namespace では UID を 0 として持つことができ，root のように振舞うことができる． CGroup システムリソースを使うプロセスをグループ化して，それぞれのグループで リソースの使用量をコントロールできる．
+Layer filesystem namespace と cgroup はコンテナがもつシステムの分離とリソース共有 の役割を果たすが，レイヤー layered filesystems は マシンイメージ全体を効率的に移動することができる． コンテナの rootfs はレイヤ構造で管理されている． イメージは特定のファイルシステムに依存しない形で定義されていて，簡単に移植できる．
+骨組み func main() { switch os.Args[1] { case &amp;#34;run&amp;#34;: // 引数に run をとると execute を実行できる execute(os.</description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>http://side-realms.github.io/tech/kubernetes/</link>
+      <pubDate>Sun, 03 Sep 2023 14:14:38 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/kubernetes/</guid>
+      <description>kubernetes コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール） https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do
+kubernetes では負荷分散やストレージオーケストレーション，セキュリティなどが機能としてある． 基本的に kubectl で kubernetes クラスタを操作する．
+https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1-1-1024x698.png
+Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する
+Control Panel API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する kube proxy: サービスから Node に流入するトラフィックを管理する etcd: クラスタの状態を保存する Component Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する． Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要 Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする． やってみる とりあえず windwos に minikube をインストールする． 今回は virtualbox を使う</description>
+    </item>
+    
+    <item>
+      <title>クラウドネイティブ</title>
+      <link>http://side-realms.github.io/tech/cncf/</link>
+      <pubDate>Sat, 02 Sep 2023 15:42:29 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/cncf/</guid>
+      <description>高尾山でビールが飲みたい
+クラウドネイティブ クラウドネイティブという言葉を初めて聞いたので少しだけ調べる
+VM ではなく，高密度で構成できるコンテナを基本にする． これにより，高速なスケーリングであったり，高速なデプロイが可能になる
+マイクロサービス システムを細かいサービスに分解し，そのそれぞれを連携させることでシステムを機能させる．局所的案機能追加・修正などが可能 サービスメッシュ 細かいサービスを管理するのがコンテナで，このコンテナ間の通信などを管理する 宣言型 API コンテナ間の通信は API を介して行われるが，この API の定義を宣言すれば使えるようになる（生成される？）ような API イミュータブルインフラストラクチャ インフラの更新をコンテナに影響せず行うことができる マイクロサービス システムを細かいサービスに分解し，それぞれで連携させることでシステムを機能させる
+サービスごとにチームが存在するので，チームそれぞれで自律的に開発・運用ができる
+仕様の自由度が高い
+スケーリングがしやすい
+サービスが大きくなると attack surface が増える
+アクセス制御・通信保護の負担が大きくなる
+サービス個々が頻繁に変化するので依存は危険
+サービスメッシュ サービスレベルの通信をサービスに制御させるのではなく，インフラで制御するようにする ログのフォーマットやタイムアウトなど統一させるべき機能が減る 言語の多様性に振り回されない サービスの前にプロキシコンテナを配置し，通信処理の役割を担わせる サービスのコンテナに付随するのでサイドカーコンテナともいわれる プロキシ側で認証や暗号化，出力の管理などをする 通信の保護：暗号化，認証，アクセス制御 耐障害性：ロードバランサ，サーキットブレーカー 監視：メトリクス，ログ，トレース収集 権限管理：コンテナの特権排除など 宣言型 API サービス同士を接続する API として使われるのが宣言型 API kubernetes が pod の数を自動制御するようなこと サービスがダウンしたときに自動的に回復したり，負荷が高まった時に自動的にノードを増やせる イミュータブルインフラストラクチャ インフラのアップデートに伴って動かなくなることはよくある アップデートが必要な場合は，アップデート後の OS を用いた環境を立ち上げて古い環境を破壊する 問題があった場合のロールバックも簡単 </description>
+    </item>
+    
+    <item>
+      <title>自作 strace</title>
+      <link>http://side-realms.github.io/tech/strace/</link>
+      <pubDate>Wed, 30 Aug 2023 18:59:45 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/strace/</guid>
+      <description>おすすめのガンプラ，随時募集しています
+strace seccomp がよく分からなかったので監視系で strace を作ってみる
+strace はプロセスが使ってるシステムコールとかの呼び出しをトレースできる
+strace は ptrace(2) でプロセスを監視しており，これによって呼び出されるシステムコールや その引数を見ている．
+第一引数で ptrace リクエストの内容（？），第二引数にプロセスの pid を指定する．
+long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void *data); 他プロセスをトレースするためには，対象のプロセスにアタッチし，一時的に親になる必要がある． ptrace が実行されると，トレーサーは，システムコールを呼び出したタイミングなどで 子プロセスに停止するよう命令し，カーネルは子プロセスを SIGTRAP で停止する．
+strace を作る まずはアタッチ・デタッチの動きをみるだけ
+int main(int argc, char *argv[]){ if(argc &amp;lt; 2){ fprintf(stderr, &amp;#34;pid needs\n&amp;#34;); exit(1); } pid_t pid = atoi(argv[1]); printf(&amp;#34;attach to PID: %d\n&amp;#34;, pid); long ret = ptrace(PTRACE_ATTACH, pid, NULL, NULL); if(ret&amp;lt;0){ perror(&amp;#34;atttach failed&amp;#34;); exit(1); } printf(&amp;#34;attached to %d\n&amp;#34;, pid); sleep(5); ret = ptrace(PTRACE_DETACH, pid, NULL, NULL); if(ret&amp;lt;0){ perror(&amp;#34;failed to detach&amp;#34;); exit(1); } printf(&amp;#34;detached from %d\n&amp;#34;, pid); return 0; } この状態で top コマンドを打ち，動きを見てみると sleep(5) の間，top コマンドの動きが止まっていることが分かる． これはさっき書いた「カーネルは子プロセスを SIGTRAP で停止する」の部分． ptrace されるプロセスは，シグナルごとにいちいち停止するので，waitpid で状態を確認する必要があるらしい．</description>
+    </item>
+    
+    <item>
+      <title>Namespace</title>
+      <link>http://side-realms.github.io/tech/namespace/</link>
+      <pubDate>Wed, 30 Aug 2023 10:04:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/namespace/</guid>
+      <description>モンエナ スイカ味，ほんとうにまずい
+namespace namespace は，プロセスをグループ化して隔離空間を作り出すのに一役買っている． namaspace 大まかな機能があるわけではなく，隔離したいリソースごとに機能が分離している． (mount namespace, PID namespace とか)
+OS 起動時にはデフォルトの namespace が存在し，全てのプロセスが属している． このうえで，そのリソースを隔離させたいかを指定してコンテナを作る．
+unshare unshare &amp;ndash;mount とか unshare &amp;ndash;pid みたいな感じで namespace を作る． ネットワーク以外はこれで隔離できるらしい 各プロセスが動作している namespace に関する情報は /proc/[PID]/ns で見れる．
+ここに表示されている数字が同じなら同じ namespace に属している． この /proc/[PID]/ns は，プロセスを既存の namespace で動かしたいときに使うこともある． setns は既存の namespace でプロセスを動かすことを実現するが(https://tenforward.hatenablog.com/entries/2014/08/14)，このときの引数にさっきの ns 指定される．
+mount namespace ファイルシステムを特定のディレクトリに関連付けるための処理をマウントといい， マウントが行われるディレクトリをマウントポイントという． あるパーティション(例えば /dev/sdc1)にファイルシステムを作ってルートとしてマウントした場合， ルートがマウントポイントになる． この下に別のファイルシステムをマウントすることもできる．
+mount namespace は，その namespace 内のプロセスから見えるマウントポイントを分離する． なので，ある mount namespace から別の mount namespace を見たときにそのマウントポイントが見えない． コンテナごとに独立したファイルシステムを使うことができる．
+/root/hosts ファイルをバインドマウント先として /etc/hosts をマウントする． ファイルを確認すると同じ内容が見えることが分かる．</description>
+    </item>
+    
+    <item>
+      <title>コンテナ入門する</title>
+      <link>http://side-realms.github.io/tech/nyuumon/</link>
+      <pubDate>Tue, 29 Aug 2023 19:51:30 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/nyuumon/</guid>
+      <description>昆虫ロック弾けるようになりたい
+コンテナ コンテナはプロセス自体は同じ OS で動いていて，これを OS のカーネル機能によって隔離する． 使えるリソースを分離して，ホスト OS で動くプロセスとか他のコンテナから独立した空間を作る． カーネルに「コンテナ」の仕組みがあるわけではなく，namespace とか cgroup みたいな いくつかのシステムを組み合わせてコンテナを作っている． なので Docker や LXC で作りが違う
+メリット コンテナはプロセスなので起動速度はプロセスに近い VM と比較してエミュレートの必要がないためオーバーヘッドがすくない アプリケーションだけをコンテナ起動できる デメリット 異なる OS 用のバイナリは動かない 基本のカーネルは同じなのでカーネルの操作はできない 基本技術 CRI/OCI CRI: ユーザからの要求を受けてコンテナとの通信をする．イメージの取得や展開，ネットワークのセットアップなど．コンテナの直接の操作は低レイヤランタイムに命令を出す．containerd とか CRI-O. OCI: 高レイヤランタイムから命令を受けて，コンテナとして実行するプロセスをホストから分離して実行する．runc とか crun. レイヤ コンテナイメージはレイヤの集合体で，コンテナ実行時にこれらがマージされる．
+layer:ルートファイルシステムのデータ .json:実行環境を再現するための情報 ファイルシステム コンテナ内とホストではファイルシステムを分離したいことが多い． このとき，ホスト内にあるディレクトリをコンテナの root ディレクトリにする．
+chroot: プロセスのルートディレクトリを変更することができる． ただし jailbreak が可能なので chroot を使う場合はコンテナの chroot の capability を剥脱する必要があるが(CAP_SYS_CHROOT)，ユースケース的に不便なことも多いのでデフォルトでは剥奪しない． 代わりに pivot_root を使う
+pivot_root: ルートファイルシステムを入れ替える． ファイルシステムごとに入れ替えるので，コンテナ側からは root のファイルシステムを見ることはできない． また，pivot_root には厳しい条件がある．</description>
+    </item>
+    
+    <item>
+      <title>Hugo移行した</title>
+      <link>http://side-realms.github.io/tech/hugo/</link>
+      <pubDate>Tue, 29 Aug 2023 17:54:50 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/hugo/</guid>
+      <description>自分のやったことを備忘録的に残すものがほしかった
+theme が反映されない問題 手元で toml を更新して hugo server してもインポートした theme が全く反映されなかった． hugo するときの出力ディレクトリを docs に変更して，github pages の方でも以下のように変更する
+setting -&amp;gt; pages -&amp;gt; root -&amp;gt; docs
+theme の html を変更しても反映されない問題 使っている hugo のバージョンが対応していなかったっぽいのでダウングレードしたら反映するようになった
+Github Action git push したときに勝手に更新してくれるようにしたい name: GitHub Pages on: push: branches: - main # Set a branch name to trigger deployment pull_request: jobs: deploy: runs-on: ubuntu-22.04 concurrency: group: ${{ github.workflow }}-${{ github.ref }} steps: - uses: actions/checkout@v3 with: submodules: true # Fetch Hugo themes (true OR recursive) fetch-depth: 0 # Fetch all history for .</description>
+    </item>
+    
+    <item>
+      <title>java が生成する乱数を予測する</title>
+      <link>http://side-realms.github.io/tech/java_crypto/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/java_crypto/</guid>
+      <description>java が生成する17兆通りある乱数を予測してみる
+1. 乱数生成をするスクリプトを書く ソース
+2. java の乱数生成を調べる 「予測できるらしい」しかしらないのでちゃんと調べる
+Random random = new Random(); random.nextInt(); この nextInt() はソースコード内で next() を呼び出していて，next() のソースコードは以下のようになる
+protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL + 0xBL) &amp;amp; ((1L &amp;lt;&amp;lt; 48) - 1); return (int) (seed &amp;gt;&amp;gt;&amp;gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる</description>
+    </item>
+    
+    <item>
+      <title>OpenCV と python で顔トラッキングする</title>
+      <link>http://side-realms.github.io/tech/tracking/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/tracking/</guid>
+      <description>Vtuber みたいなことをできるようにしてみたい． 顔認識ができればいいのか？
+単純なマッチング まずは単純に動画内を移動するアイコンをマッチングできるようにする. 動くプレミアムボールに対してトラッキングし，判定した場所に長方形を描く
+ソース
+顔認識 openCV で顔認識ができるらしい． 既存の学習セットがあったのでこれを食べさせればできる．(下記は photoAC の素材で顔判定をしたもの)
+ソース
+カメラで顔認識 opencv でデバイスを開くようにすれば同じように検証できるらしい． 顔をトラッキングし続けて，顔を認識したらバックベアードのイラストを出すようにした
+ソース</description>
+    </item>
+    
+    <item>
+      <title>shader programming</title>
+      <link>http://side-realms.github.io/tech/shader-programming/</link>
+      <pubDate>Mon, 28 Aug 2023 17:57:25 +0900</pubDate>
+      
+      <guid>http://side-realms.github.io/tech/shader-programming/</guid>
+      <description>GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
+頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
+101 画面を赤く塗るだけのコード
+#version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
+#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.</description>
+    </item>
+    
+  </channel>
+</rss>

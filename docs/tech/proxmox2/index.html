@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>自宅サーバ2: Discort bot // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自宅サーバ2: Discort bot"/>
+<meta name="twitter:description" content="Heroku なにしてるん
+ubuntu server 導入 普通にやる． 下記を参考にした．
+https://qiita.com/yankee/items/495e80193070f6e70b65
+Discord bot を導入する とりあえず入門によいのではないかと思い，やってみる．
+まず Discord bot への登録 (?) が必要． 手順どおりやれば OK (https://discord.com/developers/docs/intro)
+次に Ubuntu 側での操作． 適当にディレクトリを作り，.env にトークンとチャンネル ID を記入する． あとは良い感じにアプリを作る． 今回は，実行すると ctftime から今週開催される ctf を教えてくれるアプリを作った． 次は定期実行をやる
+import os from datetime import datetime, timedelta import aiohttp import discord from dateutil import parser as dtparser, tz from dotenv import load_dotenv # env load_dotenv() TOKEN = os.getenv(&#34;DISCORD_TOKEN&#34;) CHANNEL_ID = os.getenv(&#34;CHANNEL_ID&#34;) TIMEZONE = os.getenv(&#34;TIMEZONE&#34;, &#34;Asia/Tokyo&#34;) CHANNEL_ID = int(CHANNEL_ID) TZ = tz."/>
+
+    <meta property="og:title" content="自宅サーバ2: Discort bot" />
+<meta property="og:description" content="Heroku なにしてるん
+ubuntu server 導入 普通にやる． 下記を参考にした．
+https://qiita.com/yankee/items/495e80193070f6e70b65
+Discord bot を導入する とりあえず入門によいのではないかと思い，やってみる．
+まず Discord bot への登録 (?) が必要． 手順どおりやれば OK (https://discord.com/developers/docs/intro)
+次に Ubuntu 側での操作． 適当にディレクトリを作り，.env にトークンとチャンネル ID を記入する． あとは良い感じにアプリを作る． 今回は，実行すると ctftime から今週開催される ctf を教えてくれるアプリを作った． 次は定期実行をやる
+import os from datetime import datetime, timedelta import aiohttp import discord from dateutil import parser as dtparser, tz from dotenv import load_dotenv # env load_dotenv() TOKEN = os.getenv(&#34;DISCORD_TOKEN&#34;) CHANNEL_ID = os.getenv(&#34;CHANNEL_ID&#34;) TIMEZONE = os.getenv(&#34;TIMEZONE&#34;, &#34;Asia/Tokyo&#34;) CHANNEL_ID = int(CHANNEL_ID) TZ = tz." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/tech/proxmox2/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-10-06T17:57:25+09:00" />
+<meta property="article:modified_time" content="2023-10-06T17:57:25+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">自宅サーバ2: Discort bot</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 6, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>Heroku なにしてるん</p>
+<h2 id="ubuntu-server-導入">ubuntu server 導入</h2>
+<p>普通にやる．
+下記を参考にした．</p>
+<p><a href="https://qiita.com/yankee/items/495e80193070f6e70b65">https://qiita.com/yankee/items/495e80193070f6e70b65</a></p>
+<h2 id="discord-bot-を導入する">Discord bot を導入する</h2>
+<p>とりあえず入門によいのではないかと思い，やってみる．</p>
+<p>まず Discord bot への登録 (?) が必要．
+手順どおりやれば OK (<a href="https://discord.com/developers/docs/intro">https://discord.com/developers/docs/intro</a>)</p>
+<p>次に Ubuntu 側での操作．
+適当にディレクトリを作り，.env にトークンとチャンネル ID を記入する．
+あとは良い感じにアプリを作る．
+今回は，実行すると ctftime から今週開催される ctf を教えてくれるアプリを作った．
+次は定期実行をやる</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> aiohttp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> discord
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> dateutil <span style="color:#f92672">import</span> parser <span style="color:#66d9ef">as</span> dtparser, tz
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> dotenv <span style="color:#f92672">import</span> load_dotenv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># env</span>
+</span></span><span style="display:flex;"><span>load_dotenv()
+</span></span><span style="display:flex;"><span>TOKEN       <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getenv(<span style="color:#e6db74">&#34;DISCORD_TOKEN&#34;</span>)
+</span></span><span style="display:flex;"><span>CHANNEL_ID  <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getenv(<span style="color:#e6db74">&#34;CHANNEL_ID&#34;</span>)
+</span></span><span style="display:flex;"><span>TIMEZONE    <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getenv(<span style="color:#e6db74">&#34;TIMEZONE&#34;</span>, <span style="color:#e6db74">&#34;Asia/Tokyo&#34;</span>)
+</span></span><span style="display:flex;"><span>CHANNEL_ID <span style="color:#f92672">=</span> int(CHANNEL_ID)
+</span></span><span style="display:flex;"><span>TZ         <span style="color:#f92672">=</span> tz<span style="color:#f92672">.</span>gettz(TIMEZONE)
+</span></span><span style="display:flex;"><span>API_EVENTS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://ctftime.org/api/v1/events/?limit=100&amp;start=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&amp;finish=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_to_epoch</span>(val: int <span style="color:#f92672">|</span> str) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;CTFtime start/finish has int and ISO8601 -&gt; epoch&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(val, (int, float)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> int(val)
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> str(val)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> s<span style="color:#f92672">.</span>isdigit():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> int(s)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(dtparser<span style="color:#f92672">.</span>isoparse(s)<span style="color:#f92672">.</span>timestamp())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">this_week_range</span>() <span style="color:#f92672">-&gt;</span> tuple[int, int]:
+</span></span><span style="display:flex;"><span>    now     <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now(TZ)
+</span></span><span style="display:flex;"><span>    monday  <span style="color:#f92672">=</span> now <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span>now<span style="color:#f92672">.</span>weekday())
+</span></span><span style="display:flex;"><span>    monday  <span style="color:#f92672">=</span> monday<span style="color:#f92672">.</span>replace(hour<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, minute<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, second<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, microsecond<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    sunday  <span style="color:#f92672">=</span> monday <span style="color:#f92672">+</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>, seconds<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(monday<span style="color:#f92672">.</span>timestamp()), int(sunday<span style="color:#f92672">.</span>timestamp())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fetch_events</span>(start_ts: int, end_ts: int) <span style="color:#f92672">-&gt;</span> list[dict]:
+</span></span><span style="display:flex;"><span>    url     <span style="color:#f92672">=</span> API_EVENTS<span style="color:#f92672">.</span>format(start_ts, end_ts)
+</span></span><span style="display:flex;"><span>    timeout <span style="color:#f92672">=</span> aiohttp<span style="color:#f92672">.</span>ClientTimeout(total<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> aiohttp<span style="color:#f92672">.</span>ClientSession(timeout<span style="color:#f92672">=</span>timeout) <span style="color:#66d9ef">as</span> sess:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> sess<span style="color:#f92672">.</span>get(url) <span style="color:#66d9ef">as</span> resp:
+</span></span><span style="display:flex;"><span>            resp<span style="color:#f92672">.</span>raise_for_status()
+</span></span><span style="display:flex;"><span>            data <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> resp<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ev <span style="color:#f92672">in</span> data:
+</span></span><span style="display:flex;"><span>        ev[<span style="color:#e6db74">&#34;start&#34;</span>]  <span style="color:#f92672">=</span> _to_epoch(ev[<span style="color:#e6db74">&#34;start&#34;</span>])
+</span></span><span style="display:flex;"><span>        ev[<span style="color:#e6db74">&#34;finish&#34;</span>] <span style="color:#f92672">=</span> _to_epoch(ev[<span style="color:#e6db74">&#34;finish&#34;</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sorted(data, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> e: e[<span style="color:#e6db74">&#34;start&#34;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">format_events</span>(events: list[dict]) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>    head <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;**CTF this week**</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> events:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> head <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;no ctf...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    lines <span style="color:#f92672">=</span> [head]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ev <span style="color:#f92672">in</span> events:
+</span></span><span style="display:flex;"><span>        st <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromtimestamp(ev[<span style="color:#e6db74">&#34;start&#34;</span>], tz<span style="color:#f92672">=</span>tz<span style="color:#f92672">.</span>UTC)<span style="color:#f92672">.</span>astimezone(TZ)
+</span></span><span style="display:flex;"><span>        en <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromtimestamp(ev[<span style="color:#e6db74">&#34;finish&#34;</span>], tz<span style="color:#f92672">=</span>tz<span style="color:#f92672">.</span>UTC)<span style="color:#f92672">.</span>astimezone(TZ)
+</span></span><span style="display:flex;"><span>        lines<span style="color:#f92672">.</span>append(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;? **</span><span style="color:#e6db74">{</span>ev[<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">**</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;　</span><span style="color:#e6db74">{</span>st<span style="color:#e6db74">:</span><span style="color:#e6db74">%Y-%m-%d %H:%M</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> ? </span><span style="color:#e6db74">{</span>en<span style="color:#e6db74">:</span><span style="color:#e6db74">%Y-%m-%d %H:%M</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;　&lt;</span><span style="color:#e6db74">{</span>ev[<span style="color:#e6db74">&#39;url&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(lines)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># bot</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeekBot</span>(discord<span style="color:#f92672">.</span>Client):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_ready</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Logged in as </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>user<span style="color:#e6db74">}</span><span style="color:#e6db74"> (ID: </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>user<span style="color:#f92672">.</span>id<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>fetch_channel(CHANNEL_ID)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> discord<span style="color:#f92672">.</span>NotFound:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;no CHANNEL_ID&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> discord<span style="color:#f92672">.</span>Forbidden:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;no right for CHANNEL_ID&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        start_ts, end_ts <span style="color:#f92672">=</span> this_week_range()
+</span></span><span style="display:flex;"><span>        events           <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fetch_events(start_ts, end_ts)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> channel<span style="color:#f92672">.</span>send(format_events(events))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>() <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    intents <span style="color:#f92672">=</span> discord<span style="color:#f92672">.</span>Intents<span style="color:#f92672">.</span>default()
+</span></span><span style="display:flex;"><span>    discord<span style="color:#f92672">.</span>utils<span style="color:#f92672">.</span>setup_logging()
+</span></span><span style="display:flex;"><span>    WeekBot(intents<span style="color:#f92672">=</span>intents)<span style="color:#f92672">.</span>run(TOKEN)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

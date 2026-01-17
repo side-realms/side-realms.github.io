@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>音楽生成 // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="音楽生成"/>
+<meta name="twitter:description" content="中華ホラーにハマってる
+たまにシャレにならない怖さのものがあって興奮する
+導入 いい本があった
+おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
+機械学習入門 まずは概観する． ここは先の書籍とは関係ない．
+単純パーセプトロン $y=f(wx&#43;b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
+入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
+$f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w&rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w&rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．"/>
+
+    <meta property="og:title" content="音楽生成" />
+<meta property="og:description" content="中華ホラーにハマってる
+たまにシャレにならない怖さのものがあって興奮する
+導入 いい本があった
+おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．
+機械学習入門 まずは概観する． ここは先の書籍とは関係ない．
+単純パーセプトロン $y=f(wx&#43;b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値
+入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される． この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．
+$f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する． でも二値しかなくて不便なのでロジスティック関数を使うこともある． 0, 1 の二値ではなくて，0, 1 の確率を出力する． 確率が 0.5 を超えれば 1 みたいなイメージ
+で，これは結果出力の話で，機械学習というからには学習をする必要がある． 例えば一回目で $y_1 = f(wx&#43;b)$ という結果が得られたとする． このとき正しい答えは $t$ であるとする． 出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする $$w&rsquo; = w - (y-t)x$$ 例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w&rsquo;$ は小さくなる． 逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w&rsquo;$ は大きくなる． バイアス $b$ も同じように調整される．" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/other/ml2/" /><meta property="article:section" content="other" />
+<meta property="article:published_time" content="2023-12-02T17:57:25+09:00" />
+<meta property="article:modified_time" content="2023-12-02T17:57:25+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">音楽生成</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Dec 2, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>中華ホラーにハマってる<br>
+たまにシャレにならない怖さのものがあって興奮する</p>
+<h2 id="導入">導入</h2>
+<p><a href="https://www.ohmsha.co.jp/book/9784274231063/">いい本</a>があった<br>
+おもしろそうなので目次だけ見てコンテンツを自分で実装してみる．</p>
+<h2 id="機械学習入門">機械学習入門</h2>
+<p>まずは概観する．
+ここは先の書籍とは関係ない．</p>
+<h3 id="単純パーセプトロン">単純パーセプトロン</h3>
+<p>$y=f(wx+b)$ があって，$w$ が重み，$x$ が入力，$b$ がしきい値</p>
+<p>入力 $x$ が複数次元存在し，これが重み $w$ を持って加算される．
+この結果 $y$ がしきい値を超えれば発火するし，超えなければ発火しない．</p>
+<p>$f$ の活性化関数は，例えばステップ関数なら 0, 1 を出力する．
+でも二値しかなくて不便なのでロジスティック関数を使うこともある．
+0, 1 の二値ではなくて，0, 1 の確率を出力する．
+確率が 0.5 を超えれば 1 みたいなイメージ</p>
+<p>で，これは結果出力の話で，機械学習というからには学習をする必要がある．
+例えば一回目で  $y_1 = f(wx+b)$ という結果が得られたとする．
+このとき正しい答えは $t$ であるとする．
+出力が大きいときは，入力に対して小さくなるように重みを訂正する必要があるので，例えば以下のようにする
+$$w&rsquo; = w - (y-t)x$$
+例えば出力が大きいときは $y-t &gt; 0$ となるので， $w-(y-t) &lt; w$ であるから， $w&rsquo;$ は小さくなる．
+逆に出力が小さいときは $y-t &lt; 0$ となるので， $w-(y-t) &gt; w$ であるから， $w&rsquo;$ は大きくなる．
+バイアス $b$ も同じように調整される．</p>
+<p><a href="https://github.com/side-realms/DL/blob/master/perceptron.py">単純パーセプトロン</a></p>
+<h3 id="ロジスティック回帰">ロジスティック回帰</h3>
+<p>さっきのステップ関数は二値しかないので不便だった．
+これを対策するために シグモイド関数を使うことがある．</p>
+<p>$$\sigma(x) = \frac{1}{1+e^{-x}}$$</p>
+<p>こうすると 0, 1 の間がなめらかに接続される．
+つまり，0, 1 の間で確率が出力され，0.5 を超えれば 1 に近くなる．</p>
+<p>このロジスティック回帰で使われる学習は尤度関数を使っている．
+入力 ($x_1, x_2, &hellip;, x_n$) に対して正しい出力を得られる確率を ($p_1, p_2, &hellip;, p_n$) とする．
+このとき $p_1 p_2  &hellip;  p_n$ が最大になるように重みやバイアスを学習する．</p>
+<p>$$\Pi^N_{n=1} p(x_n = t_n) = \Pi^N_{n=1} {y_n}^t{1-y_n}^{1-t} $$</p>
+<p>これの最大値を求める時には各パラメータで偏微分すればいい．
+先ほどの尤度関数 $L$ に対して対数尤度を計算すると</p>
+<p>$$l = \Sigma^N_{n=1}(t_n logy_n + (1-t_n)log(1-y_n))$$</p>
+<p>勾配降下法によってパラメータを逐次更新する方法を考えると，</p>
+<p>$$w_n = w_n - \alpha \frac{\partial{l}}{\partial{w}}$$</p>
+<p>このとき以下のように式変形できる</p>
+<p>$$\frac{\partial{l}}{\partial{w}} = \frac{\partial{l}}{\partial{y_n}}\frac{\partial{y_n}}{\partial{w}}$$</p>
+<p>よって，パラメータの更新は以下のようになる</p>
+<p>$$w = w - \alpha \Sigma^N_{n=1}(y_n - t_n)x_n$$</p>
+<p>このときの $\alpha$ は学習率だが，これが大きいと収束しづらい一方，学習率が小さいと局所最適解に陥りやすい．</p>
+<p><a href="https://github.com/side-realms/DL/blob/master/logistic.py">ロジスティック回帰</a></p>
+<h3 id="ソフトマックス関数">ソフトマックス関数</h3>
+<p>これまでは二値分類だけだったが，複数のクラスで分類したい場合もある．
+この時ソフトマックス関数を用いる．これを使うと $(y_1, y_2, y_3) = softmax(e_1, e_2, e_3)$ のように
+ベクトルごとに確率で表すことができる</p>
+<h3 id="隠れ層">隠れ層</h3>
+<p>これまではリニアな分類をしてきていたが，非線形な関数に対する分類がしたい場合もある．
+ここで，非線形関数が線形関数の組み合わせであるということを利用して，入力層と出力層の間に隠れ層を置くことができる．</p>
+<p>入力層から隠れ層への出力が $h=f(wx+b)$, 隠れ層から出力層への出力が $y=g(w&rsquo;h+c)$ とする．
+多層になったときも学習は同じなので誤差関数を考えればいい$E(w,b,w&rsquo;,c)$．
+同じように各パラメータで微分すればいい．</p>
+<p>$$\frac{\partial{E}}{\partial{w}} = \frac{\partial{E}}{\partial{(wx+b)}}x$$
+$$\frac{\partial{E}}{\partial{b}} = \frac{\partial{E}}{\partial{(wx+b)}}$$
+$$\frac{\partial{E}}{\partial{w&rsquo;}} = \frac{\partial{E}}{\partial{(w&rsquo;q+c)}}h$$
+$$\frac{\partial{E}}{\partial{c}} = \frac{\partial{E}}{\partial{(w&rsquo;q+c)}}$$</p>
+<p>ここで誤差 $\delta$ を隠れ層と出力層でそれぞれ考える．</p>
+<p>$$\delta_h = \frac{\partial{E}}{\partial{wx+b}}$$
+$$\delta_y = \frac{\partial{E}}{\partial{w&rsquo;q+c}}$$</p>
+<p>このとき出力層の誤差は以下のようになる</p>
+<p>$$\frac{\partial{E}}{\partial{wx+b}} = \frac{\partial{E}}{\partial{w&rsquo;q+c}}\frac{\partial{w&rsquo;q+c}}{\partial{wx+b}} = \frac{\partial{E}}{\partial{w&rsquo;q+c}}\frac{\partial{w&rsquo;q+c}}{\partial{h}}\frac{\partial{h}}{\partial{wx+b}}$$</p>
+<p>すると，以下のようになる</p>
+<p>$$\delta_h = f&rsquo;(p)\Sigma^N_{n=1}w&rsquo;_n\delta_y$$</p>
+<p>このように隠れ層の勾配が出力層の勾配から考えることで求まっているので，誤差逆伝搬法という．
+<a href="https://github.com/side-realms/DL/blob/master/multi_percep.py">多層パーセプトロン</a></p>
+<h3 id="ディプニュラルネットワク">ディ～プニュ～ラルネットワ～～ク</h3>
+<p>keras とか tensorflow はその場その場でやってきたけどあんまりちゃんとわかってない
+<a href="https://github.com/side-realms/DL/blob/master/practice1.py">練習</a><br>
+<a href="https://github.com/side-realms/DL/blob/master/practice2.py">練習</a><br>
+<a href="https://github.com/side-realms/DL/blob/master/practice3.py">練習</a></p>
+<p>これまでニューラルネットワークで非線形分離をしようと思ったら，
+線形層をいくつか加えることで達成していた．
+さらに複雑な分類をしようと思ったら</p>
+<ul>
+<li>ニューロンを増やす</li>
+<li>隠れ層を増やす</li>
+</ul>
+<p>のどちらかがある．</p>
+<p>ニューロンを増やしたときの精度変化は以下</p>
+<ul>
+<li>200：88.99</li>
+<li>5000：89.38</li>
+<li>10000：87.34</li>
+<li>20000：87.13</li>
+</ul>
+<p>隠れ層を増やしたときの精度変化は以下</p>
+<ul>
+<li>1：88.00</li>
+<li>2：82.95</li>
+<li>4：18.32</li>
+<li>10：11.34</li>
+</ul>
+<p>なので，増やせばいいってものでもないらしい
+隠れ層を増やしたとき，急激に精度が減少しているのでこの原因を考える．</p>
+<p>入力 $[x1,x2, &hellip;, xi]$, 隠れ層1 $[h_11,h_12, &hellip;, h_1i]$,
+隠れ層2 $[h_21,h_22, &hellip;, h_2i]$, 出力 $[y1,y2, &hellip;, yi]$</p>
+<p>$$H_1 = \sigma(Wx + b)$$
+$$H_2 = \sigma(VH_1 + c)$$
+$$Y = softmax(UH_2 + d)$$</p>
+<p>$W$ に対する勾配は</p>
+<p>$$\frac{\partial E}{\partial W} = \frac{\partial E}{\partial p}\frac{\partial p}{\partial W}= \frac{\partial E}{\partial p}x$$</p>
+<p>$$\frac{\partial E}{\partial p} = \frac{\partial E}{\partial q}\frac{\partial q}{\partial p} = \frac{\partial E}{\partial q}\frac{\partial q}{\partial H_1}\frac{\partial H_1}{\partial p}=\frac{\partial E}{\partial q}(\sigma&rsquo;(p)V)$$</p>
+<p>$$\frac{\partial E}{\partial q} = \frac{\partial E}{\partial r}\frac{\partial r}{\partial q}=\frac{\partial E}{\partial r}\frac{\partial r}{\partial H_2}\frac{\partial H_2}{\partial q}=\frac{\partial E}{\partial r}(U \sigma&rsquo;(q))$$</p>
+<p>なので，最終的に以下のようになる．</p>
+<p>$$\frac{\partial E}{\partial W} = \Sigma\Sigma(\sigma&rsquo;(p)V)(\sigma&rsquo;(q)U)x$$</p>
+<p>このp, q, r は層が増えたら追加されるだけ．
+このとき softmax の傾き最大値は 0.25 なので，ここに $0.25^2$ がかかる．
+層が重なると急激に更新されるため，消失してしまう．
+層が増えると精度が減少する理由がこれ．
+なので，対策するために tanh(x) や ReLU などを活性化関数として使う</p>
+<h4 id="tanhx">tanh(x)</h4>
+<p>$$tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}$$</p>
+<p>$$tanh&rsquo;(x) = \frac{4}{(e^x + e^{-x})^2}$$</p>
+<p>最大値が 1 なので，さっきの softmax より消失しにくい</p>
+<h4 id="relu">ReLU</h4>
+<p>$$f(x) = max(0, x)$$</p>
+<p>sigmoid や tanh(x) と比べて簡単に表せるのがいいところ．</p>
+<h4 id="leaky-relu">Leaky ReLU</h4>
+<p>ReLU のよくないところは x&lt;0 で全く傾きをもたないため，
+一度不活性になるとそのあとずっと不活性になる点．
+これを解消したのが Leaky ReLU</p>
+<p>$$f(x) = max(0, x) + \alpha min(0, x)$$</p>
+<h4 id="swish">swish</h4>
+<p>ReLU は 0 で微分できなかった．
+これを解消したのが swish</p>
+<p>$$f(x) = x*sigmoid(\beta x)$$</p>
+<p>こういったものを使って勾配が消えることを防ぐ．</p>
+<p>オーバーフィッティングを防ぐ方法にドロップアウトがある
+そのデータの局所的な情報を意図的に落とすことでその学習データ特有の特徴を抑える．
+これによって一般化された情報を学習する．</p>
+<p>$$h_1 = f(wx + b) + m$$
+のように，マスクを加える．確率で(1,0)をもつ．</p>
+<ul>
+<li>あり：93.16</li>
+<li>なし：94.85</li>
+</ul>
+<p>学習を進めすぎると過学習が起こる．
+ドロップアウトみたいな tips を使っても，学習が多ければ乗り越えられてしまう．
+なので，検証データに対する誤差を監視し続け，デカくなったら学習を終わらせるみたいなことをする．
+他にも学習率の設定(モメンタム)や重みの初期値の設定などもある</p>
+<h3 id="rnn">RNN</h3>
+<p>これまでのデータは1つの入力データを1つのベクトルとしてみていた．
+一方で，文字列みたいな時系列データは [x1, x2, &hellip;, xn] みたいになる．
+この並びに規則性があるかを学習して，未知の時系列データを予測する必要がある．
+なので，現在の時刻 $t$ よりも前の値を保持しておく必要がある．</p>
+<p>$$h(t) = f(Wx(t) + Uh(t-1) + &hellip; + b)$$</p>
+<p>RNN は勾配を焼失することで知られている．
+これは $e(t-1) = e(t)f&rsquo;(~~~)$ みたいな感じで $f$ がいくつも重なるので
+どんどん小さくなるかららしい．なので， $e(t-1) = 1$ だと嬉しい．
+これを対策するための方法が LSTM で，隠れ層の一つ一つを LSTM ブロックに置き換える．</p>
+<ol>
+<li>CEC・入力ゲート・出力ゲート
+<ul>
+<li>さっき言ったような方法で誤差を一定に保つニューロンを CEC という</li>
+<li>また，これまでの重みは時系列データにおいて「関係あるデータなら重みを増やし」て，「関係ないデータなら重みを減らす」ようにしていた</li>
+<li>これだと打消しが発生するので，入力ゲート・出力ゲートによって関係ない信号をせき止める処理をする</li>
+</ul>
+</li>
+<li>忘却ゲート
+<ul>
+<li>例えば時系列データがこれまでの傾向と全く変化した場合，これまでの情報を覚えておく必要がない</li>
+<li>そこで，データが変わったなって思ったらこれまでの情報を忘れて即座に対応する必要がある．</li>
+</ul>
+</li>
+<li>peephole connection
+<ul>
+<li>これまでのゲートは CEC に保持された過去の情報を
+<ul>
+<li>伝播する</li>
+<li>書きかえる</li>
+</ul>
+</li>
+<li>しかし，出力ゲートが OFF だった場合，どのゲートにもアクセスできないことになる</li>
+<li>そこで，CEC と各ゲートを接続することで CEC の状態を各ゲートに接続して CEC の情報を制御に使った．</li>
+</ul>
+</li>
+</ol>
+<h4 id="gru">GRU</h4>
+<p>LSTM の代替となり得る手段．
+リセットゲートと更新ゲートからなり，出力ゲートを削っているので計算時間をおさえられる</p>
+<h4 id="encoder-decoder">Encoder-decoder</h4>
+<p>NN を用いた機械翻訳など．
+これまで出力は単データだったが，例えば翻訳などは時系列データに直す必要がある．(seq2seq)
+エンコーダの最後の隠れ層のデータを，デコーダの初期値として使うことでエンコーダの情報をデコーダに伝えられる．</p>
+<p>とりあえずここまで</p>
+<h2 id="midi">midi</h2>
+<p>まずは python で midi を扱えるようになる．
+music21 でもいいが，簡単そうな pretty_midi を使ってみる(この本も prerry_midi っぽい)．
+google colaboratoty で構成したが，楽譜表示機能とかを使うには設定が必要．
+使ったモデルは本に従って infinite-bach(<a href="https://github.com/jamesrobertlloyd/infinite-bach">https://github.com/jamesrobertlloyd/infinite-bach</a>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pretty_midi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>midi <span style="color:#f92672">=</span> pretty_midi<span style="color:#f92672">.</span>PrettyMIDI(<span style="color:#e6db74">&#34;file&#34;</span>)
+</span></span><span style="display:flex;"><span>note <span style="color:#f92672">=</span> midi<span style="color:#f92672">.</span>instruments[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>notes
+</span></span><span style="display:flex;"><span>print(note)
+</span></span></code></pre></div><p>実行すると note の情報が見られる．
+midi の規格に沿っていて，note の開始時刻(start)，note の停止時刻(end)，ピッチ，velocity が見られる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>Note<span style="color:#f92672">(</span>start<span style="color:#f92672">=</span>51.724125, end<span style="color:#f92672">=</span>53.793090, pitch<span style="color:#f92672">=</span>65, velocity<span style="color:#f92672">=</span>96<span style="color:#f92672">)</span>, Note<span style="color:#f92672">(</span>st...
+</span></span></code></pre></div><p>ピアノロールの取得もできる．</p>
+<p><img src="../../images/pianoroll.png" alt="layer"></p>
+<p>ここら辺を使いながら色々やっていくきもち</p>
+<h2 id="多層パーセプトロン">多層パーセプトロン</h2>
+<p>多層パーセプトロンを使って長調・短調の判定ができるらしい．
+できそうだけどやり方が分からないので試行錯誤する</p>
+<h3 id="長調短調の違い">長調・短調の違い</h3>
+<p>長調はメジャーキーのことで，短調はマイナーキーのこと．
+ハ長調はハ(C)のメジャーキーだと思えばいい．
+そうなると，使われている note のピッチを調べて，出現率みたいなもので分類してあげればすむ．
+スケールまで分類しようとすると大変なのでまずはハ長調・ハ短調だけで考える
+（つまり転調できる）．
+出現率だけ考えるということはベロシティは全くいらないので，
+ピアノロールを見たときに，音が発生して [いる・いない] の二値で分類すればよい．
+ということで最初に以下のコードを組み必要がある．</p>
+<ul>
+<li>ピアノロールを二値に変換するコード</li>
+<li>場合によって転調するコード</li>
+</ul>
+<h3 id="二値変換転調">二値変換・転調</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pretty_midi <span style="color:#66d9ef">as</span> pm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">modulation</span>(midi):
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#https://craffel.github.io/pretty-midi/#pretty_midi.KeySignature</span>
+</span></span><span style="display:flex;"><span>  key <span style="color:#f92672">=</span> midi<span style="color:#f92672">.</span>key_signature_changes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>key_number
+</span></span><span style="display:flex;"><span>  diff <span style="color:#f92672">=</span> key <span style="color:#f92672">%</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> inst <span style="color:#f92672">in</span> midi<span style="color:#f92672">.</span>instruments:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> note <span style="color:#f92672">in</span> inst<span style="color:#f92672">.</span>notes:
+</span></span><span style="display:flex;"><span>      note<span style="color:#f92672">.</span>pitch <span style="color:#f92672">=</span> note<span style="color:#f92672">.</span>pitch <span style="color:#f92672">-</span> diff
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">note2binary</span>(file, length, start, end):
+</span></span><span style="display:flex;"><span>  midi <span style="color:#f92672">=</span> pretty_midi<span style="color:#f92672">.</span>PrettyMIDI(file)
+</span></span><span style="display:flex;"><span>  tempo_time, tempo <span style="color:#f92672">=</span> midi<span style="color:#f92672">.</span>get_tempo_changes()
+</span></span><span style="display:flex;"><span>  modulation(midi)
+</span></span><span style="display:flex;"><span>  pianoroll <span style="color:#f92672">=</span> midi<span style="color:#f92672">.</span>get_piano_roll()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(pianoroll<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;</span> length):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;length is longer than pianoroll&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  pianoroll <span style="color:#f92672">=</span> pianoroll[start:end, <span style="color:#ae81ff">0</span>:length]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(length):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(end<span style="color:#f92672">-</span>start):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(pianoroll[j][i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>        pianoroll[j][i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> pianoroll
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drive/MyDrive/chorales/midi/000507b_.mid&#34;</span>
+</span></span><span style="display:flex;"><span>note2binary(file, <span style="color:#ae81ff">50</span> ,<span style="color:#ae81ff">36</span>,<span style="color:#ae81ff">84</span>)
+</span></span></code></pre></div><p>実行するとこんなかんじ</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drive/MyDrive/chorales/midi/000507b_.mid&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pianoroll <span style="color:#f92672">=</span> note2binary(file, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">84</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>matshow(np<span style="color:#f92672">.</span>transpose(pianoroll))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="../../images/pianoroll2.png" alt="layer"></p>
+<p>なんかおかしいと思ったら転置していなかった</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>transpose(pianoroll)
+</span></span></code></pre></div><p>とすればよい．
+転調もうまくできている．（上：転調後，下：転調前）</p>
+<p><img src="../../images/pianoroll3.png" alt="layer"></p>
+<p><img src="../../images/pianoroll4.png" alt="layer"></p>
+<h3 id="データの前処理">データの前処理</h3>
+<p>前処理って言うのが正しいかわからないけど midi データを入力して適切な配列に変換してあげる必要があるのでそれをやる</p>
+<ul>
+<li>ピアノロールを入力として，各ピッチの出現率を配列に格納する</li>
+<li>楽曲ごとの出現率の配列と調を対応させる</li>
+</ul>
+<p>配列のイメージはさっきのピアノロールを思い浮かべる．
+縦軸はピッチで，12 個で 1 オクターブに対応する．
+横軸は時間に対応する．
+出現率を計算する場合はオクターブを無視してよいので，mod みたいなものを導入してピッチだけで出現率を検討する．
+配列のスライスみたいなことをすればいい．
+ピアノロールは 48 * 50 なので，時間方向を先に指定する．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">appearance_rate</span>(pianoroll):
+</span></span><span style="display:flex;"><span>  rate <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(pianoroll<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]):
+</span></span><span style="display:flex;"><span>    rate[i<span style="color:#f92672">%</span><span style="color:#ae81ff">12</span>] <span style="color:#f92672">+=</span> np<span style="color:#f92672">.</span>sum(pianoroll[:,i])
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(rate)):
+</span></span><span style="display:flex;"><span>    rate[i] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(rate)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> rate
+</span></span></code></pre></div><p>で，次に調の判定をする．
+<a href="https://craffel.github.io/pretty-midi/#pretty-midi-keysignature">ここ</a>
+を参考に見ていくと，メジャーキーは[0~11], マイナーキーは[12~23] なので，
+調だけ知りたいなら 12 で割って商が 0 ならメジャーキー，みたいなことができる．
+てかこの機能があるなら調判定機作る必要ないな．．．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tonality <span style="color:#f92672">=</span> key <span style="color:#f92672">/</span> <span style="color:#ae81ff">12</span>
+</span></span></code></pre></div><p>全体はこんな感じ．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>input <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pianoroll, tonality <span style="color:#f92672">=</span> note2binary(file, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">84</span>)
+</span></span><span style="display:flex;"><span>input <span style="color:#f92672">=</span> appear_rate(pianoroll)
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> tonality
+</span></span></code></pre></div><p>あとはこれを任意のディレクトリで全実行できるようにする</p>
+<h3 id="データの学習">データの学習</h3>
+<ul>
+<li>keras でモデルを構築する（model.add が楽すぎるので）</li>
+<li>学習させる</li>
+</ul>
+<p>損失関数の決め方とかは
+<a href="https://tensorflow.classcat.com/2018/08/23/machine-learning-guides-text-classification4/">ここ</a>，
+keras のそもそもとかは
+<a href="https://note.nkmk.me/python-tensorflow-keras-basics/">ここ</a>
+を見た．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.models <span style="color:#f92672">import</span> Sequential
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.layers <span style="color:#f92672">import</span> Dense
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rate_train, rate_test <span style="color:#f92672">=</span> train_test_split(input, test_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>key_train, key_test <span style="color:#f92672">=</span> train_test_split(key, test_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Sequential([
+</span></span><span style="display:flex;"><span>    Dense(<span style="color:#ae81ff">10</span>, input_dim <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sigmoid&#39;</span>),
+</span></span><span style="display:flex;"><span>    Dense(<span style="color:#ae81ff">1</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sigmoid&#39;</span>)
+</span></span><span style="display:flex;"><span>], name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;key_judge&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>summary()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>compile(optimizer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;adam&#39;</span>,
+</span></span><span style="display:flex;"><span>              loss <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;binary_crossentropy&#39;</span>,
+</span></span><span style="display:flex;"><span>              metrics <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;binary_accuracy&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>fit(rate_train,
+</span></span><span style="display:flex;"><span>          key_train,
+</span></span><span style="display:flex;"><span>          batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>,
+</span></span><span style="display:flex;"><span>          epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>          validation_split<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test_loss, test_acc <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>evaluate(rate_test,
+</span></span><span style="display:flex;"><span>                                     key_test,
+</span></span><span style="display:flex;"><span>                                     verbose <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(test_loss)
+</span></span><span style="display:flex;"><span>print(test_acc)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 77ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6742 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 192/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 63ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6742 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 193/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 67ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6742 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 194/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 51ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 195/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 66ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 196/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 34ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 197/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 36ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 198/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 33ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 199/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 50ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>Epoch 200/200
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 32ms/step - loss: 0.6816 - binary_accuracy: 0.5759 - val_loss: 0.6743 - val_binary_accuracy: 0.6000
+</span></span><span style="display:flex;"><span>0.6772028803825378
+</span></span><span style="display:flex;"><span>0.5903614163398743
+</span></span></code></pre></div><p>ランダムに当てて長短が当たる確率が 50 % なので
+この accuracy は無能</p>
+<ul>
+<li>正規化の部分が間違っていた
+<ul>
+<li>確率に変換する正規化ではなく，単に 0~1 に収めるだけの正規化をしていた</li>
+</ul>
+</li>
+<li>配列の次元が違っていた</li>
+<li>バッチサイズを調整した</li>
+<li>転調を考えていなかった（曲そのものの転調）</li>
+<li>test_train_split で shuffle を off にするべきだった &lt;- これが重大
+<ul>
+<li>ランダム化されているので別々にやったらトレーニングデータと正解が対応しなくなる</li>
+</ul>
+</li>
+</ul>
+<p>調整後は以下．
+よさそう</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>0.006549180950969458
+</span></span><span style="display:flex;"><span>1.0
+</span></span></code></pre></div><h3 id="学習済みモデルの評価">学習済みモデルの評価</h3>
+<p>predict の賢い使い方が分からなかったけどとりあえずテストデータで評価する．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>res <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>y_pred <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(rate_test)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> y_pred:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span>):
+</span></span><span style="display:flex;"><span>    res<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    res<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(res)):
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(res[i] <span style="color:#f92672">==</span> key_test[i]):
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(len(res), sum)
+</span></span></code></pre></div><p>全問正解できてる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ae81ff">50</span> <span style="color:#ae81ff">50</span>
+</span></span></code></pre></div><p>ちなみに relu でこんな感じ<br>
+これがどれくらい良いのかは知りません</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>0.398255318403244
+</span></span><span style="display:flex;"><span>0.8399999737739563
+</span></span></code></pre></div><h2 id="rnn-1">RNN</h2>
+<p>RNN を使ってハモリを作れるらしい．
+RNN は時系列を扱うので，主旋律と上ハモ，みたいな関係ではなく
+xn に対して x(n+1) を決めるみたいなことができるということ．</p>
+<p>使っているデータセットはソプラノとアルトで分かれているっぽい
+(だからこれにしたのかな)．
+方針は以下</p>
+<ul>
+<li>ソプラノパートを入力，アルトパートを出力とする</li>
+<li>ソプラノパートにおいて，ピッチ * 時間 の行列が作れる</li>
+<li>学習して予測したアルトパートが得られるので，行列として midi を出力する</li>
+</ul>
+<p>なので midi 出力用のスクリプトも組む必要がある．</p>
+<h3 id="データの読み込み">データの読み込み</h3>
+<p>前作った読み込みとほとんど一緒だけど，ソプラノとアルトで分類する必要があるので
+そこだけ変更する．
+midi.instruments[~] とすればいい．
+ただし，アルトパートがない楽曲も存在するのでその場合の場合分けをする</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> glob 
+</span></span><span style="display:flex;"><span>dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;drive/MyDrive/chorales/midi&#34;</span>
+</span></span><span style="display:flex;"><span>input <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>tonalities <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(dir <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/*.mid&#34;</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    soprano, alto, tonality <span style="color:#f92672">=</span> note2binary(f, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">84</span>)
+</span></span><span style="display:flex;"><span>    input<span style="color:#f92672">.</span>append(soprano)
+</span></span><span style="display:flex;"><span>    output<span style="color:#f92672">.</span>append(alto)
+</span></span><span style="display:flex;"><span>    tonalities<span style="color:#f92672">.</span>append(tonality)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">except</span> MidiError:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;error! skipped&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>input <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(input)
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(output)
+</span></span></code></pre></div><p>最終的に (495, 64, 48) の配列が完成する．</p>
+<h3 id="rnn-学習">RNN 学習</h3>
+<p>あとは前と同じように RNN で学習させてあげればいい．
+<a href="https://qiita.com/everylittle/items/c088564d53cdfcde92cc">ここ</a>を見てRNNを実装した</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.models <span style="color:#f92672">import</span> Sequential
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.layers <span style="color:#f92672">import</span> SimpleRNN
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.utils <span style="color:#f92672">import</span> custom_object_scope
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow.keras.optimizers <span style="color:#f92672">import</span> SGD
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>input_train, inpu_test <span style="color:#f92672">=</span> train_test_split(input, 
+</span></span><span style="display:flex;"><span>                                          shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, 
+</span></span><span style="display:flex;"><span>                                          test_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>output_train, output_test <span style="color:#f92672">=</span> train_test_split(output, 
+</span></span><span style="display:flex;"><span>                                             shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,  
+</span></span><span style="display:flex;"><span>                                             test_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Sequential([
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># https://qiita.com/everylittle/items/c088564d53cdfcde92cc</span>
+</span></span><span style="display:flex;"><span>    SimpleRNN(<span style="color:#ae81ff">1</span>, activation<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, input_shape<span style="color:#f92672">=</span>(<span style="color:#66d9ef">None</span>, <span style="color:#ae81ff">48</span>), return_sequences<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>], name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;key_judge&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>summary()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>compile(optimizer<span style="color:#f92672">=</span>SGD(lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0001</span>), 
+</span></span><span style="display:flex;"><span>              loss<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mean_squared_error&#34;</span>)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>fit(input_train,
+</span></span><span style="display:flex;"><span>         output_train,
+</span></span><span style="display:flex;"><span>          batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>,
+</span></span><span style="display:flex;"><span>          epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>,)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>evaluate(inpu_test,
+</span></span><span style="display:flex;"><span>               output_test)              
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>14/14 <span style="color:#f92672">[==============================]</span> - 0s 13ms/step - loss: nan
+</span></span><span style="display:flex;"><span>Epoch 1000/1000
+</span></span><span style="display:flex;"><span>14/14 <span style="color:#f92672">[==============================]</span> - 0s 12ms/step - loss: nan
+</span></span><span style="display:flex;"><span>2/2 <span style="color:#f92672">[==============================]</span> - 0s 12ms/step - loss: nan
+</span></span><span style="display:flex;"><span>nan
+</span></span></code></pre></div><p>学習に失敗している．．．<br>
+というわけで問題を切り分ける．
+こういうときに考えるのは</p>
+<ul>
+<li>データに問題がある(nan or inf)
+<ul>
+<li>データに nan や inf が入っていたら壊れやすい</li>
+<li>楽曲の時間がマチマチなのでその影響があるかも</li>
+<li>あとは numpy のキャスト(これは薄いか)</li>
+</ul>
+</li>
+<li>ネットワーク構築に問題がある(学習率)</li>
+</ul>
+<p>データが間違っていたら元も子もないのでまずはデータを検証しよう．．．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(input)):
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(input[i])):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(len(input[i][j])):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(input[i][j][k] <span style="color:#f92672">!=</span> input[i][j][k]):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;nan fount&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(input[i][j][k] <span style="color:#f92672">==</span> float(<span style="color:#e6db74">&#34;inf&#34;</span>)):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;inf fount&#34;</span>)
+</span></span></code></pre></div><p>特に nan も inf も見当たりませんでした．．．<br>
+楽曲の時間はハードコードしているので問題ないはず．．．<br>
+と思ってアレコレこねくり回していたが結局出力層を書いていないことに気付いた．
+ちゃんと書いたら損失関数が見れた．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ae81ff">14</span><span style="color:#f92672">/</span><span style="color:#ae81ff">14</span> [<span style="color:#f92672">==============================</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0</span>s <span style="color:#ae81ff">12</span>ms<span style="color:#f92672">/</span>step <span style="color:#f92672">-</span> loss: <span style="color:#ae81ff">0.0190</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> [<span style="color:#f92672">==============================</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0</span>s <span style="color:#ae81ff">8</span>ms<span style="color:#f92672">/</span>step <span style="color:#f92672">-</span> loss: <span style="color:#ae81ff">0.0162</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0.016244029626250267</span>
+</span></span></code></pre></div><p>ただハモリ付与なので損失関数とか言われても正直評価の仕様がない．
+そこで，実際に midi を出力して自分で聴いてみる．</p>
+<h3 id="midi-出力">midi 出力</h3>
+<p>sopranoとaltoで分ける必要なかったなと思いながら．．．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pretty_midi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_midi</span>(soprano, alto, filename):
+</span></span><span style="display:flex;"><span>  midi <span style="color:#f92672">=</span> pretty_midi<span style="color:#f92672">.</span>PrettyMIDI()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  inst_s <span style="color:#f92672">=</span> pretty_midi<span style="color:#f92672">.</span>Instrument(program <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, is_drum<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;soprano&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(soprano<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]): <span style="color:#75715e"># 時間方向</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(soprano<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]) <span style="color:#75715e"># ピッチ方向</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(soprano[i][j] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.5</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># https://craffel.github.io/pretty-midi/#pretty_midi.Note</span>
+</span></span><span style="display:flex;"><span>        inst_s<span style="color:#f92672">.</span>notes<span style="color:#f92672">.</span>append(pretty_midi<span style="color:#f92672">.</span>Note(
+</span></span><span style="display:flex;"><span>            velocity <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>            pitch <span style="color:#f92672">=</span> j,
+</span></span><span style="display:flex;"><span>            start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>i,
+</span></span><span style="display:flex;"><span>            end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        ))
+</span></span><span style="display:flex;"><span>  midi<span style="color:#f92672">.</span>instruments<span style="color:#f92672">.</span>append(inst_s)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  inst_a <span style="color:#f92672">=</span> pretty_midi<span style="color:#f92672">.</span>Instrument(program <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, is_drum<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alto&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(soprano<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]): <span style="color:#75715e"># 時間方向</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(soprano<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]) <span style="color:#75715e"># ピッチ方向</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(alto[i][j] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0.5</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># https://craffel.github.io/pretty-midi/#pretty_midi.Note</span>
+</span></span><span style="display:flex;"><span>        inst_a<span style="color:#f92672">.</span>notes<span style="color:#f92672">.</span>append(pretty_midi<span style="color:#f92672">.</span>Note(
+</span></span><span style="display:flex;"><span>            velocity <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>            pitch <span style="color:#f92672">=</span> j,
+</span></span><span style="display:flex;"><span>            start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>i,
+</span></span><span style="display:flex;"><span>            end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        ))
+</span></span><span style="display:flex;"><span>  midi<span style="color:#f92672">.</span>instruments<span style="color:#f92672">.</span>append(inst_a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  midi<span style="color:#f92672">.</span>write(filename)
+</span></span></code></pre></div><p>で，output_pred を聞くとまあいいんじゃないか．．．という感じ<br>
+正直ググった技術を触ったらなんかできた，という感じなので後程もう少し触りたい</p>
+
+    </div>
+    <div class="post-footer">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}]
+    });
+  });
+</script>
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

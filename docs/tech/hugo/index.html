@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>Hugo移行した // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo移行した"/>
+<meta name="twitter:description" content="自分のやったことを備忘録的に残すものがほしかった
+theme が反映されない問題 手元で toml を更新して hugo server してもインポートした theme が全く反映されなかった． hugo するときの出力ディレクトリを docs に変更して，github pages の方でも以下のように変更する
+setting -&gt; pages -&gt; root -&gt; docs
+theme の html を変更しても反映されない問題 使っている hugo のバージョンが対応していなかったっぽいのでダウングレードしたら反映するようになった
+Github Action git push したときに勝手に更新してくれるようにしたい name: GitHub Pages on: push: branches: - main # Set a branch name to trigger deployment pull_request: jobs: deploy: runs-on: ubuntu-22.04 concurrency: group: ${{ github.workflow }}-${{ github.ref }} steps: - uses: actions/checkout@v3 with: submodules: true # Fetch Hugo themes (true OR recursive) fetch-depth: 0 # Fetch all history for ."/>
+
+    <meta property="og:title" content="Hugo移行した" />
+<meta property="og:description" content="自分のやったことを備忘録的に残すものがほしかった
+theme が反映されない問題 手元で toml を更新して hugo server してもインポートした theme が全く反映されなかった． hugo するときの出力ディレクトリを docs に変更して，github pages の方でも以下のように変更する
+setting -&gt; pages -&gt; root -&gt; docs
+theme の html を変更しても反映されない問題 使っている hugo のバージョンが対応していなかったっぽいのでダウングレードしたら反映するようになった
+Github Action git push したときに勝手に更新してくれるようにしたい name: GitHub Pages on: push: branches: - main # Set a branch name to trigger deployment pull_request: jobs: deploy: runs-on: ubuntu-22.04 concurrency: group: ${{ github.workflow }}-${{ github.ref }} steps: - uses: actions/checkout@v3 with: submodules: true # Fetch Hugo themes (true OR recursive) fetch-depth: 0 # Fetch all history for ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/tech/hugo/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-08-29T17:54:50+09:00" />
+<meta property="article:modified_time" content="2023-08-29T17:54:50+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Hugo移行した</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 29, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>自分のやったことを備忘録的に残すものがほしかった</p>
+<h2 id="theme-が反映されない問題">theme が反映されない問題</h2>
+<p>手元で toml を更新して hugo server してもインポートした theme が全く反映されなかった．
+hugo するときの出力ディレクトリを docs に変更して，github pages の方でも以下のように変更する</p>
+<p>setting -&gt; pages -&gt; root -&gt; docs</p>
+<h2 id="theme-の-html-を変更しても反映されない問題">theme の html を変更しても反映されない問題</h2>
+<p>使っている hugo のバージョンが対応していなかったっぽいのでダウングレードしたら反映するようになった</p>
+<h2 id="github-action">Github Action</h2>
+<ul>
+<li>git push したときに勝手に更新してくれるようにしたい</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">GitHub Pages</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main </span> <span style="color:#75715e"># Set a branch name to trigger deployment</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-22.04</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">concurrency</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">group</span>: <span style="color:#ae81ff">${{ github.workflow }}-${{ github.ref }}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>  <span style="color:#75715e"># Fetch Hugo themes (true OR recursive)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>    <span style="color:#75715e"># Fetch all history for .GitInfo and .Lastmod</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.85.0&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">extended</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo --minify</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-gh-pages@v3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">if</span>: <span style="color:#ae81ff">${{ github.ref == &#39;refs/heads/main&#39; }}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">github_token</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./public</span>
+</span></span></code></pre></div><h2 id="デザインを変える">デザインを変える</h2>
+<h4 id="リンクの並びを変える--ポストのグループごとにリンクつける">リンクの並びを変える + ポストのグループごとにリンクつける</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html:layouts\_default\baseof.html" data-lang="html:layouts\_default\baseof.html"><span style="display:flex;"><span>{{- with .Site.Menus.main }}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">nav</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-header-menu&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        {{- range $key, $item := . }}
+</span></span><span style="display:flex;"><span>          {{- if ne $key 0 }}
+</span></span><span style="display:flex;"><span>            {{ $.Site.Params.menu_item_separator | safeHTML }}
+</span></span><span style="display:flex;"><span>          {{ end }}
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">font</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-header-menu-item&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ $item.URL }}&#34;</span>&gt;{{ $item.Name }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;/<span style="color:#f92672">font</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>        {{- end }}
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">nav</span>&gt;
+</span></span><span style="display:flex;"><span>      {{- end }}
+</span></span></code></pre></div><h4 id="カラーパレット">カラーパレット</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">style</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">darkestColor</span> = <span style="color:#e6db74">&#34;#1b2d45&#34;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">darkColor</span> = <span style="color:#e6db74">&#34;#001534&#34;</span>     
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lightColor</span> = <span style="color:#e6db74">&#34;#b7c9e4&#34;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lightestColor</span> = <span style="color:#e6db74">&#34;#fffffe&#34;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">primaryColor</span> = <span style="color:#e6db74">&#34;#fde24f&#34;</span>
+</span></span></code></pre></div><h4 id="klatex-が使えるようにする">Klatex が使えるようにする</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-footer&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      {{ partial &#34;footer.html&#34; . }}
+</span></span><span style="display:flex;"><span>      {{ template &#34;_internal/disqus.html&#34; . }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css&#34;</span> <span style="color:#a6e22e">integrity</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ&#34;</span> <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">defer</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js&#34;</span> <span style="color:#a6e22e">integrity</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij&#34;</span> <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">defer</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js&#34;</span> <span style="color:#a6e22e">integrity</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI&#34;</span> <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span> <span style="color:#a6e22e">onload</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;renderMathInElement(document.body);&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;DOMContentLoaded&#34;</span>, <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">renderMathInElement</span>(document.<span style="color:#a6e22e">body</span>, {<span style="color:#a6e22e">delimiters</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;$$&#34;</span>, <span style="color:#a6e22e">right</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;$$&#34;</span>, <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;$&#34;</span>, <span style="color:#a6e22e">right</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;$&#34;</span>, <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>}]
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="h2-に装飾する">h2 に装飾する</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>h2{
+</span></span><span style="display:flex;"><span>  border-left-width: 0.15em;
+</span></span><span style="display:flex;"><span>  border-left-style: solid;
+</span></span><span style="display:flex;"><span>  border-left-color: #7f5af0;
+</span></span><span style="display:flex;"><span>  padding: 0.1em 0.3em;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

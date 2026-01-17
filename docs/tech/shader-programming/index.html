@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>shader programming // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="shader programming"/>
+<meta name="twitter:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
+頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
+101 画面を赤く塗るだけのコード
+#version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
+#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1."/>
+
+    <meta property="og:title" content="shader programming" />
+<meta property="og:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
+頂点シェーダ：座標変換，陰影処理など． テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する． ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？ ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい． GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので， 全体を管理する必要がある． この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．
+101 画面を赤く塗るだけのコード
+#version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
+#version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/tech/shader-programming/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-08-28T17:57:25+09:00" />
+<meta property="article:modified_time" content="2023-08-28T17:57:25+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">shader programming</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 28, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <h3 id="glsl">GLSL</h3>
+<p>レンダリングにおいて，シェーダはパイプラインのひとつ．</p>
+<ol>
+<li>頂点シェーダ：座標変換，陰影処理など．</li>
+<li>テッセレーションシェーダ：頂点シェーダから送られてきたポリゴンを分割する．</li>
+<li>ジオメトリシェーダ：ポリゴンに対して頂点の増減をする．増やすだけでなく，減らすこともできる</li>
+<li>ラスタライズ：頂点シェーダで決まった座標と色をもとに，ピクセル単位で描画情報を設定する．補間するかんじ？</li>
+<li>ピクセルシェーダ：ラスタライズされたピクセル一つ一つに対して何らかの処理（何らかの処理って？）を行い，GPUに返す</li>
+<li>レンダーバックエンド：ピクセルシェーダが決定した情報の書き込みを判断する．いくつかのテストがあるらしい．</li>
+</ol>
+<p>GLSL はシェーダを担当するが，シェーダだけではパイプラインは成り立たないので，
+全体を管理する必要がある．
+この全体を管理するのが OpenGL で，これを JavaScript から操作できるようにしたのが WebGL．</p>
+<h3 id="101">101</h3>
+<p>画面を赤く塗るだけのコード</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span> fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>補間関数を使う</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span> u_resolution;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec2</span> pos <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span>[<span style="color:#ae81ff">4</span>] col3<span style="color:#f92672">=</span> <span style="color:#66d9ef">vec3</span>[](
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">0.0</span>)
+</span></span><span style="display:flex;"><span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> pos.x <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2.0</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(pos.x); <span style="color:#75715e">// float -&gt; int</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span> color <span style="color:#f92672">=</span> mix(mix(col3[index], col3[index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>],fract(pos.x)), mix(col3[index<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>], col3[index<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>],fract(pos.x)),fract(pos.y));
+</span></span><span style="display:flex;"><span> fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(color, <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>ポスタリゼーション</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span> u_resolution;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec2</span> pos <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span>[<span style="color:#ae81ff">4</span>] col3<span style="color:#f92672">=</span> <span style="color:#66d9ef">vec3</span>[](
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">0.0</span>)
+</span></span><span style="display:flex;"><span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> pos.x <span style="color:#f92672">*=</span> <span style="color:#ae81ff">4.0</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(pos.x); <span style="color:#75715e">// float -&gt; int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> floor(pos) <span style="color:#f92672">+</span> smoothstep(<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.5</span>, fract(pos));
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> pos<span style="color:#f92672">/</span><span style="color:#ae81ff">4.0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span> color <span style="color:#f92672">=</span> mix(mix(col3[<span style="color:#ae81ff">0</span>], col3[<span style="color:#ae81ff">1</span>],fract(pos.x)), mix(col3[<span style="color:#ae81ff">2</span>], col3[<span style="color:#ae81ff">3</span>],fract(pos.x)),fract(pos.y));
+</span></span><span style="display:flex;"><span> fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(color, <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>極座標</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#66d9ef">float</span> atan2(<span style="color:#66d9ef">float</span> y, <span style="color:#66d9ef">float</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0.0</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sign(x) <span style="color:#f92672">*</span> PI <span style="color:#f92672">/</span><span style="color:#ae81ff">2.0</span>;
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> atan(y, x); <span style="color:#75715e">// arctan で，tan(y) = x の偏角</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">vec2</span> xy2pol(<span style="color:#66d9ef">vec2</span> xy){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// xy.x: x座標</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// xy.y: y座標</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">vec2</span>(atan2(xy.y, xy.x), length(xy));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">vec2</span> pol2xy(<span style="color:#66d9ef">vec2</span> pol){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// pol.x: 偏角</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// pol.y: 動径</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">vec2</span>(cos(pol.x), sin(pol.x)) <span style="color:#f92672">*</span> pol.y;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec2</span> pos <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span>[<span style="color:#ae81ff">6</span>] col3<span style="color:#f92672">=</span> <span style="color:#66d9ef">vec3</span>[](
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">0.0</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.0</span>)
+</span></span><span style="display:flex;"><span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> pos.xy <span style="color:#f92672">-</span> <span style="color:#66d9ef">vec2</span>(<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> xy2pol(pos); <span style="color:#75715e">// 極座標に変換</span>
+</span></span><span style="display:flex;"><span>    pos.x <span style="color:#f92672">=</span> pos.x <span style="color:#f92672">/</span>PI <span style="color:#f92672">+</span> <span style="color:#ae81ff">5.0</span>; <span style="color:#75715e">// [0,PI) -&gt; [0,5)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(pos.x); <span style="color:#75715e">// 偏角を col3 の色に対応</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec3</span> col <span style="color:#f92672">=</span> mix(col3[index<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>], col3[index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>], fract(pos.x));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec3</span> coll <span style="color:#f92672">=</span> mix(col3[<span style="color:#ae81ff">4</span>], col, pos.y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(coll, <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="色々あそぶ">色々あそぶ</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span> u_resolution;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> u_time;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span>  r; <span style="color:#75715e">// resolution</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">vec2</span> pos <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2.0</span>;
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1.0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span><span style="color:#f92672">*</span>abs(sin(u_time)) <span style="color:#f92672">/</span> length(pos);
+</span></span><span style="display:flex;"><span>    fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(<span style="color:#66d9ef">vec3</span>(l), <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> u_time;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span>  mouse;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span>  u_resolution;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main(){
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">vec2</span> pos <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">float</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">4.0</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        pos.y <span style="color:#f92672">+=</span> i<span style="color:#f92672">*</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">/</span>i<span style="color:#f92672">*</span>sin(pos.x<span style="color:#f92672">*</span>i<span style="color:#f92672">*</span>i<span style="color:#f92672">*</span>u_time<span style="color:#f92672">*</span><span style="color:#ae81ff">0.5</span>) <span style="color:#f92672">*</span> sin(pos.y<span style="color:#f92672">*</span>i<span style="color:#f92672">*</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>u_time);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">vec3</span> col;
+</span></span><span style="display:flex;"><span>   col.r  <span style="color:#f92672">=</span> pos.y <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.1</span>;
+</span></span><span style="display:flex;"><span>   col.g <span style="color:#f92672">=</span> pos.y <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.8</span>;
+</span></span><span style="display:flex;"><span>   col.b <span style="color:#f92672">=</span> pos.y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(col,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="../../images/paint1.png" alt="This is a image"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GLSL" data-lang="GLSL"><span style="display:flex;"><span><span style="color:#75715e">#version 300 es</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> u_time;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span>  mouse;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec2</span>  u_resolution;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec2</span> uv <span style="color:#f92672">=</span> gl_FragCoord.xy <span style="color:#f92672">/</span> u_resolution.xy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// background  </span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">vec3</span> color <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.8</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span><span style="color:#f92672">*</span>uv.y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// bubbles </span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">40</span>; i<span style="color:#f92672">++</span> )
+</span></span><span style="display:flex;"><span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// bubble seeds</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> pha <span style="color:#f92672">=</span>      sin(<span style="color:#66d9ef">float</span>(i)<span style="color:#f92672">*</span><span style="color:#ae81ff">546.13</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1.0</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.5</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> siz <span style="color:#f92672">=</span> pow( sin(<span style="color:#66d9ef">float</span>(i)<span style="color:#f92672">*</span><span style="color:#ae81ff">651.74</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5.0</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">4.0</span> );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> pox <span style="color:#f92672">=</span>      sin(<span style="color:#66d9ef">float</span>(i)<span style="color:#f92672">*</span><span style="color:#ae81ff">321.55</span><span style="color:#f92672">+</span><span style="color:#ae81ff">4.1</span>) <span style="color:#f92672">*</span> u_resolution.x <span style="color:#f92672">/</span> u_resolution.y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// bubble size, position and color</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> rad <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>siz;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec2</span>  pos <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec2</span>( pox, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">-</span>rad <span style="color:#f92672">+</span> (<span style="color:#ae81ff">2.0</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2.0</span><span style="color:#f92672">*</span>rad)<span style="color:#f92672">*</span>mod(pha<span style="color:#f92672">+</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">*</span>u_time<span style="color:#f92672">*</span>(<span style="color:#ae81ff">0.2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.8</span><span style="color:#f92672">*</span>siz),<span style="color:#ae81ff">1.0</span>));
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> dis <span style="color:#f92672">=</span> length( uv <span style="color:#f92672">-</span> pos );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span>  col <span style="color:#f92672">=</span> mix( <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.94</span>,<span style="color:#ae81ff">0.3</span>,<span style="color:#ae81ff">0.0</span>), <span style="color:#66d9ef">vec3</span>(<span style="color:#ae81ff">0.1</span>,<span style="color:#ae81ff">0.4</span>,<span style="color:#ae81ff">0.8</span>), <span style="color:#ae81ff">0.5</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>sin(<span style="color:#66d9ef">float</span>(i)<span style="color:#f92672">*</span><span style="color:#ae81ff">1.2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1.9</span>));
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//    col+= 8.0*smoothstep( rad*0.95, rad, dis );</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// render</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> f <span style="color:#f92672">=</span> length(uv<span style="color:#f92672">-</span>pos)<span style="color:#f92672">/</span>rad;
+</span></span><span style="display:flex;"><span>  f <span style="color:#f92672">=</span> sqrt(clamp(<span style="color:#ae81ff">1.0</span><span style="color:#f92672">-</span>f<span style="color:#f92672">*</span>f,<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">1.0</span>));
+</span></span><span style="display:flex;"><span>  color <span style="color:#f92672">-=</span> col.zyx <span style="color:#f92672">*</span>(<span style="color:#ae81ff">1.0</span><span style="color:#f92672">-</span>smoothstep( rad<span style="color:#f92672">*</span><span style="color:#ae81ff">0.95</span>, rad, dis )) <span style="color:#f92672">*</span> f;
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// vigneting </span>
+</span></span><span style="display:flex;"><span> color <span style="color:#f92672">*=</span> sqrt(<span style="color:#ae81ff">1.5</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>length(uv));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(color,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="../../images/paint2.png" alt="This is a image"></p>
+<h3 id="参考">参考</h3>
+<p><a href="https://yttm-work.jp/shader/shader_0002.html">https://yttm-work.jp/shader/shader_0002.html</a></p>
+
+    </div>
+    <div class="post-footer">
+      
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja-jp">
+  <head>
+    <title>コンテナ入門する // お茶は綾鷹派</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="KoheiDoi" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/main.min.28bf54a51b1e4711d8cbfc98ed1ef539e32c13fb19cade5b37dac3cab34b527a.css" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="コンテナ入門する"/>
+<meta name="twitter:description" content="昆虫ロック弾けるようになりたい
+コンテナ コンテナはプロセス自体は同じ OS で動いていて，これを OS のカーネル機能によって隔離する． 使えるリソースを分離して，ホスト OS で動くプロセスとか他のコンテナから独立した空間を作る． カーネルに「コンテナ」の仕組みがあるわけではなく，namespace とか cgroup みたいな いくつかのシステムを組み合わせてコンテナを作っている． なので Docker や LXC で作りが違う
+メリット コンテナはプロセスなので起動速度はプロセスに近い VM と比較してエミュレートの必要がないためオーバーヘッドがすくない アプリケーションだけをコンテナ起動できる デメリット 異なる OS 用のバイナリは動かない 基本のカーネルは同じなのでカーネルの操作はできない 基本技術 CRI/OCI CRI: ユーザからの要求を受けてコンテナとの通信をする．イメージの取得や展開，ネットワークのセットアップなど．コンテナの直接の操作は低レイヤランタイムに命令を出す．containerd とか CRI-O. OCI: 高レイヤランタイムから命令を受けて，コンテナとして実行するプロセスをホストから分離して実行する．runc とか crun. レイヤ コンテナイメージはレイヤの集合体で，コンテナ実行時にこれらがマージされる．
+layer:ルートファイルシステムのデータ .json:実行環境を再現するための情報 ファイルシステム コンテナ内とホストではファイルシステムを分離したいことが多い． このとき，ホスト内にあるディレクトリをコンテナの root ディレクトリにする．
+chroot: プロセスのルートディレクトリを変更することができる． ただし jailbreak が可能なので chroot を使う場合はコンテナの chroot の capability を剥脱する必要があるが(CAP_SYS_CHROOT)，ユースケース的に不便なことも多いのでデフォルトでは剥奪しない． 代わりに pivot_root を使う
+pivot_root: ルートファイルシステムを入れ替える． ファイルシステムごとに入れ替えるので，コンテナ側からは root のファイルシステムを見ることはできない． また，pivot_root には厳しい条件がある．"/>
+
+    <meta property="og:title" content="コンテナ入門する" />
+<meta property="og:description" content="昆虫ロック弾けるようになりたい
+コンテナ コンテナはプロセス自体は同じ OS で動いていて，これを OS のカーネル機能によって隔離する． 使えるリソースを分離して，ホスト OS で動くプロセスとか他のコンテナから独立した空間を作る． カーネルに「コンテナ」の仕組みがあるわけではなく，namespace とか cgroup みたいな いくつかのシステムを組み合わせてコンテナを作っている． なので Docker や LXC で作りが違う
+メリット コンテナはプロセスなので起動速度はプロセスに近い VM と比較してエミュレートの必要がないためオーバーヘッドがすくない アプリケーションだけをコンテナ起動できる デメリット 異なる OS 用のバイナリは動かない 基本のカーネルは同じなのでカーネルの操作はできない 基本技術 CRI/OCI CRI: ユーザからの要求を受けてコンテナとの通信をする．イメージの取得や展開，ネットワークのセットアップなど．コンテナの直接の操作は低レイヤランタイムに命令を出す．containerd とか CRI-O. OCI: 高レイヤランタイムから命令を受けて，コンテナとして実行するプロセスをホストから分離して実行する．runc とか crun. レイヤ コンテナイメージはレイヤの集合体で，コンテナ実行時にこれらがマージされる．
+layer:ルートファイルシステムのデータ .json:実行環境を再現するための情報 ファイルシステム コンテナ内とホストではファイルシステムを分離したいことが多い． このとき，ホスト内にあるディレクトリをコンテナの root ディレクトリにする．
+chroot: プロセスのルートディレクトリを変更することができる． ただし jailbreak が可能なので chroot を使う場合はコンテナの chroot の capability を剥脱する必要があるが(CAP_SYS_CHROOT)，ユースケース的に不便なことも多いのでデフォルトでは剥奪しない． 代わりに pivot_root を使う
+pivot_root: ルートファイルシステムを入れ替える． ファイルシステムごとに入れ替えるので，コンテナ側からは root のファイルシステムを見ることはできない． また，pivot_root には厳しい条件がある．" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://side-realms.github.io/tech/nyuumon/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-08-29T19:51:30+09:00" />
+<meta property="article:modified_time" content="2023-08-29T19:51:30+09:00" />
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://side-realms.github.io"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <span class="app-header-title">お茶は綾鷹派</span>
+      <p class="app-header-description">最近は颯も好き</p>
+      <p class="app-header-memo">内容の正確性は保証していません🐶</p>
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main"><ul class="app-header-menu-list">
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../">Home</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../log">life log</a>
+            </li>
+            <li class="app-header-menu-item">
+              <a class="app-header-menu-link" href="../../portfolio/">Portfolio</a>
+            </li>
+        </ul>
+      </nav>
+
+      <hr class="hr1">
+
+      <hr class="hr1">
+      <div class="app-header-social">
+        
+          <a href="https://github.com" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+      </div>
+      <div class="app-footer-copyright">
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">コンテナ入門する</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 29, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+      </div>
+      <hr>
+    </header>
+    <div class="post-content">
+      <p>昆虫ロック弾けるようになりたい</p>
+<h2 id="コンテナ">コンテナ</h2>
+<p>コンテナはプロセス自体は同じ OS で動いていて，これを OS のカーネル機能によって隔離する．
+使えるリソースを分離して，ホスト OS で動くプロセスとか他のコンテナから独立した空間を作る．
+カーネルに「コンテナ」の仕組みがあるわけではなく，namespace とか cgroup みたいな
+いくつかのシステムを組み合わせてコンテナを作っている．
+なので Docker や LXC で作りが違う</p>
+<h3 id="メリット">メリット</h3>
+<ul>
+<li>コンテナはプロセスなので起動速度はプロセスに近い</li>
+<li>VM と比較してエミュレートの必要がないためオーバーヘッドがすくない</li>
+<li>アプリケーションだけをコンテナ起動できる</li>
+</ul>
+<h3 id="デメリット">デメリット</h3>
+<ul>
+<li>異なる OS 用のバイナリは動かない</li>
+<li>基本のカーネルは同じなのでカーネルの操作はできない</li>
+</ul>
+<h2 id="基本技術">基本技術</h2>
+<h3 id="crioci">CRI/OCI</h3>
+<ul>
+<li>CRI: ユーザからの要求を受けてコンテナとの通信をする．イメージの取得や展開，ネットワークのセットアップなど．コンテナの直接の操作は低レイヤランタイムに命令を出す．containerd とか CRI-O.</li>
+<li>OCI: 高レイヤランタイムから命令を受けて，コンテナとして実行するプロセスをホストから分離して実行する．runc とか crun.</li>
+</ul>
+<h3 id="レイヤ">レイヤ</h3>
+<p>コンテナイメージはレイヤの集合体で，コンテナ実行時にこれらがマージされる．</p>
+<ul>
+<li>layer:ルートファイルシステムのデータ</li>
+<li>.json:実行環境を再現するための情報</li>
+</ul>
+<p><img src="../../images/layer.png" alt="layer"></p>
+<h3 id="ファイルシステム">ファイルシステム</h3>
+<p>コンテナ内とホストではファイルシステムを分離したいことが多い．
+このとき，ホスト内にあるディレクトリをコンテナの root ディレクトリにする．</p>
+<p>chroot: プロセスのルートディレクトリを変更することができる．
+ただし jailbreak が可能なので chroot を使う場合はコンテナの chroot の capability を剥脱する必要があるが(CAP_SYS_CHROOT)，ユースケース的に不便なことも多いのでデフォルトでは剥奪しない．
+代わりに pivot_root を使う</p>
+<p>pivot_root: ルートファイルシステムを入れ替える．
+ファイルシステムごとに入れ替えるので，コンテナ側からは root のファイルシステムを見ることはできない．
+また，pivot_root には厳しい条件がある．</p>
+<h3 id="namespace">namespace</h3>
+<p>コンテナ側からはホストのプロセスを見ることができない．
+これは namespace によって OS のリソースを分離しているから．</p>
+<p><img src="../../images/namespace.png" alt="layer"></p>
+<h3 id="cgroup">cgroup</h3>
+<p>プロセスに対してリソースの制限を行うシステム．
+特定のプロセス（群）に対してメモリの使用量やコア数を制限することができる．</p>
+<h3 id="seccomp">seccomp</h3>
+<p>システムコールとその引数を制限する．
+Mode1 は read, write, exit, sigreturn しか許可されていないが，Mode 2 ではもう少し広い．
+コンテナではホストや他コンテナに大して影響あるシステムコールを発行できないようになっている．</p>
+<h3 id="lsm">LSM</h3>
+<p>強いアクセス制御で，root であってもアクセス制御の対象にされる．
+appArmor, SElinux</p>
+<h3 id="dood">DooD</h3>
+<p>コンテナ内でコンテナを使いたい場合がある</p>
+<ol>
+<li>ホストの Docker プロセスを使う場合，socket 経由で Docker デーモンに命令する．</li>
+<li>Docker プロセス内で新しく Docker コンテナを作成する．</li>
+</ol>
+<p><img src="../../images/DooD.png" alt="layer"></p>
+<h2 id="セキュリティ">セキュリティ</h2>
+<h3 id="runtime-vuln">Runtime vuln</h3>
+<p>ランタイム自体に脆弱性がある．
+実行ミスや capability, seccomp プロファイルの不備</p>
+<h3 id="kernel-vuln">kernel vuln</h3>
+<p>カーネル自体に脆弱性がある．
+コンテナはホストとカーネルを共有しているので影響がある．
+他にもコンテナに特定の capability が付与されているとそれを手がかりにして脆弱性が機能する．</p>
+<h3 id="--privileged">&ndash;privileged</h3>
+<p>特権コンテナはホスト上のデバイスへアクセスできるかる appArmor などの LSM を適用せず，
+かつ capability も過剰にもらっているので適切に隔離されていないホストのプロセスのようになる．
+これを侵害すればホストにエスケープできる可能性がある．</p>
+<p><img src="../../images/priv.png" alt="layer"></p>
+
+    </div>
+    <div class="post-footer">
+      
+      
+    </div>
+  </article>
+  <hr>
+  <p>© side-realms All rights reserved.</p>
+
+    </main>
+  </body>
+</html>
