@@ -19,7 +19,7 @@
 #version 300 es precision highp float; out vec4 fragColor; void main(){ fragColor = vec4(1.0, 0.0, 0.0, 1.0); } 補間関数を使う
 #version 300 es precision highp float; out vec4 fragColor; uniform vec2 u_resolution; void main(){ vec2 pos = gl_FragCoord.xy / u_resolution.xy; vec3[4] col3= vec3[]( vec3(1.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), vec3(1.0,1.0,0.0) ); pos.x *= 2.0; int index = int(pos.x); // float -&gt; int vec3 color = mix(mix(col3[index], col3[index&#43;1],fract(pos.x)), mix(col3[index&#43;2], col3[index&#43;3],fract(pos.x)),fract(pos.y)); fragColor = vec4(color, 1.0); } ポスタリゼーション">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/shader-programming/">
+    <meta property="og:url" content="https://side-realms.dev/tech/shader-programming/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="shader programming">
   <meta property="og:description" content="GLSL レンダリングにおいて，シェーダはパイプラインのひとつ．
@@ -36,7 +36,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

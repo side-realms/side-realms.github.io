@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="BadUSB をファームウェア書き換えでやってみる.
 はじめに 本ポストの実験を実際に試して何か被害があっても筆者は責任をもてません 本ポストは BadUSB の促進を目的にしていません 本ポストの内容を自分の環境以外で行うことは罪に問われる可能性があります 思い出しながら書いてるので抜けがある場合があります モチベーション 昔に参加したセキュリティキャンプで BadUSB を作る講座があった EasyUSB を使っていたのである意味やりやすかった 実際に使われている USB でもできないか実験したい 環境 Psychson Toshiba TC58TEG7T2JTA00 Phison 2251-03 (2303) 以下ブログを参考にしている Psychsonを使用したBadUSBの作成方法 手順 SDCC をインストールする 最新版をインストールする場合は Psychson のビルドに失敗するので，コードを書きかえる必要がある Psychson を展開する DriveCom, EmbededPayload, Injector を Visual Studio でビルド(Build Solution)する バーナーイメージをダウンロード Phison Electronics - USBDev.ru からバーナーイメージをダウンロードする 今回は BN03V104M.BIN を使用 ファームウェアをダンプ tools\DriveCom.exe /drive=E /action=SetBootMode tools\DriveCom.exe /drive=E /action=SendExecutable /burner=BN03V104M.BIN tools\DriveCom.exe /drive=E /action=DumpFirmware /burner=BN03V104M.BIN /firmware=TC58TEG7T2JTA00.bin カスタムファームウェアをビルド build.bat SDCC の最新版をダウンロードした場合は以下を修正する 割り込みハンドラ(__interrupt XXX) を __interrupt(XXX) に直す．つまり割り込み番号とレジスタバンク番号を括弧で囲む 引数無しの関数で void が省略されているので追加する ペイロード作成 USB-Rubber-Ducky を使う java -jar encoder.jar -i keys.txt -o inject.bin tools\EmbedPayload.exe inject.bin hid.bin key.txt の内容は以下 DELAY 3000 GUI r DELAY 500 STRING notepad DELAY 500 ENTER DELAY 750 STRING Hello world ENTER 書き込み">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/badusb/">
+    <meta property="og:url" content="https://side-realms.dev/tech/badusb/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="Badusb">
   <meta property="og:description" content="BadUSB をファームウェア書き換えでやってみる.
@@ -30,7 +30,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

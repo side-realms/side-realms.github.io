@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
 lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;regex.h&gt; void mygrep(regex_t *preg, FILE *fp){ char buf[4096]; int err; while(fgets(buf, sizeof(buf), fp) != NULL){ err = regexec(preg, buf, 0, NULL, 0); if(err == 0){ fputs(buf, stdout); } } } int main(int argc, char *argv[]){ regex_t preg; int err; char *pattern; FILE *fp; if(argc &lt; 2){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); exit(1); } pattern = argv[1]; err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); if(err != 0){ char buf[1024]; regerror(err, &amp;preg, buf, sizeof(buf)); puts(buf); exit(1); } if(argc == 2){ mygrep(&amp;preg, stdin); }else{ for(int i = 2;i &lt; argc; i&#43;&#43;){ fp = fopen(argv[i], &#34;r&#34;); if(fp == NULL){ perror(argv[i]); exit(1); } mygrep(&amp;preg, fp); fclose(fp); } } exit(0); } lubuntu@lubuntu-virtualbox:~/linux_tutorial$ ./mygrep m.* ./grep.c void mygrep(regex_t *preg, FILE *fp){ int main(int argc, char *argv[]){ printf(&#34;Usage %s &lt;pattern&gt; &lt;filename&gt;&#34;, argv[0]); err = regcomp(&amp;preg, pattern, REG_EXTENDED | REG_NOSUB); mygrep(&amp;preg, stdin); mygrep(&amp;preg, fp); よさそう．">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/linux3/">
+    <meta property="og:url" content="https://side-realms.dev/tech/linux3/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="Implement grep command in C">
   <meta property="og:description" content="今回は， mygrep を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
@@ -30,7 +30,7 @@ lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

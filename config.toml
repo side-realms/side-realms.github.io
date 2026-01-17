@@ -1,4 +1,4 @@
-baseURL = 'http://side-realms.github.io'
+baseURL = 'https://side-realms.dev/'
 relativeurls = true
 publishDir = "docs"
 languageCode = 'ja-jp'

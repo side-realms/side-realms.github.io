@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on お茶は綾鷹派</title>
-    <link>http://side-realms.github.io/tags/</link>
+    <link>https://side-realms.dev/tags/</link>
     <description>Recent content in Tags on お茶は綾鷹派</description>
     <generator>Hugo</generator>
     <language>ja-jp</language>
-    <atom:link href="http://side-realms.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://side-realms.dev/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

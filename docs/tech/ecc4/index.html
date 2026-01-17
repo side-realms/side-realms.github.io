@@ -15,7 +15,7 @@
   <meta name="twitter:title" content="楕円曲線暗号の実装 4">
   <meta name="twitter:description" content="ECDH import random def mod_div(a, b, p): return mod_mul(a, mod_inv(b, p), p) def generate_keypair(G, n): d = random.randint(1, n-1) Q = d * G return d, Q if __name__ == &#34;__main__&#34;: p = 97 a = 2 b = 3 curve = EllipticCurve(a, b, p) G = Point(17, 10, curve) n = 19 # userA dA, QA = generate_keypair(G, n) print(f&#34;userA: dA={dA}, QA={QA}&#34;) # userB dB, QB = generate_keypair(G, n) print(f&#34;userB: dB={dB}, QB={QB}&#34;) shared_keyA = dA * QB shared_keyB = dB * QA assert shared_keyA == shared_keyB print(&#34;ECDH success&#34;) print(f&#34;shared_key={shared_keyA}&#34;) 結果は以下">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/ecc4/">
+    <meta property="og:url" content="https://side-realms.dev/tech/ecc4/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="楕円曲線暗号の実装 4">
   <meta property="og:description" content="ECDH import random def mod_div(a, b, p): return mod_mul(a, mod_inv(b, p), p) def generate_keypair(G, n): d = random.randint(1, n-1) Q = d * G return d, Q if __name__ == &#34;__main__&#34;: p = 97 a = 2 b = 3 curve = EllipticCurve(a, b, p) G = Point(17, 10, curve) n = 19 # userA dA, QA = generate_keypair(G, n) print(f&#34;userA: dA={dA}, QA={QA}&#34;) # userB dB, QB = generate_keypair(G, n) print(f&#34;userB: dB={dB}, QB={QB}&#34;) shared_keyA = dA * QB shared_keyB = dB * QA assert shared_keyA == shared_keyB print(&#34;ECDH success&#34;) print(f&#34;shared_key={shared_keyA}&#34;) 結果は以下">
@@ -28,7 +28,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

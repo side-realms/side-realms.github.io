@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="小さな http サーバを実装する
 ソケットの作成，ポートのバインド #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;unistd.h&gt; #include &lt;sys/socket.h&gt; #include &lt;arpa/inet.h&gt; #define PORT 9090 int main(){ int server_fd; struct sockaddr_in address; // create socket server_fd = socket(AF_INET, SOCK_STREAM, 0); if(server_fd == -1){ perror(&#34;Socket creation failed&#34;); exit(EXIT_FAILURE); } printf(&#34;Socket created successfully\n&#34;); // bind address.sin_family = AF_INET; // IPv4 address.sin_addr.s_addr = INADDR_ANY; address.sin_port = htons(PORT); if(bind(server_fd, (struct sockaddr *)&amp;address, sizeof(address)) == -1){ perror(&#34;Bind failed&#34;); close(server_fd); exit(EXIT_FAILURE); } printf(&#34;Bind to port %d successful.\n&#34;, PORT); close(server_fd); return 0; } lubuntu@lubuntu-virtualbox:~/linux_tutorial/httpserver$ ./server Socket created successfully Bind to port 9090 successful. 何も変化はないがとりあえずエラーが出てないだけ OK">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/linux6/">
+    <meta property="og:url" content="https://side-realms.dev/tech/linux6/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="Implement small http server">
   <meta property="og:description" content="小さな http サーバを実装する
@@ -30,7 +30,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

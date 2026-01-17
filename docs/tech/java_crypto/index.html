@@ -20,7 +20,7 @@ Random random = new Random(); random.nextInt(); この nextInt() はソースコ
 protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0xBL) &amp; ((1L &lt;&lt; 48) - 1); return (int) (seed &gt;&gt;&gt; (48 - bits)); } このとき乱数は seed で返されるが，それ以外の値は全て既知． なので，ひとつ seed が分かればそれ以降の seed も知ることができる． 取り出す seed は必要な上位 bit 分を最後の演算で呼び出す． 例えば nextInt(32) で呼び出したとき，返ってくるのは 32 bit の乱数で，残りの 16 bit が未知ということになる． これくらいなら簡単に予測できる
 3. 4 bit だけで予測する 予測すべき範囲が 2^44 bit になるので，さっきより甚大に増える． そこで，もらえる乱数を増やして考える． さっきの変数をそれぞれ a=0x5DEECE66DL, b=0xBL, m = ((1L « 48) - 1) とおく．">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/java_crypto/">
+    <meta property="og:url" content="https://side-realms.dev/tech/java_crypto/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="java が生成する乱数を予測する">
   <meta property="og:description" content="java が生成する17兆通りある乱数を予測してみる
@@ -38,7 +38,7 @@ protected synchronized int next(int bits) { seed = (seed * 0x5DEECE66DL &#43; 0x
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

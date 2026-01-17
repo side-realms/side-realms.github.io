@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="shnnor protocol において，同じ a に対して複数のチャレンジ e を成功させると w が取り出せることがある
 import socket import json import random from Crypto.Util.number import inverse, long_to_bytes p = xxx q = yyy def readline_json(sockfile): line = sockfile.readline() if not line: return None line = line.strip() if not line: return None try: return json.loads(line) except json.JSONDecodeError: return None def main(): with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: s.connect((HOST, PORT)) sockfile = s.makefile(&#34;r&#34;) while True: data = readline_json(sockfile) if data is not None: break a = data[&#34;a&#34;] y = data[&#34;y&#34;] print(&#34;[Server] a =&#34;, a, &#34;y =&#34;, y) e = random.getrandbits(511) print(&#34;[Client] Send e =&#34;, e) s.sendall((json.dumps({&#34;e&#34;: e}) &#43; &#34;\n&#34;).encode()) while True: data = readline_json(sockfile) if data is not None and &#34;z&#34; in data: break z = data[&#34;z&#34;] print(&#34;[Server] z =&#34;, z) while True: data = readline_json(sockfile) if data is not None and &#34;a2&#34; in data: break a2 = data[&#34;a2&#34;] print(&#34;[Server] a2 =&#34;, a2) e2 = random.getrandbits(511) print(&#34;[Client] Send e2 =&#34;, e2) s.sendall((json.dumps({&#34;e&#34;: e2}) &#43; &#34;\n&#34;).encode()) while True: data = readline_json(sockfile) if data is not None and &#34;z2&#34; in data: break z2 = data[&#34;z2&#34;] print(&#34;[Server] z2 =&#34;, z2) diff_z = (z - z2) % q diff_e = (e - e2) % q inv_diff_e = inverse(diff_e, q) w_val = (diff_z * inv_diff_e) % q print(&#34;[&#43;] Extracted w as integer:&#34;, w_val) if __name__ == &#34;__main__&#34;: main()">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/zkp2/">
+    <meta property="og:url" content="https://side-realms.dev/tech/zkp2/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="ゼロ知識証明 2">
   <meta property="og:description" content="shnnor protocol において，同じ a に対して複数のチャレンジ e を成功させると w が取り出せることがある
@@ -30,7 +30,7 @@ import socket import json import random from Crypto.Util.number import inverse, 
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

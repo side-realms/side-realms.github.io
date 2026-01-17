@@ -20,7 +20,7 @@ $$y = \lambda x &#43; c$$
 $P \neq Q$ $\lambda = \frac{y_2-y_1}{x_2-x_1}$ $P=Q$ $\lambda = \frac{3x_1^2 &#43; a}{2y_1}$ 楕円曲線上では， P&#43;Q は 3 つめの交点 R の x 軸に対して反転した点として定義される．
 class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p = p if 4 * a**3 &#43; 27 * b**2 == 0: raise Exception(&#34;singular curve&#34;) def contain(self, point): if(point.infinity): return True x, y = point.x, point.y return (y**2 - x**3 -self.a*x - self.b) % self.p == 0 class Point: def __init__(self, x=None, y=None, curve=None, infinity=False): self.x = x self.y = y self.curve = curve self.infinity = infinity if not self.infinity and curve is not None: if not curve.contain(self): raise Exception(&#34;not on curve&#34;) def __eq__(self, other): if self.infinity and other.infinity: return True if self.infinity or other.infinity: return False return (self.x, self.y, self.curve) == (other.x, other.y, other.curve) def __repr__(self): if self.infinity: return &#34;Point(infinity)&#34; return f&#34;Point({self.x}, {self.y})&#34; def __add__(self, other): if self.curve != other.curve: raise Exception(&#34;mismatch curve&#34;) if self.infinity: return other if other.infinity: return self p = self.curve.p if self.x == other.x and self.y != other.y: return Point(infinity=True, curve=self.curve) if self != other: lam = mod_div(other.y - self.y, other.x - self.x, p) else: if self.y == 0: return Point(infinity=True, curve=self.curve) lam = mod_div(3 * self.x**2 &#43; self.curve.a, 2 * self.y, p) x3 = (lam**2 - self.x - other.x) % p y3 = (lam * (self.x - x3) - self.y) % p return Point(x3, y3, self.curve) def __rmul__(self, k): result = Point(infinity=True, curve=self.curve) addend = self while k: if k&amp;1: result &#43;= addend addend = addend &#43; addend k &gt;&gt;= 1 return result def mod_add(a, b, p): return (a &#43; b) % p def mod_sub(a, b, p): return (a - b) % p def mod_mul(a, b, p): return (a * b) % p def mod_inv(a, p): if a == 0: raise Exception(&#34;zero inverse&#34;) return (pow(a, p-2, p)) def mod_div(a, b, p): return mod_mul(a, mod_inv(b, p), p) if __name__ == &#34;__main__&#34;: p = 97 a = 2 b = 3 curve = EllipticCurve(a, b, p) P = Point(17, 10, curve) Q = Point(95, 31, curve) R = P &#43; Q print(f&#34;{P} &#43; {Q} = {R}&#34;) assert R == Point(1, 54, curve) # 同一点の倍加テスト R = P &#43; P print(f&#34;{P} &#43; {P} = {R}&#34;) assert R == Point(32, 90, curve) # スカラー倍テスト（例: 7 * P） R = 7 * P print(f&#34;7 * {P} = {R}&#34;) assert R == Point(49, 34, curve) print(&#34;ok&#34;) 結果は以下">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/ecc3/">
+    <meta property="og:url" content="https://side-realms.dev/tech/ecc3/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="楕円曲線暗号の実装 3">
   <meta property="og:description" content="点の演算を実装する（加算，倍加）
@@ -38,7 +38,7 @@ class EllipticCurve: def __init__(self, a, b, p): self.a = a self.b = b self.p =
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

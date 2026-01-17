@@ -22,7 +22,7 @@ long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void *data); �
 strace を作る まずはアタッチ・デタッチの動きをみるだけ
 int main(int argc, char *argv[]){ if(argc &lt; 2){ fprintf(stderr, &#34;pid needs\n&#34;); exit(1); } pid_t pid = atoi(argv[1]); printf(&#34;attach to PID: %d\n&#34;, pid); long ret = ptrace(PTRACE_ATTACH, pid, NULL, NULL); if(ret&lt;0){ perror(&#34;atttach failed&#34;); exit(1); } printf(&#34;attached to %d\n&#34;, pid); sleep(5); ret = ptrace(PTRACE_DETACH, pid, NULL, NULL); if(ret&lt;0){ perror(&#34;failed to detach&#34;); exit(1); } printf(&#34;detached from %d\n&#34;, pid); return 0; } この状態で top コマンドを打ち，動きを見てみると sleep(5) の間，top コマンドの動きが止まっていることが分かる． これはさっき書いた「カーネルは子プロセスを SIGTRAP で停止する」の部分． ptrace されるプロセスは，シグナルごとにいちいち停止するので，waitpid で状態を確認する必要があるらしい．">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/strace/">
+    <meta property="og:url" content="https://side-realms.dev/tech/strace/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="自作 strace">
   <meta property="og:description" content="おすすめのガンプラ，随時募集しています
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){ if(argc &lt; 2){ fprintf(stderr, &#34;pid need
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

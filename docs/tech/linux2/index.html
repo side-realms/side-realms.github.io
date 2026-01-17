@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="今回は， myhead と mytail を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
 lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic #51~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 21 12:03:03 UTC 2 x86_64 x86_64 x86_64 GNU/Linux lubuntu@lubuntu-virtualbox:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.04.5 LTS Release: 22.04 Codename: jammy lubuntu@lubuntu-virtualbox:~$ cat /proc/cpuinfo | grep &#34;model name&#34; model name : AMD Ryzen 5 5600X 6-Core Processor 基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; void myhead(FILE *fp, int nlines){ int c; while(nlines &gt; 0 &amp;&amp; (c = getc(fp)) != EOF){ if(putchar(c) &lt; 0){ exit(1); } if(c == &#39;\n&#39;){ nlines--; } if(nlines == 0){ return; } } } int main(int argc, char *argv[]){ int nlines; if(argc != 2){ printf(&#34;Usage: %s &lt;filename&gt; &lt;nlines&gt;\n&#34;, argv[0]); exit(1); } nlines = atoi(argv[1]); myhead(stdin, nlines); exit(0); } オプションを受けられるようにした &amp; ファイル入力も引き受ける">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/linux2/">
+    <meta property="og:url" content="https://side-realms.dev/tech/linux2/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="Implement head & tail command in C">
   <meta property="og:description" content="今回は， myhead と mytail を実装する． 開発環境は VM 上の Lubuntu で，下記の通り．
@@ -30,7 +30,7 @@ lubuntu@lubuntu-virtualbox:~$ uname -a Linux lubuntu-virtualbox 6.8.0-50-generic
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

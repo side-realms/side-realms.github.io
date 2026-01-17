@@ -19,7 +19,7 @@ https://www.cncf.io/wp-content/uploads/2020/09/Kubernetes-architecture-diagram-1
 Contorol Plane は Node(Pod が実行されるマシンで，コンテナをまとめた単位)を制御する
 Control Panel API server: kubernetes クラスタを操作するための REST interface を提供する．Pod やサービスに対する操作はエンドポイントでプログラムされている Scheduler: リソース容量を監視して，Node のパフォーマンスが最適になるように管理する Controller manager: Node がダウンしたなどのイベントに対して宣言との差異を確認する kubelet: コンテナが実行されていることを確認するために pod の状態を追跡する kube proxy: サービスから Node に流入するトラフィックを管理する etcd: クラスタの状態を保存する Component Pod: コンテナをまとめるグループで，kubernetes の最小単位．Pod には IP アドレスが割り当てられていて，同じコンテナの Pod は同じリソース（メモリなど）を共有する． Deployment: Node 上で動く Pod の管理をする．希望する数の Pod を常に動かしておくなど Servise: 個々の Pod において，IP アドレスなど多くのものが生え変わりのたびに変化するので，このアドレスのルーティングなどを行う．Pods はユニークな存在ではないので，ダウンタイムを少なくする工夫が必要 Ingress: 負荷分散．クラスタ外から来る通信をロードバランサによって制御する．制御されたトラフィックを service にルーティングする． やってみる とりあえず windwos に minikube をインストールする． 今回は virtualbox を使う">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/kubernetes/">
+    <meta property="og:url" content="https://side-realms.dev/tech/kubernetes/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="kubernetes">
   <meta property="og:description" content="kubernetes コンテナを管理，スケールさせるためのツール（コンテナオーケストレーションツール） https://kubernetes.io/docs/concepts/overview/#why-you-need-kubernetes-and-what-can-it-do
@@ -36,7 +36,7 @@ Control Panel API server: kubernetes クラスタを操作するための REST i
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

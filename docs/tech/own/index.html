@@ -20,7 +20,7 @@ PID: PID は新しいプロセスができるたびにインクリメントさ�
 Layer filesystem namespace と cgroup はコンテナがもつシステムの分離とリソース共有 の役割を果たすが，レイヤー layered filesystems は マシンイメージ全体を効率的に移動することができる． コンテナの rootfs はレイヤ構造で管理されている． イメージは特定のファイルシステムに依存しない形で定義されていて，簡単に移植できる．
 骨組み func main() { switch os.Args[1] { case &#34;run&#34;: // 引数に run をとると execute を実行できる execute(os.Args[2], os.Args[3:]...) default: panic(&#34;you neer argument&#34;) } } func execute(cmd string, args ...string) { must(unix.Chroot(&#34;./rootfs&#34;)) // ./rootfs を root にする must(unix.Chdir(&#34;/&#34;)) // root(rootfs) に移動 command := exec.Command(cmd, args...) // run の引数を実行する command.Stdin = os.Stdin command.Stdout = os.Stdout command.Stderr = os.Stderr must(command.Run()) // ねんのため } func must(err error) { if err != nil { panic(err) } } このままだと rootfs にバイナリがないので何も起こらない （というかシェルが立ち上がらない）． ので docker export した tar を rootfs に解凍する">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/own/">
+    <meta property="og:url" content="https://side-realms.dev/tech/own/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="自作コンテナ1">
   <meta property="og:description" content="缶コーヒー，飲めたことない
@@ -38,7 +38,7 @@ Layer filesystem namespace と cgroup はコンテナがもつシステムの分
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>

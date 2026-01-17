@@ -17,7 +17,7 @@
 再帰探索を追加する．
 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;dirent.h&gt; #include &lt;sys/stat.h&gt; #include &lt;string.h&gt; void myls(char *path){ DIR *d; struct dirent *dir; char fullpath[1024]; struct stat st; d = opendir(path); if(d == NULL){ perror(&#34;opendir&#34;); exit(1); } while((dir = readdir(d)) != NULL){ if(strcmp(dir-&gt;d_name, &#34;..&#34;) == 0 || strcmp(dir-&gt;d_name, &#34;.&#34;) == 0){ printf(&#34;%s\n&#34;, dir-&gt;d_name); continue; } snprintf(fullpath, sizeof(fullpath), &#34;%s/%s&#34;, path, dir-&gt;d_name); //printf(&#34;OK&#34;); if(stat(fullpath, &amp;st) == -1){ perror(&#34;stat&#34;); continue; } if(S_ISDIR(st.st_mode)){ printf(&#34;%s/\n&#34;, dir-&gt;d_name); myls(fullpath); }else{ printf(&#34;%s\n&#34;, dir-&gt;d_name); } } closedir(d); } int main(int argc, char *argv[]){ if(argc &lt; 2){ printf(&#34;Usage: %s &lt;filename&gt;\n&#34;, argv[0]); exit(1); } for(int i = 1; i &lt; argc; i&#43;&#43;){ myls(argv[i]); } } dir 構造体の使い方をミスって 1 h 溶かした">
 
-    <meta property="og:url" content="http://side-realms.github.io/tech/linux4/">
+    <meta property="og:url" content="https://side-realms.dev/tech/linux4/">
   <meta property="og:site_name" content="お茶は綾鷹派">
   <meta property="og:title" content="Implement ls command in C">
   <meta property="og:description" content="基本的な実装 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &lt;dirent.h&gt; void myls(char *path){ DIR *d; struct dirent *dir; d = opendir(path); if(d == NULL){ perror(&#34;opendir&#34;); exit(1); } while((dir = readdir(d)) != NULL){ printf(&#34;%s\n&#34;, dir-&gt;d_name); } closedir(d); } int main(int argc, char *argv[]){ if(argc &lt; 2){ printf(&#34;Usage: %s &lt;filename&gt;\n&#34;, argv[0]); exit(1); } for(int i = 1; i &lt; argc; i&#43;&#43;){ myls(argv[i]); } } $ ./myls . . mytail test.txt myls .. ls.c myhead tail.c head.c よさそう．
@@ -32,7 +32,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="http://side-realms.github.io/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
+      <a href="https://side-realms.dev/"><img class="app-header-avatar" src="../../images/avatar.jpg" alt="KoheiDoi" /></a>
       <span class="app-header-title">お茶は綾鷹派</span>
       <p class="app-header-description">最近は颯も好き</p>
       <p class="app-header-memo">内容の正確性は保証していません🐶</p>
