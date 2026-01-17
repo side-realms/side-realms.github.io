@@ -1,6 +1,7 @@
 ---
 title: "ゼロ知識証明 1"
 date: 2023-10-02T18:40:23+09:00
+math: true
 draft: false
 ---
 

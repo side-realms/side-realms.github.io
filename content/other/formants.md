@@ -1,6 +1,7 @@
 ---
 title: "フォルマント解析"
 date: 2023-08-28T17:57:25+09:00
+math: true
 # weight: 1
 # aliases: ["/first"]
 # tags: ["first"]

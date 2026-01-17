@@ -16,11 +16,6 @@ buildExpired = false
     url = "/"
     weight = 1
   [[menu.main]]
-    identifier = "techblog"
-    name = "techblog"
-    url = "/techblog"
-    weight = 2
-  [[menu.main]]
     identifier = "log"
     name = "life log"
     url = "/log"
@@ -30,41 +25,6 @@ buildExpired = false
     name = "Portfolio"
     url = "/portfolio/"
     weight = 3
-  [[menu.post]]
-    identifier = "misc"
-    name = "misc"
-    url = "/misc"
-    weight = 4
-  [[menu.post]]
-    identifier = "disc guide"
-    name = "disc guide"
-    url = "/discguide"
-    weight = 4
-  [[menu.post]]
-    identifier = "treasure trove"
-    name = "treasure trove"
-    url = "/treasure/"
-    weight = 5
-  #[[menu.post]]
-  #  identifier = "sound"
-  #  name = "sound"
-  #  url = "/sound"
-  #  weight = 1
-  #[[menu.post]]
-  #  identifier = "container"
-  #  name = "container"
-  #  url = "/container"
-  #  weight = 2
-  #[[menu.post]]
-  #  identifier = "hardware"
-  #  name = "hardware"
-  #  url = "/hardware"
-  #  weight = 2
-  #[[menu.post]]
-  #  identifier = "other"
-  #  name = "other"
-  #  url = "/other"
-  #  weight = 3
 
 [params]
   author = "KoheiDoi"
@@ -77,14 +37,14 @@ buildExpired = false
     icon = "github"
     name = "Github"
     url = "https://github.com"
-  [[params.social]]
-    icon = "twitter"
-    name = "Twitter"
-    url = "https://twitter.com"
+#  [[params.social]]
+#    icon = "twitter"
+#    name = "Twitter"
+#    url = "https://twitter.com"
 
 [params.style]
-darkestColor = "#1b2d45"  # サイドバー背景
-darkColor = "#001534"     # メイン背景
-lightColor = "#b7c9e4"    # フォント色
-lightestColor = "#fffffe" # タイトル
-primaryColor = "#fde24f"
+darkestColor = "#12161c"  # header background
+darkColor = "#161b22"     # page background
+lightColor = "#cfd6e0"    # body text
+lightestColor = "#f4f7fb" # title text
+primaryColor = "#6fa8dc"  # accent

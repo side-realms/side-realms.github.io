@@ -1,20 +1,9 @@
 ---
 title: "楕円曲線暗号の実装 1"
 date: 2023-09-27T18:40:23+09:00
+math: true
 draft: false
 ---
-
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
-
 楕円曲線暗号を理解するために実装を行う
 
 ## 離散対数問題(DLP), DH 問題(DHP)

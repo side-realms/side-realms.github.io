@@ -1,20 +1,9 @@
 ---
 title: "音楽生成2"
 date: 2023-12-03T13:41:49+09:00
+math: true
 draft: false
 ---
-
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
-
 名誉伝説のドラム上手くないですか？
 
 ## 導入

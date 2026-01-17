@@ -1,3 +1,3 @@
-{{ $baseurl:= .Page.Site.BaseURL }}
-<iframe {{with .Get "src"}}src="{{ $baseurl }}/logs/{{ . }}"{{ end }} width="100%" height="300em" frameborder="0">
-</iframe>
+{{- with .Get "src" -}}
+<iframe src="{{ printf "/log/%s" . | relURL }}" width="100%" height="300em" frameborder="0"></iframe>
+{{- end -}}

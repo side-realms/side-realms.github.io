@@ -13,51 +13,44 @@
     {{ template "_internal/google_analytics.html" . }}
     {{ template "_internal/twitter_cards.html" . }}
     {{ template "_internal/opengraph.html" . }}
-    <style>
-      .hr1 {
-  position: relative;
-	height: 3px;
-	border-width: 0;
-	background-color: #00bcd4;
-	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
-	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
-}
-    </style>
-
   </head>
   <body>
     <header class="app-header">
       <a href="{{ .Site.BaseURL }}"><img class="app-header-avatar" src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author | default "John Doe" }}" /></a>
       <span class="app-header-title">{{ .Site.Title }}</span>
-      <p>{{ .Site.Params.description}}</p>
-      <p><font size="1">{{ .Site.Params.memo}}</font></p>
+      <p class="app-header-description">{{ .Site.Params.description }}</p>
+      <p class="app-header-memo">{{ .Site.Params.memo }}</p>
       {{- with .Site.Menus.main }}
-      <nav class="app-header-menu">
-        {{- range $key, $item := . }}
-          {{- if ne $key 0 }}
-            {{ $.Site.Params.menu_item_separator | safeHTML }}
-          {{ end }}
-          <font size="5">
-          <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
-          </font>
-          <br>
-        {{- end }}
+      <nav class="app-header-menu app-header-menu--main" aria-label="Main">
+        {{- $separator := $.Site.Params.menu_item_separator -}}
+        <ul class="app-header-menu-list">
+          {{- range $key, $item := . }}
+            <li class="app-header-menu-item">
+              {{- if and $separator (ne $key 0) }}
+                <span class="app-header-menu-separator">{{ $separator | safeHTML }}</span>
+              {{ end }}
+              <a class="app-header-menu-link" href="{{ $item.URL }}">{{ $item.Name }}</a>
+            </li>
+          {{- end }}
+        </ul>
       </nav>
       {{- end }}
 
       <hr class="hr1">
 
       {{- with .Site.Menus.post }}
-      <nav class="app-header-menu">
-        {{- range $key, $item := . }}
-          {{- if ne $key 0 }}
-            {{ $.Site.Params.menu_item_separator | safeHTML }}
-          {{ end }}
-          <font size="4">
-          <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
-          </font>
-          <br>
-        {{- end }}
+      <nav class="app-header-menu app-header-menu--post" aria-label="Posts">
+        {{- $separator := $.Site.Params.menu_item_separator -}}
+        <ul class="app-header-menu-list">
+          {{- range $key, $item := . }}
+            <li class="app-header-menu-item">
+              {{- if and $separator (ne $key 0) }}
+                <span class="app-header-menu-separator">{{ $separator | safeHTML }}</span>
+              {{ end }}
+              <a class="app-header-menu-link" href="{{ $item.URL }}">{{ $item.Name }}</a>
+            </li>
+          {{- end }}
+        </ul>
       </nav>
       {{- end }}
 

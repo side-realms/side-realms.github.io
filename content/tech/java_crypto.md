@@ -1,6 +1,7 @@
 ---
 title: "java が生成する乱数を予測する"
 date: 2023-08-28T17:57:25+09:00
+math: true
 # weight: 1
 # aliases: ["/first"]
 # tags: ["first"]
@@ -29,17 +30,6 @@ UseHugoToc: true
 #    Text: "Suggest Changes" # edit text
 #    appendFilePath: true # to append file path to Edit link
 ---
-
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
 
 java が生成する17兆通りある乱数を予測してみる
 

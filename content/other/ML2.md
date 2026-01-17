@@ -1,20 +1,9 @@
 ---
 title: "音楽生成"
 date: 2023-12-02T17:57:25+09:00
+math: true
 draft: false
 ---
-
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
-
 中華ホラーにハマってる\
 たまにシャレにならない怖さのものがあって興奮する
 
